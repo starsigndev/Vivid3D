@@ -1,0 +1,14 @@
+C:\G3D\G3D\Vivid3D\bin\Debug\net7.0\Vivid.deps.json
+C:\G3D\G3D\Vivid3D\bin\Debug\net7.0\Vivid.dll
+C:\G3D\G3D\Vivid3D\bin\Debug\net7.0\Vivid.pdb
+C:\G3D\G3D\Vivid3D\bin\Debug\net7.0\PhysX.Net.dll
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.csproj.AssemblyReference.cache
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.GeneratedMSBuildEditorConfig.editorconfig
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.AssemblyInfoInputs.cache
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.AssemblyInfo.cs
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.csproj.CoreCompileInputs.cache
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.csproj.CopyComplete
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.dll
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\refint\Vivid.dll
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\Vivid.pdb
+C:\G3D\G3D\Vivid3D\obj\Debug\net7.0\ref\Vivid.dll

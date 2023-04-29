@@ -1,0 +1,15 @@
+C:\Gemini3D\Tools\CinematicEditor\bin\Debug\net7.0\CinematicEditor.exe
+C:\Gemini3D\Tools\CinematicEditor\bin\Debug\net7.0\CinematicEditor.deps.json
+C:\Gemini3D\Tools\CinematicEditor\bin\Debug\net7.0\CinematicEditor.runtimeconfig.json
+C:\Gemini3D\Tools\CinematicEditor\bin\Debug\net7.0\CinematicEditor.dll
+C:\Gemini3D\Tools\CinematicEditor\bin\Debug\net7.0\CinematicEditor.pdb
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.csproj.AssemblyReference.cache
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.AssemblyInfoInputs.cache
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.AssemblyInfo.cs
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.csproj.CoreCompileInputs.cache
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.dll
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\refint\CinematicEditor.dll
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.pdb
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\CinematicEditor.genruntimeconfig.cache
+C:\Gemini3D\Tools\CinematicEditor\obj\Debug\net7.0\ref\CinematicEditor.dll

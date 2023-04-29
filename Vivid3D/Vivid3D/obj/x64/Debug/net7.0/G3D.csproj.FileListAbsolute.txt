@@ -1,0 +1,14 @@
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.csproj.AssemblyReference.cache
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.GeneratedMSBuildEditorConfig.editorconfig
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.AssemblyInfoInputs.cache
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.AssemblyInfo.cs
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.csproj.CoreCompileInputs.cache
+C:\G3D\G3D\G3D\bin\x64\Debug\net7.0\G3D.deps.json
+C:\G3D\G3D\G3D\bin\x64\Debug\net7.0\G3D.dll
+C:\G3D\G3D\G3D\bin\x64\Debug\net7.0\G3D.pdb
+C:\G3D\G3D\G3D\bin\x64\Debug\net7.0\PhysX.Net.dll
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.csproj.CopyComplete
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.dll
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\refint\G3D.dll
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\G3D.pdb
+C:\G3D\G3D\G3D\obj\x64\Debug\net7.0\ref\G3D.dll

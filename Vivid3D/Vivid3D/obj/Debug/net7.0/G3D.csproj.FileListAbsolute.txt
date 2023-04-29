@@ -1,0 +1,5 @@
+C:\G3D\G3D\G3D\obj\Debug\net7.0\G3D.csproj.AssemblyReference.cache
+C:\G3D\G3D\G3D\obj\Debug\net7.0\G3D.GeneratedMSBuildEditorConfig.editorconfig
+C:\G3D\G3D\G3D\obj\Debug\net7.0\G3D.AssemblyInfoInputs.cache
+C:\G3D\G3D\G3D\obj\Debug\net7.0\G3D.AssemblyInfo.cs
+C:\G3D\G3D\G3D\obj\Debug\net7.0\G3D.csproj.CoreCompileInputs.cache
