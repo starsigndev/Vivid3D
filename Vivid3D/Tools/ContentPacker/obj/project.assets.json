@@ -39,23 +39,6 @@
           }
         }
       },
-      "DotNetZip/1.16.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Security.Permissions": "4.7.0",
-          "System.Text.Encoding.CodePages": "4.7.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/DotNetZip.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/DotNetZip.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
       "EPPlus.Interfaces/6.1.1": {
         "type": "package",
         "compile": {
@@ -78,7 +61,16 @@
           "lib/net7.0/EPPlus.System.Drawing.dll": {}
         }
       },
-      "Microsoft.NETCore.Platforms/3.1.1": {
+      "Ionic.Zlib.Core/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Ionic.Zlib.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Ionic.Zlib.Core.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -367,51 +359,6 @@
           }
         }
       },
-      "PhysX.Net/3.0.0-alpha1": {
-        "type": "package",
-        "compile": {
-          "ref/net50/PhysX.Net.dll": {}
-        },
-        "runtime": {
-          "lib/net50/PhysX.Net.dll": {
-            "related": ".pdb"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win-x64/native/Ijwhost.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXCommon_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXCooking_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXDevice64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXFoundation_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXGpu_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysX_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/glut32.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          }
-        }
-      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -582,18 +529,6 @@
             "rid": "ubuntu.16.10-x64"
           }
         }
-      },
-      "SharpFont/4.0.1": {
-        "type": "package",
-        "dependencies": {
-          "SharpFont.Dependencies": "(, )"
-        },
-        "build": {
-          "build/_._": {}
-        }
-      },
-      "SharpFont.Dependencies/2.5.5": {
-        "type": "package"
       },
       "SixLabors.ImageSharp/3.0.1": {
         "type": "package",
@@ -1469,29 +1404,6 @@
           "lib/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
         }
       },
-      "System.Security.AccessControl/4.7.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.0",
-          "System.Security.Principal.Windows": "4.7.0"
-        },
-        "compile": {
-          "ref/netstandard2.0/System.Security.AccessControl.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Security.AccessControl.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
-      },
       "System.Security.Cryptography.Algorithms/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1713,46 +1625,6 @@
           }
         }
       },
-      "System.Security.Permissions/4.7.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Security.AccessControl": "4.7.0",
-          "System.Windows.Extensions": "4.7.0"
-        },
-        "compile": {
-          "ref/netcoreapp3.0/System.Security.Permissions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/System.Security.Permissions.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.Security.Principal.Windows/4.7.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
-            "assetType": "runtime",
-            "rid": "unix"
-          },
-          "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
-      },
       "System.Text.Encoding/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1763,28 +1635,6 @@
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.dll": {
             "related": ".xml"
-          }
-        }
-      },
-      "System.Text.Encoding.CodePages/4.7.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll": {
-            "assetType": "runtime",
-            "rid": "win"
           }
         }
       },
@@ -1887,28 +1737,6 @@
           }
         }
       },
-      "System.Windows.Extensions/4.7.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Drawing.Common": "4.7.0"
-        },
-        "compile": {
-          "ref/netcoreapp3.0/System.Windows.Extensions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/System.Windows.Extensions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
-      },
       "System.Xml.ReaderWriter/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1979,24 +1807,22 @@
           "lib/netstandard2.0/ZKWeb.System.Drawing.dll": {}
         }
       },
-      "Gemini3D/1.0.0": {
+      "Vivid/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "AssimpNet": "5.0.0-beta1",
-          "DotNetZip": "1.16.0",
+          "Ionic.Zlib.Core": "1.0.0",
           "OpenTK": "5.0.0-pre.8",
-          "PhysX.Net": "3.0.0-alpha1",
-          "SharpFont": "4.0.1",
           "SixLabors.ImageSharp": "3.0.1",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3",
           "ZKWeb.System.Drawing": "4.0.1"
         },
         "compile": {
-          "bin/placeholder/Gemini3D.dll": {}
+          "bin/placeholder/Vivid.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Gemini3D.dll": {}
+          "bin/placeholder/Vivid.dll": {}
         }
       }
     }
@@ -2026,23 +1852,6 @@
         "runtimes/osx-x64/native/libassimp.dylib",
         "runtimes/win-x64/native/assimp.dll",
         "runtimes/win-x86/native/assimp.dll"
-      ]
-    },
-    "DotNetZip/1.16.0": {
-      "sha512": "CS9sjjXF23FLIbwlLT5k/jXBYxVnLMn01lyAvN/hxFM+UDvSicjTPB9ZMA+Wp/QlvBPbD2pzkAXUp1O50gP/Lw==",
-      "type": "package",
-      "path": "dotnetzip/1.16.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "dotnetzip.1.16.0.nupkg.sha512",
-        "dotnetzip.nuspec",
-        "lib/net40/DotNetZip.dll",
-        "lib/net40/DotNetZip.pdb",
-        "lib/net40/DotNetZip.xml",
-        "lib/netstandard2.0/DotNetZip.dll",
-        "lib/netstandard2.0/DotNetZip.pdb",
-        "lib/netstandard2.0/DotNetZip.xml"
       ]
     },
     "EPPlus.Interfaces/6.1.1": {
@@ -2085,22 +1894,31 @@
         "readme.md"
       ]
     },
-    "Microsoft.NETCore.Platforms/3.1.1": {
-      "sha512": "RmINcaqiEkawM9C8oxFMN/CZmn1fGKWVsosbSY/8ARUNdHqV47hqhPVbrG3qUqLaRQI5w4HuqFOqrbhoSWcH6w==",
+    "Ionic.Zlib.Core/1.0.0": {
+      "sha512": "3GBgjMQA/uPTiqv+wMCpLsyK5dcHCF6EV8+pg4IMKLbgbMGEtIkvErEO4ql5Cv18n94Smf3NAhY/sCed2Tb+Tw==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/3.1.1",
+      "path": "ionic.zlib.core/1.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
+        "ionic.zlib.core.1.0.0.nupkg.sha512",
+        "ionic.zlib.core.nuspec",
+        "lib/netstandard2.0/Ionic.Zlib.Core.dll"
+      ]
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "type": "package",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.3.1.1.nupkg.sha512",
+        "microsoft.netcore.platforms.1.1.0.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
-        "runtime.json",
-        "useSharedDesignerContext.txt",
-        "version.txt"
+        "runtime.json"
       ]
     },
     "Microsoft.NETCore.Targets/1.1.0": {
@@ -2359,29 +2177,6 @@
         "opentk.windowing.graphicslibraryframework.nuspec"
       ]
     },
-    "PhysX.Net/3.0.0-alpha1": {
-      "sha512": "JT0KrHi39xgv31DImDmVLkcX98h1hKJH5hc0EhauBIxdJcfMiFVjN2KBJ/R6O6eQE6VN/X265N6K/sHKWEXkuA==",
-      "type": "package",
-      "path": "physx.net/3.0.0-alpha1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/RuntimeFiles.targets",
-        "lib/net50/PhysX.Net.dll",
-        "lib/net50/PhysX.Net.pdb",
-        "physx.net.3.0.0-alpha1.nupkg.sha512",
-        "physx.net.nuspec",
-        "ref/net50/PhysX.Net.dll",
-        "runtimes/win-x64/native/Ijwhost.dll",
-        "runtimes/win-x64/native/PhysXCommon_64.dll",
-        "runtimes/win-x64/native/PhysXCooking_64.dll",
-        "runtimes/win-x64/native/PhysXDevice64.dll",
-        "runtimes/win-x64/native/PhysXFoundation_64.dll",
-        "runtimes/win-x64/native/PhysXGpu_64.dll",
-        "runtimes/win-x64/native/PhysX_64.dll",
-        "runtimes/win-x64/native/glut32.dll"
-      ]
-    },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "sha512": "HdSSp5MnJSsg08KMfZThpuLPJpPwE5hBXvHwoKWosyHHfe8Mh5WKT0ylEOf6yNzX6Ngjxe4Whkafh5q7Ymac4Q==",
       "type": "package",
@@ -2604,41 +2399,6 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
-      ]
-    },
-    "SharpFont/4.0.1": {
-      "sha512": "yoFLcuWMYdBGB4YLq3bvzrctItJIb+EuK7C7PGgBzqsKxx5UXUwTce64kbvuDQWlMf6p4uQwDm5t2rQdZ9EkyA==",
-      "type": "package",
-      "path": "sharpfont/4.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/SharpFont.props",
-        "config/SharpFont.dll.config",
-        "lib/net45/SharpFont.dll",
-        "lib/net45/SharpFont.dll.config",
-        "lib/net45/SharpFont.xml",
-        "sharpfont.4.0.1.nupkg.sha512",
-        "sharpfont.nuspec"
-      ]
-    },
-    "SharpFont.Dependencies/2.5.5": {
-      "sha512": "QlGhaq7pL90m2PNkP+YRaFR+wQsDULxOo3kFUUm/jaf6Ym++jCR2R78oMtKqzVjjCjm1Skwy3k1jYC0mx7/lXw==",
-      "type": "package",
-      "path": "sharpfont.dependencies/2.5.5",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "bin/msvc10/x64/freetype6.dll",
-        "bin/msvc10/x86/freetype6.dll",
-        "bin/msvc11/x64/freetype6.dll",
-        "bin/msvc11/x86/freetype6.dll",
-        "bin/msvc12/x64/freetype6.dll",
-        "bin/msvc12/x86/freetype6.dll",
-        "bin/msvc9/x64/freetype6.dll",
-        "bin/msvc9/x86/freetype6.dll",
-        "sharpfont.dependencies.2.5.5.nupkg.sha512",
-        "sharpfont.dependencies.nuspec"
       ]
     },
     "SixLabors.ImageSharp/3.0.1": {
@@ -5299,52 +5059,6 @@
         "system.runtime.serialization.primitives.nuspec"
       ]
     },
-    "System.Security.AccessControl/4.7.0": {
-      "sha512": "JECvTt5aFF3WT3gHpfofL2MNNP6v84sxtXxpqhLBCcDRzqsPBmHhQ6shv4DwwN2tRlzsUxtb3G9M3763rbXKDg==",
-      "type": "package",
-      "path": "system.security.accesscontrol/4.7.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net46/System.Security.AccessControl.dll",
-        "lib/net461/System.Security.AccessControl.dll",
-        "lib/net461/System.Security.AccessControl.xml",
-        "lib/netstandard1.3/System.Security.AccessControl.dll",
-        "lib/netstandard2.0/System.Security.AccessControl.dll",
-        "lib/netstandard2.0/System.Security.AccessControl.xml",
-        "lib/uap10.0.16299/_._",
-        "ref/net46/System.Security.AccessControl.dll",
-        "ref/net461/System.Security.AccessControl.dll",
-        "ref/net461/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/System.Security.AccessControl.dll",
-        "ref/netstandard1.3/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/de/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/es/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/fr/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/it/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/ja/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/ko/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/ru/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/zh-hans/System.Security.AccessControl.xml",
-        "ref/netstandard1.3/zh-hant/System.Security.AccessControl.xml",
-        "ref/netstandard2.0/System.Security.AccessControl.dll",
-        "ref/netstandard2.0/System.Security.AccessControl.xml",
-        "ref/uap10.0.16299/_._",
-        "runtimes/win/lib/net46/System.Security.AccessControl.dll",
-        "runtimes/win/lib/net461/System.Security.AccessControl.dll",
-        "runtimes/win/lib/net461/System.Security.AccessControl.xml",
-        "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll",
-        "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.xml",
-        "runtimes/win/lib/netstandard1.3/System.Security.AccessControl.dll",
-        "runtimes/win/lib/uap10.0.16299/_._",
-        "system.security.accesscontrol.4.7.0.nupkg.sha512",
-        "system.security.accesscontrol.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
     "System.Security.Cryptography.Algorithms/4.3.0": {
       "sha512": "W1kd2Y8mYSCgc3ULTAZ0hOP2dSdG5YauTb1089T0/kRcN2MpSAW1izOFROrJgxSlMn3ArsgHXagigyi+ibhevg==",
       "type": "package",
@@ -5588,87 +5302,6 @@
         "system.security.cryptography.x509certificates.nuspec"
       ]
     },
-    "System.Security.Permissions/4.7.0": {
-      "sha512": "dkOV6YYVBnYRa15/yv004eCGRBVADXw8qRbbNiCn/XpdJSUXkkUeIvdvFHkvnko4CdKMqG8yRHC4ox83LSlMsQ==",
-      "type": "package",
-      "path": "system.security.permissions/4.7.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Security.Permissions.dll",
-        "lib/net461/System.Security.Permissions.xml",
-        "lib/netcoreapp3.0/System.Security.Permissions.dll",
-        "lib/netcoreapp3.0/System.Security.Permissions.xml",
-        "lib/netstandard2.0/System.Security.Permissions.dll",
-        "lib/netstandard2.0/System.Security.Permissions.xml",
-        "ref/net461/System.Security.Permissions.dll",
-        "ref/net461/System.Security.Permissions.xml",
-        "ref/netcoreapp3.0/System.Security.Permissions.dll",
-        "ref/netcoreapp3.0/System.Security.Permissions.xml",
-        "ref/netstandard2.0/System.Security.Permissions.dll",
-        "ref/netstandard2.0/System.Security.Permissions.xml",
-        "system.security.permissions.4.7.0.nupkg.sha512",
-        "system.security.permissions.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
-    "System.Security.Principal.Windows/4.7.0": {
-      "sha512": "ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ==",
-      "type": "package",
-      "path": "system.security.principal.windows/4.7.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net46/System.Security.Principal.Windows.dll",
-        "lib/net461/System.Security.Principal.Windows.dll",
-        "lib/net461/System.Security.Principal.Windows.xml",
-        "lib/netstandard1.3/System.Security.Principal.Windows.dll",
-        "lib/netstandard2.0/System.Security.Principal.Windows.dll",
-        "lib/netstandard2.0/System.Security.Principal.Windows.xml",
-        "lib/uap10.0.16299/_._",
-        "ref/net46/System.Security.Principal.Windows.dll",
-        "ref/net461/System.Security.Principal.Windows.dll",
-        "ref/net461/System.Security.Principal.Windows.xml",
-        "ref/netcoreapp3.0/System.Security.Principal.Windows.dll",
-        "ref/netcoreapp3.0/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/System.Security.Principal.Windows.dll",
-        "ref/netstandard1.3/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/de/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/es/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/fr/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/it/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/ja/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/ko/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/ru/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/zh-hans/System.Security.Principal.Windows.xml",
-        "ref/netstandard1.3/zh-hant/System.Security.Principal.Windows.xml",
-        "ref/netstandard2.0/System.Security.Principal.Windows.dll",
-        "ref/netstandard2.0/System.Security.Principal.Windows.xml",
-        "ref/uap10.0.16299/_._",
-        "runtimes/unix/lib/netcoreapp2.0/System.Security.Principal.Windows.dll",
-        "runtimes/unix/lib/netcoreapp2.0/System.Security.Principal.Windows.xml",
-        "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll",
-        "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/net46/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/net461/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/net461/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/netcoreapp2.0/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/netcoreapp2.0/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.xml",
-        "runtimes/win/lib/netstandard1.3/System.Security.Principal.Windows.dll",
-        "runtimes/win/lib/uap10.0.16299/_._",
-        "system.security.principal.windows.4.7.0.nupkg.sha512",
-        "system.security.principal.windows.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
     "System.Text.Encoding/4.3.0": {
       "sha512": "BiIg+KWaSDOITze6jGQynxg64naAPtqGHBwDrLaCtixsa5bKiR8dpPOHA7ge3C0JJQizJE+sfkz1wV+BAKAYZw==",
       "type": "package",
@@ -5735,47 +5368,6 @@
         "ref/xamarinwatchos10/_._",
         "system.text.encoding.4.3.0.nupkg.sha512",
         "system.text.encoding.nuspec"
-      ]
-    },
-    "System.Text.Encoding.CodePages/4.7.1": {
-      "sha512": "i2fOvznVVgOOTLUz8FgSap/MsR98I4Iaoz99VXcOW/e7Y2OdY42zhYpBYpZyivk5alYY/UsOWAVswhtjxceodA==",
-      "type": "package",
-      "path": "system.text.encoding.codepages/4.7.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/System.Text.Encoding.CodePages.dll",
-        "lib/net461/System.Text.Encoding.CodePages.dll",
-        "lib/net461/System.Text.Encoding.CodePages.xml",
-        "lib/netstandard1.3/System.Text.Encoding.CodePages.dll",
-        "lib/netstandard2.0/System.Text.Encoding.CodePages.dll",
-        "lib/netstandard2.0/System.Text.Encoding.CodePages.xml",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "runtimes/win/lib/net461/System.Text.Encoding.CodePages.dll",
-        "runtimes/win/lib/net461/System.Text.Encoding.CodePages.xml",
-        "runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll",
-        "runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.xml",
-        "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll",
-        "runtimes/win/lib/netstandard2.0/System.Text.Encoding.CodePages.dll",
-        "runtimes/win/lib/netstandard2.0/System.Text.Encoding.CodePages.xml",
-        "system.text.encoding.codepages.4.7.1.nupkg.sha512",
-        "system.text.encoding.codepages.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
       ]
     },
     "System.Text.Encoding.Extensions/4.3.0": {
@@ -6181,27 +5773,6 @@
         "system.threading.timer.nuspec"
       ]
     },
-    "System.Windows.Extensions/4.7.0": {
-      "sha512": "CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
-      "type": "package",
-      "path": "system.windows.extensions/4.7.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/netcoreapp3.0/System.Windows.Extensions.dll",
-        "lib/netcoreapp3.0/System.Windows.Extensions.xml",
-        "ref/netcoreapp3.0/System.Windows.Extensions.dll",
-        "ref/netcoreapp3.0/System.Windows.Extensions.xml",
-        "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll",
-        "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.xml",
-        "system.windows.extensions.4.7.0.nupkg.sha512",
-        "system.windows.extensions.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
     "System.Xml.ReaderWriter/4.3.0": {
       "sha512": "GrprA+Z0RUXaR4N7/eW71j1rgMnEnEVlgii49GZyAjTH7uliMnrOU3HNFBr6fEDBCJCIdlVNq9hHbaDR621XBA==",
       "type": "package",
@@ -6357,18 +5928,18 @@
         "zkweb.system.drawing.nuspec"
       ]
     },
-    "Gemini3D/1.0.0": {
+    "Vivid/1.0.0": {
       "type": "project",
-      "path": "../../Gemini3D/Gemini3D.csproj",
-      "msbuildProject": "../../Gemini3D/Gemini3D.csproj"
+      "path": "../../Vivid3D/Vivid.csproj",
+      "msbuildProject": "../../Vivid3D/Vivid.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0-windows7.0": [
       "EPPlus.System.Drawing >= 6.1.1",
-      "Gemini3D >= 1.0.0",
       "SkiaSharp >= 2.88.3",
       "System.Drawing.Common >= 8.0.0-preview.2.23128.3",
+      "Vivid >= 1.0.0",
       "ZKWeb.System.Drawing >= 4.0.1"
     ]
   },
@@ -6378,11 +5949,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Gemini3D\\Tools\\ContentPacker\\ContentPacker.csproj",
+      "projectUniqueName": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\ContentPacker.csproj",
       "projectName": "ContentPacker",
-      "projectPath": "C:\\Gemini3D\\Tools\\ContentPacker\\ContentPacker.csproj",
+      "projectPath": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\ContentPacker.csproj",
       "packagesPath": "C:\\Users\\AntW\\.nuget\\packages\\",
-      "outputPath": "C:\\Gemini3D\\Tools\\ContentPacker\\obj\\",
+      "outputPath": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\AntW\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6399,8 +5970,8 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Gemini3D\\Gemini3D\\Gemini3D.csproj": {
-              "projectPath": "C:\\Gemini3D\\Gemini3D\\Gemini3D.csproj"
+            "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj": {
+              "projectPath": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj"
             }
           }
         }
@@ -6454,17 +6025,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.300-preview.23179.2\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1602",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "SharpFont 4.0.1 does not provide an inclusive lower bound for dependency SharpFont.Dependencies. An approximate best match of SharpFont.Dependencies 2.5.5 was resolved.",
-      "libraryId": "SharpFont.Dependencies",
-      "targetGraphs": [
-        "net7.0-windows7.0"
-      ]
-    }
-  ]
+  }
 }

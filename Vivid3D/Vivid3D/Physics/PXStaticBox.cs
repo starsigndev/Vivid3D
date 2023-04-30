@@ -1,4 +1,4 @@
-﻿using PhysX;
+﻿using Vivid.Physics;
 
 namespace Vivid.Physx
 {
@@ -15,19 +15,7 @@ namespace Vivid.Physx
         public override void InitBody()
         {
             //base.InitBody();
-            Transform tm = new Transform(new System.Numerics.Vector3(0, 0, 0));
-
-            Material = Vivid.Physx.QPhysics._Physics.CreateMaterial(0.4f, 0.4f, 0.4f);
-
-            this.StaticBody = Vivid.Physx.QPhysics._Physics.CreateRigidStatic();
-
-            Body = (RigidActor)StaticBody;
-            // var act = (RigidActor)StaticBody;
-
-            Shape = RigidActorExt.CreateExclusiveShape(StaticBody, new BoxGeometry(W, H, D), Material);
-            int a = 5;
-            //DynamicBody.GlobalPose;
-            Vivid.Physx.QPhysics._Scene.AddActor(StaticBody);
+           
         }
     }
 }

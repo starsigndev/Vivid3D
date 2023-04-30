@@ -337,51 +337,6 @@
           }
         }
       },
-      "PhysX.Net/3.0.0-alpha1": {
-        "type": "package",
-        "compile": {
-          "ref/net50/PhysX.Net.dll": {}
-        },
-        "runtime": {
-          "lib/net50/PhysX.Net.dll": {
-            "related": ".pdb"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win-x64/native/Ijwhost.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXCommon_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXCooking_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXDevice64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXFoundation_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysXGpu_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/PhysX_64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/glut32.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          }
-        }
-      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -1782,7 +1737,6 @@
           "AssimpNet": "5.0.0-beta1",
           "Ionic.Zlib.Core": "1.0.0",
           "OpenTK": "5.0.0-pre.8",
-          "PhysX.Net": "3.0.0-alpha1",
           "SixLabors.ImageSharp": "3.0.1",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3",
           "ZKWeb.System.Drawing": "4.0.1"
@@ -2104,29 +2058,6 @@
         "lib/net5.0/OpenTK.Windowing.GraphicsLibraryFramework.xml",
         "opentk.windowing.graphicslibraryframework.5.0.0-pre.8.nupkg.sha512",
         "opentk.windowing.graphicslibraryframework.nuspec"
-      ]
-    },
-    "PhysX.Net/3.0.0-alpha1": {
-      "sha512": "JT0KrHi39xgv31DImDmVLkcX98h1hKJH5hc0EhauBIxdJcfMiFVjN2KBJ/R6O6eQE6VN/X265N6K/sHKWEXkuA==",
-      "type": "package",
-      "path": "physx.net/3.0.0-alpha1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/RuntimeFiles.targets",
-        "lib/net50/PhysX.Net.dll",
-        "lib/net50/PhysX.Net.pdb",
-        "physx.net.3.0.0-alpha1.nupkg.sha512",
-        "physx.net.nuspec",
-        "ref/net50/PhysX.Net.dll",
-        "runtimes/win-x64/native/Ijwhost.dll",
-        "runtimes/win-x64/native/PhysXCommon_64.dll",
-        "runtimes/win-x64/native/PhysXCooking_64.dll",
-        "runtimes/win-x64/native/PhysXDevice64.dll",
-        "runtimes/win-x64/native/PhysXFoundation_64.dll",
-        "runtimes/win-x64/native/PhysXGpu_64.dll",
-        "runtimes/win-x64/native/PhysX_64.dll",
-        "runtimes/win-x64/native/glut32.dll"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {

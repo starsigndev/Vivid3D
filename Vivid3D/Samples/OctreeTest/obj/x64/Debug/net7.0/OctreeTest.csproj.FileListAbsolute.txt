@@ -73,7 +73,6 @@ C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\osx-x64\native\l
 C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\glfw3.dll
 C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x86\native\glfw3.dll
 C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\Vivid.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\PhysX.Net.dll
 C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\Vivid.pdb
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\OctreeTest.csproj.AssemblyReference.cache
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\OctreeTest.GeneratedMSBuildEditorConfig.editorconfig
@@ -86,11 +85,3 @@ C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\refint\OctreeTest.dll
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\OctreeTest.pdb
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\OctreeTest.genruntimeconfig.cache
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\ref\OctreeTest.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\Ijwhost.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXCommon_64.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXCooking_64.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXDevice64.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXFoundation_64.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXGpu_64.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysX_64.dll
-C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\runtimes\win-x64\native\glut32.dll

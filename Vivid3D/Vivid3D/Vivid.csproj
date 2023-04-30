@@ -11,13 +11,18 @@
     <PackageReference Include="AssimpNet" Version="5.0.0-beta1" />
     <PackageReference Include="Ionic.Zlib.Core" Version="1.0.0" />
     <PackageReference Include="OpenTK" Version="5.0.0-pre.8" />
-    <PackageReference Include="PhysX.Net" Version="3.0.0-alpha1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.0-preview.2.23128.3" />
     <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="BepuPhysics">
+      <HintPath>..\..\bepuphysics2-master\BepuPhysics\bin\x64\Debug\net7.0\BepuPhysics.dll</HintPath>
+    </Reference>
+    <Reference Include="BepuUtilities">
+      <HintPath>..\..\bepuphysics2-master\BepuPhysics\bin\x64\Debug\net7.0\BepuUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="PhysX.Net">
       <HintPath>..\..\..\Vivid\bin\x64\Debug\net7.0\PhysX.Net.dll</HintPath>
     </Reference>

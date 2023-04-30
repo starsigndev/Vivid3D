@@ -10,6 +10,13 @@ namespace Vivid.Scene
         { get { return (this.Min + this.Max) / 2; } }
         public Vector3 HalfSize
         { get { return (this.Max - this.Min) / 2; } }
+        public Vector3 Size
+        {
+            get
+            {
+                return Max - Min;
+            }
+        }
 
         public BoundingBox(Vector3 min, Vector3 max)
         {
@@ -78,7 +85,7 @@ namespace Vivid.Scene
                 var world = entity.WorldMatrix;
                 foreach (Vivid.Meshes.Mesh mesh in entity.Meshes)
                 {
-                    BoundingBox meshBoundingBox = mesh.Owner.ComputeMeshBoundingBox(mesh);
+                    BoundingBox meshBoundingBox = mesh.Owner.ComputeMeshBoundingBox(mesh,false);
 
                     if (Intersects(meshBoundingBox))
                     {

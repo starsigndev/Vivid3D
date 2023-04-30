@@ -314,7 +314,7 @@ namespace Vivid.Scene
 
         private Materials.MaterialBase ReadMaterial(BinaryReader r)
         {
-            MaterialBase mat = new MaterialBase();
+            MaterialBase mat = new Materials.Materials.MaterialStandardLight();
 
             string col = r.ReadString();
             string norm = r.ReadString();
@@ -323,26 +323,40 @@ namespace Vivid.Scene
             string norm1 = Path.GetFileName(norm);
             string spec1 = Path.GetFileName(spec);
 
-            var cc = Content.Content.GlobalFindItem(col1);
-            var nc = Content.Content.GlobalFindItem(norm1);
-            var sc = Content.Content.GlobalFindItem(spec1);
+            var cc = Content.Content.GlobalFindItem(col);
+            var nc = Content.Content.GlobalFindItem(norm);
+            var sc = Content.Content.GlobalFindItem(spec);
 
             if (cc != null)
             {
                 mat.ColorMap = new Texture.Texture2D(cc.GetStream(), cc.Width, cc.Height);
-                mat.NormalMap = new Texture.Texture2D(nc.GetStream(), nc.Width, nc.Height);
-                if (sc != null)
-                {
-                    mat.SpecularMap = new Texture.Texture2D(sc.GetStream(), sc.Width, sc.Height);
-                }
             }
             else
             {
                 mat.ColorMap = new Texture.Texture2D(col);
-                mat.NormalMap = new Texture.Texture2D(norm);
-                mat.SpecularMap = new Texture.Texture2D(spec);
-                //int b = 5;
             }
+            if (nc != null)
+            {
+                mat.NormalMap = new Texture.Texture2D(nc.GetStream(), nc.Width, nc.Height);
+            }
+            else
+            {
+                mat.NormalMap = new Texture.Texture2D(norm);
+            }
+            if (sc != null)
+            {
+                mat.SpecularMap = new Texture.Texture2D(sc.GetStream(), sc.Width, sc.Height);
+            }
+            else
+            {
+                mat.SpecularMap = new Texture.Texture2D(spec);
+            }
+
+
+
+
+            //int b = 5;
+
 
             return mat;
         }

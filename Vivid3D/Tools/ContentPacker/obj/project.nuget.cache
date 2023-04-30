@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "vWvYka9/RBzLa6DSQAFFZdRBvG75M5GpE9o7q7SVWxQTusWz48FzsfI1fyLGsM2U3pCjkdFt7PEADojiY7gf+g==",
+  "dgSpecHash": "Tptjp5PAaOzrKQepedP58aca8hVENqdk2LvLCWaofn3DPnmaYUv3MW55d5F6ZoErrJEdxpQ45kwVpZ78zK9hyA==",
   "success": true,
-  "projectFilePath": "C:\\Gemini3D\\Tools\\ContentPacker\\ContentPacker.csproj",
+  "projectFilePath": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\ContentPacker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\AntW\\.nuget\\packages\\assimpnet\\5.0.0-beta1\\assimpnet.5.0.0-beta1.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\dotnetzip\\1.16.0\\dotnetzip.1.16.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\epplus.system.drawing\\6.1.1\\epplus.system.drawing.6.1.1.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.1\\microsoft.netcore.platforms.3.1.1.nupkg.sha512",
+    "C:\\Users\\AntW\\.nuget\\packages\\ionic.zlib.core\\1.0.0\\ionic.zlib.core.1.0.0.nupkg.sha512",
+    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0-preview.2.23128.3\\microsoft.win32.systemevents.8.0.0-preview.2.23128.3.nupkg.sha512",
@@ -24,7 +24,6 @@
     "C:\\Users\\AntW\\.nuget\\packages\\opentk.windowing.common\\5.0.0-pre.8\\opentk.windowing.common.5.0.0-pre.8.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\opentk.windowing.desktop\\5.0.0-pre.8\\opentk.windowing.desktop.5.0.0-pre.8.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\5.0.0-pre.8\\opentk.windowing.graphicslibraryframework.5.0.0-pre.8.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\physx.net\\3.0.0-alpha1\\physx.net.3.0.0-alpha1.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -41,8 +40,6 @@
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\sharpfont\\4.0.1\\sharpfont.4.0.1.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\sharpfont.dependencies\\2.5.5\\sharpfont.dependencies.2.5.5.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\sixlabors.imagesharp\\3.0.1\\sixlabors.imagesharp.3.0.1.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\skiasharp\\2.88.3\\skiasharp.2.88.3.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\skiasharp.nativeassets.macos\\2.88.3\\skiasharp.nativeassets.macos.2.88.3.nupkg.sha512",
@@ -92,7 +89,6 @@
     "C:\\Users\\AntW\\.nuget\\packages\\system.runtime.interopservices.runtimeinformation\\4.3.0\\system.runtime.interopservices.runtimeinformation.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.runtime.numerics\\4.3.0\\system.runtime.numerics.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.runtime.serialization.primitives\\4.3.0\\system.runtime.serialization.primitives.4.3.0.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.security.cryptography.algorithms\\4.3.0\\system.security.cryptography.algorithms.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.security.cryptography.cng\\4.3.0\\system.security.cryptography.cng.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.security.cryptography.csp\\4.3.0\\system.security.cryptography.csp.4.3.0.nupkg.sha512",
@@ -100,10 +96,7 @@
     "C:\\Users\\AntW\\.nuget\\packages\\system.security.cryptography.openssl\\4.3.0\\system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.security.cryptography.primitives\\4.3.0\\system.security.cryptography.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.security.cryptography.x509certificates\\4.3.0\\system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\system.text.encoding.codepages\\4.7.1\\system.text.encoding.codepages.4.7.1.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
@@ -111,21 +104,9 @@
     "C:\\Users\\AntW\\.nuget\\packages\\system.threading.tasks.extensions\\4.3.0\\system.threading.tasks.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.threading.thread\\4.3.0\\system.threading.thread.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\zkweb.system.drawing\\4.0.1\\zkweb.system.drawing.4.0.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1602",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "SharpFont 4.0.1 does not provide an inclusive lower bound for dependency SharpFont.Dependencies. An approximate best match of SharpFont.Dependencies 2.5.5 was resolved.",
-      "libraryId": "SharpFont.Dependencies",
-      "targetGraphs": [
-        "net7.0-windows7.0"
-      ]
-    }
-  ]
+  "logs": []
 }

@@ -3,6 +3,7 @@ using Vivid.Engine;
 using Vivid.Meshes;
 using Vivid.Physx;
 using Vivid.Renderers;
+using Vivid.State;
 
 namespace Vivid.Scene
 {
@@ -86,67 +87,41 @@ namespace Vivid.Scene
         public override void BeginPhysics()
         {
             if (!Enabled) return;
-            /*
-             * switch(BodyKind)
+
+            switch (BodyKind)
             {
                 case BodyType.Box:
 
-                    var bb = Bounds;
+                    var bb = BoundsNoTransform;
 
-                    Body = new PXBox(bb.HalfSize.x,bb.HalfSize.y,bb.HalfSize.z,this);
-                    //   Body.InitBody();
+                    Body = new PXBox(bb.HalfSize.X, bb.HalfSize.Y, bb.HalfSize.Z, this);
+                   //   Body.InitBody();
 
-                    Matrix4 mm = Rotation ;
-                    Vec3 lp = new Vec3(-Position.x, Position.y, Position.z);
+                    Matrix4 mm = Rotation; ;
 
-                        mm = mm * Matrix4.Translate(lp);
-
-                   Body.SetPose(mm);
-                    Body.DynamicBody.LinearDamping = 0.1f;
-
-                    //int a = 5;
 
                     break;
 
                 case BodyType.ConvexHull:
-
-                    Body = new PXConvexHull(Meshes[0]);
-                    {
-                        Matrix4 mm1 = Rotation;// * Matrix4.RotateX(MathHelp.Degrees2Rad(-180));
-                        Vec3 lp1 = new Vec3(-Position.x, Position.y, Position.z);
-
-                        mm1 = mm1 * Matrix4.Translate(lp1);
-
-                        Body.SetPose(mm1);
-                        Body.DynamicBody.LinearDamping = 0.1f;
-                    }
+                   
                     break;
 
                 case BodyType.TriMesh:
 
                     Body = new PXTriMesh(Meshes, 0);
-                    //Body.InitBody();
-
+                   
                     break;
 
                 case BodyType.FPS:
-
-                    Body = new PXBox(0.2f, 1.0f, 0.2f, this);
-               //     Body.InitBody();
-                    Body.SetPose(null,WorldMatrix);
-                    Body.Constrain(true, false, true);
-                    Body.DynamicBody.MaxAngularVelocity = 5;
-                    Body.DynamicBody.AngularDamping = 8.2f;
-                    Body.DynamicBody.LinearDamping = 1.5f;
-
+                   
                     break;
             }
 
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
                 node.BeginPhysics();
             }
-            */
+
         }
 
         public override void MoveBody(float x, float y, float z)
@@ -164,7 +139,7 @@ namespace Vivid.Scene
             //base.PXTurn(p, y, r);
             if (Body != null)
             {
-                Body.DynamicBody.AddTorque(new System.Numerics.Vector3(p, y, r));
+                
             }
         }
 
@@ -198,9 +173,9 @@ namespace Vivid.Scene
                 }
                 else
                 {
-                    //Position = Body.GetPos();
+                    Position = Body.GetPos();
 
-                    //Rotation =  Matrix4.RotateX(MathHelp.Degrees2Rad(-180)) * Body.GetRot();
+                   // Rotation = Body.GetRot();
                 }
             }
 
@@ -360,7 +335,13 @@ namespace Vivid.Scene
             return clone;
             //return base.Clone();
         }
-
+        public BoundingBox BoundsNoTransform
+        {
+            get
+            {
+                return ComputeOverallBoundingBox(Meshes, true);
+            }
+        }
         public override BoundingBox Bounds
         {
             get
@@ -375,7 +356,7 @@ namespace Vivid.Scene
 
         private BoundingBox _MBB;
 
-        public Vivid.Scene.BoundingBox ComputeOverallBoundingBox(List<Vivid.Meshes.Mesh> meshes)
+        public Vivid.Scene.BoundingBox ComputeOverallBoundingBox(List<Vivid.Meshes.Mesh> meshes,bool noTransform = false)
         {
             if (meshes.Count == 0)
             {
@@ -385,17 +366,17 @@ namespace Vivid.Scene
             else if (meshes.Count == 1)
             {
                 // Only one mesh, return its bounding box
-                return ComputeMeshBoundingBox(meshes[0]);
+                return ComputeMeshBoundingBox(meshes[0],noTransform);
             }
             else
             {
                 // Multiple meshes, compute the overall bounding box
-                Vector3 min = ComputeMeshBoundingBox(meshes[0]).Min;
-                Vector3 max = ComputeMeshBoundingBox(meshes[0]).Max;
+                Vector3 min = ComputeMeshBoundingBox(meshes[0],noTransform).Min;
+                Vector3 max = ComputeMeshBoundingBox(meshes[0],noTransform).Max;
 
                 for (int i = 1; i < meshes.Count; i++)
                 {
-                    Vivid.Scene.BoundingBox meshBounds = ComputeMeshBoundingBox(meshes[i]);
+                    Vivid.Scene.BoundingBox meshBounds = ComputeMeshBoundingBox(meshes[i],noTransform);
                     min = Vector3.ComponentMin(min, meshBounds.Min);
                     max = Vector3.ComponentMax(max, meshBounds.Max);
                 }
@@ -406,7 +387,7 @@ namespace Vivid.Scene
 
         private BoundingBox _BB = null;
 
-        public Vivid.Scene.BoundingBox ComputeMeshBoundingBox(Vivid.Meshes.Mesh mesh)
+        public Vivid.Scene.BoundingBox ComputeMeshBoundingBox(Vivid.Meshes.Mesh mesh,bool noTransform)
         {
             //   if (_BB != null) return _BB;
             // Get the vertices of the mesh
@@ -414,15 +395,34 @@ namespace Vivid.Scene
 
             var world = mesh.Owner.WorldMatrix;
 
-            // Compute the minimum and maximum extents of the mesh
-            Vector3 min = Vector3.TransformPosition(vertices[0].Position, world);
+            Vector3 min, max;
 
-            Vector3 max = Vector3.TransformPosition(vertices[0].Position, world);
+            if (noTransform)
+            {
+                min = vertices[0].Position;
+
+                max = vertices[0].Position;
+            }
+            else
+            {
+                // Compute the minimum and maximum extents of the mesh
+                min = Vector3.TransformPosition(vertices[0].Position, world);
+
+                max = Vector3.TransformPosition(vertices[0].Position, world);
+            }
 
             foreach (var v in vertices)
             {
+                Vector3 pos;
                 //  verts[vv] = new Vector3(vertices[vv].Position.X, vertices[vv].Position.Y, vertices[vv].Position.Z);
-                var pos = Vector3.TransformPosition(v.Position, world);
+                if (noTransform)
+                {
+                    pos = v.Position;
+                }
+                else
+                {
+                     pos = Vector3.TransformPosition(v.Position, world);
+                }
                 min = Vector3.ComponentMin(min, pos);
                 max = Vector3.ComponentMax(max, pos);
             }

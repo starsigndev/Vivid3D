@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VividHome", "Tools\VividHom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SceneEditor", "Tools\SceneEditor\SceneEditor.csproj", "{3E9CA2F3-3B89-4E65-BE9B-BB2A1430333B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContentPacker", "Tools\ContentPacker\ContentPacker.csproj", "{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,14 @@ Global
 		{3E9CA2F3-3B89-4E65-BE9B-BB2A1430333B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E9CA2F3-3B89-4E65-BE9B-BB2A1430333B}.Release|x64.ActiveCfg = Release|x64
 		{3E9CA2F3-3B89-4E65-BE9B-BB2A1430333B}.Release|x64.Build.0 = Release|x64
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Debug|x64.ActiveCfg = Debug|x64
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Debug|x64.Build.0 = Debug|x64
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Release|x64.ActiveCfg = Release|x64
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +73,7 @@ Global
 		{D2EEDA75-614F-4995-94BB-D637C6EC0F95} = {F7F6C2CD-F6B1-4306-9FAF-B5A21523784B}
 		{0EB9D4E0-DAAB-40BE-8D0E-E18D03F41C07} = {6D1861D9-468C-4047-8D84-6C6270E0B73A}
 		{3E9CA2F3-3B89-4E65-BE9B-BB2A1430333B} = {6D1861D9-468C-4047-8D84-6C6270E0B73A}
+		{82A6F35F-EFEE-49AD-B73B-5B1D302E17FF} = {6D1861D9-468C-4047-8D84-6C6270E0B73A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A59CD8E7-4806-4337-82B4-F1EC1939CA6C}

@@ -3,6 +3,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using System.Diagnostics;
+using Vivid.Physx;
 using Vivid.RenderTarget;
 
 namespace Vivid.App
@@ -191,6 +192,7 @@ namespace Vivid.App
             Scene.ShaderModules.Shaders.InitShaders();
             int aa = 5;
             //  GL.Disable(EnableCap.)
+            Physics.QPhysics.InitPhysics();
         }
 
         protected override void OnKeyDown(KeyboardKeyEventArgs e)
@@ -227,6 +229,7 @@ namespace Vivid.App
             {
                 States.Peek().Update();
             }
+            Physics.QPhysics.Simulate(1.0f / 60.0f);
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)

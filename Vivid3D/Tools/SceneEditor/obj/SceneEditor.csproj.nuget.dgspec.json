@@ -120,10 +120,6 @@
               "target": "Package",
               "version": "[5.0.0-pre.8, )"
             },
-            "PhysX.Net": {
-              "target": "Package",
-              "version": "[3.0.0-alpha1, )"
-            },
             "SixLabors.ImageSharp": {
               "target": "Package",
               "version": "[3.0.1, )"

@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Gemini3D\Gemini3D.csproj" />
+    <ProjectReference Include="..\..\Vivid3D\Vivid.csproj" />
   </ItemGroup>
 
 </Project>

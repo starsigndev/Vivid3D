@@ -23,7 +23,7 @@ namespace OctreeTest
             native_settings.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
             native_settings.Size = new OpenTK.Mathematics.Vector2i(1024, 768);
             native_settings.Title = "Vivid - Application";
-            Vivid.App.VividApp.InitialState = new StateTestOctree1();
+            Vivid.App.VividApp.InitialState = new StateTestPhysics();
             TestOctreeApp app = new TestOctreeApp(game_win, native_settings);
 
             app.Run();

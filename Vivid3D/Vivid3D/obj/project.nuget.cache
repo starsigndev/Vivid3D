@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ciMKayfrS/jJRrZekddlup5wEWxrSsRrK2qqfB8GuNyDw/81wZuv5DE11njcuDymHOsV+v+Yhw8yvwBkFJ2Tsg==",
+  "dgSpecHash": "n2GvDHQ9S0gGiOvspMBMu8CuUtw+CzV7POFcnb1ZlRmGDN+OoyAdEDHH+8+3cUDDV5ibJ8KFc8074abtvp+MbA==",
   "success": true,
   "projectFilePath": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
   "expectedPackageFiles": [
@@ -22,7 +22,6 @@
     "C:\\Users\\AntW\\.nuget\\packages\\opentk.windowing.common\\5.0.0-pre.8\\opentk.windowing.common.5.0.0-pre.8.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\opentk.windowing.desktop\\5.0.0-pre.8\\opentk.windowing.desktop.5.0.0-pre.8.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\5.0.0-pre.8\\opentk.windowing.graphicslibraryframework.5.0.0-pre.8.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\physx.net\\3.0.0-alpha1\\physx.net.3.0.0-alpha1.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
