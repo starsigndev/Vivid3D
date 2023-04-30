@@ -1,37 +1,36 @@
-﻿using Assimp;
-using Vivid.Renderers;
+﻿using OpenTK.Mathematics;
 using Vivid.Shaders;
-using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Vivid.Materials
 {
     public class GeminiStandardFX : ShaderModule
     {
-
         public Vivid.Scene.Camera Camera;
         public Vivid.Scene.Entity Entity;
         public Vivid.Scene.Light Light = null;
 
-        public GeminiStandardFX(string vertex_path,string fragment_path) : base(vertex_path, fragment_path)
+        public GeminiStandardFX(string vertex_path, string fragment_path) : base(vertex_path, fragment_path)
         {
-
         }
 
-        int g_Proj, g_Model, g_View;
-        int g_LightPos, g_LightDiff, g_LightSpec, g_LightRange, g_LightDepth;
-        int g_CamPos, g_CamMinZ, g_CamMaxZ;
+        private int g_Proj, g_Model, g_View;
+        private int g_LightPos, g_LightDiff, g_LightSpec, g_LightRange, g_LightDepth;
+        private int g_CamPos, g_CamMinZ, g_CamMaxZ;
+
         public override void SetUniforms()
         {
             //base.SetUniforms();
             //InitUniforms();
 
             SetUni(g_Proj, Camera.Projection);
-            SetUni(g_Model, Entity.WorldMatrix);
+            if (Entity == null)
+            {
+                SetUni(g_Model, Matrix4.Identity);
+            }
+            else
+            {
+                SetUni(g_Model, Entity.WorldMatrix);
+            }
             SetUni(g_View, Camera.WorldMatrix);
             if (Light != null)
             {
@@ -44,14 +43,14 @@ namespace Vivid.Materials
             if (Camera != null)
             {
                 SetUni(g_CamPos, Camera.Position);
-              //  SetUni("g_CameraDir", Camera.TransformVector(new Vector3(0, 0, 1)));
+                //  SetUni("g_CameraDir", Camera.TransformVector(new Vector3(0, 0, 1)));
                 SetUni(g_CamMinZ, Camera.DepthStart);
                 SetUni(g_CamMaxZ, Camera.DepthEnd);
             }
             //SetUni("g_TextureColor", 0);
-           // SetUni("g_TextureNormal", 1);
-          //  SetUni("g_TextureSpecular", 2);
-         //   SetUni("g_TextureShadow", 3);
+            // SetUni("g_TextureNormal", 1);
+            //  SetUni("g_TextureSpecular", 2);
+            //   SetUni("g_TextureShadow", 3);
         }
 
         public override void InitUniforms()
@@ -72,7 +71,6 @@ namespace Vivid.Materials
             SetUni("g_TextureNormal", 1);
             SetUni("g_TextureSpecular", 2);
             SetUni("g_TextureShadow", 3);
-
         }
     }
 }

@@ -1,24 +1,15 @@
-﻿using Assimp;
-using Vivid.Audio;
-using Vivid.Scene;
-using Vivid.Maths;
+﻿using Vivid.Audio;
 using Vivid.Texture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Vivid.Scene
 {
-
     public enum PropertyType
     {
-        String,Float,Int,Vec3,Vec4,Matrix,File,Texture,Sound,Scene,Content
+        String, Float, Int, Vec3, Vec4, Matrix, File, Texture, Sound, Scene, Content
     }
+
     public class PropertyItem
     {
-
         public string Name { get; set; }
         public string StringValue;
         public int IntValue;
@@ -31,7 +22,6 @@ namespace Vivid.Scene
         public Vivid.Scene.Scene SceneValue;
         public Content.Content ContentValue;
 
-
         public PropertyType Type
         {
             get;
@@ -40,24 +30,19 @@ namespace Vivid.Scene
 
         public PropertyItem()
         {
-
             Name = "Property";
             Type = PropertyType.String;
-
         }
 
         public override string ToString()
         {
             return "Property:" + Name + " Type:" + Type.ToString();
             //return base.ToString();
-
         }
-
     }
 
     public class PropertyList
     {
-
         public List<PropertyItem> Items
         {
             get;
@@ -66,10 +51,7 @@ namespace Vivid.Scene
 
         public PropertyList()
         {
-
             Items = new List<PropertyItem>();
-
         }
-
     }
 }

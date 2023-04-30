@@ -3,20 +3,11 @@ using Vivid.Draw;
 using Vivid.PP;
 using Vivid.RenderTarget;
 using Vivid.Scene;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Vivid.SceneComposer
 {
     public class SceneRenderer
     {
-        
-
         public const int MAX_LIGHTS = 8;
         public const int MAX_AUX = 8;
         public List<RenderTarget2D> LightTargets = new List<RenderTarget2D>();
@@ -26,8 +17,9 @@ namespace Vivid.SceneComposer
         public float BloomBlurAmount = 0.35f;
         public bool BloomOn = true;
 
-
-        public Scene.Scene Scene { get;
+        public Scene.Scene Scene
+        {
+            get;
             set;
         }
 
@@ -37,35 +29,39 @@ namespace Vivid.SceneComposer
             set;
         }
 
-        public List<Light> Lights { get;
+        public List<Light> Lights
+        {
+            get;
             set;
         }
-        FXRenderer fx;
+
+        private FXRenderer fx;
         private SmartDraw draw;
 
         public void CreateLightTargets(int number)
         {
-            for(int i = 0; i < number; i++)
+            for (int i = 0; i < number; i++)
             {
                 LightTargets.Add(new RenderTarget2D(Vivid.App.VividApp.FrameWidth, Vivid.App.VividApp.FrameHeight));
             }
         }
+
         public void CreateAuxTargets(int number)
         {
-            for(int i=0;i < number; i++)
+            for (int i = 0; i < number; i++)
             {
-                AuxTargets.Add(new RenderTarget2D(VividApp.FrameWidth,VividApp.FrameHeight));
+                AuxTargets.Add(new RenderTarget2D(VividApp.FrameWidth, VividApp.FrameHeight));
             }
         }
+
         public void GetLights(List<Light> lights)
         {
-
-            foreach(var light in lights)
+            foreach (var light in lights)
             {
                 Lights.Add(light);
             }
-
         }
+
         public SceneRenderer(Scene.Scene scene)
         {
             Lights = new List<Light>();
@@ -76,7 +72,6 @@ namespace Vivid.SceneComposer
             CreateAuxTargets(MAX_AUX);
             draw = new SmartDraw();
             fx = new FXRenderer();
-
         }
 
         public SceneRenderer(Scene.OctreeScene scene)
@@ -91,11 +86,9 @@ namespace Vivid.SceneComposer
             draw = new SmartDraw();
             fx = new FXRenderer();
         }
-    
 
-        public void RenderLight(Light light,RenderTarget2D target)
+        public void RenderLight(Light light, RenderTarget2D target)
         {
-
         }
 
         public void RenderFinal()
@@ -111,10 +104,9 @@ namespace Vivid.SceneComposer
                 index++;
             }
 
-
             AuxTargets[0].Bind();
             Draw(LightTargets[0], Vivid.App.VividApp.FrameWidth, Vivid.App.VividApp.FrameHeight);
-            for(int i = 1; i < Lights.Count; i++)
+            for (int i = 1; i < Lights.Count; i++)
             {
                 DrawAdd(LightTargets[i], VividApp.FrameWidth, VividApp.FrameHeight);
             }
@@ -125,39 +117,26 @@ namespace Vivid.SceneComposer
                 var tex = GenerateBloom(AuxTargets[0]);
 
                 Draw(tex, VividApp.FrameWidth, VividApp.FrameHeight);
-
             }
             else
             {
-
-                Draw(AuxTargets[0],VividApp.FrameWidth,VividApp.FrameHeight);
-
+                Draw(AuxTargets[0], VividApp.FrameWidth, VividApp.FrameHeight);
             }
             //Draw(AuxTargets[0], GeminiApp.FrameWidth, GeminiApp.FrameHeight);
-
-           
-
-
         }
 
         private Vivid.RenderTarget.RenderTarget2D GenerateBloom(RenderTarget2D rt)
         {
-
-
             AuxTargets[1].Bind();
 
-            fx.RenderColorLimit(rt.GetTexture(), VividApp.FrameWidth, VividApp.FrameHeight,BloomColorLimit);
+            fx.RenderColorLimit(rt.GetTexture(), VividApp.FrameWidth, VividApp.FrameHeight, BloomColorLimit);
             AuxTargets[1].Release();
 
             Vivid.Texture.Texture2D tex = AuxTargets[1].GetTexture();
 
-
-
             AuxTargets[2].Bind();
-            fx.RenderBlur(tex, VividApp.FrameWidth, VividApp.FrameHeight,BloomBlurAmount);
+            fx.RenderBlur(tex, VividApp.FrameWidth, VividApp.FrameHeight, BloomBlurAmount);
             AuxTargets[2].Release();
-
-
 
             tex = AuxTargets[2].GetTexture();
 
@@ -166,29 +145,23 @@ namespace Vivid.SceneComposer
             AuxTargets[1].Release();
 
             return AuxTargets[1];
-
         }
 
-
-        private void DrawLight(int i,int w,int h)
+        private void DrawLight(int i, int w, int h)
         {
             Draw(LightTargets[i], w, h);
         }
 
-        private void Draw(RenderTarget2D target,int w,int h)
+        private void Draw(RenderTarget2D target, int w, int h)
         {
-
             draw.SetMode(0);
             draw.Begin();
             //draw.DrawTexture(target.GetTexture(), 0, 0, w, h, 1, 1, 1, 1);
             draw.End();
-            
-
         }
 
-        private void DrawAdd(RenderTarget2D target,int w,int h)
+        private void DrawAdd(RenderTarget2D target, int w, int h)
         {
-
             draw.SetMode(1);
             draw.Begin();
             //draw.DrawTexture(target.GetTexture(), 0, 0, w, h, 1, 1, 1, 1);
@@ -199,51 +172,55 @@ namespace Vivid.SceneComposer
         {
             LightTargets[i].Bind();
         }
+
         private void ReleaseLightTarget(int i)
         {
             LightTargets[i].Release();
         }
+
         public void RenderShadows()
         {
-
             if (Scene != null)
             {
                 AddLights();
                 Scene.RenderShadows();
                 RemoveLights();
-            }else if (OCScene != null)
+            }
+            else if (OCScene != null)
             {
                 AddLights();
                 OCScene.RenderShadows();
                 RemoveLights();
             }
-
         }
+
         public void AddLights()
         {
             if (Scene != null)
             {
                 Scene.Lights = Lights;
             }
-            if(OCScene != null)
+            if (OCScene != null)
             {
                 OCScene.Scene.Lights = Lights;
             }
         }
+
         public void RemoveLights()
         {
             if (Scene != null)
             {
                 Scene.Lights = new List<Light>();
-            }else if (OCScene != null)
+            }
+            else if (OCScene != null)
             {
                 OCScene.Scene.Lights = new List<Light>();
             }
         }
+
         public void RenderScene(Light light)
         {
-
-            if(Scene != null)
+            if (Scene != null)
             {
                 Scene.Lights.Add(light);
                 Scene.Render();
@@ -251,13 +228,10 @@ namespace Vivid.SceneComposer
             }
             if (OCScene != null)
             {
-
                 //OCScene.Scene.Lights.Add(light);
                 OCScene.RenderLight(light);
                 //OCScene.Scene.Lights.Clear();
             }
-
         }
-
     }
 }

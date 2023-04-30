@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Vivid.Scene;
-
+﻿using Vivid.Scene;
 
 namespace Vivid.Nodes
 {
-
     public class FreeLook : Camera
     {
-        float cp = 0, cy = 0;
+        private float cp = 0, cy = 0;
+
         public override void UpdateNode()
         {
             //base.UpdateNode();
 
-            if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.W)) 
+            if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.W))
             {
                 Move(0, 0, -0.07f);
             }
@@ -28,7 +21,6 @@ namespace Vivid.Nodes
             if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.D))
             {
                 Move(0.05f, 0, 0);
-
             }
             if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.S))
             {

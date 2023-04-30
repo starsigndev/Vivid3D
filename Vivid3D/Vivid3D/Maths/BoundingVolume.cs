@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vivid.Maths
+﻿namespace Vivid.Maths
 {
     public class BoundingVolume
     {
-
         public float MinX, MinY, MinZ;
         public float MaxX, MaxY, MaxZ;
+
         public float Width
         {
             get
@@ -18,6 +12,7 @@ namespace Vivid.Maths
                 return MaxX - MinX;
             }
         }
+
         public float Height
         {
             get
@@ -33,6 +28,5 @@ namespace Vivid.Maths
                 return MaxZ - MinZ;
             }
         }
-
     }
 }

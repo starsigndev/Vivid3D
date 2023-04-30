@@ -1,23 +1,16 @@
-﻿using Vivid.Texture;
-using OpenTK.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using Vivid.App;
+using Vivid.Texture;
 
 namespace Vivid.RenderTarget
 {
     public class RenderTarget2D
     {
-
-        FramebufferHandle FB;
+        private FramebufferHandle FB;
         public Texture2D BB;
         public TextureDepth DB;
-        RenderbufferHandle RB;
+        private RenderbufferHandle RB;
 
         public int Width
         {
@@ -33,10 +26,8 @@ namespace Vivid.RenderTarget
 
         public RenderTarget2D(int w, int h)
         {
-          
             Width = w;
             Height = h;
-
 
             FB = GL.CreateFramebuffer();
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, FB);
@@ -61,7 +52,6 @@ namespace Vivid.RenderTarget
 
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, FramebufferHandle.Zero);
             GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, RenderbufferHandle.Zero);
-
         }
 
         ~RenderTarget2D()
@@ -73,20 +63,18 @@ namespace Vivid.RenderTarget
 
         public void ClearZ()
         {
-            
         }
+
         public void Bind()
         {
-
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, FB);
             // SetVP.Set(0, 0, IW, IH);
             VividApp.BoundRT2D = this;
 
-            GL.Viewport(0, 0,Width,Height);
+            GL.Viewport(0, 0, Width, Height);
             GL.ClearColor(0, 1, 1, 1);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.ClearColor(1, 0, 0, 1);
-
         }
 
         public void Release()
@@ -95,15 +83,11 @@ namespace Vivid.RenderTarget
             // SetVP.Set(0, 0, AppInfo.W, AppInfo.H);
             VividApp.BoundRT2D = null;
             GL.Viewport(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
-
         }
 
         public Texture2D GetTexture()
         {
-
             return BB;
-
         }
-
     }
 }

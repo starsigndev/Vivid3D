@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK.Mathematics;
 using Vivid.Meshes;
-using OpenTK.Mathematics;
+
 namespace Vivid.Scene
 {
     public class SceneHelper
     {
-
-        public static Vivid.Meshes.Mesh BoundsToMesh(BoundingBox box,Entity owner)
+        public static Vivid.Meshes.Mesh BoundsToMesh(BoundingBox box, Entity owner)
         {
-
             Meshes.Mesh mesh = new Meshes.Mesh(owner);
 
             Vector3 min, max;
@@ -31,13 +25,12 @@ namespace Vivid.Scene
             vertices[6] = new Vector3(max.X, max.Y, max.Z);
             vertices[7] = new Vector3(min.X, max.Y, max.Z);
 
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 Vertex v = new Vertex();
                 v.Position = vertices[i];
                 mesh.AddVertex(v, false);
             }
-            
 
             int[] triangles = new int[36];
 
@@ -95,7 +88,7 @@ namespace Vivid.Scene
             triangles[34] = 2;
             triangles[35] = 3;
 
-            for(int i=0;i<triangles.Length;i+=3)
+            for (int i = 0; i < triangles.Length; i += 3)
             {
                 Triangle t = new Triangle();
                 t.V0 = triangles[i];
@@ -110,8 +103,6 @@ namespace Vivid.Scene
             mesh.CreateBuffers();
 
             return mesh;
-
         }
-
     }
 }

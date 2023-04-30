@@ -1,17 +1,10 @@
-﻿using Vivid.Meshes;
-using OpenTK.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
 namespace Vivid.Mesh
 {
     public class MeshBuffer
     {
-
         public VertexArrayHandle VertexArray
         {
             get;
@@ -38,7 +31,6 @@ namespace Vivid.Mesh
 
         public bool SetBuffer(Vivid.Meshes.Mesh mesh)
         {
-
             VertexArray = GL.GenVertexArray();
             Buffer = GL.GenBuffer();
             IndexBuffer = GL.GenBuffer();
@@ -52,7 +44,6 @@ namespace Vivid.Mesh
             IndexCount = index_data.Length;
 
             GL.BufferData(BufferTargetARB.ArrayBuffer, data, BufferUsageARB.StaticDraw);
-
 
             //position
             GL.EnableVertexAttribArray(0);
@@ -91,25 +82,20 @@ namespace Vivid.Mesh
 
             GL.BindVertexArray(VertexArrayHandle.Zero);
             GL.BindBuffer(BufferTargetARB.ArrayBuffer, BufferHandle.Zero);
-            GL.BindBuffer(BufferTargetARB.ElementArrayBuffer,BufferHandle.Zero);
+            GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, BufferHandle.Zero);
 
             return true;
-
         }
 
         public void Render()
         {
-
             GL.BindVertexArray(VertexArray);
             GL.BindBuffer(BufferTargetARB.ArrayBuffer, Buffer);
             GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, IndexBuffer);
             GL.DrawElements(PrimitiveType.Triangles, IndexCount, DrawElementsType.UnsignedInt, 0);
             //GL.BindVertexArray(VertexArrayHandle.Zero);
-           // GL.BindBuffer(BufferTargetARB.ArrayBuffer,BufferHandle.Zero);
-          //  GL.BindBuffer(BufferTargetARB.ElementArrayBuffer,BufferHandle.Zero);
-
-
+            // GL.BindBuffer(BufferTargetARB.ArrayBuffer,BufferHandle.Zero);
+            //  GL.BindBuffer(BufferTargetARB.ElementArrayBuffer,BufferHandle.Zero);
         }
-
     }
 }

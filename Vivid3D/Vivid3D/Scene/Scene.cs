@@ -1,22 +1,10 @@
-﻿using Vivid.App;
-
+﻿using OpenTK.Mathematics;
+using Vivid.App;
 using Vivid.Materials;
-
 using Vivid.Mesh;
 using Vivid.Meshes;
 using Vivid.Physx;
 using Vivid.Renderers;
-using Vivid.Scene;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using OpenTK.Mathematics;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using OpenTK.Mathematics;
 
 namespace Vivid.Scene
 {
@@ -25,9 +13,9 @@ namespace Vivid.Scene
         public Vector3 Pos;
         public Vector3 Dir;
     }
+
     public class RaycastResult
     {
-
         public Vector3 Point
         {
             get;
@@ -76,21 +64,15 @@ namespace Vivid.Scene
             set;
         }
 
-      
-
         public RaycastResult()
         {
-
             Point = Vector3.Zero;
             Normal = Vector3.Zero;
             Node = null;
             Entity = null;
             Hit = false;
             Distance = 9999;
-
-
         }
-
     }
 
     /// <summary>
@@ -99,7 +81,6 @@ namespace Vivid.Scene
     /// </summary>
     public class Scene
     {
-
         /// <summary>
         /// This is the top level node. it should not be replaced, it should be added to. I.e, Scene.Root.AddNode(myChar)
         /// </summary>
@@ -175,32 +156,28 @@ namespace Vivid.Scene
             {
                 if (_EntList != null)
                 {
-                 //   return _EntList;
+                    //   return _EntList;
                 }
                 List<Entity> list = new List<Entity>();
                 AddEntities(list, Root);
                 _EntList = list;
                 return list;
-
             }
         }
-        List<Entity> _EntList = null;
 
-        void AddEntities(List<Entity> list,Node node)
+        private List<Entity> _EntList = null;
+
+        private void AddEntities(List<Entity> list, Node node)
         {
-
-            if(node is Entity)
+            if (node is Entity)
             {
-
                 list.Add(node as Entity);
-
             }
 
-            foreach(var sub in node.Nodes)
+            foreach (var sub in node.Nodes)
             {
                 AddEntities(list, sub);
             }
-
         }
 
         /// <summary>
@@ -210,17 +187,14 @@ namespace Vivid.Scene
         {
             get
             {
-
                 return ComputeOverallBoundingBox(EntityList);
                 //BoundingBox bb = new BoundingBox()
             }
-            
+
             set
             {
-
             }
         }
-
 
         /// <summary>
         /// Returns how many nodes are in the whole scene.
@@ -243,14 +217,10 @@ namespace Vivid.Scene
                 int tc = 0;
                 foreach (var ent in EntityList)
                 {
-
                     foreach (var mesh in ent.Meshes)
                     {
-
                         tc += mesh.Triangles.Count;
-
                     }
-
                 }
                 return tc;
             }
@@ -264,16 +234,12 @@ namespace Vivid.Scene
             get
             {
                 int vc = 0;
-                foreach(var ent in EntityList)
+                foreach (var ent in EntityList)
                 {
-                    
-                    foreach(var mesh in ent.Meshes)
+                    foreach (var mesh in ent.Meshes)
                     {
-
                         vc += mesh.Vertices.Count;
-
                     }
-
                 }
                 return vc;
             }
@@ -312,12 +278,10 @@ namespace Vivid.Scene
         /// </summary>
         public Scene()
         {
-
-
             Root = new Node();
             Lights = new List<Light>();
             MainCamera = new Camera();
-            ShadowRender = new  CubeRenderer(this, null);
+            ShadowRender = new CubeRenderer(this, null);
             VividApp.CurrentScene = this;
             PhysicsBegan = false;
             Properties = new PropertyList();
@@ -325,45 +289,37 @@ namespace Vivid.Scene
             MeshLines = new List<MeshLines>();
             //Bounds = new BoundingBox();
             sc++;
-
         }
+
         public int sc = 0;
 
         public void AddBoundsLine()
         {
-
         }
 
         private void ReadScene(BinaryReader r)
         {
-
             Root = ReadNode(r);
-
-
         }
 
-        private void ReadNodeData(Node node,BinaryReader r)
+        private void ReadNodeData(Node node, BinaryReader r)
         {
-
             node.Position = ReadVec3(r);
             node.Rotation = ReadMat4(r);
             node.Scale = ReadVec3(r);
             node.Name = r.ReadString();
             node.Enabled = r.ReadBoolean();
             node.NodeType = r.ReadString();
-
         }
+
         private Materials.MaterialBase ReadMaterial(BinaryReader r)
         {
-
             MaterialBase mat = new MaterialBase();
-
-
 
             string col = r.ReadString();
             string norm = r.ReadString();
             string spec = r.ReadString();
-            string col1  = Path.GetFileName(col);
+            string col1 = Path.GetFileName(col);
             string norm1 = Path.GetFileName(norm);
             string spec1 = Path.GetFileName(spec);
 
@@ -373,7 +329,6 @@ namespace Vivid.Scene
 
             if (cc != null)
             {
-
                 mat.ColorMap = new Texture.Texture2D(cc.GetStream(), cc.Width, cc.Height);
                 mat.NormalMap = new Texture.Texture2D(nc.GetStream(), nc.Width, nc.Height);
                 if (sc != null)
@@ -383,55 +338,44 @@ namespace Vivid.Scene
             }
             else
             {
-
                 mat.ColorMap = new Texture.Texture2D(col);
                 mat.NormalMap = new Texture.Texture2D(norm);
                 mat.SpecularMap = new Texture.Texture2D(spec);
                 //int b = 5;
-
-
             }
 
             return mat;
-
         }
 
-        public void ReadMeshData(Entity ent,BinaryReader r)
+        public void ReadMeshData(Entity ent, BinaryReader r)
         {
-
             Vector3 Readdpos3()
             {
-
                 float x, y, z;
                 x = r.ReadSingle();
                 y = r.ReadSingle();
                 z = r.ReadSingle();
                 return new Vector3(x, y, z);
-
-
             }
 
-            Vector4  Readdpos4(){
-
+            Vector4 Readdpos4()
+            {
                 float x, y, z, w;
                 x = r.ReadSingle();
                 y = r.ReadSingle();
                 z = r.ReadSingle();
                 w = r.ReadSingle();
-                return new Vector4(x, y, z,w);
-
+                return new Vector4(x, y, z, w);
             }
 
             int mesh_c = r.ReadInt32();
-            for(int i = 0; i < mesh_c; i++)
+            for (int i = 0; i < mesh_c; i++)
             {
-
                 Vivid.Meshes.Mesh mesh = new Vivid.Meshes.Mesh(ent);
 
                 int vert_c = r.ReadInt32();
-                for(int v = 0; v < vert_c; v++)
+                for (int v = 0; v < vert_c; v++)
                 {
-
                     Vertex vert = new Vertex();
                     vert.Position = Readdpos3();
                     vert.Normal = Readdpos3();
@@ -442,13 +386,11 @@ namespace Vivid.Scene
                     vert.BoneIDS = Readdpos4();
                     vert.Weights = Readdpos4();
                     mesh.AddVertex(vert, false);
-                
                 }
 
                 int tri_c = r.ReadInt32();
-                for(int t=0;t< tri_c; t++)
+                for (int t = 0; t < tri_c; t++)
                 {
-
                     Triangle tri = new Triangle();
 
                     tri.V0 = r.ReadInt32();
@@ -456,32 +398,27 @@ namespace Vivid.Scene
                     tri.V2 = r.ReadInt32();
 
                     mesh.AddTriangle(tri);
-
                 }
 
                 mesh.Material = ReadMaterial(r);
                 mesh.CreateBuffers();
                 ent.AddMesh(mesh);
-
             }
-
         }
 
-        public void ReadPhysicsData(Entity ent,BinaryReader r)
+        public void ReadPhysicsData(Entity ent, BinaryReader r)
         {
-
             ent.BodyKind = (BodyType)r.ReadInt32();
-
         }
-        public void ReadEntityData(Entity ent,BinaryReader r)
-        {
 
+        public void ReadEntityData(Entity ent, BinaryReader r)
+        {
             ReadNodeData(ent as Node, r);
             ReadMeshData(ent, r);
             ReadPhysicsData(ent, r);
-
         }
-        private void ReadLightData(Light light,BinaryReader r)
+
+        private void ReadLightData(Light light, BinaryReader r)
         {
             ReadNodeData(light as Node, r);
             light.Diffuse = ReadVec3(r);
@@ -493,18 +430,15 @@ namespace Vivid.Scene
             light.VolumetricShafts = r.ReadBoolean();
         }
 
-        private void ReadSpawnData(SpawnPoint spawn,BinaryReader r)
+        private void ReadSpawnData(SpawnPoint spawn, BinaryReader r)
         {
-
             ReadNodeData(spawn as Node, r);
             spawn.Index = r.ReadInt32();
             spawn.Type = r.ReadString();
-
         }
 
         private Node ReadNode(BinaryReader r)
         {
-
             Node res = null;
             int type = r.ReadInt32();
             switch (type)
@@ -515,13 +449,14 @@ namespace Vivid.Scene
                     ReadNodeData(res, r);
 
                     break;
+
                 case 1:
 
                     res = new Entity() as Node;
                     ReadEntityData(res as Entity, r);
 
-
                     break;
+
                 case 2:
 
                     res = new Light() as Node;
@@ -529,6 +464,7 @@ namespace Vivid.Scene
                     Lights.Add(res as Light);
 
                     break;
+
                 case 3:
 
                     res = new SpawnPoint() as Node;
@@ -540,17 +476,15 @@ namespace Vivid.Scene
 
             int node_c = r.ReadInt32();
 
-            for(int i = 0; i < node_c; i++)
+            for (int i = 0; i < node_c; i++)
             {
-
                 var sub = ReadNode(r);
                 res.AddNode(sub);
-
             }
 
             return res;
-
         }
+
         /// <summary>
         /// Load a whole scene from a memory stream. Usually used with the content system.
         /// </summary>
@@ -561,15 +495,14 @@ namespace Vivid.Scene
             BinaryReader r = new BinaryReader(stream);
             ReadScene(r);
             r.Close();
-
         }
+
         /// <summary>
         /// Loads a whole scene from file.
         /// </summary>
         /// <param name="path"></param>
         public void Load(string path)
         {
-
             Root = null;
             Lights.Clear();
 
@@ -580,19 +513,19 @@ namespace Vivid.Scene
 
             r.Close();
             fs.Close();
-
         }
+
         /// <summary>
         /// Saves a whole scene to file.
         /// </summary>
         /// <param name="path"></param>
         public void Save(string path)
         {
-            if(path is null || path == string.Empty)
+            if (path is null || path == string.Empty)
             {
                 return;
             }
-            FileStream fs = new FileStream(path,FileMode.Create,FileAccess.Write);
+            FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
             BinaryWriter w = new BinaryWriter(fs);
 
             WriteNode(w, Root);
@@ -600,82 +533,71 @@ namespace Vivid.Scene
             w.Flush();
             fs.Flush();
             fs.Close();
-
         }
-        private void WriteVec3(BinaryWriter w,Vector3 v)
-        {
 
+        private void WriteVec3(BinaryWriter w, Vector3 v)
+        {
             w.Write(v.X);
             w.Write(v.Y);
             w.Write(v.Z);
-
         }
 
         private Vector3 ReadVec3(BinaryReader r)
         {
-
             Vector3 res = new Vector3();
-
 
             res.X = r.ReadSingle();
             res.Y = r.ReadSingle();
             res.Z = r.ReadSingle();
 
             return res;
-
         }
 
         private Matrix4 ReadMat4(BinaryReader r)
         {
-
             Matrix4 res = new Matrix4();
 
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for(int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; j++)
                 {
-                    res[i,j] = r.ReadSingle();
+                    res[i, j] = r.ReadSingle();
                 }
             }
 
             return res;
         }
 
-        private void WriteMat4(BinaryWriter w,Matrix4 m)
+        private void WriteMat4(BinaryWriter w, Matrix4 m)
         {
-
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for(int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     w.Write(m[i, j]);
                 }
             }
-
         }
 
-        private void WriteNodeData(BinaryWriter w,Node node)
+        private void WriteNodeData(BinaryWriter w, Node node)
         {
-
             WriteVec3(w, node.Position);
             WriteMat4(w, node.Rotation);
             WriteVec3(w, node.Scale);
             w.Write(node.Name);
             w.Write(node.Enabled);
             w.Write(node.NodeType);
-
         }
-        private void WriteMaterial(BinaryWriter w,Vivid.Materials.MaterialBase mat)
-        {
 
+        private void WriteMaterial(BinaryWriter w, Vivid.Materials.MaterialBase mat)
+        {
             w.Write(mat.ColorMap.Path);
             w.Write(mat.NormalMap.Path);
             w.Write(mat.SpecularMap.Path);
-
         }
-        private void WriteMeshData(BinaryWriter w,Entity ent)
-        {
 
+        private void WriteMeshData(BinaryWriter w, Entity ent)
+        {
             void Writedpos3(Vector3 p)
             {
                 w.Write(p.X);
@@ -690,11 +612,10 @@ namespace Vivid.Scene
                 w.Write(p.W);
             }
             w.Write(ent.Meshes.Count);
-            foreach(var mesh in ent.Meshes)
+            foreach (var mesh in ent.Meshes)
             {
-
                 w.Write(mesh.Vertices.Count);
-                foreach(var v in mesh.Vertices)
+                foreach (var v in mesh.Vertices)
                 {
                     Writedpos3(v.Position);
                     Writedpos3(v.Normal);
@@ -707,41 +628,34 @@ namespace Vivid.Scene
                 }
 
                 w.Write(mesh.Triangles.Count);
-                foreach(var t in mesh.Triangles)
+                foreach (var t in mesh.Triangles)
                 {
-
                     w.Write(t.V0);
                     w.Write(t.V1);
                     w.Write(t.V2);
-
                 }
 
                 WriteMaterial(w, mesh.Material);
-
             }
-
         }
-        private void WritePhysicsData(BinaryWriter w,Entity ent)
-        {
 
+        private void WritePhysicsData(BinaryWriter w, Entity ent)
+        {
             w.Write((int)ent.BodyKind);
-
         }
-        private void WriteEntityData(BinaryWriter w,Entity ent)
-        {
 
+        private void WriteEntityData(BinaryWriter w, Entity ent)
+        {
             WriteNodeData(w, ent);
             WriteMeshData(w, ent);
             WritePhysicsData(w, ent);
-
-            
-
         }
+
         //private void WriteSkeletalData(BinaryWriter w,SkeletalEntity actor)
         //{
-       //     WriteEntityData(w, actor);
-     //   }
-        private void WriteLightData(BinaryWriter w,Light light)
+        //     WriteEntityData(w, actor);
+        //   }
+        private void WriteLightData(BinaryWriter w, Light light)
         {
             WriteNodeData(w, light);
             WriteVec3(w, light.Diffuse);
@@ -751,40 +665,35 @@ namespace Vivid.Scene
             w.Write(light.InnerCone);
             w.Write(light.OuterCone);
             w.Write(light.VolumetricShafts);
-
-
         }
 
-        private void WriteSpawnData(BinaryWriter w,SpawnPoint spawn)
+        private void WriteSpawnData(BinaryWriter w, SpawnPoint spawn)
         {
-
             WriteNodeData(w, (Node)spawn);
             w.Write((int)spawn.Index);
             w.Write(spawn.Type);
-
-
         }
 
         private void WriteNode(BinaryWriter w, Node node)
         {
-
-            if( node is SpawnPoint)
+            if (node is SpawnPoint)
             {
-
                 w.Write((int)3);
-                WriteSpawnData(w,(SpawnPoint)node);
-
-            }else 
-            if(node is Light)
+                WriteSpawnData(w, (SpawnPoint)node);
+            }
+            else
+            if (node is Light)
             {
                 w.Write((int)2);
                 //WriteNodeData(w, node);
-                WriteLightData(w, (Light)node); 
-            }else if(node is Entity)
+                WriteLightData(w, (Light)node);
+            }
+            else if (node is Entity)
             {
                 w.Write((int)1);
                 WriteEntityData(w, node as Entity);
-            }else if(node is Node)
+            }
+            else if (node is Node)
             {
                 w.Write(0);
                 WriteNodeData(w, node);
@@ -792,27 +701,19 @@ namespace Vivid.Scene
 
             w.Write((int)node.Nodes.Count);
 
-            foreach(var sub in node.Nodes)
+            foreach (var sub in node.Nodes)
             {
-
                 WriteNode(w, sub);
-
             }
-
-            
-
         }
-
 
         public void AddNode(Node node)
         {
-
             Root.AddNode(node);
-            if(node is SpawnPoint)
+            if (node is SpawnPoint)
             {
                 Spawns.Add(node as SpawnPoint);
             }
-
         }
 
         /// <summary>
@@ -825,7 +726,6 @@ namespace Vivid.Scene
                 Root.BeginPhysics();
                 PhysicsBegan = true;
             }
-
         }
 
         /// <summary>
@@ -833,9 +733,7 @@ namespace Vivid.Scene
         /// </summary>
         public void UpdatePhysics()
         {
-
             Root.UpdatePhysics();
-
         }
 
         /// <summary>
@@ -846,62 +744,60 @@ namespace Vivid.Scene
             UpdatePhysics();
             MainCamera.Update();
             Root.Update();
-       
-
         }
 
-        private void NodeKeyDown(Node node,KeyID key)
+        private void NodeKeyDown(Node node, KeyID key)
         {
-
             node.OnKeyDown(key);
-            foreach(var sub in node.Nodes)
+            foreach (var sub in node.Nodes)
             {
                 NodeKeyDown(sub, key);
             }
-
         }
-        private void NodeKeyUp(Node node,KeyID key)
+
+        private void NodeKeyUp(Node node, KeyID key)
         {
             node.OnKeyUp(key);
             foreach (var sub in node.Nodes)
             {
                 NodeKeyUp(sub, key);
             }
-
         }
-        private void NodeKeyPressed(Node node,KeyID key)
-        {
 
+        private void NodeKeyPressed(Node node, KeyID key)
+        {
             node.OnKeyPressed(key);
-            foreach(var sub in node.Nodes)
+            foreach (var sub in node.Nodes)
             {
                 NodeKeyPressed(sub, key);
             }
-
         }
-        private void NodeMouseMove(Node node,float x,float y)
-        {
 
-            node.OnMuseMove(x,y);
-            foreach(var sub in node.Nodes)
+        private void NodeMouseMove(Node node, float x, float y)
+        {
+            node.OnMuseMove(x, y);
+            foreach (var sub in node.Nodes)
             {
                 NodeMouseMove(sub, x, y);
             }
-
         }
+
         public virtual void OnKeyPressed(KeyID key)
         {
             NodeKeyPressed(Root, key);
         }
+
         public virtual void OnKeyDown(KeyID key)
         {
             NodeKeyDown(Root, key);
         }
+
         public virtual void OnKeyUp(KeyID key)
         {
             NodeKeyUp(Root, key);
         }
-        public virtual void OnMouseMove(float x,float y)
+
+        public virtual void OnMouseMove(float x, float y)
         {
             NodeMouseMove(Root, x, y);
         }
@@ -915,32 +811,25 @@ namespace Vivid.Scene
             List<Vivid.Meshes.Mesh> meshes = new List<Vivid.Meshes.Mesh>();
             AddMeshes(meshes, Root);
             return meshes;
-
         }
-        public void AddMeshes(List<Vivid.Meshes.Mesh> list,Node node)
+
+        public void AddMeshes(List<Vivid.Meshes.Mesh> list, Node node)
         {
-
-            if(node is Entity)
+            if (node is Entity)
             {
-
                 var ent = node as Entity;
-                foreach(var mesh in ent.Meshes)
+                foreach (var mesh in ent.Meshes)
                 {
-
                     list.Add(mesh);
-
                 }
-
             }
 
-            foreach(var sub_node in node.Nodes)
+            foreach (var sub_node in node.Nodes)
             {
-
                 AddMeshes(list, sub_node);
-
             }
-
         }
+
         /// <summary>
         /// Performs a raycast against a single entity and returns the result.
         /// </summary>
@@ -948,9 +837,8 @@ namespace Vivid.Scene
         /// <param name="y"></param>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public  RaycastResult MousePickNode(int x,int y,Entity entity)
+        public RaycastResult MousePickNode(int x, int y, Entity entity)
         {
-
             Ray ray = GetMousePickRay(x, y);
 
             RaycastResult res = new RaycastResult();
@@ -960,15 +848,15 @@ namespace Vivid.Scene
                 return new RaycastResult();
             }
             return res;
-
         }
+
         /// <summary>
         /// Casts a ray against the whole scene from the mouse position provided.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public RaycastResult MousePick(int x,int y)
+        public RaycastResult MousePick(int x, int y)
         {
             Ray ray = GetMousePickRay(x, y);
 
@@ -976,12 +864,9 @@ namespace Vivid.Scene
 
             var meshes = GetMeshes();
 
-            res = Raycast(ray,meshes);
-
+            res = Raycast(ray, meshes);
 
             return res;
-
-
         }
 
         private static Ray GetMousePickRay(int x, int y)
@@ -990,7 +875,6 @@ namespace Vivid.Scene
             float h = App.VividApp.FrameHeight;
 
             //     y =(int)h - y;
-
 
             float mx = -1 + (float)(x) / (float)(w) * 2;
             float my = 1 - (float)(y) / (float)(h) * 2;
@@ -1005,7 +889,6 @@ namespace Vivid.Scene
             Vector3 ray_origin = Vector3.TransformPerspective(origin, inverseProj);
             Vector3 ray_end = Vector3.TransformPerspective(dest, inverseProj);
 
-
             Vector3 ray_dir = ray_end - ray_origin;
             ray_dir = ray_dir.Normalized();
 
@@ -1016,15 +899,16 @@ namespace Vivid.Scene
             return ray;
         }
 
-        const float EPSILON = 0.0000001f;
-        RaycastResult RayToTri(Ray ray,Vector3 v0,Vector3 v1,Vector3 v2)
+        private const float EPSILON = 0.0000001f;
+
+        private RaycastResult RayToTri(Ray ray, Vector3 v0, Vector3 v1, Vector3 v2)
         {
             Vector3 edge1, edge2, h, s, q;
             float a, f, u, v;
             RaycastResult res = new RaycastResult();
 
-            edge1 =v1 - v0;// vertex1 - vertex0;
-            edge2 =v2 - v0;
+            edge1 = v1 - v0;// vertex1 - vertex0;
+            edge2 = v2 - v0;
             h = Vector3.Cross(ray.Dir, edge2);
             a = Vector3.Dot(edge1, h);
             if (a > -EPSILON && a < EPSILON)
@@ -1056,21 +940,18 @@ namespace Vivid.Scene
             return res;
 
             return res;
-
         }
 
-        public RaycastResult Raycast(Ray ray,Vivid.Meshes.Mesh mesh)
+        public RaycastResult Raycast(Ray ray, Vivid.Meshes.Mesh mesh)
         {
-
             RaycastResult res = new RaycastResult();
             float close = 999999;
             RaycastResult closeres = null;
 
             var mat = mesh.Owner.WorldMatrix;
 
-            for(int i = 0; i < mesh.Triangles.Count; i++)
+            for (int i = 0; i < mesh.Triangles.Count; i++)
             {
-
                 var v0 = mesh.Vertices[mesh.Triangles[i].V0].Position;
                 var v1 = mesh.Vertices[mesh.Triangles[i].V2].Position;
                 var v2 = mesh.Vertices[mesh.Triangles[i].V1].Position;
@@ -1081,55 +962,44 @@ namespace Vivid.Scene
 
                 vec1 = Vector3.TransformPosition(vec1, mat);
                 vec2 = Vector3.TransformPosition(vec2, mat);
-                vec3 = Vector3.TransformPosition(vec3 ,mat);
+                vec3 = Vector3.TransformPosition(vec3, mat);
 
                 RaycastResult r1 = RayToTri(ray, vec1, vec2, vec3);
                 r1.Node = mesh.Owner;
                 r1.Entity = mesh.Owner as Entity;
                 if (r1.Hit)
                 {
-
                     if (closeres == null)
                     {
                         closeres = r1;
                         close = (ray.Pos - r1.Point).LengthSquared;
-
                     }
                     else
                     {
-
                         float dist = (ray.Pos - r1.Point).LengthSquared;
                         if (dist < close)
                         {
                             close = dist;
                             closeres = r1;
                         }
-
-
                     }
                     //int a = 5;
-
                 }
-
-
             }
 
             return closeres;
-
         }
 
-        public RaycastResult Raycast(Ray ray,List<Vivid.Meshes.Mesh> meshes)
+        public RaycastResult Raycast(Ray ray, List<Vivid.Meshes.Mesh> meshes)
         {
-
             //var meshes = GetMeshes();
 
             RaycastResult close = null;
             float close_dist = 9999;
             RaycastResult res = new RaycastResult();
 
-            foreach(var mesh in meshes)
+            foreach (var mesh in meshes)
             {
-
                 RaycastResult r1 = Raycast(ray, mesh);
                 if (r1 != null)
                 {
@@ -1152,13 +1022,10 @@ namespace Vivid.Scene
                         }
                     }
                 }
-              //  return close;
-
+                //  return close;
             }
 
-
             return close;
-
         }
 
         /// <summary>
@@ -1166,35 +1033,29 @@ namespace Vivid.Scene
         /// </summary>
         public void Render()
         {
-          
             bool firstPass = true;
             foreach (var light in Lights)
             {
-
-               
                 Root.Render(light, MainCamera, firstPass);
                 firstPass = false;
                 //RenderGlobals.FirstPass = false;
-
             }
-
         }
 
         public void RenderPositions()
         {
             Root.RenderPositions(MainCamera);
         }
+
         public void RenderNormals()
         {
             Root.RenderNormals(MainCamera);
         }
+
         public void RenderDepth()
         {
-
             //RenderGlobals.CurrentCamera = MainCamera;
             Root.RenderDepth(MainCamera);
-
-
         }
 
         /// <summary>
@@ -1202,23 +1063,19 @@ namespace Vivid.Scene
         /// </summary>
         public void RenderShadows()
         {
-
-            foreach(var light in Lights)
+            foreach (var light in Lights)
             {
-
                 ShadowRender.mRT = light.RTC;
                 ShadowRender.RenderDepth(light.Position, light.Range);
             }
-
         }
 
         public void RenderSimple()
         {
             RenderGlobals.CurrentCamera = MainCamera;
             Root.RenderSimple();
-
         }
-        
+
         /// <summary>
         /// Finds a specific spawn within the scene.
         /// </summary>
@@ -1236,7 +1093,7 @@ namespace Vivid.Scene
             }
             else
             {
-                foreach(var spawn in Spawns)
+                foreach (var spawn in Spawns)
                 {
                     if (spawn.Name.ToLower() == name.ToLower())
                     {
@@ -1246,6 +1103,7 @@ namespace Vivid.Scene
             }
             return null;
         }
+
         /// <summary>
         /// Finds a specific spawn.
         /// </summary>
@@ -1253,7 +1111,7 @@ namespace Vivid.Scene
         /// <param name="index"></param>
         /// <param name="caseSensitive"></param>
         /// <returns></returns>
-        public SpawnPoint FindSpawn(string name,int index,bool caseSensitive = false)
+        public SpawnPoint FindSpawn(string name, int index, bool caseSensitive = false)
         {
             if (caseSensitive)
             {
@@ -1281,11 +1139,11 @@ namespace Vivid.Scene
         /// <param name="type"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public SpawnPoint FindSpawnByType(string type,int index = -1)
+        public SpawnPoint FindSpawnByType(string type, int index = -1)
         {
-            foreach(var spawn in Spawns)
+            foreach (var spawn in Spawns)
             {
-                if(spawn.Type == type)
+                if (spawn.Type == type)
                 {
                     if (index >= 0)
                     {
@@ -1300,7 +1158,6 @@ namespace Vivid.Scene
             return null;
         }
 
-
         /// <summary>
         /// Renders the list of MeshLines attached to the scene.
         /// </summary>
@@ -1308,7 +1165,7 @@ namespace Vivid.Scene
         {
             RenderGlobals.CurrentCamera = MainCamera;
             RenderGlobals.CurrentNode = null;
-            foreach(var ml in MeshLines)
+            foreach (var ml in MeshLines)
             {
                 Matrix4 proj = RenderGlobals.CurrentCamera.Projection;
                 Matrix4 view = RenderGlobals.CurrentCamera.WorldMatrix;
@@ -1320,9 +1177,7 @@ namespace Vivid.Scene
                 ml.Render();
 
                 //GemBridge.gem_MeshRenderer_RenderMeshLines(RenderGlobals.MeshRenderer, ml.MeshBuffer, proj.handle, view.handle, model.handle);
-
             }
-
         }
 
         /// <summary>
@@ -1335,11 +1190,11 @@ namespace Vivid.Scene
             List<T> nodes = new List<T>();
             void GetNodes(Node node)
             {
-                if(node is T)
+                if (node is T)
                 {
                     nodes.Add(node as T);
                 }
-                foreach(var sub in node.Nodes)
+                foreach (var sub in node.Nodes)
                 {
                     GetNodes(sub);
                 }
@@ -1356,23 +1211,19 @@ namespace Vivid.Scene
         public List<Node> GetAllOfNodeType(string type)
         {
             List<Node> list = new List<Node>();
-            void AddNodeOfType(string type,Node node)
+            void AddNodeOfType(string type, Node node)
             {
                 if (type == node.NodeType)
                 {
                     list.Add(node);
                 }
-                foreach(var sub in node.Nodes)
+                foreach (var sub in node.Nodes)
                 {
                     AddNodeOfType(type, sub);
                 }
             }
             AddNodeOfType(type, Root);
             return list;
-            
-
-
         }
-
     }
 }

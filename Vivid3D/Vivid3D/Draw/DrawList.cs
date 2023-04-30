@@ -1,16 +1,9 @@
 ﻿using Vivid.Texture;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Vivid.Draw
 {
     public class DrawList
     {
-
         public List<DrawInfo> InfoList
         {
             get;
@@ -25,10 +18,8 @@ namespace Vivid.Draw
 
         public DrawList()
         {
-
             InfoList = new List<DrawInfo>();
             Texture = new Texture2D[2];
-
         }
 
         public void Add(DrawInfo info)
@@ -38,13 +29,11 @@ namespace Vivid.Draw
 
         public uint[] GenerateIndexData()
         {
-
             uint[] data = new uint[InfoList.Count * 6];
             int ii = 0;
             uint iv = 0;
             foreach (var info in InfoList)
             {
-
                 data[ii++] = iv;
                 data[ii++] = iv + 1;
                 data[ii++] = iv + 2;
@@ -53,22 +42,18 @@ namespace Vivid.Draw
                 data[ii++] = iv;
 
                 iv = iv + 4;
-
             }
 
             return data;
-
-
         }
+
         public float[] GenerateVertexData()
         {
-
-            float[] data = new float[InfoList.Count * 9*4];
+            float[] data = new float[InfoList.Count * 9 * 4];
 
             int loc = 0;
-            foreach(var info in InfoList)
+            foreach (var info in InfoList)
             {
-
                 for (int i = 0; i < 4; i++)
                 {
                     //pos
@@ -90,9 +75,8 @@ namespace Vivid.Draw
                         }
                         //if (info.FlipUV)
                         //{
-                           
-                        
-                    }else if (i == 1)
+                    }
+                    else if (i == 1)
                     {
                         data[loc++] = 1;
                         if (info.FlipUV)
@@ -134,10 +118,8 @@ namespace Vivid.Draw
                     data[loc++] = info.Color.b;
                     data[loc++] = info.Color.a;
                 }
-
             }
             return data;
         }
-
     }
 }

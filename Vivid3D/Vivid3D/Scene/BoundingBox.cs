@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Vivid.Scene;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
 namespace Vivid.Scene
 {
@@ -13,8 +6,10 @@ namespace Vivid.Scene
     {
         public Vector3 Min { get; set; }
         public Vector3 Max { get; set; }
-        public Vector3 Center { get { return (this.Min + this.Max) / 2; } }
-        public Vector3 HalfSize { get { return (this.Max - this.Min) / 2; } }
+        public Vector3 Center
+        { get { return (this.Min + this.Max) / 2; } }
+        public Vector3 HalfSize
+        { get { return (this.Max - this.Min) / 2; } }
 
         public BoundingBox(Vector3 min, Vector3 max)
         {
@@ -24,9 +19,7 @@ namespace Vivid.Scene
 
         public BoundingBox(Vivid.Meshes.Mesh mesh)
         {
-
             Matrix4 world = mesh.Owner.WorldMatrix;
-
 
             if (mesh == null || mesh.Vertices.Count == 0)
             {
@@ -87,16 +80,12 @@ namespace Vivid.Scene
                 {
                     BoundingBox meshBoundingBox = mesh.Owner.ComputeMeshBoundingBox(mesh);
 
-                    if ( Intersects(meshBoundingBox))
+                    if (Intersects(meshBoundingBox))
                     {
-
-
-                       
-
                         foreach (Vector3 vertex in mesh.Positions)
                         {
                             //Vector3 vertexWorldSpace = Vector3.Transform(vertex, entity.WorldMatrix);
-                            Vector3 tv = Vector3.TransformVector(vertex,world);
+                            Vector3 tv = Vector3.TransformVector(vertex, world);
 
                             if (Contains(tv))
                             {
@@ -130,8 +119,8 @@ namespace Vivid.Scene
         {
             return GetCorners()[id];
         }
-    
-    public bool IntersectsBoundingBox(Vector3 a, Vector3 b, Vector3 c)
+
+        public bool IntersectsBoundingBox(Vector3 a, Vector3 b, Vector3 c)
         {
             BoundingBox boundingBox = this;
             // Calculate the minimum and maximum x, y, and z values of the bounding box
@@ -167,7 +156,6 @@ namespace Vivid.Scene
 
         public List<BoundingBox> SubdivideBoundingBox()
         {
-
             var boundingBox = this;
             Vector3 center = (boundingBox.Max + boundingBox.Min) / 2f;
 
@@ -183,6 +171,5 @@ namespace Vivid.Scene
 
             return subNodes;
         }
-
     }
 }

@@ -1,15 +1,7 @@
-﻿
+﻿using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using Vivid.Meshes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Graphics;
-using OpenTK.Mathematics;
-using OpenTK.Graphics.OpenGL;
 
 namespace Vivid.Mesh
 {
@@ -38,6 +30,7 @@ namespace Vivid.Mesh
             get;
             set;
         }
+
         public List<LineVertex> Vertices
         {
             get;
@@ -56,10 +49,8 @@ namespace Vivid.Mesh
             Lines = new List<Line>();
         }
 
-        public void AddLine(Vector3 p1,Vector3 p2,Vector4 col)
+        public void AddLine(Vector3 p1, Vector3 p2, Vector4 col)
         {
-
-            
             LineVertex v0;
             LineVertex v1;
 
@@ -77,13 +68,10 @@ namespace Vivid.Mesh
             l1.v1 = Vertices.Count - 1;
 
             Lines.Add(l1);
-
-
         }
 
         public void AddBox(Vector3 min, Vector3 max, Vector4 col)
         {
-
             Vector3 p1, p2, p3, p4;
             Vector3 p5, p6, p7, p8;
 
@@ -96,8 +84,6 @@ namespace Vivid.Mesh
             p6 = new Vector3(max.X, max.Y, min.Z);
             p7 = new Vector3(max.X, max.Y, max.Z);
             p8 = new Vector3(min.X, max.Y, max.Z);
-
-
 
             AddLine(p1, p2, col);
             AddLine(p2, p3, col);
@@ -113,17 +99,14 @@ namespace Vivid.Mesh
             AddLine(p2, p6, col);
             AddLine(p3, p7, col);
             AddLine(p4, p8, col);
-
-            
-
-
         }
+
         public float[] GenerateVertexData()
         {
             float[] data = new float[Vertices.Count * (3 + 4)];
 
             int loc = 0;
-            foreach(var vertex in Vertices)
+            foreach (var vertex in Vertices)
             {
                 data[loc++] = vertex.Position.X;
                 data[loc++] = vertex.Position.Y;
@@ -135,25 +118,22 @@ namespace Vivid.Mesh
                 data[loc++] = vertex.Color.W;
             }
             return data;
-
         }
+
         public uint[] GenerateIndexData()
         {
-
             uint[] data = new uint[Lines.Count * 2];
             int loc = 0;
             foreach (var line in Lines)
             {
                 data[loc++] = (uint)line.v0;
                 data[loc++] = (uint)line.v1;
-
-
             }
             return data;
         }
+
         public void CreateBuffers()
         {
-
             VertexArray = GL.GenVertexArray();
             Buffer = GL.GenBuffer();
             IndexBuffer = GL.GenBuffer();
@@ -168,16 +148,13 @@ namespace Vivid.Mesh
 
             GL.BufferData(BufferTargetARB.ArrayBuffer, data, BufferUsageARB.StaticDraw);
 
-
             //position
             GL.EnableVertexAttribArray(0);
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false,7*4, 0);
+            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 7 * 4, 0);
 
             //color
             GL.EnableVertexAttribArray(1);
-            GL.VertexAttribPointer(1, 4, VertexAttribPointerType.Float, false, 7*4, 3 * 4);
-
-          
+            GL.VertexAttribPointer(1, 4, VertexAttribPointerType.Float, false, 7 * 4, 3 * 4);
 
             GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, IndexBuffer);
             GL.BufferData(BufferTargetARB.ElementArrayBuffer, index_data, BufferUsageARB.StaticDraw);
@@ -190,16 +167,12 @@ namespace Vivid.Mesh
 
         public void Render()
         {
-
             GL.BindVertexArray(VertexArray);
             GL.BindBuffer(BufferTargetARB.ArrayBuffer, Buffer);
             GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, IndexBuffer);
             GL.DrawElements(PrimitiveType.Lines, IndexCount, DrawElementsType.UnsignedInt, 0);
-
         }
 
         public IntPtr MeshBuffer;
-      
-
     }
 }

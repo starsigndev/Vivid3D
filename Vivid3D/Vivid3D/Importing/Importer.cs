@@ -1,25 +1,14 @@
-﻿using Vivid.Scene;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assimp;
-using Vivid.Meshes;
+﻿using Assimp;
+
 //using Vivid.Anim;
 
 using OpenTK.Mathematics;
-using System.Diagnostics;
-using PhysX;
-
-using System.IO;
+using Vivid.Meshes;
 
 namespace Vivid.Importing
 {
-
     public static class Conv
     {
-
         public static Matrix4 AssimpMatrixToGLMMatrix(Assimp.Matrix4x4 assimpMat)
         {
             var gemMat = new Matrix4();
@@ -80,11 +69,9 @@ namespace Vivid.Importing
 
     public class Importer
     {
-
         /*
         public static T ImportSkeletalEntity<T>(MemoryStream stream) where T : Vivid.Scene.SkeletalEntity, new()
         {
-
             var imp = new Assimp.AssimpContext();
 
             var result = new T();
@@ -98,8 +85,6 @@ namespace Vivid.Importing
             List<Vivid.Materials.Material> mats = new List<Materials.Material>();
             foreach (var mat in s.Materials)
             {
-
-               
                     Vivid.Materials.Material nmat = new Materials.Material();
                     mats.Add(nmat);
                 if (mat.HasTextureDiffuse)
@@ -110,14 +95,10 @@ namespace Vivid.Importing
                     nmat.ColorMap = new Texture.Texture2D(item.GetStream(), item.Width, item.Height);
                     //   int a = 5;
                 }
-
-
             }
-
 
             foreach (var mesh in s.Meshes)
             {
-
                 Meshes.Mesh gMesh = new Meshes.Mesh(result);
                 gMesh.Material = mats[mesh.MaterialIndex];
 
@@ -127,7 +108,7 @@ namespace Vivid.Importing
             Vivid.Anim.Animation anim = new Anim.Animation(s, result);
             Vivid.Anim.Animator animator = new Animator(anim);
 
-            //node_anim = 
+            //node_anim =
 
             result.Animator = animator;
             result.Animator.Entity = result;
@@ -138,29 +119,24 @@ namespace Vivid.Importing
             result.GlobalInverse = Conv.AssimpMatrixToGLMMatrix(tf);
 
             return result;
-
         }
 
             public static T ImportSkeletalEntity<T>(string path) where T : Vivid.Scene.SkeletalEntity, new()
         {
-
             var imp = new Assimp.AssimpContext();
 
             var result = new T();
 
             List<Meshes.Mesh> meshes = new List<Meshes.Mesh>();
-           
+
             Assimp.Scene s = imp.ImportFile(path, PostProcessSteps.GenerateNormals | PostProcessSteps.CalculateTangentSpace | PostProcessSteps.OptimizeGraph);
 
             var m_GlobalInverseTransform = s.RootNode.Transform;
             m_GlobalInverseTransform.Inverse();
 
-
             foreach (var mesh in s.Meshes)
             {
-
                 Meshes.Mesh gMesh = new Meshes.Mesh(result);
-                            
 
                 result.ProcessMesh(mesh, s);
             }
@@ -168,7 +144,7 @@ namespace Vivid.Importing
             Vivid.Anim.Animation anim = new Anim.Animation(s, result);
             Vivid.Anim.Animator animator = new Animator(anim);
 
-            //node_anim = 
+            //node_anim =
 
             result.Animator = animator;
             result.Animator.Entity = result;
@@ -179,7 +155,6 @@ namespace Vivid.Importing
             result.GlobalInverse = Conv.AssimpMatrixToGLMMatrix(tf);
 
             return result;
-
         }
         */
 
@@ -195,19 +170,15 @@ namespace Vivid.Importing
             var m_GlobalInverseTransform = s.RootNode.Transform;
             m_GlobalInverseTransform.Inverse();
 
-
-
-
             return null;
-           
-            return actor;
 
+            return actor;
         }
 
         */
+
         public static T ImportEntity<T>(MemoryStream stream) where T : Vivid.Scene.Entity, new()
         {
-
             var imp = new Assimp.AssimpContext();
 
             T result = new T();
@@ -216,13 +187,11 @@ namespace Vivid.Importing
 
             List<Meshes.Mesh> meshes = new List<Meshes.Mesh>();
 
-
             List<Vivid.Materials.MaterialBase> mats = new List<Materials.MaterialBase>();
-            foreach(var mat in s.Materials)
+            foreach (var mat in s.Materials)
             {
-             
-                    Vivid.Materials.MaterialBase nmat = new Materials.MaterialBase();
-                    mats.Add(nmat);
+                Vivid.Materials.MaterialBase nmat = new Materials.MaterialBase();
+                mats.Add(nmat);
                 if (mat.HasTextureDiffuse)
                 {
                     string tex = mat.TextureDiffuse.FilePath;
@@ -233,12 +202,10 @@ namespace Vivid.Importing
                 }
                 if (mat.HasTextureNormal)
                 {
-
                     string tex = mat.TextureNormal.FilePath;
                     tex = Path.GetFileName(tex);
                     var item = Content.Content.GlobalFindItem(tex);
                     nmat.NormalMap = new Texture.Texture2D(item.GetStream(), item.Width, item.Height);
-
                 }
                 if (mat.HasTextureSpecular)
                 {
@@ -246,21 +213,15 @@ namespace Vivid.Importing
                     tex = Path.GetFileName(tex);
                     var item = Content.Content.GlobalFindItem(tex);
                     nmat.SpecularMap = new Texture.Texture2D(item.GetStream(), item.Width, item.Height);
-
                 }
-
-
-
             }
 
             foreach (var mesh in s.Meshes)
             {
-
                 Meshes.Mesh gMesh = new Meshes.Mesh(result);
                 gMesh.Material = mats[mesh.MaterialIndex];
                 for (int i = 0; i < mesh.Vertices.Count; i++)
                 {
-
                     Meshes.Vertex nv = new Meshes.Vertex();
                     nv.Position = new Vector3(mesh.Vertices[i].X, mesh.Vertices[i].Y, mesh.Vertices[i].Z);
                     nv.Normal = new Vector3(mesh.Normals[i].X, mesh.Normals[i].Y, mesh.Normals[i].Z);
@@ -269,57 +230,44 @@ namespace Vivid.Importing
                     nv.BiNormal = new Vector3(mesh.BiTangents[i].X, mesh.BiTangents[i].Y, mesh.BiTangents[i].Z);
                     nv.Tangent = new Vector3(mesh.Tangents[i].X, mesh.Tangents[i].Y, mesh.Tangents[i].Z);
 
-
                     gMesh.AddVertex(nv, false);
-
                 }
-
-
 
                 for (int i = 0; i < mesh.FaceCount; i++)
                 {
-
                     Triangle tri = new Triangle();
                     tri.V0 = mesh.Faces[i].Indices[0];
                     tri.V1 = mesh.Faces[i].Indices[1];
                     tri.V2 = mesh.Faces[i].Indices[2];
 
                     gMesh.AddTriangle(tri);
-
                 }
 
                 result.AddMesh(gMesh);
 
                 gMesh.CreateBuffers();
-
             }
 
             return result;
-
         }
-
 
         public static T ImportEntity<T>(string path) where T : Vivid.Scene.Entity, new()
         {
-
             var imp = new Assimp.AssimpContext();
 
             T result = new T();
 
-           
-
-            Assimp.Scene s = imp.ImportFile(path, PostProcessSteps.Triangulate | PostProcessSteps.GenerateNormals | PostProcessSteps.CalculateTangentSpace );
+            Assimp.Scene s = imp.ImportFile(path, PostProcessSteps.Triangulate | PostProcessSteps.GenerateNormals | PostProcessSteps.CalculateTangentSpace);
 
             result.Name = s.RootNode.Name;
 
-           // result.Rotation = Conv.AssimpMatrixToGLMMatrix(s.RootNode.Transform);
+            // result.Rotation = Conv.AssimpMatrixToGLMMatrix(s.RootNode.Transform);
 
             List<Meshes.Mesh> meshes = new List<Meshes.Mesh>();
 
             List<Vivid.Materials.MaterialBase> mats = new List<Materials.MaterialBase>();
             foreach (var mat in s.Materials)
             {
-
                 Vivid.Materials.MaterialBase nmat = new Materials.MaterialBase();
                 mats.Add(nmat);
                 if (mat.HasTextureDiffuse)
@@ -329,9 +277,7 @@ namespace Vivid.Importing
                     var item = Content.Content.GlobalFindItem(tex);
                     if (item == null)
                     {
-
                         nmat.ColorMap = new Texture.Texture2D(mat.TextureDiffuse.FilePath);
-
                     }
                     else
                     {
@@ -341,16 +287,13 @@ namespace Vivid.Importing
                 }
                 if (mat.HasTextureNormal)
                 {
-
                     string tex = mat.TextureNormal.FilePath;
                     tex = Path.GetFileName(tex);
                     var item = Content.Content.GlobalFindItem(tex);
 
                     if (item == null)
                     {
-
                         nmat.NormalMap = new Texture.Texture2D(mat.TextureNormal.FilePath);
-
                     }
                     else
                     {
@@ -359,7 +302,6 @@ namespace Vivid.Importing
                     }
 
                     //nmat.NormalMap = new Texture.Texture2D(item.GetStream(), item.Width, item.Height);
-
                 }
                 if (mat.HasTextureSpecular)
                 {
@@ -368,9 +310,7 @@ namespace Vivid.Importing
                     var item = Content.Content.GlobalFindItem(tex);
                     if (item == null)
                     {
-
                         nmat.SpecularMap = new Texture.Texture2D(mat.TextureSpecular.FilePath);
-
                     }
                     else
                     {
@@ -378,60 +318,43 @@ namespace Vivid.Importing
                         //   int a = 5;
                     }
                     //nmat.SpecularMap = new Texture.Texture2D(item.GetStream(), item.Width, item.Height);
-
                 }
-
-
-
             }
 
             foreach (var mesh in s.Meshes)
             {
-
                 Meshes.Mesh gMesh = new Meshes.Mesh(result);
                 gMesh.Material = mats[mesh.MaterialIndex];
 
-                for(int i = 0; i < mesh.Vertices.Count; i++)
+                for (int i = 0; i < mesh.Vertices.Count; i++)
                 {
-
                     Meshes.Vertex nv = new Meshes.Vertex();
-                    nv.Position = new Vector3(mesh.Vertices[i].X, mesh.Vertices[i].Z, mesh.Vertices[i].Y); 
-                    nv.Normal = new Vector3(mesh.Normals[i].X, mesh.Normals[i].Z,mesh.Normals[i].Y);
-                    nv.TexCoord = new Vector3(mesh.TextureCoordinateChannels[0][i].X, 1.0f-mesh.TextureCoordinateChannels[0][i].Y, 0);
+                    nv.Position = new Vector3(mesh.Vertices[i].X, mesh.Vertices[i].Z, mesh.Vertices[i].Y);
+                    nv.Normal = new Vector3(mesh.Normals[i].X, mesh.Normals[i].Z, mesh.Normals[i].Y);
+                    nv.TexCoord = new Vector3(mesh.TextureCoordinateChannels[0][i].X, 1.0f - mesh.TextureCoordinateChannels[0][i].Y, 0);
                     nv.Color = new Vector4(1, 1, 1, 1);
                     nv.BiNormal = new Vector3(mesh.BiTangents[i].X, mesh.BiTangents[i].Z, mesh.BiTangents[i].Y);
                     nv.Tangent = new Vector3(mesh.Tangents[i].X, mesh.Tangents[i].Z, mesh.Tangents[i].Y);
-                  
 
-                    gMesh.AddVertex(nv,false);
-
+                    gMesh.AddVertex(nv, false);
                 }
 
-            
-
-                for(int i = 0; i < mesh.FaceCount; i++)
+                for (int i = 0; i < mesh.FaceCount; i++)
                 {
-
                     Triangle tri = new Triangle();
                     tri.V0 = mesh.Faces[i].Indices[0];
                     tri.V1 = mesh.Faces[i].Indices[2];
                     tri.V2 = mesh.Faces[i].Indices[1];
 
                     gMesh.AddTriangle(tri);
-
                 }
 
                 result.AddMesh(gMesh);
 
                 gMesh.CreateBuffers();
-
             }
 
             return result;
-
-
-
         }
-
     }
 }

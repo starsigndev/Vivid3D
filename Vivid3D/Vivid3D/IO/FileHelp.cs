@@ -1,29 +1,22 @@
-﻿using Vivid.Scene;
+﻿using OpenTK.Mathematics;
+using Vivid.Materials;
 using Vivid.Meshes;
 using Vivid.Physx;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vivid.Materials;
-using OpenTK.Mathematics;
+using Vivid.Scene;
+
 namespace Vivid.IO
 {
     public static class FileHelp
     {
         public static void WriteVec3(BinaryWriter w, Vector3 v)
         {
-
             w.Write(v.X);
             w.Write(v.Y);
             w.Write(v.Z);
-
         }
 
         public static Vector3 ReadVec3(BinaryReader r)
         {
-
             Vector3 res = new Vector3();
 
             res.X = r.ReadSingle();
@@ -31,12 +24,10 @@ namespace Vivid.IO
             res.Z = r.ReadSingle();
 
             return res;
-
         }
 
         public static Matrix4 ReadMat4(BinaryReader r)
         {
-
             Matrix4 res = new Matrix4();
 
             for (int i = 0; i < 4; i++)
@@ -52,7 +43,6 @@ namespace Vivid.IO
 
         public static void WriteMat4(BinaryWriter w, Matrix4 m)
         {
-
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -60,42 +50,37 @@ namespace Vivid.IO
                     w.Write(m[i, j]);
                 }
             }
-
         }
+
         public static void WriteNodeData(BinaryWriter w, Vivid.Scene.Node node)
         {
-
             WriteVec3(w, node.Position);
             WriteMat4(w, node.Rotation);
             WriteVec3(w, node.Scale);
             w.Write(node.Name);
             w.Write(node.Enabled);
             w.Write(node.NodeType);
-
         }
+
         public static void ReadNodeData(Vivid.Scene.Node node, BinaryReader r)
         {
-
             node.Position = ReadVec3(r);
             node.Rotation = ReadMat4(r);
             node.Scale = ReadVec3(r);
             node.Name = r.ReadString();
             node.Enabled = r.ReadBoolean();
             node.NodeType = r.ReadString();
-
         }
 
         public static void WriteMaterial(BinaryWriter w, Vivid.Materials.MaterialBase mat)
         {
-
             w.Write(mat.ColorMap.Path);
             w.Write(mat.NormalMap.Path);
             w.Write(mat.SpecularMap.Path);
-
         }
+
         public static void WriteMeshData(BinaryWriter w, Entity ent)
         {
-
             void Writedpos3(Vector3 p)
             {
                 w.Write(p.X);
@@ -112,7 +97,6 @@ namespace Vivid.IO
             w.Write(ent.Meshes.Count);
             foreach (var mesh in ent.Meshes)
             {
-
                 w.Write(mesh.Vertices.Count);
                 foreach (var v in mesh.Vertices)
                 {
@@ -129,37 +113,30 @@ namespace Vivid.IO
                 w.Write(mesh.Triangles.Count);
                 foreach (var t in mesh.Triangles)
                 {
-
                     w.Write(t.V0);
                     w.Write(t.V1);
                     w.Write(t.V2);
-
                 }
 
                 WriteMaterial(w, mesh.Material);
-
             }
-
         }
+
         public static void WritePhysicsData(BinaryWriter w, Entity ent)
         {
-
             w.Write((int)ent.BodyKind);
-
         }
+
         public static void WriteEntityData(BinaryWriter w, Entity ent)
         {
-
             WriteNodeData(w, ent);
             WriteMeshData(w, ent);
             WritePhysicsData(w, ent);
-
-
-
         }
-       // public static void WriteSkeletalData(BinaryWriter w, SkeletalEntity actor)
+
+        // public static void WriteSkeletalData(BinaryWriter w, SkeletalEntity actor)
         //{
-         //   WriteEntityData(w, actor);
+        //   WriteEntityData(w, actor);
         //}
         public static void WriteLightData(BinaryWriter w, Light light)
         {
@@ -171,27 +148,18 @@ namespace Vivid.IO
             w.Write(light.InnerCone);
             w.Write(light.OuterCone);
             w.Write(light.VolumetricShafts);
-
-
         }
 
         public static void WriteSpawnData(BinaryWriter w, SpawnPoint spawn)
         {
-
             WriteNodeData(w, (Node)spawn);
             w.Write((int)spawn.Index);
             w.Write(spawn.Type);
-
-
         }
 
-      
         public static Materials.MaterialBase ReadMaterial(BinaryReader r)
         {
-
             MaterialBase mat = new MaterialBase();
-
-
 
             string col = r.ReadString();
             string norm = r.ReadString();
@@ -206,66 +174,53 @@ namespace Vivid.IO
 
             if (cc != null)
             {
-
-                mat.ColorMap = new Texture.Texture2D(cc.GetStream(), cc.Width, cc.Height,cc.FullName);
-                mat.NormalMap = new Texture.Texture2D(nc.GetStream(), nc.Width, nc.Height,nc.FullName);
+                mat.ColorMap = new Texture.Texture2D(cc.GetStream(), cc.Width, cc.Height, cc.FullName);
+                mat.NormalMap = new Texture.Texture2D(nc.GetStream(), nc.Width, nc.Height, nc.FullName);
                 if (sc != null)
                 {
-                    mat.SpecularMap = new Texture.Texture2D(sc.GetStream(), sc.Width, sc.Height,sc.FullName);
+                    mat.SpecularMap = new Texture.Texture2D(sc.GetStream(), sc.Width, sc.Height, sc.FullName);
                 }
             }
             else
             {
-
                 mat.ColorMap = new Texture.Texture2D(col);
                 mat.NormalMap = new Texture.Texture2D(norm);
                 mat.SpecularMap = new Texture.Texture2D(spec);
                 //int b = 5;
-
-
             }
 
             return mat;
-
         }
 
         public static void ReadMeshData(Entity ent, BinaryReader r)
         {
-
             Vector3 Readdpos3()
             {
-
                 float x, y, z;
                 x = r.ReadSingle();
                 y = r.ReadSingle();
                 z = r.ReadSingle();
                 return new Vector3(x, y, z);
-
-
             }
 
             Vector4 Readdpos4()
             {
-
                 float x, y, z, w;
                 x = r.ReadSingle();
                 y = r.ReadSingle();
                 z = r.ReadSingle();
                 w = r.ReadSingle();
                 return new Vector4(x, y, z, w);
-
             }
 
             int mesh_c = r.ReadInt32();
             for (int i = 0; i < mesh_c; i++)
             {
-
                 Vivid.Meshes.Mesh mesh = new Vivid.Meshes.Mesh(ent);
 
                 int vert_c = r.ReadInt32();
                 for (int v = 0; v < vert_c; v++)
                 {
-
                     Vertex vert = new Vertex();
                     vert.Position = Readdpos3();
                     vert.Normal = Readdpos3();
@@ -276,13 +231,11 @@ namespace Vivid.IO
                     vert.BoneIDS = Readdpos4();
                     vert.Weights = Readdpos4();
                     mesh.AddVertex(vert, false);
-
                 }
 
                 int tri_c = r.ReadInt32();
                 for (int t = 0; t < tri_c; t++)
                 {
-
                     Triangle tri = new Triangle();
 
                     tri.V0 = r.ReadInt32();
@@ -290,31 +243,26 @@ namespace Vivid.IO
                     tri.V2 = r.ReadInt32();
 
                     mesh.AddTriangle(tri);
-
                 }
 
                 mesh.Material = ReadMaterial(r);
                 mesh.CreateBuffers();
                 ent.AddMesh(mesh);
-
             }
-
         }
 
         public static void ReadPhysicsData(Entity ent, BinaryReader r)
         {
-
             ent.BodyKind = (BodyType)r.ReadInt32();
-
         }
+
         public static void ReadEntityData(Entity ent, BinaryReader r)
         {
-
             ReadNodeData(ent as Node, r);
             ReadMeshData(ent, r);
             ReadPhysicsData(ent, r);
-
         }
+
         public static void ReadLightData(Light light, BinaryReader r)
         {
             ReadNodeData(light as Node, r);
@@ -329,13 +277,9 @@ namespace Vivid.IO
 
         public static void ReadSpawnData(SpawnPoint spawn, BinaryReader r)
         {
-
             ReadNodeData(spawn as Node, r);
             spawn.Index = r.ReadInt32();
             spawn.Type = r.ReadString();
-
         }
-
-
     }
 }

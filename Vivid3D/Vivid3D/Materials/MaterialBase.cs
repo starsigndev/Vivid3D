@@ -1,17 +1,11 @@
-﻿using Vivid.Maths;
-using Vivid.Shaders;
-using Vivid.Texture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Vivid.Texture;
 
 namespace Vivid.Materials
 {
     public class MaterialBase
     {
-        public static Texture2D bcol=null, bnorm, bspec;
+        public static Texture2D bcol = null, bnorm, bspec;
+
         public Texture2D ColorMap
         {
             get;
@@ -34,10 +28,7 @@ namespace Vivid.Materials
         {
             get;
             set;
-
         }
-
-       
 
         public GeminiStandardFX Shader
         {
@@ -45,7 +36,7 @@ namespace Vivid.Materials
             set;
         }
 
-        //public GeminiStandardFX 
+        //public GeminiStandardFX
 
         public MaterialBase()
         {
@@ -59,8 +50,6 @@ namespace Vivid.Materials
             NormalMap = bnorm;
             SpecularMap = ColorMap;
             DisplaceMap = bspec;
-         
         }
-
     }
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PhysX;
-using Vivid.Meshes;
+﻿using PhysX;
+
 //using OpenTK.Mathematics;
-using Vivid.Maths;
 
 namespace Vivid.Physx
 {
@@ -24,7 +18,7 @@ namespace Vivid.Physx
             set;
         }
 
-        public PXTriMesh(List<Vivid.Meshes.Mesh> meshes,int index)
+        public PXTriMesh(List<Vivid.Meshes.Mesh> meshes, int index)
         {
             Meshes = meshes;
             Index = index;
@@ -43,29 +37,25 @@ namespace Vivid.Physx
             TriangleMeshDesc td = new TriangleMeshDesc();
 
             System.Numerics.Vector3[] points = new System.Numerics.Vector3[vc];
-            for(int i = 0; i < mesh.Vertices.Count; i++)
+            for (int i = 0; i < mesh.Vertices.Count; i++)
             {
-
                 //var pos = mesh.Vertices[i].Position;
                 //var np = new Vector3(pos.x, pos.y, pos.z) * mesh.Owner.WorldMatrix;
 
-               // points[i] = new System.Numerics.Vector3(-np.x, np.y, np.z);
-
+                // points[i] = new System.Numerics.Vector3(-np.x, np.y, np.z);
             }
 
             int[] tris = new int[mesh.Triangles.Count * 6];
 
             int ii = 0;
-            for(int i = 0; i < mesh.Triangles.Count; i++)
+            for (int i = 0; i < mesh.Triangles.Count; i++)
             {
-
                 tris[ii++] = (int)mesh.Triangles[i].V0;
                 tris[ii++] = (int)mesh.Triangles[i].V2;
                 tris[ii++] = (int)mesh.Triangles[i].V1;
                 //tris[ii++] = (int)mesh.Triangles[i].V0;
-               // tris[ii++] = (int)mesh.Triangles[i].V1;
-               // tris[ii++] = (int)mesh.Triangles[i].V2;
-
+                // tris[ii++] = (int)mesh.Triangles[i].V1;
+                // tris[ii++] = (int)mesh.Triangles[i].V2;
             }
 
             td.Points = points;
@@ -79,10 +69,7 @@ namespace Vivid.Physx
 
             var tm = QPhysics._Physics.CreateTriangleMesh(stream);
 
-
             int bb = 0;
-
-            
 
             Material = Vivid.Physx.QPhysics._Physics.CreateMaterial(0.4f, 0.4f, 0.4f);
 
@@ -95,14 +82,9 @@ namespace Vivid.Physx
             int a = 5;
 
             //Vivid.Physx.QPhysics._Scene.AddActor(Body);
-            Vivid.Physx.QPhysics.AddActor(Body,mesh.Owner);
-
-
-
+            Vivid.Physx.QPhysics.AddActor(Body, mesh.Owner);
         }
 
-
         public TriangleMesh triMesh = null;
-
     }
 }

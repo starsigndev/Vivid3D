@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK.Mathematics;
 using Vivid.Audio;
 using Vivid.Renderers;
 using Vivid.Resource;
-using OpenTK.Mathematics;
-
-using PhysX;
-
 
 namespace Vivid.Scene
 {
@@ -22,7 +13,6 @@ namespace Vivid.Scene
 
     public class Node : GemResource
     {
-
         /// <summary>
         /// If enabled is set to false, the node and it's children are not a part of the overall
         /// scene update's and render;
@@ -34,8 +24,8 @@ namespace Vivid.Scene
         }
 
         /// <summary>
-        /// This is a property of the Node class that represents the name of the node. It has both a getter and a setter, 
-        /// which allows you to get or set the value of the name property of the Node object. 
+        /// This is a property of the Node class that represents the name of the node. It has both a getter and a setter,
+        /// which allows you to get or set the value of the name property of the Node object.
         /// The value of the property is of type string, and it is used to give a meaningful name to the node.
         /// </summary>
         public string Name
@@ -57,7 +47,7 @@ namespace Vivid.Scene
         }
 
         /// <summary>
-        /// This code defines a public property called "Scale" of type Vec3. 
+        /// This code defines a public property called "Scale" of type Vec3.
         /// This property allows the user to access and modify the scaling values of an object in a 3D space.
         /// </summary>
         public Vector3 Scale
@@ -72,6 +62,7 @@ namespace Vivid.Scene
                 _ScaleMat = Matrix4.CreateScale(value);
             }
         }
+
         private Vector3 _Scale = new Vector3(1, 1, 1);
         private Matrix4 _ScaleMat = Matrix4.Identity;
 
@@ -82,7 +73,6 @@ namespace Vivid.Scene
         {
             get
             {
-
                 return _LocalPos;
             }
             set
@@ -91,6 +81,7 @@ namespace Vivid.Scene
                 _PosMatrix = Matrix4.CreateTranslation(_LocalPos);
             }
         }
+
         private Matrix4 _PosMatrix = Matrix4.Identity;
         private Vector3 _LocalPos = new Vector3(0, 0, 0);
 
@@ -101,12 +92,9 @@ namespace Vivid.Scene
         public Vector3 WorldPosition
         {
             get;
-            
-               
-            
+
             set;
         }
-
 
         /// <summary>
         /// The local rotation of the node.
@@ -128,27 +116,19 @@ namespace Vivid.Scene
         {
             get
             {
-
-
                 Matrix4 root_mat = Matrix4.Identity;
 
                 if (Root != null)
                 {
                     root_mat = Root.WorldMatrix;
                 }
-           
 
                 return Rotation * Matrix4.CreateTranslation(Position) * root_mat;// * scale_mat;
 
-
                 // }
 
-              
                 //return final_mat * root_mat;
-
-
             }
-
         }
 
         /// <summary>
@@ -159,7 +139,6 @@ namespace Vivid.Scene
             get;
             set;
         }
-
 
         /// <summary>
         /// Nodes are the child nodes of this node.
@@ -202,20 +181,19 @@ namespace Vivid.Scene
             get;
             set;
         }
-       
+
         /// <summary>
         /// This will create a basic node, with all internals reset to zero/identity.
         /// </summary>
         public Node()
         {
-
             Name = "Node001";
             Position = new Vector3();
             WorldPosition = new Vector3();
             Rotation = Matrix4.Identity;
             Nodes = new List<Node>();
             Root = null;
-            HitSounds = new List<Sound> ();
+            HitSounds = new List<Sound>();
             Enabled = true;
             Scale = Vector3.One;
             NodeType = "";
@@ -230,15 +208,10 @@ namespace Vivid.Scene
         /// <param name="x">X Units</param>
         /// <param name="y">Y Units</param>
         /// <param name="z">Z Units</param>
-        public void Move(float x,float y,float z)
+        public void Move(float x, float y, float z)
         {
-
-
-
             Vector3 mv = TransformVector(new Vector3(x, y, z));
             Position = Position + mv;
-
-          
         }
 
         /// <summary>
@@ -258,9 +231,8 @@ namespace Vivid.Scene
         /// <param name="pitch"></param>
         /// <param name="yaw"></param>
         /// <param name="roll"></param>
-        public void SetRotation(float pitch,float yaw,float roll)
+        public void SetRotation(float pitch, float yaw, float roll)
         {
-
             pitch = MathHelper.DegreesToRadians(pitch);
             yaw = MathHelper.DegreesToRadians(yaw);
             roll = MathHelper.DegreesToRadians(roll);
@@ -274,8 +246,6 @@ namespace Vivid.Scene
             Matrix4 r_mat = Matrix4.CreateRotationZ(roll);
 
             Rotation = p_mat * y_mat * r_mat;
-           
-
         }
 
         /// <summary>
@@ -284,7 +254,6 @@ namespace Vivid.Scene
         /// <param name="node">The node to align to.</param>
         public void AlignToNode(Node node)
         {
-
             Position = node.Position;
             if (this is Camera)
             {
@@ -298,7 +267,6 @@ namespace Vivid.Scene
 
         public virtual void UpdatePX()
         {
-
         }
 
         /// <summary>
@@ -307,22 +275,18 @@ namespace Vivid.Scene
         /// <param name="p"></param>
         /// <param name="y"></param>
         /// <param name="r"></param>
-        public virtual void TurnBody(float p,float y,float r)
+        public virtual void TurnBody(float p, float y, float r)
         {
-
-
-
         }
+
         /// <summary>
         /// Moves the physics body by the given amount.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public virtual void MoveBody(float x,float y,float z)
+        public virtual void MoveBody(float x, float y, float z)
         {
-
-
         }
 
         /// <summary>
@@ -332,10 +296,9 @@ namespace Vivid.Scene
         /// <returns></returns>
         public virtual bool BodyOnGround()
         {
-
             return true;
-
         }
+
         /// <summary>
         /// Override this method so your node can respond to key presses.
         /// In this, this method will be called every frame the key is pressed.
@@ -343,9 +306,8 @@ namespace Vivid.Scene
         /// <param name="key"></param>
         public virtual void OnKeyPressed(KeyID key)
         {
-
-
         }
+
         /// <summary>
         /// Override this method so your node can respond to key presses.
         /// In this, this method will be called just once, when a key is first pushed down.
@@ -353,8 +315,8 @@ namespace Vivid.Scene
         /// <param name="key"></param>
         public virtual void OnKeyDown(KeyID key)
         {
-
         }
+
         /// <summary>
         /// Override this method so your node can respond to key presses.
         /// In this, this method will be called just once, when a key is first released.
@@ -362,7 +324,6 @@ namespace Vivid.Scene
         /// <param name="key"></param>
         public virtual void OnKeyUp(KeyID key)
         {
-
         }
 
         /// <summary>
@@ -370,28 +331,23 @@ namespace Vivid.Scene
         /// </summary>
         /// <param name="x">X amount in pixels.</param>
         /// <param name="y">Y amount in pixels.</param>
-        public virtual void OnMuseMove(float x,float y)
+        public virtual void OnMuseMove(float x, float y)
         {
-
-
         }
-
 
         /// <summary>
         // when you rotate a node in local space, the rotation is applied relative to the node's current orientation.
         // In other words, the node rotates around its own axis.
-         // On the other hand, when you rotate a node in global space, the rotation is applied relative to the world's
-         // coordinate system. This means the node rotates around the global axis, regardless of its current orientation.
-  
+        // On the other hand, when you rotate a node in global space, the rotation is applied relative to the world's
+        // coordinate system. This means the node rotates around the global axis, regardless of its current orientation.
+
         /// </summary>
         /// <param name="pitch"></param>
         /// <param name="yaw"></param>
         /// <param name="roll"></param>
         /// <param name="local"></param>
-        public void Turn(float pitch,float yaw,float roll,bool local = true)
+        public void Turn(float pitch, float yaw, float roll, bool local = true)
         {
-
-
             pitch = MathHelper.DegreesToRadians(pitch);
             yaw = MathHelper.DegreesToRadians(yaw);
             roll = MathHelper.DegreesToRadians(roll);
@@ -411,9 +367,7 @@ namespace Vivid.Scene
             {
                 Rotation = Rotation * (y_mat * p_mat * r_mat);
             }
-                UpdatePX();
-          
-
+            UpdatePX();
         }
 
         /// <summary>
@@ -432,63 +386,51 @@ namespace Vivid.Scene
         public virtual void RenderSimple()
         {
             RenderGlobals.CurrentNode = this;
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
-
                 node.RenderSimple();
-
             }
-
         }
-
 
         /// <summary>
         /// This is the primary render method, it will render a node with both lighting and shadows.
         /// This should not be called directly, rather use Scene.Render() to render the whole scene.
-        /// 
+        ///
         /// </summary>
         /// <param name="l"></param>
         /// <param name="c"></param>
         /// <param name="firstPass"></param>
-        public virtual void Render(Light l,Camera c,bool firstPass)
+        public virtual void Render(Light l, Camera c, bool firstPass)
         {
-
-          
-           
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
-
-                node.Render(l,c,firstPass);
-
+                node.Render(l, c, firstPass);
             }
-
         }
+
         public virtual void RenderPositions(Camera c)
         {
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
                 node.RenderPositions(c);
-
             }
         }
+
         public virtual void RenderNormals(Camera c)
         {
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
                 node.RenderNormals(c);
             }
         }
-        public virtual void RenderDepth(Camera c,bool ignore_child=false)
+
+        public virtual void RenderDepth(Camera c, bool ignore_child = false)
         {
-
             RenderGlobals.CurrentNode = this;
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
-
                 node.RenderDepth(c);
-
             }
-
         }
 
         public void LookAtZero(Vector3 p, Vector3 up)
@@ -498,14 +440,14 @@ namespace Vivid.Scene
         }
 
         /// <summary>
-        /// This will initiate physics for this node, including the creation of it's 
+        /// This will initiate physics for this node, including the creation of it's
         /// internal physics body.
         /// See BodyKind for me information.
         /// </summary>
         public virtual void BeginPhysics()
         {
             if (!Enabled) return;
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
                 node.BeginPhysics();
             }
@@ -514,13 +456,10 @@ namespace Vivid.Scene
         public virtual void UpdatePhysics()
         {
             if (!Enabled) return;
-            foreach(var node in Nodes)
+            foreach (var node in Nodes)
             {
-
                 node.UpdatePhysics();
-
             }
-
         }
 
         /// <summary>
@@ -530,17 +469,14 @@ namespace Vivid.Scene
         /// <returns></returns>
         public Vector3 TransformVector(Vector3 vector)
         {
-
-            if(this is Camera)
+            if (this is Camera)
             {
-           //     return vector * Rotation;
+                //     return vector * Rotation;
             }
             return Vector3.TransformVector(vector, Rotation);
 
             //var result = vector * Rotation;// * new Vec4(vector, 1.0f);
             //return result;
-
-
         }
 
         /// <summary>
@@ -550,12 +486,10 @@ namespace Vivid.Scene
         /// <returns></returns>
         public Vector3 TransformPosition(Vector3 position)
         {
-
             if (this is Camera)
             {
                 //var result = WorldMatrix* new Vec4(position, 1.0f);
                 return Vector3.TransformPosition(position, WorldMatrix.Inverted());
-                
             }
             else
             {
@@ -568,12 +502,11 @@ namespace Vivid.Scene
         {
             PointAt(point, new Vector3(0, 1, 0));
         }
-        public void PointAt(Vector3 point,Vector3 up)
+
+        public void PointAt(Vector3 point, Vector3 up)
         {
             //!!!!!!!!!!!!!
             //Rotation = Matrix4.LookAt(vec3.Zero, -(point - LocalPosition),up).Inverse;
-
-
         }
 
         /// <summary>
@@ -582,7 +515,6 @@ namespace Vivid.Scene
         /// <returns></returns>
         public virtual Node Clone()
         {
-
             var clone = new Node();
             clone.Rotation = Rotation;
             clone.Position = Position;
@@ -590,21 +522,17 @@ namespace Vivid.Scene
             clone.Nodes = Nodes;
             clone.Name = Name + "_Clone";
             return clone;
-
-
         }
 
-      
         public void Update()
         {
             if (!Enabled) return;
             UpdateNode();
-            
-            foreach(var node in Nodes)
+
+            foreach (var node in Nodes)
             {
                 node.Update();
             }
-
         }
 
         /// <summary>
@@ -612,24 +540,23 @@ namespace Vivid.Scene
         /// </summary>
         public virtual void InitNode()
         {
-
         }
+
         /// <summary>
         /// Called once per frame of the simulation.
         /// </summary>
         public virtual void UpdateNode()
         {
-
         }
+
         /// <summary>
         /// Called once per render of the simulation.
         /// </summary>
         public virtual void RenderNode()
         {
-
         }
 
-        void PlayHitSound(float force)
+        private void PlayHitSound(float force)
         {
             if (HitSounds.Count == 0) return;
 
@@ -639,23 +566,16 @@ namespace Vivid.Scene
                 var chan = sound.Play2D();
                 float bas = 0.2f;
 
-
                 chan.SetPitch(0.2f + force);
                 chan.SetVolume(0.2f + force);
             }
             //Console.WriteLine("Force:" + force);
-
-
         }
 
-
-        public virtual void OnCollision(Vector3 pos,Vector3 force,Vector3 normal,Node other)
+        public virtual void OnCollision(Vector3 pos, Vector3 force, Vector3 normal, Node other)
         {
             PlayHitSound(force.LengthSquared);
             //Console.WriteLine("Collided AT:" + pos.ToString());
-
-
         }
-
     }
 }

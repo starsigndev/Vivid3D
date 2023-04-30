@@ -1,25 +1,14 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Vivid.Graphics;
 using Vivid.Scene;
-using Vivid.Graphics;
-using OpenTK.Mathematics;
+
 namespace Vivid.Renderers
 {
     public struct Constants
     {
-
-
-
     }
-
 
     public static class RenderGlobals
     {
-
         public static IntPtr MeshRenderer
         {
             get;
@@ -57,13 +46,12 @@ namespace Vivid.Renderers
         }
 
         public static bool FirstPass = false;
+
         public static void InitPipelines()
         {
             return;
             MeshLit = new GraphicsPipeline("data/mesh_lit.vsh", "data/mesh_lit.psh");
             int a = 5;
-
         }
-
     }
 }

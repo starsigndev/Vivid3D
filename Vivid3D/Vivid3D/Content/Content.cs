@@ -1,13 +1,4 @@
-﻿using SixLabors.ImageSharp.Formats.Tga;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ionic.Zlib;
-using PhysX;
+﻿using Ionic.Zlib;
 using System.Runtime.InteropServices;
 
 namespace Vivid.Content
@@ -15,6 +6,7 @@ namespace Vivid.Content
     public class Content
     {
         public static List<Content> ActiveContents = new List<Content>();
+
         public string Name
         {
             get;
@@ -31,16 +23,15 @@ namespace Vivid.Content
 
         public bool CompressImages
         {
-            get;set;
+            get; set;
         }
+
         public static ContentItem GlobalFindItem(string name)
         {
-
-            foreach(var con in ActiveContents)
+            foreach (var con in ActiveContents)
             {
                 var res = con.Find(name);
                 if (res != null) return res;
-
             }
 
             return null;
@@ -55,26 +46,25 @@ namespace Vivid.Content
 
         public Content()
         {
-
         }
 
         public void AddFile(FileInfo file)
         {
-
-            Items.Add(new ContentItem(file.FullName, file.Name,file.FullName));
-
+            Items.Add(new ContentItem(file.FullName, file.Name, file.FullName));
         }
 
-        public void AddContentToStream(ContentItem file,MemoryStream stream)
+        public void AddContentToStream(ContentItem file, MemoryStream stream)
         {
             FileStream fs = new FileStream(file.FullName, FileMode.Open, FileAccess.Read);
             fs.CopyTo(stream);
             fs.Close();
         }
-        public void AddImageToStream(MemoryStream img,MemoryStream stream)
+
+        public void AddImageToStream(MemoryStream img, MemoryStream stream)
         {
             img.CopyTo(stream);
         }
+
         public string GetFileExtension(string filePath)
         {
             string extension = Path.GetExtension(filePath);
@@ -86,20 +76,21 @@ namespace Vivid.Content
 
             return string.Empty;
         }
+
         public static MemoryStream GetImageStream(string imagePath)
         {
             var img = new System.DrawingCore.Bitmap(imagePath);
             var data = img.LockBits(new System.DrawingCore.Rectangle(0, 0, img.Width, img.Height), System.DrawingCore.Imaging.ImageLockMode.ReadOnly, System.DrawingCore.Imaging.PixelFormat.Format32bppArgb);
-            
+
             int w = img.Width;
 
             int h = img.Height;
             MemoryStream res = new MemoryStream(w * h * 4);
-            
+
             res.Position = 0;
-            for(int y = 0; y < h; y++)
+            for (int y = 0; y < h; y++)
             {
-                for(int x = 0; x < w; x++)
+                for (int x = 0; x < w; x++)
                 {
                     int i = y * data.Stride + x * 4;
                     byte r = Marshal.ReadByte(data.Scan0, i + 2);
@@ -111,31 +102,26 @@ namespace Vivid.Content
                     res.WriteByte(g);
                     res.WriteByte(b);
                     res.WriteByte(a);
-
-
                 }
             }
             img.UnlockBits(data);
             res.Position = 0;
             return res;
         }
+
         public static System.Drawing.Size GetImageDimensions(string imagePath)
         {
             var img = new System.DrawingCore.Bitmap(imagePath);
-            return new System.Drawing.Size(img.Width,img.Height);
+            return new System.Drawing.Size(img.Width, img.Height);
         }
+
         public void Build(string output)
         {
-
-            
-           
-
             long offset = 0;
             long size = 0;
 
             foreach (var file in Items)
             {
-
                 MemoryStream stream = new MemoryStream();
 
                 string ext = GetFileExtension(file.FullName);
@@ -153,14 +139,11 @@ namespace Vivid.Content
                             var img_data = GetImageStream(file.FullName);
 
                             img_data.Position = 0;
-                        
 
                             var compressed = ZlibStream.CompressBuffer(img_data.ToArray());
 
-
                             if (CompressImages)
                             {
-
                                 file.Compressed = false;
                                 //stream.CopyTo
                                 img_data.CopyTo(stream);
@@ -174,13 +157,11 @@ namespace Vivid.Content
                                 offset += compressed.LongLength;
                                 file.ContentLength = compressed.Length;
                             }
-
-
                         }
                         break;
+
                     default:
                         {
-
                             byte[] LoadData(ContentItem file)
                             {
                                 return File.ReadAllBytes(file.FullName);
@@ -190,12 +171,10 @@ namespace Vivid.Content
 
                             byte[] data = LoadData(file);
 
-
                             var compressed = ZlibStream.CompressBuffer(data);
 
                             if (compressed.Length == 0)
                             {
-
                                 file.Compressed = false;
                                 stream.Write(data);
                                 offset += data.LongLength;
@@ -209,11 +188,8 @@ namespace Vivid.Content
                                 file.ContentLength = compressed.Length;
                             }
 
-                            
-
                             int b = 5;
-                            
-                            
+
                             /*
                             file.ContentStart = offset;
                             AddContentToStream(file, stream);
@@ -223,22 +199,19 @@ namespace Vivid.Content
                             /file.ContentLength = size;
                             */
                         }
-                            break;
+                        break;
                 }
                 int a = 5;
                 stream.Position = 0;
                 file.SaveStream = stream;
 
-
                 Console.WriteLine("File:" + file.LocalName + " Pos:" + file.ContentStart + " Len:" + file.ContentLength);
             }
 
-
-            WriteIndex(output+".index");
+            WriteIndex(output + ".index");
             WriteContent(output + ".content");
-
-
         }
+
         public void ReadIndex(string file)
         {
             FileStream fs = new FileStream(file + ".index", FileMode.Open, FileAccess.Read);
@@ -246,9 +219,8 @@ namespace Vivid.Content
 
             long num = r.ReadInt64();
 
-            for(long i = 0; i < num; i++)
+            for (long i = 0; i < num; i++)
             {
-
                 string local = r.ReadString();
                 string dotted = r.ReadString();
                 string full = r.ReadString();
@@ -266,7 +238,7 @@ namespace Vivid.Content
                 item.ContentLength = data_len;
                 item.Type = (ContentType)data_type;
                 item.Compressed = data_com;
-                if(item.Type == ContentType.Texture2D)
+                if (item.Type == ContentType.Texture2D)
                 {
                     item.Width = r.ReadInt32();
                     item.Height = r.ReadInt32();
@@ -277,13 +249,14 @@ namespace Vivid.Content
 
             fs.Close();
         }
+
         public void WriteIndex(string file)
         {
-            FileStream fs = new FileStream(file,FileMode.Create, FileAccess.Write);
+            FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write);
             BinaryWriter w = new BinaryWriter(fs);
 
             w.Write((long)Items.Count);
-            for(int i = 0; i < Items.Count; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
                 var item = Items[i];
                 w.Write(item.LocalName);
@@ -293,34 +266,31 @@ namespace Vivid.Content
                 w.Write(item.ContentStart);
                 w.Write(item.ContentLength);
                 w.Write(item.Compressed);
-                
+
                 w.Write((int)item.Type);
-                if(item.Type == ContentType.Texture2D)
+                if (item.Type == ContentType.Texture2D)
                 {
                     w.Write(item.Width);
                     w.Write(item.Height);
                 }
             }
-            
+
             fs.Flush();
             fs.Close();
         }
+
         public void WriteContent(string output)
         {
-
-          
             FileStream fs = new FileStream(output, FileMode.Create, FileAccess.Write);
-          //  BinaryWriter w = new BinaryWriter(fs);
+            //  BinaryWriter w = new BinaryWriter(fs);
 
-            foreach(var file in Items)
+            foreach (var file in Items)
             {
-
                 file.SaveStream.CopyTo(fs);
 
                 //byte[] data = file.SaveStream.
 
                 //fs.Write(file.SaveStream.Read())
-
             }
 
             fs.Flush();
@@ -329,19 +299,14 @@ namespace Vivid.Content
 
         public ContentItem Find(string name)
         {
-
-            foreach(var item in Items)
+            foreach (var item in Items)
             {
-
                 if (item.DottedName.ToLower().Contains(name.ToLower()))
                 {
                     return item;
                 }
-
             }
             return null;
-
         }
-
     }
 }

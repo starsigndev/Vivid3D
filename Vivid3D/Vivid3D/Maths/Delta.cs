@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vivid.Maths
+﻿namespace Vivid.Maths
 {
     public class Delta
     {
-
         public float x
         {
             get;
@@ -21,13 +14,10 @@ namespace Vivid.Maths
             set;
         }
 
-        public Delta(float x,float y)
+        public Delta(float x, float y)
         {
-
             this.x = x;
             this.y = y;
-
         }
-
     }
 }

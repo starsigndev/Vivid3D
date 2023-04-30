@@ -1,16 +1,9 @@
-﻿using Vivid.Maths;
-using Vivid.Texture;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Vivid.Texture;
 
 namespace Vivid.Draw
 {
     public class DrawInfo
     {
-
         public float[] X
         {
             get;
@@ -55,9 +48,6 @@ namespace Vivid.Draw
             Texture = new Texture2D[2];
             Z = 0.0f;
             Color = new Maths.Color(1, 1, 1, 1);
-
-
         }
-
     }
 }

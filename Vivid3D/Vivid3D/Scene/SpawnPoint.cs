@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vivid.Scene
+﻿namespace Vivid.Scene
 {
     public class SpawnPoint : Node
     {
@@ -19,6 +13,5 @@ namespace Vivid.Scene
             get;
             set;
         }
-
     }
 }

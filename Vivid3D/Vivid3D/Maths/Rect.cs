@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vivid.Maths
+﻿namespace Vivid.Maths
 {
     public class Rect
     {
@@ -19,7 +13,7 @@ namespace Vivid.Maths
             get;
             set;
         }
-        
+
         public int w
         {
             get;
@@ -32,15 +26,12 @@ namespace Vivid.Maths
             set;
         }
 
-        public Rect(int x,int y,int w,int h)
+        public Rect(int x, int y, int w, int h)
         {
-
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
-
         }
-
     }
 }

@@ -1,26 +1,17 @@
-﻿using Vivid.App;
-
-using Vivid.Texture;
-using OpenTK.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
+using Vivid.App;
+using Vivid.Texture;
 
 namespace Vivid.RenderTarget
 {
     public class RenderTargetCube
     {
-
-
-
         public FramebufferHandle FBO;
         public RenderbufferHandle FBD;
         public TextureCube Cube;
         public int W, H;
+
         public int Width
         {
             get;
@@ -71,8 +62,6 @@ namespace Vivid.RenderTarget
             //SetVP.Set(0, 0, W, H);
             //GL.Viewport(0, 0, W, H);
 
-
-
             VividApp.BoundRTC = this;
             GL.Viewport(0, 0, Width, Height);
             GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, (TextureTarget)(((int)TextureTarget.TextureCubeMapPositiveX) + face), Cube.Handle, 0);
@@ -87,10 +76,9 @@ namespace Vivid.RenderTarget
         public void Release()
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, FramebufferHandle.Zero);
-      
-            VividApp.BoundRTC = null;
-            GL.Viewport(0, 0,VividApp.FrameWidth,VividApp.FrameHeight);
 
+            VividApp.BoundRTC = null;
+            GL.Viewport(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
         }
     }
 }

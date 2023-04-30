@@ -1,32 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Mathematics;
+﻿using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
+using Vivid.App;
 using Vivid.Mesh;
 using Vivid.Meshes;
 using Vivid.Renderers;
-using Vivid.Scene;
 using Vivid.RenderTarget;
-using OpenTK.Windowing.Desktop;
-using Vivid.App;
-using OpenTK.Graphics;
 
 namespace Vivid.Scene
 {
     public class OcNode
     {
         public static int VertexLimit = 1024;
+
         public bool Leaf
         {
             get;
             set;
         }
+
         public BoundingBox Bounds
         {
             get;
@@ -46,10 +38,12 @@ namespace Vivid.Scene
         public Entity LeafEntity = null;
         public List<Entity> Canditates = new List<Entity>();
         public OctreeScene Owner;
+
         public OcNode()
         {
             IsVisible = true;
         }
+
         public OcNode(Scene scene, BoundingBox b, OctreeScene owner)
         {
             Scene = scene;
@@ -58,8 +52,8 @@ namespace Vivid.Scene
             Owner = owner;
             Process();
             IsVisible = true;
-
         }
+
         public void CreateBuffers()
         {
             if (Leaf)
@@ -71,12 +65,13 @@ namespace Vivid.Scene
             }
             else
             {
-                foreach(var sub in Child)
+                foreach (var sub in Child)
                 {
                     sub.CreateBuffers();
                 }
             }
         }
+
         public void DebugVisibility()
         {
             if (Leaf)
@@ -84,11 +79,10 @@ namespace Vivid.Scene
                 RenderGlobals.CurrentCamera = Scene.MainCamera;
                 BoundsMesh.RenderSimple();
             }
-            foreach(var sub in Child)
+            foreach (var sub in Child)
             {
                 sub.DebugVisibility();
             }
-
         }
 
         public void BeginVisibility()
@@ -100,39 +94,31 @@ namespace Vivid.Scene
             Vivid.Meshes.Mesh mesh = SceneHelper.BoundsToMesh(Bounds, BoundsMesh);
             BoundsMesh.AddMesh(mesh);
 
-
-
             IsVisible = false;
 
-
-            
-
-            if(Leaf)
+            if (Leaf)
             {
-
             }
             else
             {
-                foreach(var sub in Child)
+                foreach (var sub in Child)
                 {
                     sub.BeginVisibility();
                 }
             }
-
         }
-        OpenTK.Graphics.QueryHandle _q = QueryHandle.Zero;
-        bool query = false;
+
+        private OpenTK.Graphics.QueryHandle _q = QueryHandle.Zero;
+        private bool query = false;
 
         public void ComputeVisibility()
         {
-
-            if(_q == QueryHandle.Zero)
+            if (_q == QueryHandle.Zero)
             {
                 _q = GL.GenQuery();
             }
 
             //GL.ClearMask.ColorBufferBit|ClearBufferMask.DepthBufferBit);
-            
 
             if (Leaf)
             {
@@ -140,7 +126,6 @@ namespace Vivid.Scene
             }
             else
             {
-
                 if (query == false)
                 {
                     GL.BeginQuery(QueryTarget.AnySamplesPassed, _q);
@@ -154,11 +139,8 @@ namespace Vivid.Scene
                 }
                 else
                 {
-
                     int[] pars = new int[3];
                     GL.GetQueryObjecti(_q, QueryObjectParameterName.QueryResultAvailable, pars);
-
-            
 
                     if (pars[0] > 0)
                     {
@@ -179,7 +161,6 @@ namespace Vivid.Scene
                         {
                             IsVisible = false;
                         }
-
                     }
                     else
                     {
@@ -188,11 +169,10 @@ namespace Vivid.Scene
                     }
                 }
             }
-         //   Console.WriteLine("Pixels:" + pars[0]);
+            //   Console.WriteLine("Pixels:" + pars[0]);
 
             if (Leaf)
             {
-
             }
             else
             {
@@ -204,25 +184,20 @@ namespace Vivid.Scene
                     }
                 }
             }
-
         }
+
         public static int RC = 0;
+
         public void RenderDepthLeafs()
         {
-
             if (Leaf)
             {
                 if (IsVisible)
                 {
-
                     LeafEntity.RenderDepth(Scene.MainCamera);
 
-
-
                     RC++;
-
                 }
-
             }
             else
             {
@@ -230,99 +205,70 @@ namespace Vivid.Scene
                 {
                     foreach (var node in Child)
                     {
-
                         node.RenderDepthLeafs();
-
                     }
                 }
             }
         }
 
-        int rcc = 0;
+        private int rcc = 0;
 
         public void RenderLeafs(Light light)
         {
             if (Leaf)
             {
-
                 if (IsVisible)
                 {
-
-
                     LeafEntity.Render(light, Scene.MainCamera, true);
 
                     RC++;
-
-
                 }
             }
             else
             {
-
                 if (IsVisible)
                 {
-
-
                     foreach (var node in Child)
                     {
-
                         node.RenderLeafs(light);
-
                     }
-
                 }
             }
         }
+
         public void RenderLeafs()
         {
             IsVisible = true;
             if (Leaf)
             {
-
                 if (IsVisible)
                 {
-
                     bool first = true;
                     foreach (var light in Scene.Lights)
                     {
-
                         LeafEntity.Render(light, Scene.MainCamera, first);
                         first = false;
-
                     }
 
                     RC++;
-
-
                 }
             }
             else
             {
-
                 if (IsVisible)
                 {
-
-
                     foreach (var node in Child)
                     {
-
                         node.RenderLeafs();
-
                     }
-
                 }
             }
         }
+
         public void Subdivide()
         {
-
-
-
-
-
             foreach (var b in Bounds.SubdivideBoundingBox())
             {
-
                 if (b.CountVerticesInBoundingBox(Scene.EntityList) > 0)
                 {
                     OcNode nn = new OcNode(Scene, b, Owner);
@@ -330,18 +276,13 @@ namespace Vivid.Scene
                     Child.Add(nn);
                 }
             }
-
-
         }
+
         public void BuildLeafs()
         {
-
             if (Leaf)
             {
-
                 LeafEntity = new Entity();
-
-
             }
             else
             {
@@ -350,24 +291,23 @@ namespace Vivid.Scene
                     child.BuildLeafs();
                 }
             }
-
         }
+
         public int NodeCount
         {
             get
             {
-
                 int nc = 1;
-                foreach(var sub in Child)
+                foreach (var sub in Child)
                 {
                     nc = nc + sub.NodeCount;
                 }
                 return nc;
             }
         }
+
         public int LeafCount
         {
-
             get
             {
                 if (this.Leaf) return 1;
@@ -378,11 +318,10 @@ namespace Vivid.Scene
                 }
                 return lc;
             }
-
         }
+
         public void Debug()
         {
-
             if (Leaf)
             {
                 MeshLines lines = new MeshLines();
@@ -397,7 +336,6 @@ namespace Vivid.Scene
                 }
                 else
                 {
-
                 }
             }
             else
@@ -407,29 +345,26 @@ namespace Vivid.Scene
                     child.Debug();
                 }
             }
-
         }
+
         public void Process()
         {
-
             if (Bounds.CountVerticesInBoundingBox(Scene.EntityList) > VertexLimit)
             {
-
                 Leaf = false;
                 Subdivide();
                 //GC.Collect();
             }
             else
             {
-
                 Leaf = true;
                 LeafEntity = new Entity();
                 foreach (var ent in Scene.EntityList)
                 {
                     if (ent.EntityType == EntityType.Static)
                     {
-                        if(Bounds.Intersects(ent.Bounds))
-                        { 
+                        if (Bounds.Intersects(ent.Bounds))
+                        {
                             Canditates.Add(ent);
                         }
                     }
@@ -445,118 +380,97 @@ namespace Vivid.Scene
                 Parallel.ForEach(Canditates, ent =>
                 //foreach (var ent in Canditates)
                 {
-
-
                     Matrix4 world = ent.WorldMatrix.Inverted();
                     Matrix4 rot = ent.Rotation;
 
+                    Parallel.ForEach(ent.Meshes, mesh =>
 
+                     {
+                         Vertex[] m_Verts = mesh.VertexArray;
 
-                   Parallel.ForEach(ent.Meshes, mesh =>
+                         Meshes.Mesh mm = new Meshes.Mesh(LeafEntity);
 
-                    {
+                         var poss = mesh.Positions;
+                         var norms = mesh.Normals;
 
-                        Vertex[] m_Verts = mesh.VertexArray;
-                       
-                        Meshes.Mesh mm = new Meshes.Mesh(LeafEntity);
+                         int tc = 0;
+                         //foreach (var tri in ent.)
+                         foreach (var tri in mesh.Triangles)
+                         {
+                             Vector3 p0, p1, p2;
+                             Vector3 n0, n1, n2;
 
-                        var poss = mesh.Positions;
-                        var norms = mesh.Normals;
+                             p0 = Vector3.TransformPosition(poss[tri.V0], world);
+                             p1 = Vector3.TransformPosition(poss[tri.V1], world);
+                             p2 = Vector3.TransformPosition(poss[tri.V2], world);
 
-                        int tc = 0;
-                        //foreach (var tri in ent.)
-                        foreach (var tri in mesh.Triangles)
-                        {
+                             if (Bounds.IntersectsBoundingBox(p0, p1, p2))
+                             {
+                                 Vertex v0, v1, v2;
+                                 v0 = m_Verts[tri.V0];
+                                 v1 = m_Verts[tri.V1];
+                                 v2 = m_Verts[tri.V2];
 
-                            Vector3 p0, p1, p2;
-                            Vector3 n0, n1, n2;
+                                 v0.Position = p0;// new Vector3(p0.X, p0.Y, p0.Z);
+                                 v1.Position = p1;// new Vector3(p1.X, p1.Y, p1.Z);
+                                 v2.Position = p2;// new Vector3(p2.X, p2.Y, p2.Z);
+                                 v0.Normal = Vector3.TransformNormal(norms[tri.V0], rot); ; //new Vector3(n0.X, n0.Y, n0.Z);
+                                 v1.Normal = Vector3.TransformNormal(norms[tri.V1], rot); //new Vector3(n1.X, n1.Y, n1.Z);
+                                 v2.Normal = Vector3.TransformNormal(norms[tri.V2], rot);// new Vector3(n2.X, n2.Y, n2.Z);
 
-
-                            p0 = Vector3.TransformPosition(poss[tri.V0], world);
-                            p1 = Vector3.TransformPosition(poss[tri.V1], world);
-                            p2 = Vector3.TransformPosition(poss[tri.V2],world);
-
-
-                            if (Bounds.IntersectsBoundingBox(p0, p1, p2))
-                            {
-
-                                Vertex v0, v1, v2;
-                                v0 = m_Verts[tri.V0];
-                                v1 = m_Verts[tri.V1];
-                                v2 = m_Verts[tri.V2];
-                                                           
-                                v0.Position = p0;// new Vector3(p0.X, p0.Y, p0.Z);
-                                v1.Position = p1;// new Vector3(p1.X, p1.Y, p1.Z);
-                                v2.Position = p2;// new Vector3(p2.X, p2.Y, p2.Z);
-                                v0.Normal = Vector3.TransformNormal(norms[tri.V0], rot); ; //new Vector3(n0.X, n0.Y, n0.Z);
-                                v1.Normal = Vector3.TransformNormal(norms[tri.V1], rot); //new Vector3(n1.X, n1.Y, n1.Z);
-                                v2.Normal = Vector3.TransformNormal(norms[tri.V2], rot);// new Vector3(n2.X, n2.Y, n2.Z);
-
-                                mm.AddVertices(new Meshes.Vertex[] { v0, v1, v2 });
-                                mm.AddTriangle(new Meshes.Triangle(tc * 3, tc * 3 + 1, tc * 3 + 2));
-                                tc++;
-                            }
-                        }
-                        if (tc > 0)
-                        {
-                            LeafEntity.AddMesh(mm);
-                            mm.Material = mesh.Material;
-
-                        }
-
-                    });
-
+                                 mm.AddVertices(new Meshes.Vertex[] { v0, v1, v2 });
+                                 mm.AddTriangle(new Meshes.Triangle(tc * 3, tc * 3 + 1, tc * 3 + 2));
+                                 tc++;
+                             }
+                         }
+                         if (tc > 0)
+                         {
+                             LeafEntity.AddMesh(mm);
+                             mm.Material = mesh.Material;
+                         }
+                     });
                 });
             }
         }
 
         public void Write(BinaryWriter w)
         {
-
             w.Write(Leaf);
             IO.FileHelp.WriteVec3(w, Bounds.Min);
             IO.FileHelp.WriteVec3(w, Bounds.Max);
             if (Leaf)
             {
-
-        
                 IO.FileHelp.WriteMeshData(w, LeafEntity);
-               
-
             }
             else
             {
                 w.Write(Child.Count);
-                foreach(var sub in Child)
+                foreach (var sub in Child)
                 {
                     sub.Write(w);
                 }
-
             }
-
         }
-      
     }
 
-    public class OctreeScene 
+    public class OctreeScene
     {
-
         public Scene Scene;
         public OcNode Root = null;
         public List<Entity> Dynamic = new List<Entity>();
         public static int DynamicC = 0;
-        public OctreeScene(Scene scene,MemoryStream stream)
+
+        public OctreeScene(Scene scene, MemoryStream stream)
         {
             Scene = scene;
             stream.Position = 0;
             BinaryReader r = new BinaryReader(stream);
             ReadScene(r);
             r.Close();
-
         }
+
         public OctreeScene(Scene scene, string path)
         {
-
             Scene = scene;
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
             BinaryReader r = new BinaryReader(fs);
@@ -564,16 +478,15 @@ namespace Vivid.Scene
             ReadScene(r);
 
             fs.Close();
-
         }
+
         public OctreeScene(Vivid.Scene.Scene scene)
         {
             Scene = scene;
-            Root = new OcNode(scene,scene.Bounds,this);
+            Root = new OcNode(scene, scene.Bounds, this);
             Root.CreateBuffers();
-           
-
         }
+
         public int NodeCount
         {
             get
@@ -581,6 +494,7 @@ namespace Vivid.Scene
                 return Root.NodeCount;
             }
         }
+
         public int LeafCount
         {
             get
@@ -588,54 +502,52 @@ namespace Vivid.Scene
                 return Root.LeafCount;
             }
         }
+
         public void DebugVisibility()
         {
             Root.DebugVisibility();
         }
+
         public void Render()
         {
             RenderLeafs();
         }
+
         public void RenderLight(Light light)
         {
-
             RenderLeafs(light);
-
         }
+
         public void RenderShadows()
         {
-            
             foreach (var light in Scene.Lights)
             {
-
                 Scene.ShadowRender.mRT = light.RTC;
-                Scene.ShadowRender.RenderDepth(light.Position, light.Range,this);
+                Scene.ShadowRender.RenderDepth(light.Position, light.Range, this);
             }
-
-
         }
+
         public void RenderDepthLeafs()
         {
-            
             Root.RenderDepthLeafs();
-            
+
             foreach (var obj in Dynamic)
             {
-             //   if (Scene.MainCamera.IsVisible(obj.Bounds))
+                //   if (Scene.MainCamera.IsVisible(obj.Bounds))
                 {
-                   
                     if (Scene.Lights.Count == 0) return;
                     obj.RenderDepth(Scene.MainCamera, true);
                     DynamicC++;
                 }
             }
-
         }
+
         public void RenderLeafs(Light light)
         {
             Scene.MainCamera.UpdateFS();
             Root.RenderLeafs(light);
         }
+
         public void RenderLeafs()
         {
             OcNode.RC = 0;
@@ -644,17 +556,13 @@ namespace Vivid.Scene
             Root.RenderLeafs();
             int oc = 0;
             DynamicC = 0;
-            foreach(var obj in Dynamic)
+            foreach (var obj in Dynamic)
             {
-            //    if (Scene.MainCamera.IsVisible(obj.Bounds))
+                //    if (Scene.MainCamera.IsVisible(obj.Bounds))
                 {
-                 
-
-               
                     bool first = true;
                     foreach (var light in Scene.Lights)
                     {
-                     
                         obj.Render(light, Scene.MainCamera, first);
                         first = false;
                     }
@@ -667,27 +575,23 @@ namespace Vivid.Scene
 
         public void Debug()
         {
-
             Root.Debug();
-
         }
 
         public void ReadScene(BinaryReader r)
         {
-
             Root = ReadNode(r);
 
             int dc = r.ReadInt32();
-            for(int i = 0; i < dc; i++)
+            for (int i = 0; i < dc; i++)
             {
                 Entity new_ent = new Entity();
                 IO.FileHelp.ReadEntityData(new_ent, r);
                 Dynamic.Add(new_ent);
-
             }
 
             int lc = r.ReadInt32();
-            for(int i = 0; i < lc; i++)
+            for (int i = 0; i < lc; i++)
             {
                 Light light = new Light();
                 IO.FileHelp.ReadLightData(light, r);
@@ -696,18 +600,16 @@ namespace Vivid.Scene
             }
 
             int sc = r.ReadInt32();
-            for(int i = 0; i < sc; i++)
+            for (int i = 0; i < sc; i++)
             {
                 SpawnPoint spawn = new SpawnPoint();
                 IO.FileHelp.ReadSpawnData(spawn, r);
                 Scene.AddNode(spawn);
             }
-
         }
 
         public OcNode ReadNode(BinaryReader r)
         {
-
             OcNode res = new OcNode();
             res.Scene = Scene;
             res.Owner = this;
@@ -721,101 +623,86 @@ namespace Vivid.Scene
                 res.Leaf = leaf;
                 res.LeafEntity = new Entity();
                 IO.FileHelp.ReadMeshData(res.LeafEntity, r);
-
-
             }
             else
             {
-
                 res.Leaf = false;
                 res.LeafEntity = null;
                 int cc = r.ReadInt32();
-                for(int i = 0; i < cc; i++)
+                for (int i = 0; i < cc; i++)
                 {
                     res.Child.Add(ReadNode(r));
                 }
-
-
             }
             return res;
         }
-       
 
         public void Save(string path)
         {
-
             FileStream fs = new FileStream(path, FileMode.Create);
             BinaryWriter w = new BinaryWriter(fs);
 
             Root.Write(w);
 
             w.Write(Dynamic.Count);
-            foreach(var dyn in Dynamic)
+            foreach (var dyn in Dynamic)
             {
-
-             
-                IO.FileHelp.WriteEntityData(w,dyn);
-                
-
+                IO.FileHelp.WriteEntityData(w, dyn);
             }
 
             w.Write(Scene.Lights.Count);
-            foreach(var light in Scene.Lights)
+            foreach (var light in Scene.Lights)
             {
-             
                 IO.FileHelp.WriteLightData(w, light);
             }
 
             w.Write(Scene.Spawns.Count);
-            foreach(var s in Scene.Spawns)
+            foreach (var s in Scene.Spawns)
             {
                 IO.FileHelp.WriteSpawnData(w, s);
             }
 
-
             w.Flush();
             fs.Close();
-
-
-
         }
+
         private RenderTarget2D VisibilityRT;
+
         public void InitializeVisibility()
         {
-
             Root.BeginVisibility();
-
         }
-        RenderTarget2D vis_rt = null;
-        bool init_vis_needed = true;
+
+        private RenderTarget2D vis_rt = null;
+        private bool init_vis_needed = true;
+
         public void ComputeVisibility()
         {
             if (vis_rt == null)
             {
-                vis_rt = new RenderTarget2D(512,512);
+                vis_rt = new RenderTarget2D(512, 512);
             }
-            if(init_vis_needed)
+            if (init_vis_needed)
             {
                 //InitializeVisibility();
                 //init_vis_needed = false;
-               // return;
+                // return;
             }
             vis_rt.Bind();
-         //   GL.ColorMask(false, false, false, false);
-        //    GL.DepthMask(false);
+            //   GL.ColorMask(false, false, false, false);
+            //    GL.DepthMask(false);
             GL.Enable(EnableCap.ScissorTest);
             GL.Disable(EnableCap.DepthTest);
             GL.Disable(EnableCap.CullFace);
-            GL.Scissor(0,0,VividApp.FrameWidth,VividApp.FrameHeight);
+            GL.Scissor(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
             Root.ComputeVisibility();
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
-           // GL.DepthMask(true);
+            // GL.DepthMask(true);
             GL.Disable(EnableCap.ScissorTest);
-           // GL.ColorMask(true, true, true, true);
+            // GL.ColorMask(true, true, true, true);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             vis_rt.Release();
         }
-
     }
 }

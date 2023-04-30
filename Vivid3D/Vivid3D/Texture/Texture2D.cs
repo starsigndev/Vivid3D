@@ -1,31 +1,25 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Graphics;
 using System.Drawing;
-using System.Runtime.CompilerServices;
-using Assimp.Configs;
 
 namespace Vivid.Texture
 {
     public class Texture2D
     {
         public static bool SaveAndUseCachedData = true;
+
         public TextureHandle Handle
         {
             get;
             set;
         }
+
         public int Width
         { get; set; }
 
         public int Height
         {
-            get;set;
+            get; set;
         }
 
         public string Path
@@ -46,11 +40,10 @@ namespace Vivid.Texture
             set;
         }
 
-        public static Dictionary<string,Texture2D> Cache = new Dictionary<string,Texture2D>();
+        public static Dictionary<string, Texture2D> Cache = new Dictionary<string, Texture2D>();
 
-        public Texture2D(int width,int height)
+        public Texture2D(int width, int height)
         {
-
             Console.WriteLine("Creating tex W/H");
             Width = width;
             Height = height;
@@ -58,20 +51,17 @@ namespace Vivid.Texture
             var Format = InternalFormat.Rgba8;
             Handle = GL.CreateTexture(TextureTarget.Texture2d);
             GL.TextureStorage2D(Handle, 1, SizedInternalFormat.Rgba8, Width, Height);
-         
+
             GL.TextureParameteri(Handle, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
             GL.TextureParameteri(Handle, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
             GL.TextureParameteri(Handle, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
             GL.TextureParameteri(Handle, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
-          
-
         }
+
         public Texture2D(string path)
         {
-
             if (Cache.ContainsKey(path))
             {
-
                 var tex = Cache[path];
                 Handle = tex.Handle;
                 Width = tex.Width;
@@ -80,7 +70,6 @@ namespace Vivid.Texture
                 Path = tex.Path;
                 Data = tex.Data;
                 return;
-
             }
 
             if (File.Exists(path + ".data"))
@@ -91,13 +80,11 @@ namespace Vivid.Texture
                 Width = r.ReadInt32();
                 Height = r.ReadInt32();
                 BPP = r.ReadInt32();
-                Data = r.ReadBytes(Width * Height*BPP);
+                Data = r.ReadBytes(Width * Height * BPP);
                 Path = path;
-
             }
             else
             {
-
                 Bitmap bit = new Bitmap(path);
 
                 Data = new byte[bit.Width * bit.Height * 4];
@@ -132,7 +119,6 @@ namespace Vivid.Texture
                 fs.Flush();
                 w.Close();
                 fs.Close();
-
             }
 
             Path = path;
@@ -145,8 +131,8 @@ namespace Vivid.Texture
             CheckHandle();
 
             GL.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba, Width, Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, Data);
-            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMinFilter,(int)TextureMinFilter.Linear);
-            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter,(int)TextureMagFilter.Linear);
+            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
             GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
             GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
 
@@ -154,19 +140,15 @@ namespace Vivid.Texture
 
             GL.BindTexture(TextureTarget.Texture2d, TextureHandle.Zero);
             Cache.Add(path, this);
-
-
         }
 
         private void CheckHandle()
         {
-
-            if(Handle == TextureHandle.Zero)
+            if (Handle == TextureHandle.Zero)
             {
                 Console.WriteLine("Invalid texture handle.");
                 Environment.Exit(0);
             }
-
         }
 
         public void Bind(int unit)
@@ -177,40 +159,36 @@ namespace Vivid.Texture
 
         public void Unbind(int unit)
         {
-        
             GL.ActiveTexture(((TextureUnit)((int)TextureUnit.Texture0 + unit)));
             GL.BindTexture(TextureTarget.Texture2d, TextureHandle.Zero);
-            
         }
 
         public Texture2D(IntPtr handle)
         {
-           // CObj = handle;
+            // CObj = handle;
         }
 
         public Texture2D(MemoryStream stream, int w, int h, string path = "")
         {
-
             if (path == string.Empty)
             {
-
-            }else
+            }
+            else
             {
-               //Console.WriteLine("=================Path:" + path);
+                //Console.WriteLine("=================Path:" + path);
                 if (Cache.ContainsKey(path))
                 {
-                   // CObj = Cache[path].CObj;
+                    // CObj = Cache[path].CObj;
                     Width = Cache[path].Width;
                     Height = Cache[path].Height;
                     Path = path;
                     return;
                     //return Cache[path];
-
                 }
             }
             byte[] buf = new byte[stream.Length];
             stream.Read(buf, 0, (int)stream.Length);
-        //    CObj = GemBridge.gem_CreateTexture2D(buf, (int)stream.Length, w, h);
+            //    CObj = GemBridge.gem_CreateTexture2D(buf, (int)stream.Length, w, h);
             Width = w;
             Height = h;
             Path = path;
@@ -218,14 +196,13 @@ namespace Vivid.Texture
             {
                 int b = 5;
                 Console.WriteLine("!!");
-            }else
+            }
+            else
             {
                 Cache.Add(path, this);
-
             }
         }
 
         //public static Dictionary<string, Texture2D> Cache = new Dictionary<string, Texture2D>();
-
     }
 }

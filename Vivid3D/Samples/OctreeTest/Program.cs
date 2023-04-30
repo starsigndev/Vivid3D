@@ -4,7 +4,7 @@ namespace OctreeTest
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
 
@@ -24,10 +24,9 @@ namespace OctreeTest
             native_settings.Size = new OpenTK.Mathematics.Vector2i(1024, 768);
             native_settings.Title = "Vivid - Application";
             Vivid.App.VividApp.InitialState = new StateTestOctree1();
-            TestOctreeApp app = new TestOctreeApp(game_win,native_settings);
+            TestOctreeApp app = new TestOctreeApp(game_win, native_settings);
 
             app.Run();
-
         }
     }
 }

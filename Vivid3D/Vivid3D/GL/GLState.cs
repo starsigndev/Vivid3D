@@ -1,25 +1,19 @@
-﻿using Assimp.Configs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
+
 namespace Vivid.State
 {
     public enum CurrentGLState
     {
-        LightFirstPass,LightSecondPass,Depth,Fullbright,None
+        LightFirstPass, LightSecondPass, Depth, Fullbright, None
     }
+
     public class GLState
     {
-
         public static CurrentGLState State
         {
             get
             {
                 return _CurrentState;
-
             }
             set
             {
@@ -47,6 +41,7 @@ namespace Vivid.State
                     GL.Enable(EnableCap.DepthTest);
                     GL.DepthFunc(DepthFunction.Lequal);
                     break;
+
                 case CurrentGLState.LightSecondPass:
                     GL.Enable(EnableCap.DepthTest);
                     GL.Enable(EnableCap.Blend);
@@ -55,16 +50,16 @@ namespace Vivid.State
                     GL.CullFace(TriangleFace.Back);
                     GL.DepthFunc(DepthFunction.Lequal);
                     break;
+
                 case CurrentGLState.Depth:
-                    
+
                     break;
+
                 case CurrentGLState.Fullbright:
-                   
+
                     break;
             }
             StateBound = true;
-
         }
-
     }
 }

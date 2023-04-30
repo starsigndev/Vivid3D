@@ -1,19 +1,12 @@
 ﻿using OpenTK.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
-
 
 namespace Vivid.Texture
 {
     public class TextureCube
     {
         public byte[] px, py, pz, nx, ny, nz;
-            
+
         public int Width
         {
             get;
@@ -46,8 +39,6 @@ namespace Vivid.Texture
             }
         }
 
-
-
         private void GenMap()
         {
             GL.Enable(EnableCap.TextureCubeMap);
@@ -63,7 +54,6 @@ namespace Vivid.Texture
 
         public void Bind(int unit)
         {
-
             uint t_unit = (uint)unit;
 
             OpenTK.Graphics.OpenGL.TextureUnit texu = OpenTK.Graphics.OpenGL.TextureUnit.Texture0;
@@ -91,7 +81,5 @@ namespace Vivid.Texture
             GL.Disable(EnableCap.TextureCubeMap);
             GL.BindTexture(TextureTarget.TextureCubeMap, TextureHandle.Zero);
         }
-
-
     }
 }

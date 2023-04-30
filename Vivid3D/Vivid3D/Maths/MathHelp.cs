@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vivid.Maths
+﻿namespace Vivid.Maths
 {
     public static class MathHelp
     {
-
         public static float Rad2Degrees(float radians)
         {
             return radians * 180.0f / 3.14159265358979323846f * 2.0f;
@@ -20,6 +13,5 @@ namespace Vivid.Maths
         }
 
         public static float pi = 3.14159265358979323846f;
-
     }
 }

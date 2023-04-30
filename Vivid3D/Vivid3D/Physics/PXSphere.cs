@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PhysX;
+﻿using PhysX;
+
 namespace Vivid.Physx
 {
     public class PXSphere : PXBody
@@ -13,6 +9,7 @@ namespace Vivid.Physx
             get;
             set;
         }
+
         public PXSphere(float size)
         {
             Radius = size;
@@ -23,7 +20,6 @@ namespace Vivid.Physx
         {
             //base.InitBody();
             Material = Vivid.Physx.QPhysics._Physics.CreateMaterial(0.4f, 0.4f, 0.4f);
-
 
             this.DynamicBody = Vivid.Physx.QPhysics._Physics.CreateRigidDynamic();
             Shape = RigidActorExt.CreateExclusiveShape(DynamicBody, new SphereGeometry(Radius), Material);

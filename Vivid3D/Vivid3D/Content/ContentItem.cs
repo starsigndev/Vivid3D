@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vivid.Content
+﻿namespace Vivid.Content
 {
     public enum ContentType
     {
-        File,VirtualFolder,SubStream,Texture2D
+        File, VirtualFolder, SubStream, Texture2D
     }
-    public class ContentItem 
-    {
 
+    public class ContentItem
+    {
         public MemoryStream SaveStream
         {
             get;
             set;
         }
+
         public string LocalName
         {
             get;
@@ -49,6 +42,7 @@ namespace Vivid.Content
             get;
             set;
         }
+
         public long ContentLength
         {
             get;
@@ -66,6 +60,7 @@ namespace Vivid.Content
             get;
             set;
         }
+
         public ContentItem()
         {
             DataStream = null;
@@ -128,7 +123,6 @@ namespace Vivid.Content
             DataStream = ms;
             DataStream.Write(data, 0, data.Length);
             InMemory = true;
-
         }
 
         public MemoryStream GetStream()
@@ -153,9 +147,8 @@ namespace Vivid.Content
             set;
         }
 
-        public ContentItem(string longName,string shortName,string full)
+        public ContentItem(string longName, string shortName, string full)
         {
-
             LocalName = shortName;
             DottedName = full.Replace("C:\\", "");
             DottedName = DottedName.Replace("C:/", "");
@@ -166,11 +159,8 @@ namespace Vivid.Content
 
         public override string ToString()
         {
-            return Type+":  " + DottedName + " Index:" + IndexNumber + "Pos:"+ContentStart+" Size:" + ContentLength;
+            return Type + ":  " + DottedName + " Index:" + IndexNumber + "Pos:" + ContentStart + " Size:" + ContentLength;
             //return base.ToString();
-
-
         }
-
     }
 }

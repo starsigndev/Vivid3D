@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Vivid.App
+﻿namespace Vivid.App
 {
     public class AppMetrics
     {
-
         public int WindowWidth
         {
             get;
@@ -40,9 +33,9 @@ namespace Vivid.App
             WindowTitle = windowTitle;
             FullScreen = fullScreen;
         }
+
         public AppMetrics()
         {
-
         }
     }
 }

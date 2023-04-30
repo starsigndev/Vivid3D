@@ -1,27 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Vivid.Renderers;
-using System.Diagnostics;
-using Vivid.Audio;
-using Vivid.Scene;
-
-using Vivid.RenderTarget;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.Common;
+﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
-using Vivid.Scene.ShaderModules;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
+using System.Diagnostics;
+using Vivid.RenderTarget;
 
 namespace Vivid.App
 {
     public class VividApp : GameWindow
     {
-
         public static AppMetrics Metrics
         {
             get;
@@ -73,9 +60,11 @@ namespace Vivid.App
                 _FH = value;
             }
         }
+
         public static RenderTargetCube BoundRTC = null;
         public static RenderTarget2D BoundRT2D = null;
         public static int _FW, _FH;
+
         public static Vivid.Scene.Scene CurrentScene
         {
             get;
@@ -107,12 +96,10 @@ namespace Vivid.App
             state.InitState();
             CurrentScene = state.StateScene;
             state.Init();
-
-
         }
+
         public static void PopState()
         {
-
             if (States.Count > 0)
             {
                 States.Peek().Stop();
@@ -122,7 +109,6 @@ namespace Vivid.App
                     CurrentScene = States.Peek().StateScene;
                 }
             }
-
         }
 
         public static string ContentPath
@@ -130,19 +116,17 @@ namespace Vivid.App
             get;
             set;
         }
-        
-       // public GeminiApp(int w,int h)
+
+        // public GeminiApp(int w,int h)
         //{
-            //Metrics = new AppMetrics(w, h, "", false);
-           // ContentPath = "c:/content/content/";
-           // FrameWidth = w;
-          //  FrameHeight = h;
+        //Metrics = new AppMetrics(w, h, "", false);
+        // ContentPath = "c:/content/content/";
+        // FrameWidth = w;
+        //  FrameHeight = h;
         //}
-        
 
         public VividApp(GameWindowSettings game_window, NativeWindowSettings native_window) : base(game_window, native_window)
         {
-
             VSync = VSyncMode.Off;
             ContentPath = "C:/content/content/";
             // Metrics = metrics;
@@ -151,51 +135,47 @@ namespace Vivid.App
             _FW = native_window.Size.X;
             _FH = native_window.Size.Y;
             States = new Stack<AppState>();
-
-
         }
 
         public void CreateWindow()
 
         {
-
-
         }
 
         public virtual void Init()
         {
-
         }
 
         public virtual void Update()
         {
-
         }
 
         public virtual void Render()
         {
-
         }
-        double lastTime;
-        Stopwatch stop;
-        double getDeltaTime()
+
+        private double lastTime;
+        private Stopwatch stop;
+
+        private double getDeltaTime()
         {
             double currentTime = stop.Elapsed.TotalSeconds;
             double deltaTime = currentTime - lastTime;
             lastTime = currentTime;
             return deltaTime;
         }
+
         public static int FPS = 0;
-        int last_fps = 0;
-        int frames = 0;
+        private int last_fps = 0;
+        private int frames = 0;
+
         protected override void OnResize(ResizeEventArgs e)
         {
             //base.OnResize(e);
             _FW = e.Width;
             _FH = e.Height;
-            
-
         }
+
         protected override void OnLoad()
         {
             //base.OnLoad();
@@ -203,17 +183,16 @@ namespace Vivid.App
             PushState(InitialState);
             if (States.Count > 0)
             {
-             //   States.Peek().Init();
+                //   States.Peek().Init();
             }
             GL.Disable(EnableCap.CullFace);
             GL.Disable(EnableCap.DepthTest);
             GL.Disable(EnableCap.Blend);
             Scene.ShaderModules.Shaders.InitShaders();
             int aa = 5;
-          //  GL.Disable(EnableCap.)
-
-
+            //  GL.Disable(EnableCap.)
         }
+
         protected override void OnKeyDown(KeyboardKeyEventArgs e)
         {
             //base.OnKeyDown(e);
@@ -226,8 +205,9 @@ namespace Vivid.App
             GameInput.mKeyDown[(int)e.Key] = false;
         }
 
-        bool first = true;
-        int fps, fframes, tick;
+        private bool first = true;
+        private int fps, fframes, tick;
+
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             Vector2 mp = this.MouseState.Position;// - new OpenTK.Mathematics.Vector2(Bounds.X, Bounds.Y);
@@ -240,17 +220,15 @@ namespace Vivid.App
                 delta = new Vector2(0, 0);
                 first = false;
             }
-            
+
             GameInput.MousePosition = mp;
             GameInput.MouseDelta = delta;
             if (States.Count > 0)
             {
                 States.Peek().Update();
             }
-
-            
-
         }
+
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             //base.OnRenderFrame(args);
@@ -269,15 +247,10 @@ namespace Vivid.App
 
             if (States.Count > 0)
             {
-  
                 States.Peek().Render();
-
             }
 
             SwapBuffers();
         }
-
-
     }
-
 }

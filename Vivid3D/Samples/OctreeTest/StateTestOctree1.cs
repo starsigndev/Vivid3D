@@ -1,13 +1,8 @@
-﻿using Vivid.App;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vivid.Scene;
-using Vivid.Mesh;
+﻿using Vivid;
 using Vivid.Acceleration.Octree;
-using Vivid;
+using Vivid.App;
+using Vivid.Mesh;
+using Vivid.Scene;
 
 namespace OctreeTest
 {
@@ -15,11 +10,11 @@ namespace OctreeTest
     {
         public StateTestOctree1() : base("Test Octree")
         {
-
         }
-        Scene s1;
-        Camera c1;
-        Vivid.Acceleration.Octree.ASOctree ot1;
+
+        private Scene s1;
+        private Camera c1;
+        private Vivid.Acceleration.Octree.ASOctree ot1;
 
         public override void Init()
         {
@@ -32,9 +27,6 @@ namespace OctreeTest
             //lines.CreateBuffers();
             s1.MeshLines.Add(lines);
 
-
-
-
             Vivid.Nodes.FreeLook fl = new Vivid.Nodes.FreeLook();
             s1.MainCamera = fl;
             ot1 = new Vivid.Acceleration.Octree.ASOctree(s1);
@@ -46,18 +38,19 @@ namespace OctreeTest
             var list = ot1.GetLeafs();
             int aa = 5;
             leafs = list;
-
         }
-        List<OctreeNode> leafs;
+
+        private List<OctreeNode> leafs;
+
         public override void Update()
         {
             //base.Update();
             s1.Update();
-
         }
 
-        int lc = 0;
-        bool none = false;
+        private int lc = 0;
+        private bool none = false;
+
         public override void Render()
         {
             base.Render();
@@ -73,7 +66,6 @@ namespace OctreeTest
                     lc--;
                     none = true;
                     //Environment.Exit(0);
-
                 }
                 if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.KeyPad2))
                 {
@@ -83,19 +75,19 @@ namespace OctreeTest
             }
             else
             {
-                if(!GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.KeyPad1) && !GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.KeyPad2))
+                if (!GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.KeyPad1) && !GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.KeyPad2))
                 {
                     none = false;
                 }
             }
             if (lc < 0) lc = 0;
             if (lc >= leafs.Count) lc = 0;
-            leafs[lc].Render();
+            //leafs[lc].Render();
+            ot1.ComputeVisibility();
+            ot1.Render();
             //s1.Render();
 
             s1.RenderLines();
-
         }
-
     }
 }
