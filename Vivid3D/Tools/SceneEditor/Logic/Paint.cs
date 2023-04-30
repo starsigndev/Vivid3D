@@ -35,7 +35,7 @@ namespace SceneEditor.Logic
                     // EditSceneOT.RenderShadows();
                     EditScene.RenderShadows();
                     EditSceneOT.ComputeVisibility();
-                    EditSceneOT.RenderLeafs();
+                    EditSceneOT.Render();// RenderLeafs();
                     Console.WriteLine("Rendering Octre-----------------");
                 }
                 else
@@ -115,13 +115,13 @@ namespace SceneEditor.Logic
                 pos.X = pos.X / pos.W;
                 pos.Y = pos.Y / pos.W;
 
-                pos.X = (0.5f + pos.X * 0.5f) * Vivid.App.GeminiApp.FrameWidth;
-                pos.Y = (0.5f - pos.Y * 0.5f) * Vivid.App.GeminiApp.FrameHeight;
+                pos.X = (0.5f + pos.X * 0.5f) * Vivid.App.VividApp.FrameWidth;
+                pos.Y = (0.5f - pos.Y * 0.5f) * Vivid.App.VividApp.FrameHeight;
                 //  Console.WriteLine("====:PX:" + pos.x + " PY:" + pos.y);
 
-                if (pos.X > 0 && pos.X < (Vivid.App.GeminiApp.FrameWidth - 64))
+                if (pos.X > 0 && pos.X < (Vivid.App.VividApp.FrameWidth - 64))
                 {
-                    if (pos.Y > 0 && pos.Y < (Vivid.App.GeminiApp.FrameHeight - 64))
+                    if (pos.Y > 0 && pos.Y < (Vivid.App.VividApp.FrameHeight - 64))
                     {
                         draw.Draw(SpawnIcon, new Rect((int)pos.X - 32, (int)pos.Y - 32, 64, 64), new Vivid.Maths.Color(1, 1, 1, 1));
                         spawn.DrawnX = pos.X;
@@ -154,13 +154,13 @@ namespace SceneEditor.Logic
                 pos.X = pos.X / pos.W;
                 pos.Y = pos.Y / pos.W;
 
-                pos.X = (0.5f + pos.X * 0.5f) * Vivid.App.GeminiApp.FrameWidth;
-                pos.Y = (0.5f - pos.Y * 0.5f) * Vivid.App.GeminiApp.FrameHeight;
+                pos.X = (0.5f + pos.X * 0.5f) * Vivid.App.VividApp.FrameWidth;
+                pos.Y = (0.5f - pos.Y * 0.5f) * Vivid.App.VividApp.FrameHeight;
                 //  Console.WriteLine("====:PX:" + pos.x + " PY:" + pos.y);
 
-                if (pos.X > 0 && pos.X < (Vivid.App.GeminiApp.FrameWidth - 64))
+                if (pos.X > 0 && pos.X < (Vivid.App.VividApp.FrameWidth - 64))
                 {
-                    if (pos.Y > 0 && pos.Y < (Vivid.App.GeminiApp.FrameHeight - 64))
+                    if (pos.Y > 0 && pos.Y < (Vivid.App.VividApp.FrameHeight - 64))
                     {
                         draw.Draw(LightIcon, new Rect((int)pos.X - 32, (int)pos.Y - 32, 64, 64), new Vivid.Maths.Color(1, 1, 1, 1));
                         light.DrawnX = pos.X;

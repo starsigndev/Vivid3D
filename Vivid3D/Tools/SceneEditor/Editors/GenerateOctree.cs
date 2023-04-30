@@ -32,15 +32,16 @@ namespace SceneEditor.Editors
        
 
         private Vivid.Scene.Scene _Scene;
-        public static Vivid.Scene.OctreeScene OcScene;
+        public static Vivid.Acceleration.Octree.ASOctree OcScene;
         public GenerateOctree()
         {
             InitializeComponent();
             if (SceneEditor.EditSceneOT != null)
             {
                 OcScene = SceneEditor.EditSceneOT;
-                ocNodes.Text = "Nodes:" + OcScene.NodeCount;
-                ocLeafs.Text = "Leafs:" + OcScene.LeafCount;
+                //ocNodes.Text = "Nodes:" + OcScene
+
+                ocLeafs.Text = "Leafs:" + OcScene.LeafCount();
 
             }
 
@@ -50,15 +51,17 @@ namespace SceneEditor.Editors
         {
             ocStatus.Text = "Building.";
             Invalidate();
-            OcNode.VertexLimit = (int)(leafVertices.Value);
-            OcScene = new Vivid.Scene.OctreeScene(_Scene);
+            //OcNode.VertexLimit = (int)(leafVertices.Value);
+            Vivid.Acceleration.Octree.ASOctree.VertexLeafLimit = (int)leafVertices.Value;
+            OcScene = new Vivid.Acceleration.Octree.ASOctree(_Scene);
             OcScene.InitializeVisibility();
             ocStatus.Text = "Built.";
             SceneEditor.EditSceneOT = OcScene;
 
             Invalidate();
-            ocNodes.Text = "Nodes:" + OcScene.NodeCount;
-            ocLeafs.Text = "Leafs:" + OcScene.LeafCount;
+
+            //ocNodes.Text = "Nodes:" + OcScene.NodeCount;
+            ocLeafs.Text = "Leafs:" + OcScene.LeafCount();
 
 
         }

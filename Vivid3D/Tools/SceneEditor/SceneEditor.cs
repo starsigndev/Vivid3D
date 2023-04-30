@@ -57,7 +57,7 @@ namespace SceneEditor
         public static bool MoveUp = false, MoveDown = false;
         public static bool MoveFaster = false;
         public static Scene EditScene;
-        public static OctreeScene EditSceneOT = null;
+        public static Vivid.Acceleration.Octree.ASOctree EditSceneOT = null;
         public static Mesh Grid;
         public static GLControl G_Control;
 

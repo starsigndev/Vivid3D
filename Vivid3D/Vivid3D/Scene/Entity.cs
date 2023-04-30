@@ -258,6 +258,9 @@ namespace Vivid.Scene
             {
                 var material = mesh.LightMaterial;
 
+                material.Shader.Camera = c;
+                material.Shader.Entity = this;
+                material.Shader.Light = l;
 
                 material.Shader.Bind();
 

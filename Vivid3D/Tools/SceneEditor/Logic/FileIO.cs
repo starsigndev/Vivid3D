@@ -21,7 +21,8 @@ namespace SceneEditor.Logic
                 MessageBox.Show("File does not exist.");
                 return;
             }
-            EditSceneOT = new Vivid.Scene.OctreeScene(EditScene,OpenFile.FileName);
+            //***
+            //EditSceneOT = new Vivid.Scene.OctreeScene(EditScene,OpenFile.FileName);
 
         }
         public static void SaveOctreeScene()
@@ -34,7 +35,8 @@ namespace SceneEditor.Logic
             //EditScene.SaveOctree(SaveFile.FileName);
             try
             {
-                EditSceneOT.Save(SaveFile.FileName);
+                //***
+                //EditSceneOT.Save(SaveFile.FileName);
             }
             catch (Exception e)
             {

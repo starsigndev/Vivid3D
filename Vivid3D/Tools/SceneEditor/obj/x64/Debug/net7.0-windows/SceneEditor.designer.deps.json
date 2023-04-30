@@ -271,6 +271,56 @@
           }
         }
       },
+      "PhysX.Net/3.0.0-alpha1": {
+        "runtime": {
+          "lib/net50/PhysX.Net.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win-x64/native/Ijwhost.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "5.0.220.61120"
+          },
+          "runtimes/win-x64/native/PhysXCommon_64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "4.1.1.0"
+          },
+          "runtimes/win-x64/native/PhysXCooking_64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "4.1.1.0"
+          },
+          "runtimes/win-x64/native/PhysXDevice64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "18.12.7.1"
+          },
+          "runtimes/win-x64/native/PhysXFoundation_64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "4.1.1.0"
+          },
+          "runtimes/win-x64/native/PhysXGpu_64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "4.1.1.0"
+          },
+          "runtimes/win-x64/native/PhysX_64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "4.1.1.0"
+          },
+          "runtimes/win-x64/native/glut32.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "runtimeTargets": {
           "runtimes/debian.8-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
@@ -1523,6 +1573,13 @@
       "sha512": "sha512-26Dh70gc7DyNUoAlgLwfxolbtBpQ65y8U/+/LzNFtHYFuaJ6KjiVsczjGmxRstIZ7shgPaiNOTkZYx9dHCn9ng==",
       "path": "opentk.winforms/4.0.0-pre.6",
       "hashPath": "opentk.winforms.4.0.0-pre.6.nupkg.sha512"
+    },
+    "PhysX.Net/3.0.0-alpha1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JT0KrHi39xgv31DImDmVLkcX98h1hKJH5hc0EhauBIxdJcfMiFVjN2KBJ/R6O6eQE6VN/X265N6K/sHKWEXkuA==",
+      "path": "physx.net/3.0.0-alpha1",
+      "hashPath": "physx.net.3.0.0-alpha1.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",

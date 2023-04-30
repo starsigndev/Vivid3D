@@ -97,7 +97,7 @@ namespace Vivid.Acceleration.Octree
             }
             else
             {
-                foreach(var sub in SubNodes)
+                foreach (var sub in SubNodes)
                 {
                     sub.InitializeVisibility();
                 }
@@ -117,7 +117,7 @@ namespace Vivid.Acceleration.Octree
                 }
                 foreach (var mesh in Meshes)
                 {
-                   mesh.CreateBuffers();
+                    mesh.CreateBuffers();
                 }
             }
             else
@@ -163,8 +163,8 @@ namespace Vivid.Acceleration.Octree
 
         private void GatherLeaf()
         {
-         //   Console.WriteLine("Leaf found.");
-         
+            //   Console.WriteLine("Leaf found.");
+
             foreach (var ent in From.EntityList)
             {
                 if (ent.EntityType == EntityType.Static)
@@ -217,7 +217,7 @@ namespace Vivid.Acceleration.Octree
                             v0.Position = p0;// new Vector3(p0.X, p0.Y, p0.Z);
                             v1.Position = p1;// new Vector3(p1.X, p1.Y, p1.Z);
                             v2.Position = p2;// new Vector3(p2.X, p2.Y, p2.Z);
-                         
+
                             v0.Normal = Vector3.TransformNormal(m_Verts[tri.V0].Normal, rot); ; //new Vector3(n0.X, n0.Y, n0.Z);
                             v1.Normal = Vector3.TransformNormal(m_Verts[tri.V1].Normal, rot); //new Vector3(n1.X, n1.Y, n1.Z);
                             v2.Normal = Vector3.TransformNormal(m_Verts[tri.V2].Normal, rot);// new Vector3(n2.X, n2.Y, n2.Z);
@@ -236,7 +236,7 @@ namespace Vivid.Acceleration.Octree
                 };
             };
 
-          
+
         }
 
         public int LeafCount
@@ -355,8 +355,8 @@ namespace Vivid.Acceleration.Octree
                     }
                     OctreeNode.LeafsRendered++;
                 }
-                
-                
+
+
                 lc--;
             }
             else
@@ -405,58 +405,37 @@ namespace Vivid.Acceleration.Octree
                 _q = GL.GenQuery();
             }
 
-            //GL.ClearMask.ColorBufferBit|ClearBufferMask.DepthBufferBit);
 
-            //if (Leaf)
+            GL.BeginQuery(QueryTarget.AnySamplesPassed, _q);
+
+            RenderGlobals.CurrentCamera = From.MainCamera;
+
+            BoundsMesh.RenderSimple();
+
+            GL.EndQuery(QueryTarget.AnySamplesPassed);
+            query = true;
+
+            int[] pars = new int[3];
+
+            query = false;
+            GL.GetQueryObjecti(_q, QueryObjectParameterName.QueryResult, pars);
+            if (pars[0] > 0)
             {
-                
-            }
-           // else
-            {
-                if (query == false)
+                IsVisible = true;
+                if (!Leaf)
                 {
-                    GL.BeginQuery(QueryTarget.AnySamplesPassed, _q);
-
-                    RenderGlobals.CurrentCamera = From.MainCamera;
-
-                    BoundsMesh.RenderSimple();
-
-                    GL.EndQuery(QueryTarget.AnySamplesPassed);
-                    query = true;
-                }
-                else
-                {
-                    int[] pars = new int[3];
-                    GL.GetQueryObjecti(_q, QueryObjectParameterName.QueryResultAvailable, pars);
-
-                    if (pars[0] > 0)
+                    foreach (var sub in SubNodes)
                     {
-                        query = false;
-                        GL.GetQueryObjecti(_q, QueryObjectParameterName.QueryResult, pars);
-                        if (pars[0] > 0)
-                        {
-                            IsVisible = true;
-                            if (!Leaf)
-                            {
-                                foreach (var sub in SubNodes)
-                                {
-                                    sub.ComputeVisibility();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            IsVisible = false;
-                        }
-                    }
-                    else
-                    {
-                        //IsVisible = false;
-                        return;
+                        sub.ComputeVisibility();
                     }
                 }
             }
+            else
+            {
+                IsVisible = false;
 
+            }
+          
         }
     }
 }

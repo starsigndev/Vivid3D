@@ -27,8 +27,8 @@ namespace SceneEditor.Logic
             //    EditGrid.AddMesh(Grid);
 
             //App = new GeminiApp(glControl1.Size.Width, glControl1.Size.Height);
-            GeminiApp.FrameWidth = G_Control.Size.Width;
-            GeminiApp.FrameHeight = G_Control.Size.Height;
+            VividApp.FrameWidth = G_Control.Size.Width;
+            VividApp.FrameHeight = G_Control.Size.Height;
 
             var l1 = new Light();
             l1.Range = 80;
