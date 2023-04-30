@@ -67,9 +67,18 @@ namespace Vivid.Acceleration.Octree
 
         private OpenTK.Graphics.QueryHandle _q = QueryHandle.Zero;
         private bool query = false;
-
-        public OctreeNode(BoundingBox bounds, Scene.Scene from)
+        public ASOctree Owner
         {
+            get;
+            set;
+        }
+        public OctreeNode()
+        {
+          
+        }
+        public OctreeNode(BoundingBox bounds, Scene.Scene from,ASOctree owner)
+        {
+            Owner = owner;
             Meshes = new List<Meshes.Mesh>();
             Bounds = bounds;
             From = from;
@@ -139,7 +148,7 @@ namespace Vivid.Acceleration.Octree
             var sub_bounds = Bounds.SubdivideBoundingBox();
             foreach (var sub in sub_bounds)
             {
-                var new_node = new OctreeNode(sub, From);
+                var new_node = new OctreeNode(sub, From,Owner);
                 SubNodes.Add(new_node);
             }
         }
@@ -176,6 +185,10 @@ namespace Vivid.Acceleration.Octree
                 }
                 else
                 {
+                    if (!Owner.Dynamic.Contains(ent))
+                    {
+                        Owner.Dynamic.Add(ent);
+                    }
                 }
             }
             if (Canditates.Count == 0)
@@ -437,5 +450,29 @@ namespace Vivid.Acceleration.Octree
             }
           
         }
+
+        public void Write(BinaryWriter w)
+        {
+            w.Write(Leaf);
+            IO.FileHelp.WriteVec3(w, Bounds.Min);
+            IO.FileHelp.WriteVec3(w, Bounds.Max);
+            if (Leaf)
+            {
+                w.Write((int)Meshes.Count);
+                foreach (var mesh in Meshes)
+                {
+                   IO.FileHelp.WriteMesh(w, mesh);
+                }
+            }
+            else
+            {
+                w.Write(SubNodes.Count);
+                foreach (var sub in SubNodes)
+                {
+                    sub.Write(w);
+                }
+            }
+        }
+
     }
 }

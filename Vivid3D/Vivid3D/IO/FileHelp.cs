@@ -78,7 +78,106 @@ namespace Vivid.IO
             w.Write(mat.NormalMap.Path);
             w.Write(mat.SpecularMap.Path);
         }
+        public static Vivid.Meshes.Mesh ReadMesh(BinaryReader r)
+        {
+            Vector3 Readdpos3()
+            {
+                float x, y, z;
+                x = r.ReadSingle();
+                y = r.ReadSingle();
+                z = r.ReadSingle();
+                return new Vector3(x, y, z);
+            }
 
+            Vector4 Readdpos4()
+            {
+                float x, y, z, w;
+                x = r.ReadSingle();
+                y = r.ReadSingle();
+                z = r.ReadSingle();
+                w = r.ReadSingle();
+                return new Vector4(x, y, z, w);
+            }
+            int vc = r.ReadInt32();
+            Vivid.Meshes.Mesh mesh = new Meshes.Mesh(null);
+            for (int i = 0; i < vc; i++)
+            {
+                Vertex v = new Vertex();
+                v.Position = Readdpos3();
+                v.Normal = Readdpos3();
+                v.Tangent = Readdpos3();
+                v.BiNormal = Readdpos3();
+                v.Color = Readdpos4();
+                v.TexCoord = Readdpos3();
+                v.BoneIDS = Readdpos4();
+                v.Weights = Readdpos4();
+                mesh.AddVertex(v, false);
+
+            }
+            int tc = r.ReadInt32();
+            for(int i = 0; i < tc; i++)
+            {
+                int v0, v1, v2;
+
+                v0 = r.ReadInt32();
+                v1 = r.ReadInt32();
+                v2 = r.ReadInt32();
+
+                Triangle tri = new Triangle();
+                tri.V0 = v0;
+                tri.V1 = v1;
+                tri.V2 = v2;
+                mesh.AddTriangle(tri);
+                    
+            }
+
+            mesh.Material = ReadMaterial(r);
+
+            mesh.CreateBuffers();
+
+            return mesh;
+
+        }
+        public static void WriteMesh(BinaryWriter w, Vivid.Meshes.Mesh mesh)
+        {
+            void Writedpos3(Vector3 p)
+            {
+                w.Write(p.X);
+                w.Write(p.Y);
+                w.Write(p.Z);
+            }
+            void Writedpos4(Vector4 p)
+            {
+                w.Write(p.X);
+                w.Write(p.Y);
+                w.Write(p.Z);
+                w.Write(p.W);
+            }
+
+            w.Write(mesh.Vertices.Count);
+            foreach (var v in mesh.Vertices)
+            {
+                Writedpos3(v.Position);
+                Writedpos3(v.Normal);
+                Writedpos3(v.Tangent);
+                Writedpos3(v.BiNormal);
+                Writedpos4(v.Color);
+                Writedpos3(v.TexCoord);
+                Writedpos4(v.BoneIDS);
+                Writedpos4(v.Weights);
+            }
+
+            w.Write(mesh.Triangles.Count);
+            foreach (var t in mesh.Triangles)
+            {
+                w.Write(t.V0);
+                w.Write(t.V1);
+                w.Write(t.V2);
+            }
+
+            WriteMaterial(w, mesh.Material);
+
+        }
         public static void WriteMeshData(BinaryWriter w, Entity ent)
         {
             void Writedpos3(Vector3 p)

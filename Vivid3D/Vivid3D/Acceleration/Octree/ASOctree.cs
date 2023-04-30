@@ -3,6 +3,8 @@ using Vivid.RenderTarget;
 using Vivid.State;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
+using System.IO;
+using Vivid.Scene;
 
 namespace Vivid.Acceleration.Octree
 {
@@ -22,6 +24,9 @@ namespace Vivid.Acceleration.Octree
 
         public static int VertexLeafLimit = 1024;
 
+        public List<Entity> Dynamic = new List<Entity>();
+        public static int DynamicC = 0;
+
         public ASOctree(Scene.Scene scene)
         {
             Base = scene;
@@ -32,9 +37,141 @@ namespace Vivid.Acceleration.Octree
             InitializeVisibility();
         }
 
+        public void AddLeafs(OctreeNode node)
+        {
+
+            foreach(var mesh in node.Meshes)
+            {
+                Entity ent = new Entity();
+                ent.AddMesh(mesh);
+                Base.AddNode(ent);
+            }
+            foreach(var node2 in node.SubNodes)
+            {
+                AddLeafs(node2);
+            }
+
+        }
+
+        public ASOctree(Scene.Scene scene,string path)
+        {
+
+            Base = scene;
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            BinaryReader r = new BinaryReader(fs);
+
+            ReadScene(r);
+
+            AddLeafs(RootNode);
+
+            fs.Close();
+            LightFX = new Materials.Materials.LightFX();
+            InitializeVisibility();
+        }
+
+        public void ReadScene(BinaryReader r)
+        {
+            RootNode = ReadNode(r);
+
+            int dc = r.ReadInt32();
+            for (int i = 0; i < dc; i++)
+            {
+                Entity new_ent = new Entity();
+                IO.FileHelp.ReadEntityData(new_ent, r);
+                Dynamic.Add(new_ent);
+            }
+
+            int lc = r.ReadInt32();
+            for (int i = 0; i < lc; i++)
+            {
+                Light light = new Light();
+                IO.FileHelp.ReadLightData(light, r);
+                Base.Lights.Add(light);
+                Base.AddNode(light);
+            }
+
+            int sc = r.ReadInt32();
+            for (int i = 0; i < sc; i++)
+            {
+                SpawnPoint spawn = new SpawnPoint();
+                IO.FileHelp.ReadSpawnData(spawn, r);
+                Base.AddNode(spawn);
+            }
+        }
+
+        public OctreeNode ReadNode(BinaryReader r)
+        {
+            OctreeNode res = new OctreeNode();
+            res.From = Base;
+            res.Owner = this;
+            res.Meshes = new List<Meshes.Mesh>();
+            res.SubNodes = new List<OctreeNode>();
+
+            bool leaf = r.ReadBoolean();
+            var min = IO.FileHelp.ReadVec3(r);
+            var max = IO.FileHelp.ReadVec3(r);
+            res.Bounds = new BoundingBox(min, max);
+            if (leaf)
+            {
+                res.Leaf = true;
+                int mc = r.ReadInt32();
+                for(int i = 0; i < mc; i++)
+                {
+                    res.Meshes.Add(Vivid.IO.FileHelp.ReadMesh(r));
+                   
+                }
+               // res.Leaf = leaf;
+               // res.LeafEntity = new Entity();
+                //IO.FileHelp.ReadMeshData(res.LeafEntity, r);
+            }
+            else
+            {
+                res.Leaf = false;
+                
+                int cc = r.ReadInt32();
+                for (int i = 0; i < cc; i++)
+                {
+                    res.SubNodes.Add(ReadNode(r));
+                }
+            }
+            return res;
+        }
+
+
+        public void Save(string file)
+        {
+            FileStream fs = new FileStream(file, FileMode.Create);
+            BinaryWriter w = new BinaryWriter(fs);
+
+            RootNode.Write(w);
+
+
+
+            w.Write(Dynamic.Count);
+            foreach (var dyn in Dynamic)
+            {
+                IO.FileHelp.WriteEntityData(w, dyn);
+            }
+
+            w.Write(Base.Lights.Count);
+            foreach (var light in Base.Lights)
+            {
+                IO.FileHelp.WriteLightData(w, light);
+            }
+
+            w.Write(Base.Spawns.Count);
+            foreach (var s in Base.Spawns)
+            {
+                IO.FileHelp.WriteSpawnData(w, s);
+            }
+
+            w.Flush();
+            fs.Close();
+        }
+
         public void ProcessScene()
         {
-            RootNode = new OctreeNode(Base.Bounds, Base);
+            RootNode = new OctreeNode(Base.Bounds, Base,this);
         }
 
         public int LeafCount()
@@ -81,8 +218,8 @@ namespace Vivid.Acceleration.Octree
         {
             OctreeNode.LeafsRendered = 0;
 
-            //   GL.ColorMask(false, false, false, false);
-            //    GL.DepthMask(false);
+               GL.ColorMask(false, false, false, false);
+                GL.DepthMask(false);
             GL.Enable(EnableCap.ScissorTest);
             GL.Disable(EnableCap.DepthTest);
             GL.Disable(EnableCap.CullFace);
@@ -90,10 +227,10 @@ namespace Vivid.Acceleration.Octree
             RootNode.ComputeVisibility();
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
-            // GL.DepthMask(true);
+             GL.DepthMask(true);
             GL.Disable(EnableCap.ScissorTest);
-            // GL.ColorMask(true, true, true, true);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+             GL.ColorMask(true, true, true, true);
+            //GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             //vis_rt.Release();
 
 

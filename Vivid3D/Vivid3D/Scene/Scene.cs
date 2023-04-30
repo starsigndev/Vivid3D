@@ -948,6 +948,7 @@ namespace Vivid.Scene
             float close = 999999;
             RaycastResult closeres = null;
 
+            if (mesh.Owner == null) return res;
             var mat = mesh.Owner.WorldMatrix;
 
             for (int i = 0; i < mesh.Triangles.Count; i++)
