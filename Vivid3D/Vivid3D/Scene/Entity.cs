@@ -280,11 +280,13 @@ namespace Vivid.Scene
 
             if (firstPass)
             {
-                GLHelper.PreRenderStandard(WriteDepth,DepthTest);
+                Vivid.State.GLState.State = State.CurrentGLState.LightFirstPass;
+               // GLHelper.PreRenderStandard(WriteDepth,DepthTest);
             }
             else
             {
-                GLHelper.PreRenderStandardSecondPass();
+                Vivid.State.GLState.State = State.CurrentGLState.LightSecondPass;
+             //   GLHelper.PreRenderStandardSecondPass();
             }
 
             foreach (var mesh in Meshes)
