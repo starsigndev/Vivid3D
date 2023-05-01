@@ -32,16 +32,35 @@ out vec3 out_reflectVector;
 out vec3 out_pass_normal;
 out mat3 out_normMat;
 out mat3 out_TBN;
+out vec3 out_Vert;
 
 void main(){
 
     out_TexCoord = g_TexCoord;
     out_Color = g_Color;
 
-    out_FragPos = vec3(g_Model * vec4(g_Position,1.0));
+    //
+
+  mat4 S = mat4(0.f);
+    for (int i = 0; i < 4; ++i)
+    {
+        if (g_BoneIds[i] >= 0)
+        {
+            S += (g_finalBones[int(g_BoneIds[i])] * g_Weights[i]);
+        }
+    }
+    mat3 S_ = transpose(inverse(mat3(S)));
+    mat4 MVP = g_Projection * g_View * g_Model;
+    gl_Position = MVP * S * vec4(g_Position, 1.f);
 
 
-    mat3 normalMatrix = transpose(inverse(mat3(g_Model)));
+    //
+
+    out_FragPos = vec3(g_Model * S * vec4(g_Position, 1.f));
+
+    out_Vert = vec3(g_Model * S * vec4(g_Position, 1.f));
+
+    mat3 normalMatrix = transpose(inverse(mat3(g_Model * S)));
 
     out_normMat = normalMatrix;
 
@@ -74,22 +93,9 @@ void main(){
 	out_TVP = out_TBN * g_CameraPosition;
 	out_TFP = out_TBN * out_FragPos;
 
-    vec4 totalPosition = vec4(0.0f);
-    for(int i = 0 ; i < MAX_BONE_INFLUENCE ; i++)
-    {
-        if(g_BoneIds[i] == -1) 
-            continue;
-        if(g_BoneIds[i] >= MAX_BONES) 
-        {
-            totalPosition = vec4(g_Position,1.0f);
-            break;
-        }
-        vec4 localPosition = g_finalBones[int(g_BoneIds[i])] * vec4(g_Position,1.0f);
-        totalPosition += localPosition * g_Weights[i];
-        vec3 localNormal = mat3(g_finalBones[int(g_BoneIds[i])]) * g_Normal;
-   }
+  
    mat4 viewModel = g_View * g_Model;
 
-    gl_Position = g_Projection * viewModel * totalPosition;
+
 
 }

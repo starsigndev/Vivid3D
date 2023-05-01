@@ -63,13 +63,19 @@ namespace Vivid.Meshes
             set;
         }
 
+        public MaterialBase SkeletalDepthMaterial
+        {
+            get;
+            set;
+        }
+
         public MaterialBase FullBrightMaterial
         {
             get;
             set;
         }
 
-        public MaterialBase ActorLightMaterial
+        public MaterialBase SkeletalLightMaterial
         {
             get;
             set;
@@ -91,7 +97,9 @@ namespace Vivid.Meshes
             FullBrightMaterial = new Materials.Materials.MaterialStandardFullBright();
             LightMaterial = new Materials.Materials.MaterialStandardLight();
             DepthMaterial = new Materials.Materials.MaterialStandardDepth();
-            ActorLightMaterial = new Materials.Materials.MaterialSkeletalLight();
+            SkeletalLightMaterial = new Materials.Materials.MaterialSkeletalLight();
+            SkeletalDepthMaterial = new Materials.Materials.MaterialSkeletalDepth();
+            int bb = 5;
         }
 
         public void RenderMesh()

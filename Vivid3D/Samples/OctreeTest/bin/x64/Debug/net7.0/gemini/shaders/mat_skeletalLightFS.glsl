@@ -13,6 +13,7 @@ in vec3 out_reflectVector;
 in vec3 out_pass_normal;
 in mat3 out_normMat;
 in mat3 out_TBN;
+in vec3 out_Vert;
 
 uniform sampler2D g_TextureColor;
 uniform sampler2D g_TextureNormal;
@@ -81,7 +82,7 @@ void main(){
 
    
    
-    vec3 fragToLight = out_FragPos - g_LightPosition;
+    vec3 fragToLight = out_Vert - g_LightPosition;
     float currentDepth = length(fragToLight);
     fragToLight = normalize(fragToLight);
 

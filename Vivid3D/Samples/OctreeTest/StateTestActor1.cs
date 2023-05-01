@@ -8,6 +8,8 @@ using Vivid.App;
 using Vivid.Scene;
 using Vivid.Nodes;
 using Vivid.Anim;
+using Vivid;
+using Vivid.Texture;
 
 namespace OctreeTest
 {
@@ -30,7 +32,7 @@ namespace OctreeTest
             var n1 = Importer.ImportEntity<Entity>("test/floor1.fbx");
             s1.AddNode(n1);
 
-            var l1 = new Light();
+        l1 = new Light();
             l1.Range = 80;
             l1.Position = new OpenTK.Mathematics.Vector3(0, 5, 3);
             s1.Lights.Add(l1);
@@ -42,13 +44,20 @@ namespace OctreeTest
 
             var act = Importer.ImportSkeletalEntity<SkeletalEntity>("test/a1.fbx");
 
-            act.Scale = new OpenTK.Mathematics.Vector3(0.1f, 0.1f, 0.1f);
+            var v_diff = new Texture2D("test/vampire_diffuse.png");
+            var v_norm = new Texture2D("test/spec_vampire_diffuse.png");
+
+            act.Meshes[0].Material.ColorMap = v_diff;
+            act.Meshes[0].Material.SpecularMap = v_norm;
+
+            act.Scale = new OpenTK.Mathematics.Vector3(0.03f, 0.03f, 0.03f);
 
 
-            ActorAnimation anim = new ActorAnimation("Dance", 0, 70, 0.05f, AnimType.Forward);
+            ActorAnimation anim = new ActorAnimation("Dance", 0,75, 0.07f, AnimType.Forward);
             act.AddAnimation(anim);
             act.PlayAnimation("Dance");
             s1.AddNode(act);
+            
 
             //var act = Importer.ImportSkeletal<EntitySkel
 
@@ -58,11 +67,15 @@ namespace OctreeTest
         {
             s1.Update();
         }
-
+        Light l1;
         public override void Render()
         {
             s1.RenderShadows();
             s1.Render();
+            if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.Space))
+            {
+                l1.Position = s1.MainCamera.Position;
+            }
         }
 
 

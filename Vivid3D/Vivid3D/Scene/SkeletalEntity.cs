@@ -185,10 +185,40 @@ namespace Vivid.Scene
         public override void RenderDepth(Camera c,bool ignore_child)
         {
             RenderGlobals.CurrentNode = this as Node;
+            //if (first)
+            //  {
+            Vivid.State.GLState.State = State.CurrentGLState.LightFirstPass;
+          
+
             foreach (var mesh in Meshes)
             {
+                var material = mesh.SkeletalDepthMaterial;
 
-        
+                material.Shader.Camera = c;
+                material.Shader.Entity = this;
+                material.Shader.Light = null;
+
+                var ms = material.Shader as SkeletalDepthFX;
+
+                ms.bones = this.Animator.GetFinalBoneMatrices();
+
+
+                material.Shader.Bind();
+
+               // mesh.Material.ColorMap.Bind(0);
+                //mesh.Material.NormalMap.Bind(1);
+                //mesh.Material.SpecularMap.Bind(2);
+                //l.RTC.Cube.Bind(3);
+
+                mesh.RenderMesh();
+
+                material.Shader.Unbind();
+                //mesh.Material.ColorMap.Unbind(0);
+                //mesh.Material.NormalMap.Unbind(1);
+                //mesh.Material.SpecularMap.Unbind(2);
+                //l.RTC.Cube.Release(3);
+
+
             }
 
             foreach (var node in Nodes)
@@ -215,7 +245,7 @@ namespace Vivid.Scene
 
             foreach (var mesh in Meshes)
             {
-                var material = mesh.ActorLightMaterial;
+                var material = mesh.SkeletalLightMaterial;
 
                 material.Shader.Camera = c;
                 material.Shader.Entity = this;
