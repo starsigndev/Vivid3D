@@ -280,56 +280,6 @@
           }
         }
       },
-      "PhysX.Net/3.0.0-alpha1": {
-        "runtime": {
-          "lib/net50/PhysX.Net.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "2.0.0.0"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win-x64/native/Ijwhost.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "5.0.220.61120"
-          },
-          "runtimes/win-x64/native/PhysXCommon_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/PhysXCooking_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/PhysXDevice64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "18.12.7.1"
-          },
-          "runtimes/win-x64/native/PhysXFoundation_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/PhysXGpu_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/PhysX_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/glut32.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
@@ -1043,13 +993,28 @@
           "AssimpNet": "5.0.0-beta1",
           "Ionic.Zlib.Core": "1.0.0",
           "OpenTK": "5.0.0-pre.8",
-          "PhysX.Net": "3.0.0-alpha1",
           "SixLabors.ImageSharp": "3.0.1",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3",
           "ZKWeb.System.Drawing": "4.0.1"
         },
         "runtime": {
           "Vivid.dll": {}
+        }
+      },
+      "BepuPhysics/2.5.0.0": {
+        "runtime": {
+          "BepuPhysics.dll": {
+            "assemblyVersion": "2.5.0.0",
+            "fileVersion": "2.5.0.0"
+          }
+        }
+      },
+      "BepuUtilities/2.5.0.0": {
+        "runtime": {
+          "BepuUtilities.dll": {
+            "assemblyVersion": "2.5.0.0",
+            "fileVersion": "2.5.0.0"
+          }
         }
       }
     }
@@ -1192,13 +1157,6 @@
       "sha512": "sha512-26Dh70gc7DyNUoAlgLwfxolbtBpQ65y8U/+/LzNFtHYFuaJ6KjiVsczjGmxRstIZ7shgPaiNOTkZYx9dHCn9ng==",
       "path": "opentk.winforms/4.0.0-pre.6",
       "hashPath": "opentk.winforms.4.0.0-pre.6.nupkg.sha512"
-    },
-    "PhysX.Net/3.0.0-alpha1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JT0KrHi39xgv31DImDmVLkcX98h1hKJH5hc0EhauBIxdJcfMiFVjN2KBJ/R6O6eQE6VN/X265N6K/sHKWEXkuA==",
-      "path": "physx.net/3.0.0-alpha1",
-      "hashPath": "physx.net.3.0.0-alpha1.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
@@ -1762,6 +1720,16 @@
     },
     "Vivid/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BepuPhysics/2.5.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BepuUtilities/2.5.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

@@ -85,3 +85,9 @@ C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\refint\OctreeTest.dll
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\OctreeTest.pdb
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\OctreeTest.genruntimeconfig.cache
 C:\G3D\Vivid3D\Samples\OctreeTest\obj\x64\Debug\net7.0\ref\OctreeTest.dll
+C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\BepuPhysics.dll
+C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\BepuUtilities.dll
+C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\BepuPhysics.pdb
+C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\BepuPhysics.xml
+C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\BepuUtilities.pdb
+C:\G3D\Vivid3D\Samples\OctreeTest\bin\x64\Debug\net7.0\BepuUtilities.xml

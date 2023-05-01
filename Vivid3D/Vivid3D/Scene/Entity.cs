@@ -95,9 +95,7 @@ namespace Vivid.Scene
                     var bb = BoundsNoTransform;
 
                     Body = new PXBox(bb.HalfSize.X, bb.HalfSize.Y, bb.HalfSize.Z, this);
-                   //   Body.InitBody();
-
-                    Matrix4 mm = Rotation; ;
+                    Body.SetPose(Position, Rotation);
 
 
                     break;
@@ -174,6 +172,9 @@ namespace Vivid.Scene
                 else
                 {
                     Position = Body.GetPos();
+                    Rotation = Body.GetRot();
+                    //Body.Body.Velocity = new BepuPhysics.BodyVelocity(new System.Numerics.Vector3(55, 55, 55));
+                  
 
                    // Rotation = Body.GetRot();
                 }

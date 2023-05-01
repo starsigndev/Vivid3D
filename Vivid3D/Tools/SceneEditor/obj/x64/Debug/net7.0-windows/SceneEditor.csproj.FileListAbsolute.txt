@@ -111,7 +111,6 @@ C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\OpenTK.Windowing.C
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\OpenTK.Windowing.Desktop.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\OpenTK.WinForms.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\PhysX.Net.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\SixLabors.ImageSharp.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\System.Drawing.Common.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\ZKWeb.System.Drawing.dll
@@ -125,13 +124,11 @@ C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\osx-arm64
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\glfw3.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x86\native\glfw3.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\Ijwhost.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\PhysXCommon_64.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\PhysXCooking_64.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\PhysXDevice64.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\PhysXFoundation_64.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\PhysXGpu_64.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\PhysX_64.dll
-C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\runtimes\win-x64\native\glut32.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\Vivid.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\Vivid.pdb
+C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuPhysics.dll
+C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuUtilities.dll
+C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuPhysics.pdb
+C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuPhysics.xml
+C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuUtilities.pdb
+C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuUtilities.xml

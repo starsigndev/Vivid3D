@@ -983,6 +983,22 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "BepuPhysics/2.5.0.0": {
+        "runtime": {
+          "BepuPhysics.dll": {
+            "assemblyVersion": "2.5.0.0",
+            "fileVersion": "2.5.0.0"
+          }
+        }
+      },
+      "BepuUtilities/2.5.0.0": {
+        "runtime": {
+          "BepuUtilities.dll": {
+            "assemblyVersion": "2.5.0.0",
+            "fileVersion": "2.5.0.0"
+          }
+        }
       }
     }
   },
@@ -1679,6 +1695,16 @@
       "hashPath": "zkweb.system.drawing.4.0.1.nupkg.sha512"
     },
     "Vivid.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BepuPhysics/2.5.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BepuUtilities/2.5.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
