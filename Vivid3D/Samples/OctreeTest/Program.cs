@@ -33,7 +33,7 @@ namespace OctreeTest
             native_settings.SrgbCapable = true;
             //; ; native_settings
 
-            Vivid.App.VividApp.InitialState = new StateTestPhysics();
+            Vivid.App.VividApp.InitialState = new StateTestActor1();
             TestOctreeApp app = new TestOctreeApp(game_win, native_settings);
 
             app.Run();

@@ -125,7 +125,7 @@ namespace Vivid.Scene
                     root_mat = Root.WorldMatrix;
                 }
 
-                return Rotation * Matrix4.CreateTranslation(Position) * root_mat;// * scale_mat;
+                return Matrix4.CreateScale(Scale)* Rotation * Matrix4.CreateTranslation(Position) * root_mat;// * scale_mat;
 
                 // }
 
@@ -534,6 +534,12 @@ namespace Vivid.Scene
         {
             if (!Enabled) return;
             UpdateNode();
+
+            if(this is SkeletalEntity)
+            {
+                var sk = this as SkeletalEntity;
+                sk.UpdateAnimation();
+            }
 
             foreach (var node in Nodes)
             {

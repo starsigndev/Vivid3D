@@ -1,7 +1,6 @@
 ﻿using Assimp;
 
-//using Vivid.Anim;
-
+using Vivid.Anim;
 using OpenTK.Mathematics;
 using Vivid.Meshes;
 
@@ -69,6 +68,7 @@ namespace Vivid.Importing
 
     public class Importer
     {
+       
         /*
         public static T ImportSkeletalEntity<T>(MemoryStream stream) where T : Vivid.Scene.SkeletalEntity, new()
         {
@@ -120,7 +120,7 @@ namespace Vivid.Importing
 
             return result;
         }
-
+        */
             public static T ImportSkeletalEntity<T>(string path) where T : Vivid.Scene.SkeletalEntity, new()
         {
             var imp = new Assimp.AssimpContext();
@@ -156,7 +156,7 @@ namespace Vivid.Importing
 
             return result;
         }
-        */
+   
 
         /*
         public static T ImportActor<T>(string path) where T: Vivid.Scene.Actor, new()

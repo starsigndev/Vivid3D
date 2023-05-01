@@ -10,6 +10,7 @@ using Vivid.Audio;
 using OpenTK.Graphics;
 using Vivid.Renderers;
 using Vivid.Physx;
+using Vivid.Meshes;
 
 namespace Vivid.Acceleration.Octree
 {
@@ -66,6 +67,34 @@ namespace Vivid.Acceleration.Octree
             BinaryReader r = new BinaryReader(stream);
 
             ReadScene(r);
+
+            Meshes.Mesh mesh = new Meshes.Mesh(null);
+
+            int vc = 0;
+            foreach (var m in _Meshes)
+            {
+
+                foreach(var vertex in m.Vertices)
+                {
+                    mesh.AddVertex(vertex,false);
+                }
+              
+                foreach(var tri in m.Triangles)
+                {
+                    Triangle nt = new Triangle();
+                    nt.V0 = tri.V0 + vc;
+                    nt.V1 = tri.V1 + vc;
+                    nt.V2 = tri.V2 + vc;
+                    mesh.AddTriangle(nt);
+                }
+                vc = mesh.Vertices.Count();
+
+            }
+
+            int b = 5;
+            //InternalBufferOverflowException = 5
+
+            var tr_mesh = new PXTriMesh(mesh);
 
             AddLeafs(RootNode);
 
@@ -128,7 +157,7 @@ namespace Vivid.Acceleration.Octree
                 Base.AddNode(spawn);
             }
         }
-
+        public List<Vivid.Meshes.Mesh> _Meshes = new List<Meshes.Mesh>();
         public OctreeNode ReadNode(BinaryReader r)
         {
             OctreeNode res = new OctreeNode();
@@ -150,7 +179,7 @@ namespace Vivid.Acceleration.Octree
                 for(int i = 0; i < mc; i++)
                 {
                     res.Meshes.Add(Vivid.IO.FileHelp.ReadMesh(r));
-                    PXTriMesh pt = new PXTriMesh(res.Meshes[i]);
+                    _Meshes.Add(res.Meshes[i]);
 
                    
                 }

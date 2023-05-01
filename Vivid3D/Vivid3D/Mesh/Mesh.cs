@@ -69,6 +69,11 @@ namespace Vivid.Meshes
             set;
         }
 
+        public MaterialBase ActorLightMaterial
+        {
+            get;
+            set;
+        }
         public MeshBuffer Buffer
         {
             get;
@@ -86,6 +91,7 @@ namespace Vivid.Meshes
             FullBrightMaterial = new Materials.Materials.MaterialStandardFullBright();
             LightMaterial = new Materials.Materials.MaterialStandardLight();
             DepthMaterial = new Materials.Materials.MaterialStandardDepth();
+            ActorLightMaterial = new Materials.Materials.MaterialSkeletalLight();
         }
 
         public void RenderMesh()

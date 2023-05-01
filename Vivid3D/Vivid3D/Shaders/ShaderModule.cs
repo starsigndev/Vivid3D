@@ -129,9 +129,9 @@ namespace Vivid.Shaders
             GL.Uniform4f(GetLocation(name), value);
         }
 
-        public void SetUni(string name, Matrix4 value)
+        public void SetUni(string name, Matrix4 value,bool trans=false)
         {
-            GL.UniformMatrix4f(GetLocation(name), false, in value);
+            GL.UniformMatrix4f(GetLocation(name),trans, in value);
         }
 
         public void SetUni(int id, int value)
