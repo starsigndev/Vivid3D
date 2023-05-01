@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using System.Runtime.CompilerServices;
 using Vivid.Engine;
 using Vivid.Meshes;
 using Vivid.Physx;
@@ -101,7 +102,10 @@ namespace Vivid.Scene
                     break;
 
                 case BodyType.ConvexHull:
-                   
+
+                    Body = new PXConvexHull(Meshes[0]);
+                    Body.SetPose(Position, Rotation);
+
                     break;
 
                 case BodyType.TriMesh:
@@ -160,7 +164,7 @@ namespace Vivid.Scene
                 //    Body.SetPose(Position, Rotation);
             }
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void UpdatePhysics()
         {
             if (!Enabled) return;
@@ -185,7 +189,7 @@ namespace Vivid.Scene
                 node.UpdatePhysics();
             }
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void RenderSimple()
         {
             GLHelper.PreRenderStandard(WriteDepth, DepthTest);
@@ -214,7 +218,7 @@ namespace Vivid.Scene
 
             //base.RenderSimple();
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Render(Light l, Camera c, bool firstPass)
         {
             if (!Enabled) return;
@@ -287,7 +291,7 @@ namespace Vivid.Scene
                 //  GemBridge.gem_MeshRenderer_RenderNormals(RenderGlobals.MeshRenderer, mesh.MeshBuffer, c.Position.handle, c.Projection.handle, c.WorldMatrix.handle, WorldMatrix.handle);
             }
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void RenderDepth(Camera c, bool ignore_child = false)
         {
             if (!Enabled) return;

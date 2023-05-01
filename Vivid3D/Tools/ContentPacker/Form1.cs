@@ -18,6 +18,8 @@ namespace ContentPacker
             {
                 contentName.Text = File.ReadAllText("contentname.inf");
             }
+            LoadList("tmp.list");
+            RebuildUI();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -84,7 +86,7 @@ namespace ContentPacker
 
 
             }
-            foreach(var fold in folder.GetDirectories())
+            foreach (var fold in folder.GetDirectories())
             {
 
                 AddDir(fold.FullName);
@@ -97,9 +99,9 @@ namespace ContentPacker
             folderBrowserDialog1.ShowDialog();
 
             AddDir(folderBrowserDialog1.SelectedPath);
-                        //var folder = new DirectoryInfo(folderBrowserDialog1.SelectedPath);
+            //var folder = new DirectoryInfo(folderBrowserDialog1.SelectedPath);
+            SaveList("tmp.list");
 
-           
             RebuildUI();
 
         }
@@ -158,7 +160,12 @@ namespace ContentPacker
             saveFileDialog1.ShowDialog(this);
             string path = saveFileDialog1.FileName;
 
+            SaveList(path);
 
+        }
+
+        private void SaveList(string path)
+        {
             string[] paths = new string[ActiveContent.Items.Count];
             for (int i = 0; i < ActiveContent.Items.Count; i++)
             {
@@ -169,7 +176,6 @@ namespace ContentPacker
             }
 
             File.WriteAllLines(path, paths);
-
         }
 
         private void loadListToolStripMenuItem_Click(object sender, EventArgs e)
@@ -180,9 +186,14 @@ namespace ContentPacker
             openFileDialog1.ShowDialog();
 
             string path = openFileDialog1.FileName;
+            LoadList(path);
+        }
+
+        private void LoadList(string path)
+        {
             if (File.Exists(path) == false)
             {
-                MessageBox.Show("File does not exist.");
+                return;
                 RebuildUI();
                 return;
 

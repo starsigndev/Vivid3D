@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using System.Runtime.CompilerServices;
 using Vivid.App;
 using Vivid.Materials;
 using Vivid.Mesh;
@@ -745,6 +746,7 @@ namespace Vivid.Scene
         /// <summary>
         /// Updates the node's position based on the physics scene.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void UpdatePhysics()
         {
             Root.UpdatePhysics();
@@ -753,6 +755,8 @@ namespace Vivid.Scene
         /// <summary>
         /// Updates the scene. call once per frame.
         /// </summary>
+        ///  [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Update()
         {
             UpdatePhysics();
@@ -882,7 +886,7 @@ namespace Vivid.Scene
 
             return res;
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Ray GetMousePickRay(int x, int y)
         {
             float w = App.VividApp.FrameWidth;
@@ -914,7 +918,7 @@ namespace Vivid.Scene
         }
 
         private const float EPSILON = 0.0000001f;
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private RaycastResult RayToTri(Ray ray, Vector3 v0, Vector3 v1, Vector3 v2)
         {
             Vector3 edge1, edge2, h, s, q;
@@ -955,7 +959,7 @@ namespace Vivid.Scene
 
             return res;
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RaycastResult Raycast(Ray ray, Vivid.Meshes.Mesh mesh)
         {
             RaycastResult res = new RaycastResult();
@@ -1004,7 +1008,7 @@ namespace Vivid.Scene
 
             return closeres;
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RaycastResult Raycast(Ray ray, List<Vivid.Meshes.Mesh> meshes)
         {
             //var meshes = GetMeshes();
@@ -1046,6 +1050,7 @@ namespace Vivid.Scene
         /// <summary>
         /// Renders the whole scene, including lights and shadows.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Render()
         {
             bool firstPass = true;
@@ -1066,7 +1071,7 @@ namespace Vivid.Scene
         {
             Root.RenderNormals(MainCamera);
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RenderDepth()
         {
             //RenderGlobals.CurrentCamera = MainCamera;
@@ -1076,6 +1081,7 @@ namespace Vivid.Scene
         /// <summary>
         /// Renders the shadow maps for each light. call this without ANY rendertargets's bound.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RenderShadows()
         {
             foreach (var light in Lights)
@@ -1084,7 +1090,7 @@ namespace Vivid.Scene
                 ShadowRender.RenderDepth(light.Position, light.Range);
             }
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RenderSimple()
         {
             RenderGlobals.CurrentCamera = MainCamera;

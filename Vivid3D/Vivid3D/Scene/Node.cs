@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using System.Runtime.CompilerServices;
 using Vivid.Audio;
 using Vivid.Renderers;
 using Vivid.Resource;
@@ -112,6 +113,7 @@ namespace Vivid.Scene
         /// This is the world position, rotation and scale, which is the composite of
         /// the node and all it's parent nodes
         /// </summary>
+        
         public virtual Matrix4 WorldMatrix
         {
             get
@@ -400,6 +402,7 @@ namespace Vivid.Scene
         /// <param name="l"></param>
         /// <param name="c"></param>
         /// <param name="firstPass"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Render(Light l, Camera c, bool firstPass)
         {
             foreach (var node in Nodes)
@@ -423,7 +426,7 @@ namespace Vivid.Scene
                 node.RenderNormals(c);
             }
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void RenderDepth(Camera c, bool ignore_child = false)
         {
             RenderGlobals.CurrentNode = this;
@@ -453,6 +456,7 @@ namespace Vivid.Scene
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void UpdatePhysics()
         {
             if (!Enabled) return;
@@ -467,6 +471,7 @@ namespace Vivid.Scene
         /// </summary>
         /// <param name="vector"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3 TransformVector(Vector3 vector)
         {
             if (this is Camera)
@@ -484,6 +489,7 @@ namespace Vivid.Scene
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3 TransformPosition(Vector3 position)
         {
             if (this is Camera)
@@ -523,7 +529,7 @@ namespace Vivid.Scene
             clone.Name = Name + "_Clone";
             return clone;
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Update()
         {
             if (!Enabled) return;

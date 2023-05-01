@@ -1,5 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
+using System.Runtime.CompilerServices;
 using Vivid.RenderTarget;
 using Vivid.Scene;
 using Vivid.Texture;
@@ -140,7 +141,7 @@ namespace Vivid.Renderers
                     break;
             }
         }
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RenderDepth(Vector3 pos, float maxz)
         {
             var pcam = Graph.MainCamera;
