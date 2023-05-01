@@ -6,6 +6,10 @@ using OpenTK.Mathematics;
 using System.IO;
 using Vivid.Scene;
 using Assimp.Unmanaged;
+using Vivid.Audio;
+using OpenTK.Graphics;
+using Vivid.Renderers;
+using Vivid.Physx;
 
 namespace Vivid.Acceleration.Octree
 {
@@ -55,7 +59,25 @@ namespace Vivid.Acceleration.Octree
             }
 
         }
+        public ASOctree(Scene.Scene scene,MemoryStream stream)
+        {
+            Base = scene;
+         
+            BinaryReader r = new BinaryReader(stream);
 
+            ReadScene(r);
+
+            AddLeafs(RootNode);
+
+         
+            LightFX = new Materials.Materials.LightFX();
+            foreach (var dy in Dynamic)
+            {
+                Base.AddNode(dy);
+
+            }
+            InitializeVisibility();
+        }
         public ASOctree(Scene.Scene scene,string path)
         {
 
@@ -69,6 +91,11 @@ namespace Vivid.Acceleration.Octree
 
             fs.Close();
             LightFX = new Materials.Materials.LightFX();
+            foreach(var dy in Dynamic)
+            {
+                Base.AddNode(dy);
+
+            }
             InitializeVisibility();
         }
 
@@ -114,6 +141,8 @@ namespace Vivid.Acceleration.Octree
             var min = IO.FileHelp.ReadVec3(r);
             var max = IO.FileHelp.ReadVec3(r);
             res.Bounds = new BoundingBox(min, max);
+
+
             if (leaf)
             {
                 res.Leaf = true;
@@ -121,6 +150,8 @@ namespace Vivid.Acceleration.Octree
                 for(int i = 0; i < mc; i++)
                 {
                     res.Meshes.Add(Vivid.IO.FileHelp.ReadMesh(r));
+                    PXTriMesh pt = new PXTriMesh(res.Meshes[i]);
+
                    
                 }
                // res.Leaf = leaf;
@@ -209,9 +240,11 @@ namespace Vivid.Acceleration.Octree
                 RootNode.Render();
                 GLState.State = CurrentGLState.LightSecondPass;
             }
+            int dy_d = 0;
             LightFX.Unbind();
             foreach(var dy in Dynamic)
             {
+                if (dy.IsVisible == false) continue;
                 bool firstPass = true;
                 foreach (var light in Base.Lights)
                 {
@@ -219,17 +252,29 @@ namespace Vivid.Acceleration.Octree
                     firstPass = false;
                     //RenderGlobals.FirstPass = false;
                 }
+                dy_d++;
                 //int aa = 5;
 
 
             }
+            Console.WriteLine("Dynamic Rendered:" + dy_d);
             Console.WriteLine("Leafs Rendered:" + OctreeNode.LeafsRendered);
         }
         public void InitializeVisibility()
         {
             RootNode.InitializeVisibility();
-        }
+            foreach(var dy in Dynamic)
+            {
+                dy.BoundsMesh = new Entity();
+                dy.BoundsMesh.WriteDepth = false;
+                dy.BoundsMesh.DepthTest = false;
+                //Vivid.Meshes.Mesh mesh = new Meshes.Mesh(BoundsMesh);
+                Vivid.Meshes.Mesh mesh = SceneHelper.BoundsToMesh(dy.BoundsNoTransform,dy.BoundsMesh);
+                dy.BoundsMesh.AddMesh(mesh);
 
+            }
+        }
+        private QueryHandle _q = QueryHandle.Zero;
         public void ComputeVisibility()
         {
             OctreeNode.LeafsRendered = 0;
@@ -241,6 +286,37 @@ namespace Vivid.Acceleration.Octree
             GL.Disable(EnableCap.CullFace);
             GL.Scissor(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
             RootNode.ComputeVisibility();
+            foreach (var dy in Dynamic)
+            {
+                if (_q == QueryHandle.Zero)
+                {
+                    _q = GL.GenQuery();
+                }
+
+
+                GL.BeginQuery(QueryTarget.AnySamplesPassed, _q);
+
+                RenderGlobals.CurrentCamera = Base.MainCamera;
+
+                dy.BoundsMesh.Position = dy.Position;
+                dy.BoundsMesh.RenderSimple();
+
+
+                GL.EndQuery(QueryTarget.AnySamplesPassed);
+
+
+                int[] pars = new int[3];
+
+                GL.GetQueryObjecti(_q, QueryObjectParameterName.QueryResult, pars);
+                if (pars[0] > 0)
+                {
+                    dy.IsVisible = true;
+                }
+                else
+                {
+                    dy.IsVisible = false;
+                }
+            }
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
              GL.DepthMask(true);

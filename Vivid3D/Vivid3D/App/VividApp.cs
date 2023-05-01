@@ -182,6 +182,7 @@ namespace Vivid.App
         {
             //base.OnLoad();
             GL.ClearColor(1, 0, 0, 1);
+            Physics.QPhysics.InitPhysics();
             PushState(InitialState);
             if (States.Count > 0)
             {
@@ -193,7 +194,7 @@ namespace Vivid.App
             Scene.ShaderModules.Shaders.InitShaders();
             int aa = 5;
             //  GL.Disable(EnableCap.)
-            Physics.QPhysics.InitPhysics();
+        
         }
 
         protected override void OnKeyDown(KeyboardKeyEventArgs e)

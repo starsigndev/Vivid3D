@@ -5,6 +5,7 @@ using BepuUtilities.Memory;
 using BepuPhysics.Collidables;
 using BepuPhysics;
 using System.Numerics;
+using System;
 //using OpenTK.Mathematics;
 
 namespace Vivid.Physx
@@ -22,7 +23,14 @@ namespace Vivid.Physx
             get;
             set;
         }
+        public PXTriMesh(Vivid.Meshes.Mesh mesh)
+        {
+            Meshes = new List<Meshes.Mesh>();
+            Meshes.Add(mesh);
+            //Index = index;
 
+            InitBody();
+        }
         public PXTriMesh(List<Vivid.Meshes.Mesh> meshes, int index)
         {
             Meshes = meshes;

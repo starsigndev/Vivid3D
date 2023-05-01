@@ -68,6 +68,18 @@ namespace Vivid.Scene
             set;
         }
 
+        public Entity BoundsMesh
+        {
+            get;
+            set;
+        }
+
+        public bool IsVisible
+        {
+            get;
+            set;
+        }
+
         public Entity()
         {
             Meshes = new List<Vivid.Meshes.Mesh>();
@@ -77,6 +89,7 @@ namespace Vivid.Scene
             ClearZBeforeRender = false;
             EntityType = EntityType.Static;
             WriteDepth = true;
+            IsVisible = false;
             DepthTest = true;
         }
 

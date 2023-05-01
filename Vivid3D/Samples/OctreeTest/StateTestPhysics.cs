@@ -30,16 +30,17 @@ namespace OctreeTest
             Content textures = new Content("c:/content/content/textures");
             Content scenes = new Content("c:/content/content/scenes");
 
-            var sceneItem = scenes.Find("physics2");
+            var sceneItem = scenes.Find("oc1");
 
             s1 = new Scene();
 
-            s1.Load(sceneItem.GetStream());
+            //s1.Load(sceneItem.GetStream());
+
 
             var fl = new FreeLook();
             s1.MainCamera = fl;
             fl.Position = new OpenTK.Mathematics.Vector3(0, 5, 5);
-            ot1 = new ASOctree(s1);
+            ot1 = new ASOctree(s1,sceneItem.GetStream());
 
         }
         bool px = false;
