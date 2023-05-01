@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid;
+using Vivid.Acceleration.Octree;
 using Vivid.App;
 using Vivid.Content;
 using Vivid.Importing;
@@ -20,6 +21,7 @@ namespace OctreeTest
         }
 
         Scene s1;
+        ASOctree ot1;
 
         public override void Init()
         {
@@ -37,7 +39,7 @@ namespace OctreeTest
             var fl = new FreeLook();
             s1.MainCamera = fl;
             fl.Position = new OpenTK.Mathematics.Vector3(0, 5, 5);
-
+            ot1 = new ASOctree(s1);
 
         }
         bool px = false;
@@ -59,7 +61,9 @@ namespace OctreeTest
         {
             //base.Render();
             s1.RenderShadows();
-            s1.Render();
+            //s1.Render();
+            ot1.ComputeVisibility();
+            ot1.Render();
         }
     }
 

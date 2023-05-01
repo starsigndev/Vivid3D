@@ -138,6 +138,7 @@ namespace Vivid.App
             States = new Stack<AppState>();
         }
 
+
         public void CreateWindow()
 
         {

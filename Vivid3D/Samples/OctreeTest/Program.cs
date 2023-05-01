@@ -14,6 +14,7 @@ namespace OctreeTest
             game_win.RenderFrequency = 0;
             game_win.UpdateFrequency = 120;
             game_win.IsMultiThreaded = false;
+      
 
             native_settings.API = OpenTK.Windowing.Common.ContextAPI.OpenGL;
             native_settings.APIVersion = new Version(4, 6);
@@ -23,6 +24,15 @@ namespace OctreeTest
             native_settings.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
             native_settings.Size = new OpenTK.Mathematics.Vector2i(1024, 768);
             native_settings.Title = "Vivid - Application";
+            native_settings.RedBits = 10;
+            native_settings.GreenBits = 10;
+            native_settings.BlueBits = 10;
+            native_settings.DepthBits = 24;
+            native_settings.AlphaBits = 24;
+            native_settings.NumberOfSamples = 8;
+            native_settings.SrgbCapable = true;
+            //; ; native_settings
+
             Vivid.App.VividApp.InitialState = new StateTestPhysics();
             TestOctreeApp app = new TestOctreeApp(game_win, native_settings);
 

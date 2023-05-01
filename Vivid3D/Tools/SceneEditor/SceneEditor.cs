@@ -218,7 +218,7 @@ namespace SceneEditor
         public void CreateGrid()
         {
             var eg = Logic.Grid.CreateGrid();
-            EditGrid.AddMesh(eg);
+            EditScene.MeshLines.Add(eg);
         }
 
 

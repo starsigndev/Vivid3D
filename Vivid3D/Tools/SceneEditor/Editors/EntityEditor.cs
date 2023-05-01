@@ -36,7 +36,7 @@ namespace SceneEditor.Editors
             entityName.Text = value.Name;
             entType.Text = value.NodeType;
             pxType.SelectedIndex = (int)value.BodyKind;
-
+            cbDynamicType.SelectedIndex = (int)value.EntityType;
             cbMesh.Items.Clear();
 
             for (int i = 0; i < value.Meshes.Count; i++)
@@ -72,14 +72,14 @@ namespace SceneEditor.Editors
 
             Edit = false;
             //nDiffR.Value = (decimal)mesh.Material.Diffuse.x;
-           // nDiffG.Value = (decimal)mesh.Material.Diffuse.y;
+            // nDiffG.Value = (decimal)mesh.Material.Diffuse.y;
             //nDiffB.Value = (decimal)mesh.Material.Diffuse.z;
 
 
 
             //nSpecR.Value = (decimal)mesh.Material.Specular.x;
-           // nSpecG.Value = (decimal)mesh.Material.Specular.y;
-           // nSpecB.Value = (decimal)mesh.Material.Specular.z;
+            // nSpecG.Value = (decimal)mesh.Material.Specular.y;
+            // nSpecB.Value = (decimal)mesh.Material.Specular.z;
 
 
 
@@ -249,6 +249,13 @@ namespace SceneEditor.Editors
         {
             if (CurrentEntity == null) return;
             CurrentEntity.NodeType = entType.Text;
+        }
+
+        private void Change_DynamicType(object sender, EventArgs e)
+        {
+            if (CurrentEntity == null) return;
+            CurrentEntity.EntityType = (EntityType)cbDynamicType.SelectedIndex;
+
         }
     }
 }

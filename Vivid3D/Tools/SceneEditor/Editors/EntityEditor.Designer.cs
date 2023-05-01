@@ -61,6 +61,8 @@
             openFileDialog1 = new OpenFileDialog();
             label15 = new Label();
             entType = new TextBox();
+            label16 = new Label();
+            cbDynamicType = new ComboBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nSpecG).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nSpecB).BeginInit();
@@ -380,12 +382,33 @@
             entType.TabIndex = 10;
             entType.TextChanged += entType_TextChanged;
             // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(420, 57);
+            label16.Name = "label16";
+            label16.Size = new Size(102, 20);
+            label16.TabIndex = 11;
+            label16.Text = "Dynamic Type";
+            // 
+            // cbDynamicType
+            // 
+            cbDynamicType.FormattingEnabled = true;
+            cbDynamicType.Items.AddRange(new object[] { "Static", "Dynamic" });
+            cbDynamicType.Location = new Point(528, 54);
+            cbDynamicType.Name = "cbDynamicType";
+            cbDynamicType.Size = new Size(300, 28);
+            cbDynamicType.TabIndex = 12;
+            cbDynamicType.SelectedIndexChanged += Change_DynamicType;
+            // 
             // EntityEditor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(840, 551);
+            Controls.Add(cbDynamicType);
+            Controls.Add(label16);
             Controls.Add(entType);
             Controls.Add(label15);
             Controls.Add(cbMesh);
@@ -446,5 +469,7 @@
         private Label label7;
         private Label label15;
         private TextBox entType;
+        private Label label16;
+        private ComboBox cbDynamicType;
     }
 }

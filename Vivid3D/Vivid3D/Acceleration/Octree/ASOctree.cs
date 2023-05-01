@@ -5,6 +5,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using System.IO;
 using Vivid.Scene;
+using Assimp.Unmanaged;
 
 namespace Vivid.Acceleration.Octree
 {
@@ -35,6 +36,8 @@ namespace Vivid.Acceleration.Octree
             RootNode.CreateBuffers();
             LightFX = new Materials.Materials.LightFX();
             InitializeVisibility();
+            //Base.Root = new Node();
+
         }
 
         public void AddLeafs(OctreeNode node)
@@ -207,6 +210,19 @@ namespace Vivid.Acceleration.Octree
                 GLState.State = CurrentGLState.LightSecondPass;
             }
             LightFX.Unbind();
+            foreach(var dy in Dynamic)
+            {
+                bool firstPass = true;
+                foreach (var light in Base.Lights)
+                {
+                    dy.Render(light, Base.MainCamera, firstPass);
+                    firstPass = false;
+                    //RenderGlobals.FirstPass = false;
+                }
+                //int aa = 5;
+
+
+            }
             Console.WriteLine("Leafs Rendered:" + OctreeNode.LeafsRendered);
         }
         public void InitializeVisibility()

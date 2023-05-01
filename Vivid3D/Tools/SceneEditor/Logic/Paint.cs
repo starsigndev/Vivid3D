@@ -23,7 +23,7 @@ namespace SceneEditor.Logic
 
             //      grid_node.RenderSimple();
             //  EditScene.RenderLines();
-            EditGrid.RenderSimple();
+            EditScene.RenderLines();
             if (EditScene.Lights.Count == 0)
             {
                 EditScene.RenderSimple();

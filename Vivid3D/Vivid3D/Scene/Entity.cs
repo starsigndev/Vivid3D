@@ -88,6 +88,7 @@ namespace Vivid.Scene
         public override void BeginPhysics()
         {
             if (!Enabled) return;
+         
 
             switch (BodyKind)
             {
@@ -98,6 +99,12 @@ namespace Vivid.Scene
                     Body = new PXBox(bb.HalfSize.X, bb.HalfSize.Y, bb.HalfSize.Z, this);
                     Body.SetPose(Position, Rotation);
 
+
+                    break;
+                case BodyType.Sphere:
+
+                    Body = new PXSphere(Bounds.HalfSize.X);
+                    Body.SetPose(Position, Rotation);
 
                     break;
 

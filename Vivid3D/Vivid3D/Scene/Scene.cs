@@ -431,6 +431,8 @@ namespace Vivid.Scene
             ReadNodeData(ent as Node, r);
             ReadMeshData(ent, r);
             ReadPhysicsData(ent, r);
+
+            ent.EntityType = (EntityType)r.ReadInt32();
         }
 
         private void ReadLightData(Light light, BinaryReader r)
@@ -664,6 +666,7 @@ namespace Vivid.Scene
             WriteNodeData(w, ent);
             WriteMeshData(w, ent);
             WritePhysicsData(w, ent);
+            w.Write((int)ent.EntityType);
         }
 
         //private void WriteSkeletalData(BinaryWriter w,SkeletalEntity actor)

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TreeNode treeNode2 = new TreeNode("Scene");
+            TreeNode treeNode1 = new TreeNode("Scene");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SceneEditor));
             menuStrip1 = new MenuStrip();
             sceneToolStripMenuItem = new ToolStripMenuItem();
@@ -407,9 +407,9 @@
             sceneTree.Dock = DockStyle.Fill;
             sceneTree.Location = new Point(0, 0);
             sceneTree.Name = "sceneTree";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Scene";
-            sceneTree.Nodes.AddRange(new TreeNode[] { treeNode2 });
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Scene";
+            sceneTree.Nodes.AddRange(new TreeNode[] { treeNode1 });
             sceneTree.Size = new Size(220, 523);
             sceneTree.TabIndex = 0;
             sceneTree.AfterSelect += SceneTree_AfterSelect;
@@ -435,12 +435,12 @@
             glControl1.API = OpenTK.Windowing.Common.ContextAPI.OpenGL;
             glControl1.APIVersion = new Version(4, 1, 0, 0);
             glControl1.Dock = DockStyle.Fill;
-            glControl1.Flags = OpenTK.Windowing.Common.ContextFlags.Debug;
+            glControl1.Flags = OpenTK.Windowing.Common.ContextFlags.ForwardCompatible;
             glControl1.IsEventDriven = true;
             glControl1.Location = new Point(0, 28);
             glControl1.Margin = new Padding(3, 4, 3, 4);
             glControl1.Name = "glControl1";
-            glControl1.Profile = OpenTK.Windowing.Common.ContextProfile.Compatability;
+            glControl1.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
             glControl1.Size = new Size(735, 469);
             glControl1.TabIndex = 2;
             glControl1.Text = "glControl1";

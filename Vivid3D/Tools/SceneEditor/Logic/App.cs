@@ -18,6 +18,7 @@ namespace SceneEditor.Logic
 
         public static void Init()
         {
+            Vivid.Scene.ShaderModules.Shaders.InitShaders();
             draw = new SmartDraw();
             LightIcon = new Texture2D("edit/lighticon.png");
             SpawnIcon = new Texture2D("edit/spawnIcon.png");
