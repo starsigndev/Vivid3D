@@ -765,6 +765,7 @@ namespace Vivid.Scene
             UpdatePhysics();
             MainCamera.Update();
             Root.Update();
+            Root.UpdateStates();
         }
 
         private void NodeKeyDown(Node node, KeyID key)
@@ -1063,6 +1064,9 @@ namespace Vivid.Scene
                 firstPass = false;
                 //RenderGlobals.FirstPass = false;
             }
+
+            Root.RenderStates();
+
         }
 
         public void RenderPositions()

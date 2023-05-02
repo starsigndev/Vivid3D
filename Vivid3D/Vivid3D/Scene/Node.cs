@@ -1,5 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using Vivid.Audio;
 using Vivid.Renderers;
 using Vivid.Resource;
@@ -184,6 +185,37 @@ namespace Vivid.Scene
             set;
         }
 
+        public Stack<NodeState> States
+        {
+            get;
+            set;
+        }
+
+        public void PushState(NodeState state)
+        {
+
+            if (States.Count > 0)
+            {
+                var state1 = States.Peek();
+                state1.Stop();
+            }
+            States.Push(state);
+            state.Start();
+
+        }
+
+        public void PopState()
+        {
+
+            if (States.Count > 0)
+            {
+                var state = States.Pop();
+                state.Stop();
+            }
+
+
+        }
+
         /// <summary>
         /// This will create a basic node, with all internals reset to zero/identity.
         /// </summary>
@@ -198,11 +230,46 @@ namespace Vivid.Scene
             HitSounds = new List<Sound>();
             Enabled = true;
             Scale = Vector3.One;
+            States = new Stack<NodeState>();
             NodeType = "";
             InitNode();
             _PosMatrix = Matrix4.CreateTranslation(0, 0, 0);
             _ScaleMat = Matrix4.CreateScale(1, 1, 1);
         }
+
+        public void UpdateStates()
+        {
+
+            if (States.Count > 0)
+            {
+                var state = States.Peek();
+                state.Update();
+            }
+
+            foreach(var node in Nodes)
+            {
+                node.UpdateStates();
+            }
+
+        }
+
+        public void RenderStates()
+        {
+
+            if (States.Count > 0)
+            {
+                var state = States.Peek();
+                state.Render();
+            }
+
+            foreach(var node in Nodes)
+            {
+                node.RenderStates();
+            }
+
+        }
+
+        
 
         /// <summary>
         /// Moves the node along it's current rotation. so 0,0,1 would be straight ahead, etc.
