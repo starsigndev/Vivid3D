@@ -35,7 +35,7 @@ namespace Vivid.App
 
         public void InitState()
         {
-            return;
+    
             StateScene = new Vivid.Scene.Scene();
             StateCamera = StateScene.MainCamera;
             this.StateUI = new UI.UI();

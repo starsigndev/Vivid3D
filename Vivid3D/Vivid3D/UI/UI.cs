@@ -118,8 +118,8 @@ namespace Vivid.UI
 
         public void GetMouse()
         {
-            // MousePosition = new Position((int)GameInput.MousePosition.x,(int)GameInput.MousePosition.y);
-            //  MouseDelta = new Delta(GameInput.MouseDelta.x, GameInput.MouseDelta.y);
+            MousePosition = new Position((int)GameInput.MousePosition.X,(int)GameInput.MousePosition.Y);
+            MouseDelta = new Delta(GameInput.MouseDelta.X, GameInput.MouseDelta.Y);
         }
 
         public void Update()
@@ -208,9 +208,12 @@ namespace Vivid.UI
             Root.Render();
             Draw.End();
 
+
+            Draw.Blend = BlendMode.Alpha;
             Draw.Begin();
-            // Draw.DrawTexture(UICursor, MousePosition.x, MousePosition.y, 32, 32, 1, 1, 1, 0.75f);
+            Draw.Draw(UICursor, new Rect(MousePosition.x, MousePosition.y, 32, 32),new Maths.Color(1, 1, 1, 0.75f));
             Draw.End();
+
         }
     }
 }

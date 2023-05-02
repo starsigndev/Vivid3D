@@ -1,6 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 using System.Diagnostics;
 using Vivid.Physx;
@@ -136,6 +137,7 @@ namespace Vivid.App
             _FW = native_window.Size.X;
             _FH = native_window.Size.Y;
             States = new Stack<AppState>();
+            CursorVisible = false;
         }
 
 
@@ -183,7 +185,12 @@ namespace Vivid.App
             //base.OnLoad();
             GL.ClearColor(1, 0, 0, 1);
             Physics.QPhysics.InitPhysics();
-            PushState(InitialState);
+            Vivid.Audio.AudioSys.Init();
+
+            if (InitialState != null)
+            {
+                PushState(InitialState);
+            }
             if (States.Count > 0)
             {
                 //   States.Peek().Init();

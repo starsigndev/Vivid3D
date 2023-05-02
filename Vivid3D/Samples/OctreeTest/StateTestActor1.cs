@@ -49,6 +49,9 @@ namespace OctreeTest
 
             fl.Position = new OpenTK.Mathematics.Vector3(0, 5, 3);
 
+
+            //Comment the samples code.
+
             var act = Importer.ImportSkeletalEntity<SkeletalEntity>("test/c3.fbx");
             Importer.ImportAnimation(act, "test/anim_die1.fbx");
             act.Animator.LinkAnimation(0, "Walk");

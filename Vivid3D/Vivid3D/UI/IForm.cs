@@ -166,7 +166,12 @@ namespace Vivid.UI
                 col = Color;
             }
 
-            //UI.Draw.DrawTexture(image, x, y, w, h, col.r, col.g,col.b, col.a);
+            if(col == null)
+            {
+                col = Color;
+            }
+
+            UI.Draw.Draw(image,new Rect(x, y, w, h), new Vivid.Maths.Color(col.r, col.g,col.b, col.a));
         }
 
         public void Update()
@@ -195,5 +200,10 @@ namespace Vivid.UI
             }
             return false;
         }
+        //public void ScaleColor(float scale)
+        //{
+
+        //}
+
     }
 }

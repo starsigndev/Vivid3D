@@ -191,6 +191,7 @@ namespace Vivid.Texture
             //    CObj = GemBridge.gem_CreateTexture2D(buf, (int)stream.Length, w, h);
             Width = w;
             Height = h;
+            Data = buf;
             Path = path;
             if (path == string.Empty)
             {
@@ -201,6 +202,24 @@ namespace Vivid.Texture
             {
                 Cache.Add(path, this);
             }
+
+            GL.Enable(EnableCap.Texture2d);
+            Handle = GL.CreateTexture(TextureTarget.Texture2d);
+
+            GL.BindTexture(TextureTarget.Texture2d, Handle);
+
+            CheckHandle();
+
+            GL.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba, Width, Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, Data);
+            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+            GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+
+          //  GL.GenerateMipmap(TextureTarget.Texture2d);
+
+            GL.BindTexture(TextureTarget.Texture2d, TextureHandle.Zero);
+
         }
 
         //public static Dictionary<string, Texture2D> Cache = new Dictionary<string, Texture2D>();
