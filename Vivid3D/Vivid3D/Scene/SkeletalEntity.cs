@@ -38,29 +38,53 @@ namespace Vivid.Scene
 
         public void PlayAnimation(string name)
         {
-            foreach (var anim in Animations)
-            {
-
-                if (anim.Name == name)
-                {
-                    CurrentAnim = anim;
-                    CurrentAnim.Begin();
-                }
-
-            }
+            Animator.SetAnimation(name);
         }
 
- 
+        bool first = true;
         public void UpdateAnimation()
         {
 
-            if (CurrentAnim != null)
+            //if (CurrentAnim != null)
             {
-                CurrentAnim.Update();
-                Animator.SetTime(CurrentAnim.CurTime);
+                //CurrentAnim.Update();
+                Animator.Update();
+
+                var bones = Animator.GetFinalBoneMatrices();
+
+                if (first)
+                {
+                    for(int i = 0; i < bones.Length; i++)
+                    {
+                        LocalBones[i] = bones[i];
+                    }
+                    first = false;
+                }
+
+                float ts = 0.2f;
+
+                for(int i = 0; i < bones.Length; i++)
+                {
+
+                    var target = bones[i];
+                    var current = LocalBones[i];
+                    var res = target * ts;
+                    res = res + (current * (1.0f - ts));
+
+
+                    LocalBones[i] = res;
+
+                }
+                //LocalBones = bones;
+
+              //  Animator.SetTime(CurrentAnim.CurTime);
             }
 
         }
+
+        public Matrix4[] LocalBones = new Matrix4[100];
+
+
 
         public Dictionary<string, BoneInfo> m_BoneInfoMap = new Dictionary<string, BoneInfo>();
         public int m_BoneCounter = 0;
@@ -114,6 +138,11 @@ namespace Vivid.Scene
                 t.V2 = mesh.Faces[i].Indices[2];
 
                 res.AddTriangle(t);
+                Triangle t2 = new Triangle();
+                t2.V0 = t.V0;
+                t2.V1 = t.V2;
+                t2.V2 = t.V1;
+             //   res.AddTriangle(t2);
 
             }
 
@@ -200,7 +229,7 @@ namespace Vivid.Scene
 
                 var ms = material.Shader as SkeletalDepthFX;
 
-                ms.bones = this.Animator.GetFinalBoneMatrices();
+                ms.bones = LocalBones;
 
 
                 material.Shader.Bind();
@@ -253,7 +282,7 @@ namespace Vivid.Scene
 
                 var ms = material.Shader as ActorLightFX;
 
-                ms.bones = this.Animator.GetFinalBoneMatrices();
+                ms.bones = LocalBones;
 
 
                 material.Shader.Bind();
@@ -265,11 +294,12 @@ namespace Vivid.Scene
 
                 mesh.RenderMesh();
 
-                material.Shader.Unbind();
-                mesh.Material.ColorMap.Unbind(0);
-                mesh.Material.NormalMap.Unbind(1);
-                mesh.Material.SpecularMap.Unbind(2);
-                l.RTC.Cube.Release(3);
+                //material.Shader.Unbind();
+                //mesh.Material.ColorMap.Unbind(0);
+                //mesh.Material.NormalMap.Unbind(1);
+                //mesh.Material.SpecularMap.Unbind(2);
+                //l.RTC.Cube.Release(3);
+
 
 
                 /*

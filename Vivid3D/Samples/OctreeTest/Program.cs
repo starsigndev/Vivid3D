@@ -12,7 +12,7 @@ namespace OctreeTest
             NativeWindowSettings native_settings = new NativeWindowSettings();
 
             game_win.RenderFrequency = 0;
-            game_win.UpdateFrequency = 120;
+            game_win.UpdateFrequency = 60;
             game_win.IsMultiThreaded = false;
       
 

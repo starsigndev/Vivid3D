@@ -120,8 +120,21 @@ namespace Vivid.Importing
 
             return result;
         }
+        *
+        *
         */
-            public static T ImportSkeletalEntity<T>(string path) where T : Vivid.Scene.SkeletalEntity, new()
+        public static void ImportAnimation(Vivid.Scene.SkeletalEntity entity,string path)
+        {
+            var imp = new Assimp.AssimpContext();
+
+            Assimp.Scene s = imp.ImportFile(path );
+
+            Vivid.Anim.Animation anim = new Anim.Animation(s, entity);
+            entity.Animator.m_Animations.Add(anim);
+            entity.Animator.m_CurrentAnimation = anim;
+
+        }
+        public static T ImportSkeletalEntity<T>(string path) where T : Vivid.Scene.SkeletalEntity, new()
         {
             var imp = new Assimp.AssimpContext();
 
@@ -129,7 +142,7 @@ namespace Vivid.Importing
 
             List<Meshes.Mesh> meshes = new List<Meshes.Mesh>();
 
-            Assimp.Scene s = imp.ImportFile(path, PostProcessSteps.GenerateNormals | PostProcessSteps.CalculateTangentSpace | PostProcessSteps.OptimizeGraph);
+            Assimp.Scene s = imp.ImportFile(path, PostProcessSteps.GenerateNormals | PostProcessSteps.CalculateTangentSpace | PostProcessSteps.Triangulate);
 
             var m_GlobalInverseTransform = s.RootNode.Transform;
             m_GlobalInverseTransform.Inverse();
@@ -144,6 +157,7 @@ namespace Vivid.Importing
             Vivid.Anim.Animation anim = new Anim.Animation(s, result);
             Vivid.Anim.Animator animator = new Animator(anim);
 
+            animator.m_Animations.Add(anim);
             //node_anim =
 
             result.Animator = animator;

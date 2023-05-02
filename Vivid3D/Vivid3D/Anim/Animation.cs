@@ -26,8 +26,9 @@ namespace Vivid.Anim
 
     public class Animation
     {
-        private float m_Duration;
+        public float m_Duration;
         private int m_TicksPerSecond;
+        public string Name = "";
         private List<Bone> m_Bones = new List<Bone>();
         private AssimpNodeData m_RootNode = new AssimpNodeData();
         private Dictionary<string, BoneInfo> m_BoneInfoMap = new Dictionary<string, BoneInfo>();

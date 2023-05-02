@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Vivid.Scene;
 using Vivid.Maths;
 using OpenTK.Mathematics;
+using Assimp.Configs;
 
 namespace Vivid.Anim
 {
@@ -102,9 +103,35 @@ namespace Vivid.Anim
                 m_FinalBoneMatrices[i] = Matrix4.Identity;
         }
 
+        public void Update()
+        {
+            //m_CurrentTime += FavorSpeedConfig;
+            m_CurrentTime = m_CurrentTime + m_CurrentAnimation.GetTicksPerSecond() / 60.0f;
+         
+            if (m_CurrentTime >= m_CurrentAnimation.m_Duration)
+            {
+                m_CurrentTime = 0;
+                
+            }
+            SetTime(m_CurrentTime);
+        }
+
+        public void LinkAnimation(int index,string name)
+        {
+            AnimLinks.Add(name, m_Animations[index]);
+        }
+
+        public void SetAnimation(string name)
+        {
+            m_CurrentAnimation = AnimLinks[name];
+            m_CurrentTime = 0.0f;
+        }
     
         Matrix4[] m_FinalBoneMatrices;
-        Animation m_CurrentAnimation = null;
+        public float m_Speed = 0.025f;
+        public Animation m_CurrentAnimation = null;
+        public List<Animation> m_Animations = new List<Animation>();
+        public Dictionary<string, Animation> AnimLinks = new Dictionary<string, Animation>();
         float m_CurrentTime = 0.0f;
         float m_DeltaTime = 0.0f;
     };
