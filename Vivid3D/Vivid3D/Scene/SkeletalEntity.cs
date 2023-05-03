@@ -12,11 +12,11 @@ using Vivid.Renderers;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vivid.Materials.Materials;
+using Vivid.Materials.Materials.Skeletal;
 
 namespace Vivid.Scene
 {
- 
+
 
     public class ImpHelp
     {
@@ -110,7 +110,7 @@ namespace Vivid.Scene
         public Vivid.Meshes.Mesh ProcessMesh(Assimp.Mesh mesh, Assimp.Scene scene)
         {
             var res = new Vivid.Meshes.Mesh(this);
-            res.Material = new Materials.Materials.MaterialSkeletalLight();
+            res.Material = new Materials.Materials.Skeletal.MaterialSkeletalLight();
             for (int i = 0; i < mesh.VertexCount; i++)
             {
                 Vertex v = new Vertex();
@@ -274,18 +274,20 @@ namespace Vivid.Scene
 
             foreach (var mesh in Meshes)
             {
-                var material = mesh.SkeletalLightMaterial;
+              //  var material = mesh.SkeletalLightMaterial;
 
-                material.Shader.Camera = c;
-                material.Shader.Entity = this;
-                material.Shader.Light = l;
+                mesh.Material.Shader.Camera = c;
+                mesh.Material.Shader.Entity = this;
+                mesh.Material.Shader.Light = l;
 
-                var ms = material.Shader as ActorLightFX;
+                //var ms = material.Shader as ActorLightFX;
+
+                var ms = mesh.Material.Shader as ActorLightFX;
 
                 ms.bones = LocalBones;
 
 
-                material.Shader.Bind();
+                mesh.Material.Shader.Bind();
 
                 mesh.Material.ColorMap.Bind(0);
                 mesh.Material.NormalMap.Bind(1);

@@ -91,7 +91,7 @@ namespace Vivid.Draw
 
             info.Z = DrawZ;
 
-            DrawZ += 0.01f;
+            DrawZ += 0.0002f;
 
             list.Add(info);
 

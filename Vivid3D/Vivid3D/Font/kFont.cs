@@ -6,7 +6,7 @@ namespace Vivid.Font
     public class kFont
     {
         public Texture2D[] Chars = new Texture2D[256];
-        private float Scale = 1.0f;
+        public float Scale = 1.0f;
 
         public kFont(string path)
         {
@@ -117,9 +117,12 @@ namespace Vivid.Font
                         continue;
                     }
 
-                    //draw.DrawTexture(Chars[cnum], x+sx, y, (int)(Chars[cnum].Width * Scale),(int)(Chars[cnum].Height * Scale), r, g, b, a);
 
+                    draw.Begin();
+                    //draw.DrawTexture(Chars[cnum], x+sx, y, (int)(Chars[cnum].Width * Scale),(int)(Chars[cnum].Height * Scale), r, g, b, a);
+                    draw.Draw(Chars[cnum], new Maths.Rect(x + sx, y, (int)(Chars[cnum].Width * Scale), (int)(Chars[cnum].Height * Scale)), new Maths.Color(r, g, b, a));
                     sx = sx + (int)(Chars[cnum].Width * Scale) + 2;
+                    draw.End();
                 }
 
                 cc++;

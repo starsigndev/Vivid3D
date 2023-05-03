@@ -29,6 +29,11 @@ namespace Vivid.Anim
         public float m_Duration;
         private int m_TicksPerSecond;
         public string Name = "";
+        public float Priority
+        {
+            get;
+            set;
+        }
         private List<Bone> m_Bones = new List<Bone>();
         private AssimpNodeData m_RootNode = new AssimpNodeData();
         private Dictionary<string, BoneInfo> m_BoneInfoMap = new Dictionary<string, BoneInfo>();
@@ -41,6 +46,7 @@ namespace Vivid.Anim
             m_TicksPerSecond = (int)animation.TicksPerSecond;// m TicksPerSecond;
             ReadHeirarchyData(m_RootNode, scene.RootNode);
             ReadMissingBones(animation, model);
+            Priority = 1.0f;
         }
 
         public Bone FindBone(string name)

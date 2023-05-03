@@ -117,6 +117,7 @@ namespace Vivid.Audio
 
         public void Stop()
         {
+            AL.SourceStop(Source);
             // GemBridge.gem_StopSound(src);
         }
 

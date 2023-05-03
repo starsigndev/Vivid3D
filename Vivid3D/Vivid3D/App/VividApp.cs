@@ -95,7 +95,7 @@ namespace Vivid.App
             States.Push(state);
 
             //CurrentScene = state.StateScene;
-            state.InitState();
+           // state.InitState();
             CurrentScene = state.StateScene;
             state.Init();
         }
@@ -178,6 +178,7 @@ namespace Vivid.App
             //base.OnResize(e);
             _FW = e.Width;
             _FH = e.Height;
+            GL.Viewport(0, 0, _FW, _FH);
         }
 
         protected override void OnLoad()
@@ -186,7 +187,7 @@ namespace Vivid.App
             GL.ClearColor(1, 0, 0, 1);
             Physics.QPhysics.InitPhysics();
             Vivid.Audio.AudioSys.Init();
-
+            Init();
             if (InitialState != null)
             {
                 PushState(InitialState);
@@ -214,6 +215,32 @@ namespace Vivid.App
         {
             //base.OnKeyUp(e);
             GameInput.mKeyDown[(int)e.Key] = false;
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            //base.OnMouseDown(e);
+            if(e.Button == OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Left)
+            {
+                GameInput.MouseButton[0] = true;
+            }
+            if(e.Button == OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Right)
+            {
+                GameInput.MouseButton[1] = true;
+            }
+        }
+
+        protected override void OnMouseUp(MouseButtonEventArgs e)
+        {
+            //base.OnMouseUp(e);
+            if (e.Button == OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Left)
+            {
+                GameInput.MouseButton[0] = false;
+            }
+            if (e.Button == OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Right)
+            {
+                GameInput.MouseButton[1] = false;
+            }
         }
 
         private bool first = true;
@@ -244,6 +271,7 @@ namespace Vivid.App
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             //base.OnRenderFrame(args);
+            GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             int time = Environment.TickCount;

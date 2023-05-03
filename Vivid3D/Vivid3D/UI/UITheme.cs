@@ -16,12 +16,20 @@ namespace Vivid.UI
             set;
         }
 
+        public Texture2D ButtonSelected
+        {
+            get;
+            set;
+        }
+
         public UITheme(string name)
         {
-            var frame = UI.UIBase.Find(name + ".frame.png");
+            var frame = Content.Content.GlobalFindItem(name + ".frame.png");
             Frame = new Texture2D(frame.GetStream(), frame.Width, frame.Height);
-            var button = UI.UIBase.Find(name + ".button.png");
+            var button = Content.Content.GlobalFindItem(name + ".button.png");
             Button = new Texture2D(button.GetStream(), button.Width, button.Height);
+            var button_sel = Content.Content.GlobalFindItem(name + ".button_selected.png");
+            ButtonSelected = new Texture2D(button_sel.GetStream(),button_sel.Width, button_sel.Height);
         }
     }
 }

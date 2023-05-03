@@ -315,7 +315,7 @@ namespace Vivid.Scene
 
         private Materials.MaterialBase ReadMaterial(BinaryReader r)
         {
-            MaterialBase mat = new Materials.Materials.MaterialStandardLight();
+            MaterialBase mat = new Materials.Materials.Entity.MaterialStandardLight();
 
             string col = r.ReadString();
             string norm = r.ReadString();

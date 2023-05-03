@@ -11,6 +11,7 @@ using OpenTK.Graphics;
 using Vivid.Renderers;
 using Vivid.Physx;
 using Vivid.Meshes;
+using Vivid.Materials.Materials.Entity;
 
 namespace Vivid.Acceleration.Octree
 {
@@ -39,7 +40,7 @@ namespace Vivid.Acceleration.Octree
 
             ProcessScene();
             RootNode.CreateBuffers();
-            LightFX = new Materials.Materials.LightFX();
+            LightFX = new Materials.Materials.Entity.LightFX();
             InitializeVisibility();
             //Base.Root = new Node();
 
@@ -99,7 +100,7 @@ namespace Vivid.Acceleration.Octree
             AddLeafs(RootNode);
 
          
-            LightFX = new Materials.Materials.LightFX();
+            LightFX = new Materials.Materials.Entity.LightFX();
             foreach (var dy in Dynamic)
             {
                 Base.AddNode(dy);
@@ -119,7 +120,7 @@ namespace Vivid.Acceleration.Octree
             AddLeafs(RootNode);
 
             fs.Close();
-            LightFX = new Materials.Materials.LightFX();
+            LightFX = new Materials.Materials.Entity.LightFX();
             foreach(var dy in Dynamic)
             {
                 Base.AddNode(dy);
@@ -362,6 +363,6 @@ namespace Vivid.Acceleration.Octree
         {
             return RootNode.Leafs;
         }
-        private Vivid.Materials.Materials.LightFX LightFX = null;
+        private LightFX LightFX = null;
     }
 }

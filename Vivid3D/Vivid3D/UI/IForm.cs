@@ -107,11 +107,21 @@ namespace Vivid.UI
             return form;
         }
 
+        public void AddForms(params IForm[] forms)
+        {
+            foreach(var form in forms)
+            {
+                AddForm(form);
+            }
+
+        }
+
         public IForm Set(Position position, Vivid.Maths.Size size, string text)
         {
             Position = position;
             Size = size;
             Text = text;
+            AfterSet();
             return this;
         }
 
@@ -163,15 +173,25 @@ namespace Vivid.UI
                 y = RenderPosition.y;
                 w = Size.w;
                 h = Size.h;
-                col = Color;
+                if (col == null)
+                {
+                    col = Color;
+                }
+            }
+            else
+            {
+                x = RenderPosition.x + x;
+                y = RenderPosition.y + y;
             }
 
             if(col == null)
             {
                 col = Color;
             }
-
+            UI.Draw.Begin();
             UI.Draw.Draw(image,new Rect(x, y, w, h), new Vivid.Maths.Color(col.r, col.g,col.b, col.a));
+            UI.Draw.End();
+            
         }
 
         public void Update()
@@ -199,6 +219,11 @@ namespace Vivid.UI
                 return true;
             }
             return false;
+        }
+
+        public virtual void AfterSet()
+        {
+
         }
         //public void ScaleColor(float scale)
         //{

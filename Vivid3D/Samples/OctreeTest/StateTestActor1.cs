@@ -31,7 +31,17 @@ namespace OctreeTest
             s1 = new Vivid.Scene.Scene();
 
             var n1 = Importer.ImportEntity<Entity>("test/floor1.fbx");
+            Texture2D tc, tn, ts;
+
+            tc = n1.Meshes[0].Material.ColorMap;
+            tn = n1.Meshes[0].Material.NormalMap;
+            ts = n1.Meshes[0].Material.SpecularMap;
+            n1.Meshes[0].Material = new Vivid.Materials.Materials.Entity.MaterialCelShaded();
+            n1.Meshes[0].Material.ColorMap = tc;
+            n1.Meshes[0].Material.NormalMap = tn;
+            n1.Meshes[0].Material.SpecularMap = ts;
             s1.AddNode(n1);
+
 
         l1 = new Light();
             l1.Range = 80;
@@ -56,6 +66,9 @@ namespace OctreeTest
             Importer.ImportAnimation(act, "test/anim_die1.fbx");
             act.Animator.LinkAnimation(0, "Walk");
             act.Animator.LinkAnimation(1, "Die1");
+
+            act.Meshes[0].Material = new Vivid.Materials.Materials.Skeletal.MaterialSkeletalCelShaded();
+            act.Meshes[1].Material = act.Meshes[0].Material;
 
             act.PlayAnimation("Walk");
             a1 = act;

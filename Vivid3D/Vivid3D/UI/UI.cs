@@ -3,7 +3,7 @@ using Vivid.Draw;
 using Vivid.Font;
 using Vivid.Maths;
 using Vivid.Texture;
-
+using OpenTK.Graphics.OpenGL;
 namespace Vivid.UI
 {
     public class UI
@@ -83,8 +83,8 @@ namespace Vivid.UI
         {
             if (UIBase == null)
             {
-                UIBase = new Content.Content(VividApp.ContentPath + "uibase");
-                var cursor = UIBase.Find("cursor1");
+                //UIBase = new Content.Content(VividApp.ContentPath + "uibase");
+                var cursor = Content.Content.GlobalFindItem("cursor1");
                 UICursor = new Texture2D(cursor.GetStream(), cursor.Width, cursor.Height);
                 Draw = new SmartDraw();
 
@@ -93,7 +93,8 @@ namespace Vivid.UI
                     Theme = new UITheme("darkknight");
                 }
 
-                SystemFont = new kFont("gemini/font/orb.pf");
+                SystemFont = new kFont("gemini/font/neo2.pf");
+                SystemFont.Scale = 0.75f;  
             }
 
             Over = null;
@@ -114,6 +115,15 @@ namespace Vivid.UI
         public void AddForm(IForm form)
         {
             Root.AddForm(form);
+            form.Root = Root;
+        }
+
+        public void AddForms(params IForm[] forms)
+        {
+            foreach(var form in forms)
+            {
+                AddForm(form);
+            }
         }
 
         public void GetMouse()
@@ -163,6 +173,7 @@ namespace Vivid.UI
 
             if (Over != null)
             {
+                Over.OnMouseMove(MousePosition, MouseDelta);
                 if (Pressed[0] == null)
                 {
                     if (GameInput.MouseButtonDown(MouseID.Left))
@@ -204,15 +215,20 @@ namespace Vivid.UI
 
         public void Render()
         {
-            Draw.Begin();
-            Root.Render();
-            Draw.End();
 
+            
+           // Draw.Begin();
+            Root.Render();
+           // Draw.End();
+
+            GL.Clear(ClearBufferMask.DepthBufferBit);// //..Disable(EnableCap.DepthTest);
 
             Draw.Blend = BlendMode.Alpha;
             Draw.Begin();
             Draw.Draw(UICursor, new Rect(MousePosition.x, MousePosition.y, 32, 32),new Maths.Color(1, 1, 1, 0.75f));
             Draw.End();
+
+            GL.Enable(EnableCap.DepthTest);
 
         }
     }

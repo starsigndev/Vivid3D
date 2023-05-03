@@ -258,11 +258,12 @@ namespace Vivid.Scene
             {
                 var material = mesh.LightMaterial;
 
-                material.Shader.Camera = c;
-                material.Shader.Entity = this;
-                material.Shader.Light = l;
+                mesh.Material.Shader.Camera = c;
+                mesh.Material.Shader.Entity = this;
+                mesh.Material.Shader.Light = l;
 
-                material.Shader.Bind();
+                mesh.Material.Shader.Bind();
+
 
                 mesh.Material.ColorMap.Bind(0);
                 mesh.Material.NormalMap.Bind(1);
@@ -271,7 +272,7 @@ namespace Vivid.Scene
 
                 mesh.RenderMesh();
 
-                material.Shader.Unbind();
+                mesh.Material.Shader.Unbind();
                 mesh.Material.ColorMap.Unbind(0);
                 mesh.Material.NormalMap.Unbind(1);
                 mesh.Material.SpecularMap.Unbind(2);

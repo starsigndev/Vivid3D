@@ -94,11 +94,11 @@ namespace Vivid.Meshes
             Material = new MaterialBase();
             Name = "Mesh";
             Buffer = null;
-            FullBrightMaterial = new Materials.Materials.MaterialStandardFullBright();
-            LightMaterial = new Materials.Materials.MaterialStandardLight();
-            DepthMaterial = new Materials.Materials.MaterialStandardDepth();
-            SkeletalLightMaterial = new Materials.Materials.MaterialSkeletalLight();
-            SkeletalDepthMaterial = new Materials.Materials.MaterialSkeletalDepth();
+            FullBrightMaterial = new Materials.Materials.Entity.MaterialStandardFullBright();
+            LightMaterial = new Materials.Materials.Entity.MaterialStandardLight();
+            DepthMaterial = new Materials.Materials.Entity.MaterialStandardDepth();
+            SkeletalLightMaterial = new Materials.Materials.Skeletal.MaterialSkeletalLight();
+            SkeletalDepthMaterial = new Materials.Materials.Skeletal.MaterialSkeletalDepth();
             int bb = 5;
         }
 

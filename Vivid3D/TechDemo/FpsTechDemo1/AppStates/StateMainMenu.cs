@@ -25,12 +25,17 @@ namespace FpsTechDemo1.AppStates
         public override void Init()
         {
 
+            //Possible cel-shading look.
+
+
             Sound music = new Sound("gemini/cpu.wav");
-            music.Play2D();
+            Channel music_chan = music.Play2D();
 
-            GameContent = new Content("c:/fpsContent/content/fpsGame");
+           // GameContent = new Content("c:/fpsContent/content/fpsGame");
 
-            ContentItem bg_image_Content = GameContent.Find("titleBg1.png");
+            StateUI = new UI();
+
+            ContentItem bg_image_Content = FpsTechDemoApp.ImagesContent.Find("titleBg1.png");
 
             var bg_image = new Texture2D(bg_image_Content.GetStream(),bg_image_Content.Width,bg_image_Content.Height);
 
@@ -39,6 +44,24 @@ namespace FpsTechDemo1.AppStates
 
             StateUI.AddForm(background_image);
             background_image.Color.a = 0.0f;
+
+            IFrame menu_frame = new IFrame().Set(new Vivid.Maths.Position(VividApp.FrameWidth / 2 - 170, VividApp.FrameHeight - 350), new Vivid.Maths.Size(340, 300), "") as IFrame;
+
+            StateUI.AddForm(menu_frame);
+
+            IButton solo_game = new IButton().Set(new Vivid.Maths.Position(40, 20), new Vivid.Maths.Size(260, 30), "Solo Game") as IButton;
+            IButton online_game = new IButton().Set(new Vivid.Maths.Position(40, 60), new Vivid.Maths.Size(260, 30), "Net Game") as IButton;
+
+            menu_frame.AddForms(solo_game, online_game);
+
+            solo_game.OnClick = (form, data) =>
+            {
+
+              //  music_chan.Stop();
+                VividApp.PushState(new StateSelectMap());
+
+            };
+
 
         }
 
