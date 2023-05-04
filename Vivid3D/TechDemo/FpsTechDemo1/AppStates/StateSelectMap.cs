@@ -23,6 +23,7 @@ namespace FpsTechDemo1.AppStates
         IImage background_image;
         IFrame MapInfo;
         IFrame InfoCon;
+        IImage preview_contents;
         public override void Init()
         {
 
@@ -39,6 +40,10 @@ namespace FpsTechDemo1.AppStates
             StateUI.AddForm(background_image);
 
             IFrame preview_Image = new IFrame().Set(new Vivid.Maths.Position(VividApp.FrameWidth - 630, 40), new Vivid.Maths.Size(580, 330), "") as IFrame;
+            preview_contents = new IImage(null).Set(new Vivid.Maths.Position(20, 20), new Vivid.Maths.Size(540, 290), "") as IImage;
+
+            preview_Image.AddForm(preview_contents);
+
             IFrame map_info = new IFrame().Set(new Vivid.Maths.Position(VividApp.FrameWidth - 640, 380), new Vivid.Maths.Size(600, 340), "") as IFrame;
             IFrame map_info_Contents = new IFrame().Set(new Vivid.Maths.Position(10, 10), new Vivid.Maths.Size(map_info.Size.w - 20, map_info.Size.h - 20), "") as IFrame;
             InfoCon = map_info_Contents;
@@ -62,6 +67,8 @@ namespace FpsTechDemo1.AppStates
             foreach(var map in FpsTechDemoApp.Maps)
             {
                 var name = Path.GetFileNameWithoutExtension(map);
+
+                name = FpsTechDemoApp.GameMaps[ii].Ini.GetRecord("name");
                 var item = MapList.AddItem(name);
                 item.Data = FpsTechDemoApp.GameMaps[ii];
                 item.Action = (item, index,data) =>
@@ -95,7 +102,10 @@ namespace FpsTechDemo1.AppStates
             string line = "";
             int cc = 0;
             string info = map.MapInfo;
+            preview_contents.Image = map.MapPreviewImage;
             int dy = 25;
+
+
 
             while (true)
             {

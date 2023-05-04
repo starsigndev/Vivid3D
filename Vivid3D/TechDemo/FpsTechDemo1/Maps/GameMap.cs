@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Content;
+using Vivid.Ini;
 using Vivid.Texture;
 
 namespace FpsTechDemo1.Maps
@@ -47,6 +48,12 @@ namespace FpsTechDemo1.Maps
             set;
         }
 
+        public IniParser Ini
+        {
+            get;
+            set;
+        }
+
         public GameMap()
         {
 
@@ -60,6 +67,10 @@ namespace FpsTechDemo1.Maps
             var info = Content.Find("info").GetStream();
             TextReader r = new StreamReader(info);
             MapInfo = r.ReadToEnd();
+            var preview = Content.Find("preview");
+            MapPreviewImage = new Texture2D(preview.GetStream(),preview.Width,preview.Height);
+            var ini = Content.Find("properties");
+            Ini = new IniParser(ini.GetStream());
 
             int b = 5;
 

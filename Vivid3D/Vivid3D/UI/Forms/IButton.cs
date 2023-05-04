@@ -76,7 +76,7 @@ namespace Vivid.UI.Forms
         {
             Draw(Image);
             Draw(SelectedImage, -1, -1, -1, -1, SelectedCol);
-            UI.DrawString(Text, RenderPosition.x + Size.w / 2 - UI.SystemFont.StringWidth(Text) / 2, RenderPosition.y + Size.h / 2 - UI.SystemFont.StringHeight() / 2 + 2, new Maths.Color(1, 1, 1, 1));
+            UI.DrawString(Text, RenderPosition.x + Size.w / 2 - UI.SystemFont.StringWidth(Text) / 2, RenderPosition.y + Size.h / 2 - UI.SystemFont.StringHeight() / 2 , new Maths.Color(1, 1, 1, 1));
         }
     }
 }
