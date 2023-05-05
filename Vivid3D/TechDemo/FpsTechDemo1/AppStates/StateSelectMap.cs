@@ -85,7 +85,8 @@ namespace FpsTechDemo1.AppStates
 
             select.OnClick += (sender,args) =>
             {
-
+                StateMatchGame.CurrentMap = SelectedMap;
+                VividApp.PushState(new StateMatchGame());
             };
 
             back.OnClick += (sender, args) =>
@@ -94,10 +95,11 @@ namespace FpsTechDemo1.AppStates
             };
 
         }
-
+        GameMap SelectedMap = null;
         public void PickMap(GameMap map)
         {
 
+            SelectedMap = map;
             InfoCon.Forms.Clear();
             string line = "";
             int cc = 0;

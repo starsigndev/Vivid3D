@@ -128,9 +128,13 @@ namespace SceneEditor.Editors
 
         private void cbMesh_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-
-
+            if (_CurrentEntity != null)
+            {
+                if (CurrentMesh != _CurrentEntity.Meshes[cbMesh.SelectedIndex])
+                {
+                    SetMesh(_CurrentEntity.Meshes[cbMesh.SelectedIndex]);
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

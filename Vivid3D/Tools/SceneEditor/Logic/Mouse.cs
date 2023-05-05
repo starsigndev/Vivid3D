@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Mathematics;
 using static SceneEditor.SceneEditor;
+using Vivid.Nodes;
+using Vivid.Scene;
 
 namespace SceneEditor.Logic
 {
@@ -265,8 +267,35 @@ namespace SceneEditor.Logic
                                 CurrentNode.Position = CurrentNode.Position + new Vector3(0, 0, mx * spd);
                             }
                         }
+                        //Console.WriteLine("CN:" + CurrentNode.ToString());
+                        if (CurrentNode is Vivid.Scene.SpawnPoint)
+                        {
+
+                            var start_point = CurrentNode.Position.Y + 6;
+                            Ray ray = new Ray();
+                            ray.Pos = CurrentNode.Position;
+                            ray.Pos.Y = ray.Pos.Y + 6;
+                            ray.Dir = new Vector3(0, -12, 0);
+                            var res = EditScene.Raycast(ray);
+                            if (res != null)
+                            {
+                                if (res.Hit)
+                                {
+                                    Vector3 pos = res.Point;
+                                    pos.Y = pos.Y + 1.25f;
+                                    CurrentNode.Position = pos;
+                                }
+                            }
+
+
+                          //  Environment.Exit(1);
+                           // int b = 5;
+
+                        }
                     }
-                    else if (CurrentGizmo == GizmoRotate)
+                 
+
+                    if (CurrentGizmo == GizmoRotate)
                     {
 
                         if (Space == EditSpace.Local)

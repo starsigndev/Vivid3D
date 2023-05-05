@@ -50,6 +50,9 @@ namespace Vivid.Materials
             NormalMap = bnorm;
             SpecularMap = ColorMap;
             DisplaceMap = bspec;
+
+            Shader = new Materials.Entity.LightFX();
+
         }
     }
 }

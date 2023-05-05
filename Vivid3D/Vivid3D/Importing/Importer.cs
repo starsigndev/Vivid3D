@@ -129,10 +129,12 @@ namespace Vivid.Importing
 
             Assimp.Scene s = imp.ImportFile(path );
 
-            Vivid.Anim.Animation anim = new Anim.Animation(s, entity);
-            entity.Animator.m_Animations.Add(anim);
-            entity.Animator.m_CurrentAnimation = anim;
-
+            foreach (var aa in s.Animations)
+            {
+                Vivid.Anim.Animation anim = new Anim.Animation(s,aa, entity);
+                entity.Animator.m_Animations.Add(anim);
+                entity.Animator.m_CurrentAnimation = anim;
+            }
         }
         public static T ImportSkeletalEntity<T>(string path) where T : Vivid.Scene.SkeletalEntity, new()
         {
@@ -154,7 +156,7 @@ namespace Vivid.Importing
                 result.ProcessMesh(mesh, s);
             }
 
-            Vivid.Anim.Animation anim = new Anim.Animation(s, result);
+            Vivid.Anim.Animation anim = new Anim.Animation(s,s.Animations[0], result);
             Vivid.Anim.Animator animator = new Animator(anim);
 
             animator.m_Animations.Add(anim);
@@ -291,7 +293,10 @@ namespace Vivid.Importing
                     var item = Content.Content.GlobalFindItem(tex);
                     if (item == null)
                     {
-                        nmat.ColorMap = new Texture.Texture2D(mat.TextureDiffuse.FilePath);
+                        if (File.Exists(mat.TextureDiffuse.FilePath))
+                        {
+                            nmat.ColorMap = new Texture.Texture2D(mat.TextureDiffuse.FilePath);
+                        }
                     }
                     else
                     {
@@ -307,7 +312,10 @@ namespace Vivid.Importing
 
                     if (item == null)
                     {
-                        nmat.NormalMap = new Texture.Texture2D(mat.TextureNormal.FilePath);
+                        if (File.Exists(mat.TextureNormal.FilePath))
+                        {
+                            nmat.NormalMap = new Texture.Texture2D(mat.TextureNormal.FilePath);
+                        }
                     }
                     else
                     {
@@ -324,7 +332,10 @@ namespace Vivid.Importing
                     var item = Content.Content.GlobalFindItem(tex);
                     if (item == null)
                     {
-                        nmat.SpecularMap = new Texture.Texture2D(mat.TextureSpecular.FilePath);
+                        if (File.Exists(mat.TextureSpecular.FilePath))
+                        {
+                            nmat.SpecularMap = new Texture.Texture2D(mat.TextureSpecular.FilePath);
+                        }
                     }
                     else
                     {

@@ -13,5 +13,10 @@
             get;
             set;
         }
+        public SpawnPoint()
+        {
+            Type = "Spawn";
+            Index = 0;
+        }
     }
 }

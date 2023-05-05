@@ -10,21 +10,28 @@ namespace Vivid.Nodes
         {
             //base.UpdateNode();
 
+            float spd = 1.5f;
+
+            if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.LeftShift))
+            {
+                spd = 3.5f;
+            }
+
             if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.W))
             {
-                Move(0, 0, -0.07f);
+                Move(0, 0, -0.07f*spd);
             }
             if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.A))
             {
-                Move(-0.05f, 0, 0);
+                Move(-0.05f*spd, 0, 0);
             }
             if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.D))
             {
-                Move(0.05f, 0, 0);
+                Move(0.05f*spd, 0, 0);
             }
             if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.S))
             {
-                Move(0, 0, 0.07f);
+                Move(0, 0, 0.07f * spd);
             }
             if (GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.Space))
             {

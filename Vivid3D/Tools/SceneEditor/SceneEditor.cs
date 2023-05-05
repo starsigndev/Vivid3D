@@ -120,8 +120,7 @@ namespace SceneEditor
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
             UpdateSB();
-            outputActive = true;
-            Output_Resized(null, null);
+            
             MouseWheel += Form1_MouseWheel;
             PX = 0;
             PY = 0;
@@ -180,6 +179,8 @@ namespace SceneEditor
         private void GlControl1_Load1(object? sender, EventArgs e)
         {
             EditApp.Init();
+            outputActive = true;
+            Output_Resized(null, null);
             //glControl1.Invalidate();
         }
 
@@ -291,6 +292,9 @@ namespace SceneEditor
 
             if (outputActive)
             {
+                VividApp._FW = glControl1.Size.Width;
+                VividApp._FH = glControl1.Size.Height;
+                GL.Viewport(0,0,glControl1.Size.Width,glControl1.Size.Height);
                 //App = new GeminiApp(editOutput.Width, editOutput.Height);
                 //GemBridge.gem_WinResize(editOutput.Size.Width, editOutput.Size.Height);
             }

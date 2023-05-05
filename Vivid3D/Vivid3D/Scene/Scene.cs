@@ -1012,6 +1012,19 @@ namespace Vivid.Scene
 
             return closeres;
         }
+
+
+        public RaycastResult Raycast(Ray ray)
+        {
+
+            var meshes = GetMeshes();
+
+            return Raycast(ray, meshes);
+
+          
+
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RaycastResult Raycast(Ray ray, List<Vivid.Meshes.Mesh> meshes)
         {

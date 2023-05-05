@@ -39,9 +39,9 @@ namespace Vivid.Anim
         private Dictionary<string, BoneInfo> m_BoneInfoMap = new Dictionary<string, BoneInfo>();
         public Animation() { }
 
-        public Animation(Assimp.Scene scene, SkeletalEntity model)
+        public Animation(Assimp.Scene scene,Assimp.Animation anim,SkeletalEntity model)
         {
-            var animation = scene.Animations[0];
+            var animation = anim;
             m_Duration = (float)animation.DurationInTicks;// mDuration;
             m_TicksPerSecond = (int)animation.TicksPerSecond;// m TicksPerSecond;
             ReadHeirarchyData(m_RootNode, scene.RootNode);
