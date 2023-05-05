@@ -8,6 +8,7 @@ using OpenTK.Mathematics;
 using static SceneEditor.SceneEditor;
 using Vivid.Nodes;
 using Vivid.Scene;
+using Vivid.Mesh;
 
 namespace SceneEditor.Logic
 {
@@ -175,6 +176,8 @@ namespace SceneEditor.Logic
             return null;
         }
 
+     
+
         public static void Move(MouseEventArgs e)
         {
 
@@ -202,22 +205,22 @@ namespace SceneEditor.Logic
                     float spd = 0.05f;
                     if (CurrentGizmo == GizmoTranslate)
                     {
-                        if(Space == EditSpace.Screen)
+                        if (Space == EditSpace.Screen)
                         {
 
                             if (GizLockZ)
                             {
 
-                                Vector3 mv = EditCam.TransformVector(new Vector3(0,0,my * spd));
+                                Vector3 mv = EditCam.TransformVector(new Vector3(0, 0, my * spd));
 
-                                
+
 
                                 CurrentNode.Position = CurrentNode.Position + mv;
                             }
                             if (GizLockX)
                             {
 
-                                Vector3 mv = EditCam.TransformVector(new Vector3(mx*spd, 0, 0));
+                                Vector3 mv = EditCam.TransformVector(new Vector3(mx * spd, 0, 0));
 
                                 CurrentNode.Position = CurrentNode.Position + mv;
 
@@ -225,14 +228,14 @@ namespace SceneEditor.Logic
                             }
                             if (GizLockY)
                             {
-                                Vector3 mv = EditCam.TransformVector(new Vector3(0,-my * spd, 0));
+                                Vector3 mv = EditCam.TransformVector(new Vector3(0, -my * spd, 0));
 
                                 CurrentNode.Position = CurrentNode.Position + mv;
                                 //CurrentNode.LocalPosition = CurrentNode.LocalPosition + new Vec3(0, 0, mx * spd);
                             }
 
                         }
-                        else 
+                        else
                         if (Space == EditSpace.Local)
                         {
                             if (GizLockZ)
@@ -267,6 +270,74 @@ namespace SceneEditor.Logic
                                 CurrentNode.Position = CurrentNode.Position + new Vector3(0, 0, mx * spd);
                             }
                         }
+
+                        BearingLines.New();
+
+                        Ray ray_down = new Ray();
+                        ray_down.Pos = CurrentNode.Position;
+                        ray_down.Dir = new Vector3(0, -80, 0);
+
+                        var down_res = EditScene.Raycast(ray_down);
+                        if (down_res != null)
+                        {
+                            if (down_res.Hit)
+                            {
+                                BearingLines.AddLine(CurrentNode.Position, down_res.Point, new Vector4(0, 1, 0, 1));
+                            }
+                        }
+
+                        Ray ray_left = new Ray();
+                        ray_left.Pos = CurrentNode.Position;
+                        ray_left.Dir = new Vector3(-80, 0, 0);
+                        var left_res = EditScene.Raycast(ray_left);
+                        if (left_res != null)
+                        {
+                            if (left_res.Hit)
+                            {
+                                BearingLines.AddLine(CurrentNode.Position, left_res.Point, new Vector4(1, 0, 0,1));
+
+                            }
+                        }
+
+                        Ray ray_right = new Ray();
+                        ray_right.Pos = CurrentNode.Position;
+                        ray_right.Dir = new Vector3(80, 0, 0);
+                        var right_res = EditScene.Raycast(ray_right);
+                        if (right_res != null)
+                        {
+                            if (right_res.Hit)
+                            {
+                                BearingLines.AddLine(CurrentNode.Position, right_res.Point, new Vector4(0, 0, 1,1));
+                            }
+                        }
+
+                        Ray ray_for = new Ray();
+                        ray_for.Pos = CurrentNode.Position;
+                        ray_for.Dir = new Vector3(0, 0, 80);
+                        var for_res = EditScene.Raycast(ray_for);
+                        if (for_res != null)
+                        {
+                            if (for_res.Hit)
+                            {
+                                BearingLines.AddLine(CurrentNode.Position, for_res.Point, new Vector4(0, 1, 1, 1));
+
+                            }
+                        }
+
+                        Ray ray_back = new Ray();
+                        ray_back.Pos = CurrentNode.Position;
+                        ray_back.Dir = new Vector3(0, 0, -80);
+                        var back_res = EditScene.Raycast(ray_back);
+                        if (back_res != null)
+                        {
+                            if (back_res.Hit) {
+                                BearingLines.AddLine(CurrentNode.Position, back_res.Point, new Vector4(1, 0.5f, 0, 1));
+                            }
+
+                        }
+                
+
+                        BearingLines.CreateBuffers();
                         //Console.WriteLine("CN:" + CurrentNode.ToString());
                         if (CurrentNode is Vivid.Scene.SpawnPoint)
                         {

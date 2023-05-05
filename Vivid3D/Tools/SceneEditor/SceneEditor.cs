@@ -60,7 +60,7 @@ namespace SceneEditor
         public static Vivid.Acceleration.Octree.ASOctree EditSceneOT = null;
         public static Mesh Grid;
         public static GLControl G_Control;
-
+        public static MeshLines BearingLines;
         public static Camera EditCam;
         public static float PX, PY;
 
@@ -181,6 +181,8 @@ namespace SceneEditor
             EditApp.Init();
             outputActive = true;
             Output_Resized(null, null);
+            BearingLines = new MeshLines();
+            EditScene.MeshLines.Add(BearingLines);
             //glControl1.Invalidate();
         }
 

@@ -49,6 +49,11 @@ namespace Vivid.Mesh
             Lines = new List<Line>();
         }
 
+        public void New()
+        {
+            Vertices = new List<LineVertex>();
+            Lines = new List<Line>();
+        }
         public void AddLine(Vector3 p1, Vector3 p2, Vector4 col)
         {
             LineVertex v0;
@@ -167,6 +172,8 @@ namespace Vivid.Mesh
 
         public void Render()
         {
+            GL.LineWidth(305);
+            GL.Enable(EnableCap.LineSmooth);
             GL.BindVertexArray(VertexArray);
             GL.BindBuffer(BufferTargetARB.ArrayBuffer, Buffer);
             GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, IndexBuffer);
