@@ -12,9 +12,15 @@ using FpsTechDemo1.Nodes;
 using Assimp;
 using Assimp.Configs;
 using Vivid.Scene;
+using OpenTK.Graphics.OpenGL;
 
 namespace FpsTechDemo1
 {
+    public class CharLink
+    {
+        public string Name;
+        public string Path;
+    }
     public class FpsTechDemoApp : VividApp
     {
         public static string AnimsPath = "";
@@ -27,6 +33,7 @@ namespace FpsTechDemo1
         public List<Animation> CharAnimations = new List<Animation>();
         public static List<GameMap> GameMaps = new List<GameMap>();
         public static List<CharacterNode> CharacterNodes = new List<CharacterNode>();
+        public static List<CharLink> Chars = new List<CharLink>();
         public FpsTechDemoApp(GameWindowSettings game_window,NativeWindowSettings native_window) : base(game_window, native_window)
         {
             CharPath = "c:\\fpscontent\\characters\\";
@@ -45,7 +52,7 @@ namespace FpsTechDemo1
             int a = 5;
         }
         
-        public void ScanAnimations(CharacterNode node)
+        public static void ScanAnimations(CharacterNode node)
         {
             Console.WriteLine("Scanning animations.");
             foreach(var anim in new DirectoryInfo(AnimsPath).GetFiles())
@@ -59,7 +66,7 @@ namespace FpsTechDemo1
             int b = 5;
         }
 
-        public void LoadAnim(CharacterNode node,string path)
+        public static void LoadAnim(CharacterNode node,string path)
         {
 
             Importer.ImportAnimation(node as SkeletalEntity,path);
@@ -73,22 +80,46 @@ namespace FpsTechDemo1
             foreach(var chr in new DirectoryInfo(CharPath).GetDirectories())
             {
                 Console.WriteLine("Character Found:" + chr.Name);
-                var node = LoadChar(chr.FullName);
-                node.Scale = new OpenTK.Mathematics.Vector3(0.01f, 0.01f, 0.01f);
-                ScanAnimations(node);
-                CharacterNodes.Add(node);
-                node.Animator.LinkAnimation(0, "Walk");
-                node.Animator.LinkAnimation(1, "StrafeLeft");
-                node.Animator.LinkAnimation(2, "StrafeRight");
-                node.Animator.LinkAnimation(3, "Idle");
-                node.PlayAnimation("StrafeRight");
+                //Chars.Add(chr.FullName);
+                CharLink link = new CharLink();
+                link.Name = chr.Name;
+                link.Path = chr.FullName;
+                Chars.Add(link);
+           
 
 
 
             }
             int b = 5;
         }
-        public CharacterNode LoadChar(string path)
+
+        public static CharacterNode SpawnChar(string name)
+        {
+            CharLink link = null;
+            foreach(var clink in Chars)
+            {
+                if(clink.Name == name)
+                {
+                    link = clink;
+                    break;
+                }
+            }
+
+            string full = link.Path;
+
+            var node = LoadChar(full);
+            node.Scale = new OpenTK.Mathematics.Vector3(0.04f, 0.04f, 0.04f);
+            ScanAnimations(node);
+            CharacterNodes.Add(node);
+            node.Animator.LinkAnimation(0, "Walk",1.0f);
+            node.Animator.LinkAnimation(1, "StrafeLeft",1.2f);
+            node.Animator.LinkAnimation(2, "StrafeRight",1.2f);
+            node.Animator.LinkAnimation(3, "Idle",0.8f);
+           node.PlayAnimation("Idle",false);
+            return node;
+        }
+
+        public static CharacterNode LoadChar(string path)
         {
             path = path + "\\";
             var node = Importer.ImportSkeletalEntity<CharacterNode>(path + "char.fbx");

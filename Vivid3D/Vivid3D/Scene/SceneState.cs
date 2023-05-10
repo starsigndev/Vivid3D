@@ -6,16 +6,10 @@ using System.Threading.Tasks;
 
 namespace Vivid.Scene
 {
-    public class NodeState
+    public class SceneState
     {
 
         public string Name
-        {
-            get;
-            set;
-        }
-
-        public Node Node
         {
             get;
             set;
@@ -26,11 +20,11 @@ namespace Vivid.Scene
 
         }
 
+
         public virtual void Update()
         {
 
         }
-
         public virtual void Render()
         {
 
@@ -40,6 +34,9 @@ namespace Vivid.Scene
         {
 
         }
+
+
+
 
     }
 }

@@ -273,6 +273,8 @@ namespace SceneEditor.Logic
 
                         BearingLines.New();
 
+                        //set lines to color of the gizmo axis.
+
                         Ray ray_down = new Ray();
                         ray_down.Pos = CurrentNode.Position;
                         ray_down.Dir = new Vector3(0, -80, 0);
@@ -294,7 +296,7 @@ namespace SceneEditor.Logic
                         {
                             if (left_res.Hit)
                             {
-                                BearingLines.AddLine(CurrentNode.Position, left_res.Point, new Vector4(1, 0, 0,1));
+                                BearingLines.AddLine(CurrentNode.Position, left_res.Point, new Vector4(0, 0, 1,1));
 
                             }
                         }
@@ -319,7 +321,7 @@ namespace SceneEditor.Logic
                         {
                             if (for_res.Hit)
                             {
-                                BearingLines.AddLine(CurrentNode.Position, for_res.Point, new Vector4(0, 1, 1, 1));
+                                BearingLines.AddLine(CurrentNode.Position, for_res.Point, new Vector4(1, 0,0, 1));
 
                             }
                         }
@@ -331,7 +333,7 @@ namespace SceneEditor.Logic
                         if (back_res != null)
                         {
                             if (back_res.Hit) {
-                                BearingLines.AddLine(CurrentNode.Position, back_res.Point, new Vector4(1, 0.5f, 0, 1));
+                                BearingLines.AddLine(CurrentNode.Position, back_res.Point, new Vector4(1, 0, 0, 1));
                             }
 
                         }

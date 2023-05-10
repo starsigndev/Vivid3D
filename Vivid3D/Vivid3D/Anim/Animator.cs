@@ -25,7 +25,13 @@ namespace Vivid.Anim
             for (int i = 0; i < 100; i++)
                 m_FinalBoneMatrices[i] = Matrix4.Identity;
         }
+        public Animator Copy()
+        {
 
+            Animator res = new Animator();
+            return res;
+
+        }
         public void SetTime(float t)
         {
             m_CurrentTime = t;
@@ -116,15 +122,33 @@ namespace Vivid.Anim
             SetTime(m_CurrentTime);
         }
 
-        public void LinkAnimation(int index,string name)
+        public void LinkAnimation(int index,string name,float priority)
         {
             AnimLinks.Add(name, m_Animations[index]);
+            m_Animations[index].Priority = priority;
         }
 
-        public void SetAnimation(string name)
+        public void SetAnimation(string name,bool check_pri)
         {
-            m_CurrentAnimation = AnimLinks[name];
-            m_CurrentTime = 0.0f;
+            if (check_pri)
+            {
+                if (m_CurrentAnimation != AnimLinks[name])
+                {
+                    if (m_CurrentAnimation.Priority <= AnimLinks[name].Priority)
+                    {
+                        m_CurrentAnimation = AnimLinks[name];
+                        m_CurrentTime = 0.0f;
+                    }
+                }
+            }
+            else
+            {
+                if (m_CurrentAnimation != AnimLinks[name])
+                {
+                    m_CurrentAnimation = AnimLinks[name];
+                    m_CurrentTime = 0.0f;
+                }
+            }
         }
     
         Matrix4[] m_FinalBoneMatrices;

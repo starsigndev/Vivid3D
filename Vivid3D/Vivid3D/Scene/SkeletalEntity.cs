@@ -30,15 +30,20 @@ namespace Vivid.Scene
     }
     public class SkeletalEntity : Entity
     {
+        public virtual SkeletalEntity Spawn()
+        {
 
+            return null;
+        }
         public void AddAnimation(ActorAnimation animation)
         {
             Animations.Add(animation);
         }
 
-        public void PlayAnimation(string name)
+        public void PlayAnimation(string name,bool check_pri)
         {
-            Animator.SetAnimation(name);
+
+            Animator.SetAnimation(name,check_pri);
         }
 
         bool first = true;

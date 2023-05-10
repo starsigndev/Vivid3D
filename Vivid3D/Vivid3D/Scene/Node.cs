@@ -200,6 +200,7 @@ namespace Vivid.Scene
                 state1.Stop();
             }
             States.Push(state);
+            state.Node = this;
             state.Start();
 
         }
@@ -235,6 +236,11 @@ namespace Vivid.Scene
             InitNode();
             _PosMatrix = Matrix4.CreateTranslation(0, 0, 0);
             _ScaleMat = Matrix4.CreateScale(1, 1, 1);
+        }
+
+        public virtual void Start()
+        {
+
         }
 
         public void UpdateStates()

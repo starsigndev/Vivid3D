@@ -274,6 +274,31 @@ namespace Vivid.Scene
             }
         }
 
+        public Stack<SceneState> States
+        {
+            get;
+            set;
+        }
+
+        public void PushState(SceneState state)
+        {
+
+            States.Push(state);
+            state.Start();
+
+        }
+
+        public void PopState()
+        {
+
+            if (States.Count > 0)
+            {
+                States.Peek().Stop();
+                States.Pop();
+            }
+
+        }
+
         /// <summary>
         /// Constructs a empty usable scene. You need to add nodes, lights and entities for it to render anything.
         /// </summary>
@@ -290,6 +315,7 @@ namespace Vivid.Scene
             MeshLines = new List<MeshLines>();
             //Bounds = new BoundingBox();
             sc++;
+            States = new Stack<SceneState>();
         }
 
         public int sc = 0;
@@ -762,6 +788,10 @@ namespace Vivid.Scene
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Update()
         {
+            if (States.Count > 0)
+            {
+                States.Peek().Update();
+            }
             UpdatePhysics();
             MainCamera.Update();
             Root.Update();
@@ -1014,15 +1044,44 @@ namespace Vivid.Scene
         }
 
 
-        public RaycastResult Raycast(Ray ray)
+        public RaycastResult Raycast(Ray ray, Node ignore = null)
         {
 
             var meshes = GetMeshes();
+
+
+
+            if (ignore != null)
+            {
+                List<Vivid.Meshes.Mesh> ml = new List<Meshes.Mesh>();
+                foreach (var mesh in meshes)
+                {
+                    if(mesh.Owner != ignore)
+                    {
+                        ml.Add(mesh);
+                    }
+                }
+                meshes = ml;
+            }
 
             return Raycast(ray, meshes);
 
           
 
+        }
+
+        public void Start()
+        {
+            StartNode(Root);
+        }
+
+        public void StartNode(Node node)
+        {
+            node.Start();
+            foreach(var sub in node.Nodes)
+            {
+                sub.Start();
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1077,8 +1136,33 @@ namespace Vivid.Scene
                 firstPass = false;
                 //RenderGlobals.FirstPass = false;
             }
-
             Root.RenderStates();
+            if (States.Count > 0)
+            {
+                States.Peek().Render();
+            }
+
+        }
+
+        public void RemoveNode(Node node)
+        {
+            RemoveNodeIfFound(Root,node);
+
+        }
+
+        public void RemoveNodeIfFound(Node from,Node rem)
+        {
+
+            if(from == rem)
+            {
+                rem.Root.Nodes.Remove(rem);
+                rem.Root = null;
+                return;
+            }
+            foreach(var sub in from.Nodes)
+            {
+                RemoveNodeIfFound(sub, rem);
+            }
 
         }
 

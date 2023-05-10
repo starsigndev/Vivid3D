@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="NodeStates\" />
+    <Folder Include="NodeStates\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

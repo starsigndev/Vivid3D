@@ -98,6 +98,10 @@ namespace Vivid.App
            // state.InitState();
             CurrentScene = state.StateScene;
             state.Init();
+            if (CurrentScene != null)
+            {
+                CurrentScene.Start();
+            }
         }
 
         public static void PopState()

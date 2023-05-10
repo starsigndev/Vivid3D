@@ -172,7 +172,7 @@ namespace Vivid.Mesh
 
         public void Render()
         {
-            GL.LineWidth(305);
+          //  GL.LineWidth(305);
             GL.Enable(EnableCap.LineSmooth);
             GL.BindVertexArray(VertexArray);
             GL.BindBuffer(BufferTargetARB.ArrayBuffer, Buffer);

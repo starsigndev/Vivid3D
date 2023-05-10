@@ -1,4 +1,5 @@
 ﻿using FpsTechDemo1.Maps;
+using FpsTechDemo1.Nodes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,14 +37,26 @@ namespace FpsTechDemo1.AppStates
 
             var spawn = StateScene.FindSpawn("Spawn");
 
-            var cnode = FpsTechDemoApp.CharacterNodes[0];
+            var cnode = FpsTechDemoApp.SpawnChar("exoMan");//   CharacterNodes[0].Spawn();// as CharacterNode;
+            var cnode2 = FpsTechDemoApp.SpawnChar("exoMan");
+
 
             cnode.Position = spawn.Position;
-
+   //         cnode2.Position = spawn.Position;
             StateScene.AddNode(cnode);
 
-            fl.Position = spawn.Position;
 
+            //StateScene.AddNode(cnode2);
+           // cnode2.PlayAnimation("Walk");
+
+
+            //cnode.Position = spawn.Position;
+
+            //Link nodes to bone transforms, such as camera to head.
+
+
+            fl.Position = spawn.Position;
+            VividApp.CurrentScene = StateScene;
         }
 
         public override void Update()
@@ -57,6 +70,7 @@ namespace FpsTechDemo1.AppStates
             //base.Render();
             StateScene.RenderShadows();
             StateScene.Render();
+            StateScene.RenderLines();
         }
 
     }
