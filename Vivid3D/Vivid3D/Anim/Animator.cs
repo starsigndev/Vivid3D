@@ -122,7 +122,7 @@ namespace Vivid.Anim
             SetTime(m_CurrentTime);
         }
 
-        public void LinkAnimation(int index,string name,float priority)
+        public void LinkAnimation(int index,string name,float priority=1.0f)
         {
             AnimLinks.Add(name, m_Animations[index]);
             m_Animations[index].Priority = priority;

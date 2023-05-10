@@ -3,6 +3,7 @@
 using Vivid.Anim;
 using OpenTK.Mathematics;
 using Vivid.Meshes;
+using OpenTK.Graphics.OpenGL;
 
 namespace Vivid.Importing
 {
@@ -65,10 +66,22 @@ namespace Vivid.Importing
             */
         }
     }
+    public class MediaSource
+    {
+        public string name = "";
+        public string path = "";
 
+    }
     public class Importer
     {
-       
+        public static List<MediaSource> Sources = new List<MediaSource>();
+        public static void AddSource(string name,string path)
+        {
+            MediaSource src = new MediaSource();
+            src.name = name;
+            src.path = path;
+            Sources.Add(src);
+        }
         /*
         public static T ImportSkeletalEntity<T>(MemoryStream stream) where T : Vivid.Scene.SkeletalEntity, new()
         {
@@ -297,6 +310,27 @@ namespace Vivid.Importing
                         {
                             nmat.ColorMap = new Texture.Texture2D(mat.TextureDiffuse.FilePath);
                         }
+                        else
+                        {
+
+                            var col_path = Path.GetFileName(mat.TextureDiffuse.FilePath);
+                            foreach(var src in Sources)
+                            {
+
+                                var name = src.name;
+
+                                if (name == col_path)
+                                {
+                                    //int bb = 5;
+                                    nmat.ColorMap = new Texture.Texture2D(src.path);
+
+                                }
+
+                            }
+
+
+
+                        }
                     }
                     else
                     {
@@ -315,6 +349,23 @@ namespace Vivid.Importing
                         if (File.Exists(mat.TextureNormal.FilePath))
                         {
                             nmat.NormalMap = new Texture.Texture2D(mat.TextureNormal.FilePath);
+                        }
+                        else
+                        {
+                            var norm_path = Path.GetFileName(mat.TextureNormal.FilePath);
+                            foreach (var src in Sources)
+                            {
+
+                                var name = src.name;
+
+                                if (name == norm_path)
+                                {
+                                    //int bb = 5;
+                                    nmat.NormalMap = new Texture.Texture2D(src.path);
+
+                                }
+
+                            }
                         }
                     }
                     else
@@ -336,6 +387,23 @@ namespace Vivid.Importing
                         {
                             nmat.SpecularMap = new Texture.Texture2D(mat.TextureSpecular.FilePath);
                         }
+                        else
+                        {
+                            var spec_path = Path.GetFileName(mat.TextureSpecular.FilePath);
+                            foreach (var src in Sources)
+                            {
+
+                                var name = src.name;
+
+                                if (name == spec_path)
+                                {
+                                    //int bb = 5;
+                                    nmat.SpecularMap = new Texture.Texture2D(src.path);
+
+                                }
+
+                            }
+                        }
                     }
                     else
                     {
@@ -354,7 +422,7 @@ namespace Vivid.Importing
                 for (int i = 0; i < mesh.Vertices.Count; i++)
                 {
                     Meshes.Vertex nv = new Meshes.Vertex();
-                    nv.Position = new Vector3(mesh.Vertices[i].X, mesh.Vertices[i].Z, mesh.Vertices[i].Y);
+                    nv.Position = new Vector3(-mesh.Vertices[i].X, mesh.Vertices[i].Z, mesh.Vertices[i].Y);
                     nv.Normal = new Vector3(mesh.Normals[i].X, mesh.Normals[i].Z, mesh.Normals[i].Y);
                     nv.TexCoord = new Vector3(mesh.TextureCoordinateChannels[0][i].X, 1.0f - mesh.TextureCoordinateChannels[0][i].Y, 0);
                     nv.Color = new Vector4(1, 1, 1, 1);

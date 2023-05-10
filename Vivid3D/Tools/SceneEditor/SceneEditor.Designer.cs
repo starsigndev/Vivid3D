@@ -88,6 +88,8 @@
             spaceCombo = new ToolStripComboBox();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            toolStripSeparator9 = new ToolStripSeparator();
+            textureFoldersToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -345,7 +347,7 @@
             // 
             // otherToolStripMenuItem
             // 
-            otherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { propertyEditorToolStripMenuItem, pathToolsToolStripMenuItem, lightMapperToolStripMenuItem, generateOctreeToolStripMenuItem });
+            otherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { propertyEditorToolStripMenuItem, pathToolsToolStripMenuItem, lightMapperToolStripMenuItem, generateOctreeToolStripMenuItem, toolStripSeparator9, textureFoldersToolStripMenuItem });
             otherToolStripMenuItem.Name = "otherToolStripMenuItem";
             otherToolStripMenuItem.Size = new Size(58, 24);
             otherToolStripMenuItem.Text = "Tools";
@@ -353,26 +355,26 @@
             // propertyEditorToolStripMenuItem
             // 
             propertyEditorToolStripMenuItem.Name = "propertyEditorToolStripMenuItem";
-            propertyEditorToolStripMenuItem.Size = new Size(200, 26);
+            propertyEditorToolStripMenuItem.Size = new Size(224, 26);
             propertyEditorToolStripMenuItem.Text = "Property Editor";
             propertyEditorToolStripMenuItem.Click += Menu_OpenPropertyEditor;
             // 
             // pathToolsToolStripMenuItem
             // 
             pathToolsToolStripMenuItem.Name = "pathToolsToolStripMenuItem";
-            pathToolsToolStripMenuItem.Size = new Size(200, 26);
+            pathToolsToolStripMenuItem.Size = new Size(224, 26);
             pathToolsToolStripMenuItem.Text = "Path Tools";
             // 
             // lightMapperToolStripMenuItem
             // 
             lightMapperToolStripMenuItem.Name = "lightMapperToolStripMenuItem";
-            lightMapperToolStripMenuItem.Size = new Size(200, 26);
+            lightMapperToolStripMenuItem.Size = new Size(224, 26);
             lightMapperToolStripMenuItem.Text = "Light Mapper";
             // 
             // generateOctreeToolStripMenuItem
             // 
             generateOctreeToolStripMenuItem.Name = "generateOctreeToolStripMenuItem";
-            generateOctreeToolStripMenuItem.Size = new Size(200, 26);
+            generateOctreeToolStripMenuItem.Size = new Size(224, 26);
             generateOctreeToolStripMenuItem.Text = "Generate Octree";
             generateOctreeToolStripMenuItem.Click += Menu_GenerateOctree;
             // 
@@ -525,6 +527,18 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // toolStripSeparator9
+            // 
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            toolStripSeparator9.Size = new Size(221, 6);
+            // 
+            // textureFoldersToolStripMenuItem
+            // 
+            textureFoldersToolStripMenuItem.Name = "textureFoldersToolStripMenuItem";
+            textureFoldersToolStripMenuItem.Size = new Size(224, 26);
+            textureFoldersToolStripMenuItem.Text = "Texture Sources";
+            textureFoldersToolStripMenuItem.Click += textureFoldersToolStripMenuItem_Click;
+            // 
             // SceneEditor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -611,5 +625,7 @@
         private ToolStripMenuItem generateOctreeToolStripMenuItem;
         private ToolStripMenuItem debugToolStripMenuItem;
         private OpenTK.WinForms.GLControl glControl1;
+        private ToolStripSeparator toolStripSeparator9;
+        private ToolStripMenuItem textureFoldersToolStripMenuItem;
     }
 }

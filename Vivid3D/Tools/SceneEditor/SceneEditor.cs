@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.WinForms;
+using SceneEditor.Tools;
 //using static Assimp.Metadata;
 
 namespace SceneEditor
@@ -120,7 +121,7 @@ namespace SceneEditor
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
             UpdateSB();
-            
+
             MouseWheel += Form1_MouseWheel;
             PX = 0;
             PY = 0;
@@ -296,7 +297,7 @@ namespace SceneEditor
             {
                 VividApp._FW = glControl1.Size.Width;
                 VividApp._FH = glControl1.Size.Height;
-                GL.Viewport(0,0,glControl1.Size.Width,glControl1.Size.Height);
+                GL.Viewport(0, 0, glControl1.Size.Width, glControl1.Size.Height);
                 //App = new GeminiApp(editOutput.Width, editOutput.Height);
                 //GemBridge.gem_WinResize(editOutput.Size.Width, editOutput.Size.Height);
             }
@@ -569,6 +570,13 @@ namespace SceneEditor
                 Space = EditSpace.Screen;
                 UpdateSB();
             }
+        }
+
+        private void textureFoldersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextureSources ts = new TextureSources();
+            ts.Show();
+            
         }
     }
 }

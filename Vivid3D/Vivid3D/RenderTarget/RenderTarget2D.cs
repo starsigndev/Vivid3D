@@ -72,10 +72,11 @@ namespace Vivid.RenderTarget
             VividApp.BoundRT2D = this;
 
             GL.Viewport(0, 0, Width, Height);
-            GL.ClearColor(0, 1, 1, 1);
+            GL.ClearColor(0, 0, 0, 1);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            GL.ClearColor(1, 0, 0, 1);
+        //    GL.ClearColor(1, 0, 0, 1);
         }
+
 
         public void Release()
         {

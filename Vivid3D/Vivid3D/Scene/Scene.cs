@@ -120,6 +120,18 @@ namespace Vivid.Scene
             set;
         }
 
+        public List<SceneEvent> PossibleEvents
+        {
+            get;
+            set;
+        }
+
+        public List<SceneEvent> CurrentEvents
+        {
+            get;
+            set;
+        }
+
         public CubeRenderer ShadowRender
         {
             get;
@@ -298,6 +310,39 @@ namespace Vivid.Scene
             }
 
         }
+        
+        public void AddPossibleEvent(SceneEvent sceneEvent){
+            
+            PossibleEvents.Add(sceneEvent);
+            
+        }
+
+        public void StartEvent(string name)
+        {
+
+            foreach (var ev in PossibleEvents)
+            {
+                if (ev.EventName == name)
+                {
+                    CurrentEvents.Add(ev);
+                    ev.Start();
+                }
+            }
+            
+        }
+
+        public void StopEvent(string name)
+        {
+            foreach(var ev in CurrentEvents)
+            {
+                if(ev.EventName == name)
+                {
+                    ev.Stop();
+                    CurrentEvents.Remove(ev);
+                    break;
+                }
+            }
+        }
 
         /// <summary>
         /// Constructs a empty usable scene. You need to add nodes, lights and entities for it to render anything.
@@ -316,6 +361,8 @@ namespace Vivid.Scene
             //Bounds = new BoundingBox();
             sc++;
             States = new Stack<SceneState>();
+            PossibleEvents = new List<SceneEvent>();
+            CurrentEvents = new List<SceneEvent>();
         }
 
         public int sc = 0;
@@ -792,6 +839,10 @@ namespace Vivid.Scene
             {
                 States.Peek().Update();
             }
+            foreach(var ev in CurrentEvents)
+            {
+                ev.Update();
+            }
             UpdatePhysics();
             MainCamera.Update();
             Root.Update();
@@ -1140,6 +1191,10 @@ namespace Vivid.Scene
             if (States.Count > 0)
             {
                 States.Peek().Render();
+            }
+           foreach(var ev in CurrentEvents)
+            {
+                ev.Render();
             }
 
         }

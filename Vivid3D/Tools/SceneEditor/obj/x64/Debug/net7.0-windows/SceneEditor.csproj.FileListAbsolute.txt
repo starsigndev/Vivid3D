@@ -132,3 +132,4 @@ C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuPhysics.pdb
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuPhysics.xml
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuUtilities.pdb
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuUtilities.xml
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Tools.TextureSources.resources

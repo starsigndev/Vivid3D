@@ -145,7 +145,10 @@ namespace Vivid.Draw
         {
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Lequal);
+          //  GL.Disable(EnableCap.DepthTest);
             GL.Viewport(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
+           // GL.Disable(EnableCap.ScissorTest);
+
             switch (Blend)
             {
                 case BlendMode.Solid:

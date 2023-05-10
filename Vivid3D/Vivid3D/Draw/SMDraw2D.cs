@@ -16,7 +16,7 @@ namespace Vivid.Draw
         {
             //          if(Projection == null)
             //            {
-            Projection = Matrix4.CreateOrthographicOffCenter(0, VividApp.FrameWidth, VividApp.FrameHeight, 0, -0.1f, 5.0f);
+            Projection = Matrix4.CreateOrthographicOffCenter(0, VividApp.FrameWidth, VividApp.FrameHeight, 0, -1.0f,1.0f);
 
             //base.SetUniforms();
             SetUni("g_Projection", Projection);

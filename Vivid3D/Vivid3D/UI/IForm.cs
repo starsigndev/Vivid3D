@@ -192,6 +192,7 @@ namespace Vivid.UI
             UI.Draw.Draw(image,new Rect(x, y, w, h), new Vivid.Maths.Color(col.r, col.g,col.b, col.a));
             UI.Draw.End();
             
+           
         }
 
         public void Update()

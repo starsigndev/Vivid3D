@@ -5,6 +5,8 @@ using Vivid.Meshes;
 using Vivid.Physx;
 using Vivid.Renderers;
 using Vivid.State;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace Vivid.Scene
 {
@@ -209,6 +211,42 @@ namespace Vivid.Scene
                 node.UpdatePhysics();
             }
         }
+
+
+        public void RenderUI()
+        {
+            //GLHelper.PreRenderStandard(WriteDepth, DepthTest);
+
+            GL.Disable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha,BlendingFactor.OneMinusSrcAlpha);
+
+
+
+            foreach (var mesh in Meshes)
+            {
+                var material = mesh.UIMaterial;
+
+                material.Shader.Camera = RenderGlobals.CurrentCamera;
+                material.Shader.Entity = this;
+                material.Shader.Light = null;
+
+                material.Shader.Bind();
+
+                mesh.Material.ColorMap.Bind(0);
+
+                mesh.RenderMesh();
+
+                material.Shader.Unbind();
+                mesh.Material.ColorMap.Unbind(0);
+            }
+            foreach (var node in Nodes)
+            {
+              //  node.RenderSimple();
+            }
+
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void RenderSimple()
         {

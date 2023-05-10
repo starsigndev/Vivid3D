@@ -80,6 +80,12 @@ namespace Vivid.Meshes
             get;
             set;
         }
+
+        public MaterialBase UIMaterial
+        {
+            get;
+            set;
+        }
         public MeshBuffer Buffer
         {
             get;
@@ -95,6 +101,7 @@ namespace Vivid.Meshes
             Name = "Mesh";
             Buffer = null;
             FullBrightMaterial = new Materials.Materials.Entity.MaterialStandardFullBright();
+            UIMaterial = new Materials.Materials.Entity.MaterialUI3D();
             LightMaterial = new Materials.Materials.Entity.MaterialStandardLight();
             DepthMaterial = new Materials.Materials.Entity.MaterialStandardDepth();
             SkeletalLightMaterial = new Materials.Materials.Skeletal.MaterialSkeletalLight();

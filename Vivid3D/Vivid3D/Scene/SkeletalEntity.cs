@@ -40,7 +40,7 @@ namespace Vivid.Scene
             Animations.Add(animation);
         }
 
-        public void PlayAnimation(string name,bool check_pri)
+        public void PlayAnimation(string name,bool check_pri=true)
         {
 
             Animator.SetAnimation(name,check_pri);
@@ -50,7 +50,7 @@ namespace Vivid.Scene
         public void UpdateAnimation()
         {
 
-            //if (CurrentAnim != null)
+            //if (CurrentAnim != null)e
             {
                 //CurrentAnim.Update();
                 Animator.Update();

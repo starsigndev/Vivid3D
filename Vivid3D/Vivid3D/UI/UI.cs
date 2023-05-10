@@ -93,7 +93,7 @@ namespace Vivid.UI
                     Theme = new UITheme("darkknight");
                 }
 
-                SystemFont = new kFont("gemini/font/neo2.pf");
+                SystemFont = new kFont("gemini/font/orb.pf");
                 SystemFont.Scale = 0.75f;  
             }
 
