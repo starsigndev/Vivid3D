@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tech Demos", "Tech Demos", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FpsTechDemo1", "TechDemo\FpsTechDemo1\FpsTechDemo1.csproj", "{27F46B81-AF02-4D2A-BDB2-14762B9F256B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CPP", "CPP", "{B7592676-C300-4CE7-A22B-D18B44390411}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

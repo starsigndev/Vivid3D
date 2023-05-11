@@ -1013,6 +1013,8 @@ namespace Vivid.Scene
             edge1 = v1 - v0;// vertex1 - vertex0;
             edge2 = v2 - v0;
             h = Vector3.Cross(ray.Dir, edge2);
+
+
             a = Vector3.Dot(edge1, h);
             if (a > -EPSILON && a < EPSILON)
                 return res;    // This ray is parallel to this triangle.
@@ -1044,10 +1046,69 @@ namespace Vivid.Scene
 
             return res;
         }
+
+        public static bool RayToBounds(Ray ray, BoundingBox box)
+        {
+            float tmin = (box.Min.X - ray.Pos.X) / ray.Dir.X;
+            float tmax = (box.Max.X - ray.Pos.X) / ray.Dir.X;
+
+            if (tmin > tmax)
+            {
+                float temp = tmin;
+                tmin = tmax;
+                tmax = temp;
+            }
+
+            float tymin = (box.Min.Y - ray.Pos.Y) / ray.Dir.Y;
+            float tymax = (box.Max.Y - ray.Pos.Y) / ray.Dir.Y;
+
+            if (tymin > tymax)
+            {
+                float temp = tymin;
+                tymin = tymax;
+                tymax = temp;
+            }
+
+            if ((tmin > tymax) || (tymin > tmax))
+                return false;
+
+            if (tymin > tmin)
+                tmin = tymin;
+
+            if (tymax < tmax)
+                tmax = tymax;
+
+            float tzmin = (box.Min.Z - ray.Pos.Z) / ray.Dir.Z;
+            float tzmax = (box.Max.Z - ray.Pos.Z) / ray.Dir.Z;
+
+            if (tzmin > tzmax)
+            {
+                float temp = tzmin;
+                tzmin = tzmax;
+                tzmax = temp;
+            }
+
+            if ((tmin > tzmax) || (tzmin > tmax))
+                return false;
+
+            if (tzmin > tmin)
+                tmin = tzmin;
+
+            if (tzmax < tmax)
+                tmax = tzmax;
+
+            return true;
+        }
+
         static object triLock = new object();
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RaycastResult Raycast(Ray ray, Vivid.Meshes.Mesh mesh)
         {
+            if (!RayToBounds(ray,mesh.BB))
+            {
+                return new RaycastResult();
+            }
+
             RaycastResult res = new RaycastResult();
             float close = 999999;
             RaycastResult closeres = null;
@@ -1161,10 +1222,10 @@ namespace Vivid.Scene
                 RaycastResult r1 = Raycast(ray, mesh);
                 if (r1 != null)
                 {
-                    r1.Mesh = mesh;
+                 
                     if (r1.Hit)
                     {
-
+                        r1.Mesh = mesh;
                         lock (lockClose)
                         {
                             if (close == null)

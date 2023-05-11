@@ -222,6 +222,14 @@ namespace Vivid.Scene
                     mesh.TFPositions = null;
                 }
             }
+            if (Meshes != null)
+            {
+                foreach (var mesh in Meshes)
+                {
+                    mesh.BB = null;
+                }
+            }
+        
         }
         public void RenderUI()
         {
@@ -420,15 +428,29 @@ namespace Vivid.Scene
         {
             get
             {
-                //if (_MBB == null)
-                //{
+                if (_MBB == null)
+                {
                 _MBB = ComputeOverallBoundingBox(Meshes);
-                // }
+                 }
                 return _MBB;
             }
         }
 
         private BoundingBox _MBB;
+
+
+        public BoundingBox MeshBB(int index)
+        {
+            if (Meshes[index].BB == null)
+            {
+                var bb = ComputeMeshBoundingBox(Meshes[index], false);
+                Meshes[index].BB = bb;
+            }
+            return Meshes[index].BB;
+        }
+
+
+
 
         public Vivid.Scene.BoundingBox ComputeOverallBoundingBox(List<Vivid.Meshes.Mesh> meshes,bool noTransform = false)
         {

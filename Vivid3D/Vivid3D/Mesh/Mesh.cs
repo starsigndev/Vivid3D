@@ -92,6 +92,23 @@ namespace Vivid.Meshes
             set;
         }
 
+        public BoundingBox BB
+        {
+            get
+            {
+                if (_BB == null)
+                {
+                    _BB = Owner.ComputeMeshBoundingBox(this, false);
+                }
+                return _BB;
+            }
+            set
+            {
+                _BB = value;
+            }
+        }
+        BoundingBox _BB = null;
+
         public Vector3[] TFPositions = null;
 
         public Mesh(Entity owner)
