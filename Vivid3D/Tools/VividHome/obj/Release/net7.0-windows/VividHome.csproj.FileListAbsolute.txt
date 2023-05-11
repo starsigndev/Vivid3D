@@ -1,0 +1,17 @@
+C:\G3D\Vivid3D\Tools\VividHome\bin\Release\net7.0-windows\VividHome.exe
+C:\G3D\Vivid3D\Tools\VividHome\bin\Release\net7.0-windows\VividHome.deps.json
+C:\G3D\Vivid3D\Tools\VividHome\bin\Release\net7.0-windows\VividHome.runtimeconfig.json
+C:\G3D\Vivid3D\Tools\VividHome\bin\Release\net7.0-windows\VividHome.dll
+C:\G3D\Vivid3D\Tools\VividHome\bin\Release\net7.0-windows\VividHome.pdb
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.csproj.AssemblyReference.cache
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.Form1.resources
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.csproj.GenerateResource.cache
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.GeneratedMSBuildEditorConfig.editorconfig
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.AssemblyInfoInputs.cache
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.AssemblyInfo.cs
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.csproj.CoreCompileInputs.cache
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.dll
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\refint\VividHome.dll
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.pdb
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\VividHome.genruntimeconfig.cache
+C:\G3D\Vivid3D\Tools\VividHome\obj\Release\net7.0-windows\ref\VividHome.dll

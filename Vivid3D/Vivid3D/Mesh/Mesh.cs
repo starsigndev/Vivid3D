@@ -92,6 +92,8 @@ namespace Vivid.Meshes
             set;
         }
 
+        public Vector3[] TFPositions = null;
+
         public Mesh(Entity owner)
         {
             Owner = owner;

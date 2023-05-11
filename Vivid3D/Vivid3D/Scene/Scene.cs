@@ -1055,24 +1055,26 @@ namespace Vivid.Scene
             if (mesh.Owner == null) return res;
             var mat = mesh.Owner.WorldMatrix;
 
+            if (mesh.TFPositions == null)
+            {
+                mesh.TFPositions = new Vector3[mesh.Triangles.Count * 3];
+                int vc = 0;
+                foreach(var tri in mesh.Triangles)
+                {
+                    mesh.TFPositions[vc++] = Vector3.TransformPosition(mesh.Vertices[tri.V0].Position, mat);
+                    mesh.TFPositions[vc++] = Vector3.TransformPosition(mesh.Vertices[tri.V2].Position, mat);
+                    mesh.TFPositions[vc++] = Vector3.TransformPosition(mesh.Vertices[tri.V1].Position, mat);
+                }
+            }
 
+            int tc = mesh.Triangles.Count;
             //for (int i = 0; i < mesh.Triangles.Count; i++)
-            Parallel.ForEach(mesh.Triangles, tri =>
+            Parallel.For(0,tc, i =>
             {
 
-                var v0 = mesh.Vertices[tri.V0].Position;
-                var v1 = mesh.Vertices[tri.V2].Position;
-                var v2 = mesh.Vertices[tri.V1].Position;
+              
 
-
-
-                v0 = Vector3.TransformPosition(v0, mat);
-                v1 = Vector3.TransformPosition(v1, mat);
-                v2 = Vector3.TransformPosition(v2, mat);
-
-
-
-                RaycastResult r1 = RayToTri(ray, v0, v1, v2);
+                RaycastResult r1 = RayToTri(ray, mesh.TFPositions[i * 3], mesh.TFPositions[i * 3 + 1], mesh.TFPositions[i*3+2]);
                
                 if (r1.Hit)
                 {

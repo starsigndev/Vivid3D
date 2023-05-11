@@ -9,9 +9,9 @@
       "ContentPacker/1.0.0": {
         "dependencies": {
           "EPPlus.System.Drawing": "6.1.1",
-          "Gemini3D": "1.0.0",
           "SkiaSharp": "2.88.3",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3",
+          "Vivid": "1.0.0",
           "ZKWeb.System.Drawing": "4.0.1"
         },
         "runtime": {
@@ -51,18 +51,6 @@
           }
         }
       },
-      "DotNetZip/1.16.0": {
-        "dependencies": {
-          "System.Security.Permissions": "4.7.0",
-          "System.Text.Encoding.CodePages": "4.7.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DotNetZip.dll": {
-            "assemblyVersion": "1.16.0.0",
-            "fileVersion": "1.16.0.0"
-          }
-        }
-      },
       "EPPlus.Interfaces/6.1.1": {
         "runtime": {
           "lib/net7.0/EPPlus.Interfaces.dll": {
@@ -83,11 +71,19 @@
           }
         }
       },
-      "Microsoft.NETCore.Platforms/3.1.1": {},
+      "Ionic.Zlib.Core/1.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/Ionic.Zlib.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
@@ -110,7 +106,7 @@
       },
       "NETStandard.Library/1.6.1": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.Win32.Primitives": "4.3.0",
           "System.AppContext": "4.3.0",
           "System.Collections": "4.3.0",
@@ -156,53 +152,142 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "PhysX.Net/3.0.0-alpha1": {
+      "OpenTK/5.0.0-pre.8": {
+        "dependencies": {
+          "OpenTK.Compute": "5.0.0-pre.8",
+          "OpenTK.Core": "5.0.0-pre.8",
+          "OpenTK.Graphics": "5.0.0-pre.8",
+          "OpenTK.Input": "5.0.0-pre.8",
+          "OpenTK.Mathematics": "5.0.0-pre.8",
+          "OpenTK.OpenAL": "5.0.0-pre.8",
+          "OpenTK.Windowing.Common": "5.0.0-pre.8",
+          "OpenTK.Windowing.Desktop": "5.0.0-pre.8",
+          "OpenTK.Windowing.GraphicsLibraryFramework": "5.0.0-pre.8"
+        }
+      },
+      "OpenTK.Compute/5.0.0-pre.8": {
         "runtime": {
-          "lib/net50/PhysX.Net.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "2.0.0.0"
+          "lib/net5.0/OpenTK.Compute.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
+        }
+      },
+      "OpenTK.Core/5.0.0-pre.8": {
+        "runtime": {
+          "lib/net5.0/OpenTK.Core.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Graphics/5.0.0-pre.8": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.8",
+          "OpenTK.Mathematics": "5.0.0-pre.8"
         },
+        "runtime": {
+          "lib/net5.0/OpenTK.Graphics.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Input/5.0.0-pre.8": {
+        "runtime": {
+          "lib/net5.0/OpenTK.Input.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Mathematics/5.0.0-pre.8": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0"
+        },
+        "runtime": {
+          "lib/net5.0/OpenTK.Mathematics.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.OpenAL/5.0.0-pre.8": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.8",
+          "OpenTK.Mathematics": "5.0.0-pre.8"
+        },
+        "runtime": {
+          "lib/net5.0/OpenTK.OpenAL.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.redist.glfw/3.3.8.30": {
         "runtimeTargets": {
-          "runtimes/win-x64/native/Ijwhost.dll": {
-            "rid": "win-x64",
+          "runtimes/linux-x64/native/libglfw.so.3.3": {
+            "rid": "linux-x64",
             "assetType": "native",
-            "fileVersion": "5.0.220.61120"
+            "fileVersion": "0.0.0.0"
           },
-          "runtimes/win-x64/native/PhysXCommon_64.dll": {
-            "rid": "win-x64",
+          "runtimes/osx-arm64/native/libglfw.3.dylib": {
+            "rid": "osx-arm64",
             "assetType": "native",
-            "fileVersion": "4.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
-          "runtimes/win-x64/native/PhysXCooking_64.dll": {
-            "rid": "win-x64",
+          "runtimes/osx-x64/native/libglfw.3.dylib": {
+            "rid": "osx-x64",
             "assetType": "native",
-            "fileVersion": "4.1.1.0"
+            "fileVersion": "0.0.0.0"
           },
-          "runtimes/win-x64/native/PhysXDevice64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "18.12.7.1"
-          },
-          "runtimes/win-x64/native/PhysXFoundation_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/PhysXGpu_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/PhysX_64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "4.1.1.0"
-          },
-          "runtimes/win-x64/native/glut32.dll": {
+          "runtimes/win-x64/native/glfw3.dll": {
             "rid": "win-x64",
             "assetType": "native",
             "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/glfw3.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.Common/5.0.0-pre.8": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.8",
+          "OpenTK.Mathematics": "5.0.0-pre.8"
+        },
+        "runtime": {
+          "lib/net5.0/OpenTK.Windowing.Common.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.Desktop/5.0.0-pre.8": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.8",
+          "OpenTK.Mathematics": "5.0.0-pre.8",
+          "OpenTK.Windowing.Common": "5.0.0-pre.8",
+          "OpenTK.Windowing.GraphicsLibraryFramework": "5.0.0-pre.8"
+        },
+        "runtime": {
+          "lib/net5.0/OpenTK.Windowing.Desktop.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.GraphicsLibraryFramework/5.0.0-pre.8": {
+        "dependencies": {
+          "OpenTK.Core": "5.0.0-pre.8",
+          "OpenTK.redist.glfw": "3.3.8.30"
+        },
+        "runtime": {
+          "lib/net5.0/OpenTK.Windowing.GraphicsLibraryFramework.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
           }
         }
       },
@@ -211,19 +296,19 @@
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.native.System/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
       "runtime.native.System.IO.Compression/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
       "runtime.native.System.Net.Http/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
@@ -254,12 +339,6 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
-      "SharpFont/4.0.1": {
-        "dependencies": {
-          "SharpFont.Dependencies": "2.5.5"
-        }
-      },
-      "SharpFont.Dependencies/2.5.5": {},
       "SixLabors.ImageSharp/3.0.1": {
         "runtime": {
           "lib/net6.0/SixLabors.ImageSharp.dll": {
@@ -324,7 +403,7 @@
       },
       "System.Collections/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
@@ -397,7 +476,7 @@
       },
       "System.Console/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.IO": "4.3.0",
           "System.Runtime": "4.3.0",
@@ -406,7 +485,7 @@
       },
       "System.Diagnostics.Debug/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
@@ -422,14 +501,14 @@
       },
       "System.Diagnostics.Tools/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
       },
       "System.Diagnostics.Tracing/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
@@ -447,14 +526,14 @@
       },
       "System.Globalization/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
       },
       "System.Globalization.Calendars/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Globalization": "4.3.0",
           "System.Runtime": "4.3.0"
@@ -462,7 +541,7 @@
       },
       "System.Globalization.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.Globalization": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0",
@@ -472,7 +551,7 @@
       },
       "System.IO/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0",
           "System.Text.Encoding": "4.3.0",
@@ -481,7 +560,7 @@
       },
       "System.IO.Compression/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.Buffers": "4.3.0",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
@@ -513,7 +592,7 @@
       },
       "System.IO.FileSystem/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.IO": "4.3.0",
           "System.IO.FileSystem.Primitives": "4.3.0",
@@ -560,7 +639,7 @@
       },
       "System.Net.Http/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Diagnostics.DiagnosticSource": "4.3.0",
@@ -590,7 +669,7 @@
       },
       "System.Net.Primitives/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0",
           "System.Runtime.Handles": "4.3.0"
@@ -598,7 +677,7 @@
       },
       "System.Net.Sockets/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.IO": "4.3.0",
           "System.Net.Primitives": "4.3.0",
@@ -617,7 +696,7 @@
       },
       "System.Reflection/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.IO": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
@@ -650,7 +729,7 @@
       },
       "System.Reflection.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Reflection": "4.3.0",
           "System.Runtime": "4.3.0"
@@ -658,7 +737,7 @@
       },
       "System.Reflection.Primitives/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
@@ -671,7 +750,7 @@
       },
       "System.Resources.ResourceManager/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Globalization": "4.3.0",
           "System.Reflection": "4.3.0",
@@ -680,27 +759,28 @@
       },
       "System.Runtime/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0"
         }
       },
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {},
       "System.Runtime.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
       },
       "System.Runtime.Handles/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
       },
       "System.Runtime.InteropServices/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Reflection": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
@@ -733,15 +813,9 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Security.AccessControl/4.7.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
-          "System.Security.Principal.Windows": "4.7.0"
-        }
-      },
       "System.Security.Cryptography.Algorithms/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.Collections": "4.3.0",
           "System.IO": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
@@ -759,7 +833,7 @@
       },
       "System.Security.Cryptography.Cng/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.IO": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0",
@@ -774,7 +848,7 @@
       },
       "System.Security.Cryptography.Csp/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.IO": "4.3.0",
           "System.Reflection": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
@@ -791,7 +865,7 @@
       },
       "System.Security.Cryptography.Encoding/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.Collections": "4.3.0",
           "System.Collections.Concurrent": "4.3.0",
           "System.Linq": "4.3.0",
@@ -835,7 +909,7 @@
       },
       "System.Security.Cryptography.X509Certificates/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Globalization": "4.3.0",
@@ -862,28 +936,16 @@
           "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0"
         }
       },
-      "System.Security.Permissions/4.7.0": {
-        "dependencies": {
-          "System.Security.AccessControl": "4.7.0",
-          "System.Windows.Extensions": "4.7.0"
-        }
-      },
-      "System.Security.Principal.Windows/4.7.0": {},
       "System.Text.Encoding/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Text.Encoding.CodePages/4.7.1": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1"
-        }
-      },
       "System.Text.Encoding.Extensions/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0",
           "System.Text.Encoding": "4.3.0"
@@ -902,7 +964,7 @@
       },
       "System.Threading.Tasks/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
         }
@@ -921,14 +983,9 @@
       },
       "System.Threading.Timer/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "3.1.1",
+          "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.Runtime": "4.3.0"
-        }
-      },
-      "System.Windows.Extensions/4.7.0": {
-        "dependencies": {
-          "System.Drawing.Common": "8.0.0-preview.2.23128.3"
         }
       },
       "System.Xml.ReaderWriter/4.3.0": {
@@ -982,18 +1039,33 @@
           }
         }
       },
-      "Gemini3D/1.0.0": {
+      "Vivid/1.0.0": {
         "dependencies": {
           "AssimpNet": "5.0.0-beta1",
-          "DotNetZip": "1.16.0",
-          "PhysX.Net": "3.0.0-alpha1",
-          "SharpFont": "4.0.1",
+          "Ionic.Zlib.Core": "1.0.0",
+          "OpenTK": "5.0.0-pre.8",
           "SixLabors.ImageSharp": "3.0.1",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3",
           "ZKWeb.System.Drawing": "4.0.1"
         },
         "runtime": {
-          "Gemini3D.dll": {}
+          "Vivid.dll": {}
+        }
+      },
+      "BepuPhysics/2.5.0.0": {
+        "runtime": {
+          "BepuPhysics.dll": {
+            "assemblyVersion": "2.5.0.0",
+            "fileVersion": "2.5.0.0"
+          }
+        }
+      },
+      "BepuUtilities/2.5.0.0": {
+        "runtime": {
+          "BepuUtilities.dll": {
+            "assemblyVersion": "2.5.0.0",
+            "fileVersion": "2.5.0.0"
+          }
         }
       }
     }
@@ -1011,13 +1083,6 @@
       "path": "assimpnet/5.0.0-beta1",
       "hashPath": "assimpnet.5.0.0-beta1.nupkg.sha512"
     },
-    "DotNetZip/1.16.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-CS9sjjXF23FLIbwlLT5k/jXBYxVnLMn01lyAvN/hxFM+UDvSicjTPB9ZMA+Wp/QlvBPbD2pzkAXUp1O50gP/Lw==",
-      "path": "dotnetzip/1.16.0",
-      "hashPath": "dotnetzip.1.16.0.nupkg.sha512"
-    },
     "EPPlus.Interfaces/6.1.1": {
       "type": "package",
       "serviceable": true,
@@ -1032,12 +1097,19 @@
       "path": "epplus.system.drawing/6.1.1",
       "hashPath": "epplus.system.drawing.6.1.1.nupkg.sha512"
     },
-    "Microsoft.NETCore.Platforms/3.1.1": {
+    "Ionic.Zlib.Core/1.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RmINcaqiEkawM9C8oxFMN/CZmn1fGKWVsosbSY/8ARUNdHqV47hqhPVbrG3qUqLaRQI5w4HuqFOqrbhoSWcH6w==",
-      "path": "microsoft.netcore.platforms/3.1.1",
-      "hashPath": "microsoft.netcore.platforms.3.1.1.nupkg.sha512"
+      "sha512": "sha512-3GBgjMQA/uPTiqv+wMCpLsyK5dcHCF6EV8+pg4IMKLbgbMGEtIkvErEO4ql5Cv18n94Smf3NAhY/sCed2Tb+Tw==",
+      "path": "ionic.zlib.core/1.0.0",
+      "hashPath": "ionic.zlib.core.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Targets/1.1.0": {
       "type": "package",
@@ -1067,12 +1139,82 @@
       "path": "netstandard.library/1.6.1",
       "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
     },
-    "PhysX.Net/3.0.0-alpha1": {
+    "OpenTK/5.0.0-pre.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JT0KrHi39xgv31DImDmVLkcX98h1hKJH5hc0EhauBIxdJcfMiFVjN2KBJ/R6O6eQE6VN/X265N6K/sHKWEXkuA==",
-      "path": "physx.net/3.0.0-alpha1",
-      "hashPath": "physx.net.3.0.0-alpha1.nupkg.sha512"
+      "sha512": "sha512-jbKsrfkS0Y5nANb/F4/iityL47Ym97YWBX/Po+tqReVEhWUH6DHIKmiVuP+Wz9gyRAzJQlhK2BJDtAXHcq3iIw==",
+      "path": "opentk/5.0.0-pre.8",
+      "hashPath": "opentk.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.Compute/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9hZLbFffywjEqLNC0fOBaWCgj0rFARUA+wHVgiwOXW+lZtmzXbr9ePvByAPn12YCULBoxj05n9tnKBehQmJB1Q==",
+      "path": "opentk.compute/5.0.0-pre.8",
+      "hashPath": "opentk.compute.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.Core/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oZrLKVcK0eR9aRCz8qKe7GUNx8qs6i7ZkMKEMD6p5R7yYXyJmskBVTjNzfj676I683MvFsf12VSx7AG3W2xXdw==",
+      "path": "opentk.core/5.0.0-pre.8",
+      "hashPath": "opentk.core.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.Graphics/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lUBlESBV+L8W36lKbdVu5xSaG21iPR/yCME3XUL1OXqUJeTc7hhY70a2KOkB2R8z7RjujIC00fKhDzhT6ReCbA==",
+      "path": "opentk.graphics/5.0.0-pre.8",
+      "hashPath": "opentk.graphics.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.Input/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-slL8tDNUuZvGQeoEdmfJFfy4iQDhR1cct5ziQ9b7HW1IuyXKLmub4fsHKJdBmwc0cn8bfTP6CzUsR1KKxhqebw==",
+      "path": "opentk.input/5.0.0-pre.8",
+      "hashPath": "opentk.input.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.Mathematics/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Xiyo4qHAbXQJPRW6AzLUMcieyQToZts56ssQqe5II8fBgqczwQbzQPcbsUGT6bvS2RMr7n1UwnhDMQp6rzOw6w==",
+      "path": "opentk.mathematics/5.0.0-pre.8",
+      "hashPath": "opentk.mathematics.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.OpenAL/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3jxXJZumOSJ9vLym+1Zya9o9L0LSuBRQrCJwTZe/7ZN1TF4pAEvNCTEU0Ie1sxSbhKE5cyhB3RstQSNez8Ofvg==",
+      "path": "opentk.openal/5.0.0-pre.8",
+      "hashPath": "opentk.openal.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.redist.glfw/3.3.8.30": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dYk7CJ+eOKHVn5IPKCBzmRDHcDy6+oy0fxPntTcl48+NTmOf15e2vKtF9BM7vQFWA8UFmT09Zk05mNHYa3zYWA==",
+      "path": "opentk.redist.glfw/3.3.8.30",
+      "hashPath": "opentk.redist.glfw.3.3.8.30.nupkg.sha512"
+    },
+    "OpenTK.Windowing.Common/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BcyXvjjMmdL452DlPUFDRFDYDirHv4eCRpr8tiJvCyj6oOcWJo//LJpuCY2vIHcgZaitHjq2v/21vyz2dm/Omg==",
+      "path": "opentk.windowing.common/5.0.0-pre.8",
+      "hashPath": "opentk.windowing.common.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.Windowing.Desktop/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dy6KlawX8u7xbRoCLBuooziTVZf4ozw4YIOLIpII0o5IvP8BE9dtX3OSgZ6X0T82t67xhlzMEhypQTPZ7zUaTw==",
+      "path": "opentk.windowing.desktop/5.0.0-pre.8",
+      "hashPath": "opentk.windowing.desktop.5.0.0-pre.8.nupkg.sha512"
+    },
+    "OpenTK.Windowing.GraphicsLibraryFramework/5.0.0-pre.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PuByEy1avj8jgn9d5i5DAHNTFLPY/INTXS0SXscq7DcuNCAKKUuIvT6xPwEMbi/lCBuUVjV9/qhlZj5KzzfY3w==",
+      "path": "opentk.windowing.graphicslibraryframework/5.0.0-pre.8",
+      "hashPath": "opentk.windowing.graphicslibraryframework.5.0.0-pre.8.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
@@ -1185,20 +1327,6 @@
       "sha512": "sha512-VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg==",
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512"
-    },
-    "SharpFont/4.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-yoFLcuWMYdBGB4YLq3bvzrctItJIb+EuK7C7PGgBzqsKxx5UXUwTce64kbvuDQWlMf6p4uQwDm5t2rQdZ9EkyA==",
-      "path": "sharpfont/4.0.1",
-      "hashPath": "sharpfont.4.0.1.nupkg.sha512"
-    },
-    "SharpFont.Dependencies/2.5.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-QlGhaq7pL90m2PNkP+YRaFR+wQsDULxOo3kFUUm/jaf6Ym++jCR2R78oMtKqzVjjCjm1Skwy3k1jYC0mx7/lXw==",
-      "path": "sharpfont.dependencies/2.5.5",
-      "hashPath": "sharpfont.dependencies.2.5.5.nupkg.sha512"
     },
     "SixLabors.ImageSharp/3.0.1": {
       "type": "package",
@@ -1494,6 +1622,13 @@
       "path": "system.runtime/4.3.0",
       "hashPath": "system.runtime.4.3.0.nupkg.sha512"
     },
+    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
+      "path": "system.runtime.compilerservices.unsafe/5.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+    },
     "System.Runtime.Extensions/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1535,13 +1670,6 @@
       "sha512": "sha512-Wz+0KOukJGAlXjtKr+5Xpuxf8+c8739RI1C+A2BoQZT+wMCCoMDDdO8/4IRHfaVINqL78GO8dW8G2lW/e45Mcw==",
       "path": "system.runtime.serialization.primitives/4.3.0",
       "hashPath": "system.runtime.serialization.primitives.4.3.0.nupkg.sha512"
-    },
-    "System.Security.AccessControl/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JECvTt5aFF3WT3gHpfofL2MNNP6v84sxtXxpqhLBCcDRzqsPBmHhQ6shv4DwwN2tRlzsUxtb3G9M3763rbXKDg==",
-      "path": "system.security.accesscontrol/4.7.0",
-      "hashPath": "system.security.accesscontrol.4.7.0.nupkg.sha512"
     },
     "System.Security.Cryptography.Algorithms/4.3.0": {
       "type": "package",
@@ -1592,33 +1720,12 @@
       "path": "system.security.cryptography.x509certificates/4.3.0",
       "hashPath": "system.security.cryptography.x509certificates.4.3.0.nupkg.sha512"
     },
-    "System.Security.Permissions/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-dkOV6YYVBnYRa15/yv004eCGRBVADXw8qRbbNiCn/XpdJSUXkkUeIvdvFHkvnko4CdKMqG8yRHC4ox83LSlMsQ==",
-      "path": "system.security.permissions/4.7.0",
-      "hashPath": "system.security.permissions.4.7.0.nupkg.sha512"
-    },
-    "System.Security.Principal.Windows/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ==",
-      "path": "system.security.principal.windows/4.7.0",
-      "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
-    },
     "System.Text.Encoding/4.3.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-BiIg+KWaSDOITze6jGQynxg64naAPtqGHBwDrLaCtixsa5bKiR8dpPOHA7ge3C0JJQizJE+sfkz1wV+BAKAYZw==",
       "path": "system.text.encoding/4.3.0",
       "hashPath": "system.text.encoding.4.3.0.nupkg.sha512"
-    },
-    "System.Text.Encoding.CodePages/4.7.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-i2fOvznVVgOOTLUz8FgSap/MsR98I4Iaoz99VXcOW/e7Y2OdY42zhYpBYpZyivk5alYY/UsOWAVswhtjxceodA==",
-      "path": "system.text.encoding.codepages/4.7.1",
-      "hashPath": "system.text.encoding.codepages.4.7.1.nupkg.sha512"
     },
     "System.Text.Encoding.Extensions/4.3.0": {
       "type": "package",
@@ -1669,13 +1776,6 @@
       "path": "system.threading.timer/4.3.0",
       "hashPath": "system.threading.timer.4.3.0.nupkg.sha512"
     },
-    "System.Windows.Extensions/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
-      "path": "system.windows.extensions/4.7.0",
-      "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
-    },
     "System.Xml.ReaderWriter/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1697,8 +1797,18 @@
       "path": "zkweb.system.drawing/4.0.1",
       "hashPath": "zkweb.system.drawing.4.0.1.nupkg.sha512"
     },
-    "Gemini3D/1.0.0": {
+    "Vivid/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BepuPhysics/2.5.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BepuUtilities/2.5.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

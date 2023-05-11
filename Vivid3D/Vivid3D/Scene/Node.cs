@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using BepuPhysics.Constraints;
+using OpenTK.Mathematics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Vivid.Audio;
@@ -62,6 +63,7 @@ namespace Vivid.Scene
             {
                 _Scale = value;
                 _ScaleMat = Matrix4.CreateScale(value);
+                Changed();
             }
         }
 
@@ -81,7 +83,13 @@ namespace Vivid.Scene
             {
                 _LocalPos = value;
                 _PosMatrix = Matrix4.CreateTranslation(_LocalPos);
+                Changed();
             }
+        }
+
+        public virtual void Changed()
+        {
+
         }
 
         private Matrix4 _PosMatrix = Matrix4.Identity;
@@ -103,10 +111,17 @@ namespace Vivid.Scene
         /// </summary>
         public Matrix4 Rotation
         {
-            get;
-            set;
+            get
+            {
+                return _Rotation;
+            }
+            set
+            {
+                _Rotation = value;
+                Changed();
+            }
         }
-
+        public Matrix4 _Rotation = Matrix4.Identity;
         //protected Matrix4 CachedWorld = null;
 
         /// <summary>

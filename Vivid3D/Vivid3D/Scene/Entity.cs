@@ -212,7 +212,17 @@ namespace Vivid.Scene
             }
         }
 
-
+        public override void Changed()
+        {
+            //base.Changed();
+            if (Meshes != null)
+            {
+                foreach (var mesh in Meshes)
+                {
+                    mesh.TFPositions = null;
+                }
+            }
+        }
         public void RenderUI()
         {
             //GLHelper.PreRenderStandard(WriteDepth, DepthTest);
