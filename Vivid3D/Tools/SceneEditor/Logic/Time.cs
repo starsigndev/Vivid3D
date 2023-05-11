@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Mathematics;
-using static SceneEditor.SceneEditor;
-namespace SceneEditor.Logic
+using static Editor.SceneEditor;
+namespace Editor.Logic
 {
     public class Time
     {

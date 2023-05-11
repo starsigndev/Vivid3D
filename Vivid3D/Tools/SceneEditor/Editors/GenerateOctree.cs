@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SceneEditor.Editors
+namespace Editor.Editors
 {
     public partial class GenerateOctree : Form
     {
@@ -29,7 +29,7 @@ namespace SceneEditor.Editors
             }
         }
 
-       
+
 
         private Vivid.Scene.Scene _Scene;
         public static Vivid.Acceleration.Octree.ASOctree OcScene;

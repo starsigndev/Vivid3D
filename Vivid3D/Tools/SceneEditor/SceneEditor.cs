@@ -11,17 +11,17 @@ using Vivid.Meshes;
 using Vivid.Renderers;
 using Vivid.Resource;
 using Vivid.Texture;
-using SceneEditor.Editors;
-using SceneEditor.Logic;
+using Editor.Editors;
+using Editor.Logic;
 using System.Security.Cryptography.Pkcs;
 using System.Windows.Forms;
 using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.WinForms;
-using SceneEditor.Tools;
+using Editor.Tools;
 //using static Assimp.Metadata;
 
-namespace SceneEditor
+namespace Editor
 {
 
     public partial class SceneEditor : Form
@@ -576,7 +576,13 @@ namespace SceneEditor
         {
             TextureSources ts = new TextureSources();
             ts.Show();
-            
+
+        }
+
+        private void modelEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Editor.Editors.ModelEditor model_edit = new ModelEditor();
+            model_edit.Show();
         }
     }
 }

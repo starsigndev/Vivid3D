@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SceneEditor.Tools
+namespace Editor.Tools
 {
 
     public partial class TextureSources : Form
@@ -43,7 +43,7 @@ namespace SceneEditor.Tools
             SaveList();
 
         }
-        public void LoadList()
+        public static void LoadList()
         {
 
             if (File.Exists("texsources.list") == false)
@@ -67,10 +67,17 @@ namespace SceneEditor.Tools
                 Sources.Add(src);
 
             }
-            
 
+            Vivid.Importing.Importer.Sources.Clear();
+            foreach (var ts in Sources)
+            {
+               // tsList.Items.Add(ts);
+
+
+                Vivid.Importing.Importer.AddSource(ts.Name, ts.FullPath);
+            };
         }
-        public void SaveList()
+        public static void SaveList()
         {
 
             FileStream fs = new FileStream("texsources.list", FileMode.Create, FileAccess.Write);
@@ -100,7 +107,7 @@ namespace SceneEditor.Tools
                 tsList.Items.Add(ts);
 
 
-                Vivid.Importing.Importer.AddSource(ts.Name, ts.FullPath);
+                //Vivid.Importing.Importer.AddSource(ts.Name, ts.FullPath);
             };
         }
 

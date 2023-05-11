@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenTK.Mathematics;
-using static SceneEditor.SceneEditor;
+using static Editor.SceneEditor;
 
-namespace SceneEditor.Logic
+namespace Editor.Logic
 {
     public class Features
     {

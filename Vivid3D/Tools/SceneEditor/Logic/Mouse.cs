@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Mathematics;
-using static SceneEditor.SceneEditor;
+using static Editor.SceneEditor;
 using Vivid.Nodes;
 using Vivid.Scene;
 using Vivid.Mesh;
 
-namespace SceneEditor.Logic
+namespace Editor.Logic
 {
     public class Mouse
     {
@@ -115,7 +115,7 @@ namespace SceneEditor.Logic
                 {
                     if (CheckIcons()) return;
 
-                    res = global::SceneEditor.SceneEditor.EditScene.MousePick((int)SceneEditor.MouseX, (int)SceneEditor.MouseY);
+                    res = global::Editor.SceneEditor.EditScene.MousePick((int)SceneEditor.MouseX, (int)SceneEditor.MouseY);
                     if (res != null)
                     {
                         SceneEditor.CurrentNode = res.Node;

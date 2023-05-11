@@ -423,11 +423,11 @@ namespace Vivid.Importing
                 {
                     Meshes.Vertex nv = new Meshes.Vertex();
                     nv.Position = new Vector3(-mesh.Vertices[i].X, mesh.Vertices[i].Z, mesh.Vertices[i].Y);
-                    nv.Normal = new Vector3(mesh.Normals[i].X, mesh.Normals[i].Z, mesh.Normals[i].Y);
+                    nv.Normal = new Vector3(-mesh.Normals[i].X, mesh.Normals[i].Z, mesh.Normals[i].Y);
                     nv.TexCoord = new Vector3(mesh.TextureCoordinateChannels[0][i].X, 1.0f - mesh.TextureCoordinateChannels[0][i].Y, 0);
                     nv.Color = new Vector4(1, 1, 1, 1);
-                    nv.BiNormal = new Vector3(mesh.BiTangents[i].X, mesh.BiTangents[i].Z, mesh.BiTangents[i].Y);
-                    nv.Tangent = new Vector3(mesh.Tangents[i].X, mesh.Tangents[i].Z, mesh.Tangents[i].Y);
+                    nv.BiNormal = new Vector3(-mesh.BiTangents[i].X, mesh.BiTangents[i].Z, mesh.BiTangents[i].Y);
+                    nv.Tangent = new Vector3(-mesh.Tangents[i].X, mesh.Tangents[i].Z, mesh.Tangents[i].Y);
 
                     gMesh.AddVertex(nv, false);
                 }

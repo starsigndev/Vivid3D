@@ -1044,6 +1044,7 @@ namespace Vivid.Scene
 
             return res;
         }
+        static object triLock = new object();
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RaycastResult Raycast(Ray ray, Vivid.Meshes.Mesh mesh)
         {
@@ -1054,42 +1055,50 @@ namespace Vivid.Scene
             if (mesh.Owner == null) return res;
             var mat = mesh.Owner.WorldMatrix;
 
-            for (int i = 0; i < mesh.Triangles.Count; i++)
+
+            //for (int i = 0; i < mesh.Triangles.Count; i++)
+            Parallel.ForEach(mesh.Triangles, tri =>
             {
-                var v0 = mesh.Vertices[mesh.Triangles[i].V0].Position;
-                var v1 = mesh.Vertices[mesh.Triangles[i].V2].Position;
-                var v2 = mesh.Vertices[mesh.Triangles[i].V1].Position;
 
-                var vec1 = new Vector3(v0.X, v0.Y, v0.Z);
-                var vec2 = new Vector3(v1.X, v1.Y, v1.Z);
-                var vec3 = new Vector3(v2.X, v2.Y, v2.Z);
+                var v0 = mesh.Vertices[tri.V0].Position;
+                var v1 = mesh.Vertices[tri.V2].Position;
+                var v2 = mesh.Vertices[tri.V1].Position;
 
-                vec1 = Vector3.TransformPosition(vec1, mat);
-                vec2 = Vector3.TransformPosition(vec2, mat);
-                vec3 = Vector3.TransformPosition(vec3, mat);
 
-                RaycastResult r1 = RayToTri(ray, vec1, vec2, vec3);
-                r1.Node = mesh.Owner;
-                r1.Entity = mesh.Owner as Entity;
+
+                v0 = Vector3.TransformPosition(v0, mat);
+                v1 = Vector3.TransformPosition(v1, mat);
+                v2 = Vector3.TransformPosition(v2, mat);
+
+
+
+                RaycastResult r1 = RayToTri(ray, v0, v1, v2);
+               
                 if (r1.Hit)
                 {
-                    if (closeres == null)
+                    r1.Node = mesh.Owner;
+                    r1.Entity = mesh.Owner as Entity;
+                    lock (triLock)
                     {
-                        closeres = r1;
-                        close = (ray.Pos - r1.Point).LengthSquared;
-                    }
-                    else
-                    {
-                        float dist = (ray.Pos - r1.Point).LengthSquared;
-                        if (dist < close)
+                        if (closeres == null)
                         {
-                            close = dist;
                             closeres = r1;
+                            close = (ray.Pos - r1.Point).LengthSquared;
+                        }
+                        else
+                        {
+                            float dist = (ray.Pos - r1.Point).LengthSquared;
+                            if (dist < close)
+                            {
+                                close = dist;
+                                closeres = r1;
+                            }
                         }
                     }
+
                     //int a = 5;
                 }
-            }
+            });
 
             return closeres;
         }
@@ -1135,6 +1144,7 @@ namespace Vivid.Scene
             }
         }
 
+        static object lockClose = new object();
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public RaycastResult Raycast(Ray ray, List<Vivid.Meshes.Mesh> meshes)
         {
@@ -1144,32 +1154,36 @@ namespace Vivid.Scene
             float close_dist = 9999;
             RaycastResult res = new RaycastResult();
 
-            foreach (var mesh in meshes)
-            {
+            Parallel.ForEach(meshes, mesh=>{
+
                 RaycastResult r1 = Raycast(ray, mesh);
                 if (r1 != null)
                 {
                     r1.Mesh = mesh;
                     if (r1.Hit)
                     {
-                        if (close == null)
+
+                        lock (lockClose)
                         {
-                            close = r1;
-                            close_dist = (ray.Pos - r1.Point).LengthSquared;
-                        }
-                        else
-                        {
-                            float dist = (ray.Pos - r1.Point).LengthSquared;
-                            if (dist < close_dist)
+                            if (close == null)
                             {
                                 close = r1;
-                                close_dist = dist;
+                                close_dist = (ray.Pos - r1.Point).LengthSquared;
+                            }
+                            else
+                            {
+                                float dist = (ray.Pos - r1.Point).LengthSquared;
+                                if (dist < close_dist)
+                                {
+                                    close = r1;
+                                    close_dist = dist;
+                                }
                             }
                         }
                     }
                 }
                 //  return close;
-            }
+            });
 
             return close;
         }

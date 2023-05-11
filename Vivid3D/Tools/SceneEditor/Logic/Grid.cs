@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Mathematics;
-using static SceneEditor.SceneEditor;
+using static Editor.SceneEditor;
 using Vivid.Meshes;
 
-namespace SceneEditor.Logic
+namespace Editor.Logic
 {
     public class Grid
     {

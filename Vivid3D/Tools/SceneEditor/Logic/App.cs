@@ -10,8 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Mathematics;
-using static SceneEditor.SceneEditor;
-namespace SceneEditor.Logic
+using static Editor.SceneEditor;
+namespace Editor.Logic
 {
     public class EditApp
     {
@@ -24,6 +24,8 @@ namespace SceneEditor.Logic
             SpawnIcon = new Texture2D("edit/spawnIcon.png");
             EditScene = new Scene();
             EditGrid = new Entity();
+            Editor.Tools.TextureSources.LoadList();
+            
             //    Grid = new Mesh(EditGrid);
             //    EditGrid.AddMesh(Grid);
 

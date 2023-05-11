@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SceneEditor.Editors
+namespace Editor.Editors
 {
     public partial class PropertyEditor : Form
     {
@@ -166,12 +166,12 @@ namespace SceneEditor.Editors
                     xl.Size = new Size(15, 20);
                     yl.Size = new Size(15, 20);
                     zl.Size = new Size(15, 20);
-                    edit_con.Controls.AddRange(new Control[] {xl,yl,zl,  xn, yn, zn });
+                    edit_con.Controls.AddRange(new Control[] { xl, yl, zl, xn, yn, zn });
 
                     xn.DecimalPlaces = 2;
                     yn.DecimalPlaces = 2;
                     zn.DecimalPlaces = 2;
-                    
+
                     xn.Value = (decimal)SelectedItem.Vec3Value.X;
                     yn.Value = (decimal)SelectedItem.Vec3Value.Y;
                     zn.Value = (decimal)SelectedItem.Vec3Value.Z;
@@ -203,7 +203,7 @@ namespace SceneEditor.Editors
 
         private void Zn_ValueChanged(object? sender, EventArgs e)
         {
-            SelectedItem.Vec3Value.Z= (float)edit_z.Value;
+            SelectedItem.Vec3Value.Z = (float)edit_z.Value;
         }
 
         private void Yn_ValueChanged(object? sender, EventArgs e)
@@ -239,13 +239,13 @@ namespace SceneEditor.Editors
 
         private void button2_Click(object sender, EventArgs e)
         {
-         
+
             EditScene.Properties.Items.Remove(SelectedItem);
             propList.Items.Remove(SelectedItem);
             SelectedItem = null;
             RebuildUI();
             RebuildValueEdit();
-            
+
 
         }
     }

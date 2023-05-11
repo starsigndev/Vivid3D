@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SceneEditor
+namespace Editor
 {
     public class NodeTreeNode : TreeNode
     {

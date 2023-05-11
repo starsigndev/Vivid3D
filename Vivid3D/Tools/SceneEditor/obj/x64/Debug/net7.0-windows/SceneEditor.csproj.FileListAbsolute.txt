@@ -70,13 +70,7 @@ C:\Gemini\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.pdb
 C:\Gemini\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.genruntimeconfig.cache
 C:\Gemini\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\ref\SceneEditor.dll
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.csproj.AssemblyReference.cache
-C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Editors.EntityEditor.resources
-C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Editors.GenerateOctree.resources
-C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Editors.LightEditor.resources
-C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Editors.PropertyEditor.resources
-C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Editors.SpawnEditor.resources
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Properties.Resources.resources
-C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.SceneEditor.resources
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.csproj.GenerateResource.cache
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.GeneratedMSBuildEditorConfig.editorconfig
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.AssemblyInfoInputs.cache
@@ -132,4 +126,11 @@ C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuPhysics.pdb
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuPhysics.xml
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuUtilities.pdb
 C:\G3D\Vivid3D\Tools\SceneEditor\bin\x64\Debug\net7.0-windows\BepuUtilities.xml
-C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Tools.TextureSources.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.EntityEditor.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.GenerateOctree.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.LightEditor.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.PropertyEditor.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.SpawnEditor.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.SceneEditor.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Tools.TextureSources.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.ModelEditor.resources

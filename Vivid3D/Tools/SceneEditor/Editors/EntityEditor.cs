@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SceneEditor.Editors
+namespace Editor.Editors
 {
     public partial class EntityEditor : Form
     {
@@ -122,7 +122,7 @@ namespace SceneEditor.Editors
             if (CurrentEntity != null)
             {
                 CurrentEntity.Name = entityName.Text;
-                global::SceneEditor.SceneEditor.Rebuild();
+                global::Editor.SceneEditor.Rebuild();
             }
         }
 

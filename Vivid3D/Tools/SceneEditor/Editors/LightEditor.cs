@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenTK.Mathematics;
 
-namespace SceneEditor.Editors
+namespace Editor.Editors
 {
     public partial class LightEditor : Form
     {
@@ -77,7 +77,7 @@ namespace SceneEditor.Editors
             CurrentLight.Name = (string)lightName.Text;
             CurrentLight.Type = (LightType)lightType.SelectedIndex;
             CurrentLight.CastShadows = shadowsEnabled.Checked;
-            global::SceneEditor.SceneEditor.Rebuild();
+            global::Editor.SceneEditor.Rebuild();
 
         }
         bool updateChanges = false;

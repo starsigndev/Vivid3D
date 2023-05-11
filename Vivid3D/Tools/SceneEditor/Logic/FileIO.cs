@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static SceneEditor.SceneEditor;
-namespace SceneEditor.Logic
+using static Editor.SceneEditor;
+namespace Editor.Logic
 {
     public class FileIO
     {

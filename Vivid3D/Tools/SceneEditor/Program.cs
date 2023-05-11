@@ -1,4 +1,4 @@
-namespace SceneEditor
+namespace Editor
 {
     internal static class Program
     {

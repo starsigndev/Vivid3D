@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SceneEditor.Properties {
+namespace Editor.Properties {
     using System;
     
     
