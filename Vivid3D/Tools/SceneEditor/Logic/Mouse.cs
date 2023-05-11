@@ -279,65 +279,143 @@ namespace Editor.Logic
                         ray_down.Pos = CurrentNode.Position;
                         ray_down.Dir = new Vector3(0, -80, 0);
 
-                        var down_res = EditScene.Raycast(ray_down);
-                        if (down_res != null)
+                        RaycastResult down_res = null;
+
+                        int ms = Environment.TickCount;
+
+                        if (EditSceneOT != null)
                         {
-                            if (down_res.Hit)
+                            down_res = EditSceneOT.Raycast(ray_down);
+                            if (down_res != null)
                             {
-                                BearingLines.AddLine(CurrentNode.Position, down_res.Point, new Vector4(0, 1, 0, 1));
+                                if (down_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, down_res.Point, new Vector4(0, 1, 0, 1));
+                                }
                             }
-                        }
 
-                        Ray ray_left = new Ray();
-                        ray_left.Pos = CurrentNode.Position;
-                        ray_left.Dir = new Vector3(-80, 0, 0);
-                        var left_res = EditScene.Raycast(ray_left);
-                        if (left_res != null)
-                        {
-                            if (left_res.Hit)
+                            Ray ray_left = new Ray();
+                            ray_left.Pos = CurrentNode.Position;
+                            ray_left.Dir = new Vector3(-80, 0, 0);
+                            var left_res = EditSceneOT.Raycast(ray_left);
+                            if (left_res != null)
                             {
-                                BearingLines.AddLine(CurrentNode.Position, left_res.Point, new Vector4(0, 0, 1,1));
+                                if (left_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, left_res.Point, new Vector4(0, 0, 1, 1));
 
+                                }
                             }
-                        }
 
-                        Ray ray_right = new Ray();
-                        ray_right.Pos = CurrentNode.Position;
-                        ray_right.Dir = new Vector3(80, 0, 0);
-                        var right_res = EditScene.Raycast(ray_right);
-                        if (right_res != null)
-                        {
-                            if (right_res.Hit)
+                            Ray ray_right = new Ray();
+                            ray_right.Pos = CurrentNode.Position;
+                            ray_right.Dir = new Vector3(80, 0, 0);
+                            var right_res = EditSceneOT.Raycast(ray_right);
+                            if (right_res != null)
                             {
-                                BearingLines.AddLine(CurrentNode.Position, right_res.Point, new Vector4(0, 0, 1,1));
+                                if (right_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, right_res.Point, new Vector4(0, 0, 1, 1));
+                                }
                             }
-                        }
 
-                        Ray ray_for = new Ray();
-                        ray_for.Pos = CurrentNode.Position;
-                        ray_for.Dir = new Vector3(0, 0, 80);
-                        var for_res = EditScene.Raycast(ray_for);
-                        if (for_res != null)
-                        {
-                            if (for_res.Hit)
+                            Ray ray_for = new Ray();
+                            ray_for.Pos = CurrentNode.Position;
+                            ray_for.Dir = new Vector3(0, 0, 80);
+                            var for_res = EditSceneOT.Raycast(ray_for);
+                            if (for_res != null)
                             {
-                                BearingLines.AddLine(CurrentNode.Position, for_res.Point, new Vector4(1, 0,0, 1));
+                                if (for_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, for_res.Point, new Vector4(1, 0, 0, 1));
+
+                                }
+                            }
+
+                            Ray ray_back = new Ray();
+                            ray_back.Pos = CurrentNode.Position;
+                            ray_back.Dir = new Vector3(0, 0, -80);
+                            var back_res = EditSceneOT.Raycast(ray_back);
+                            if (back_res != null)
+                            {
+                                if (back_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, back_res.Point, new Vector4(1, 0, 0, 1));
+                                }
 
                             }
-                        }
 
-                        Ray ray_back = new Ray();
-                        ray_back.Pos = CurrentNode.Position;
-                        ray_back.Dir = new Vector3(0, 0, -80);
-                        var back_res = EditScene.Raycast(ray_back);
-                        if (back_res != null)
+
+
+                        }
+                        else
                         {
-                            if (back_res.Hit) {
-                                BearingLines.AddLine(CurrentNode.Position, back_res.Point, new Vector4(1, 0, 0, 1));
+                            down_res = EditScene.Raycast(ray_down);
+
+                            if (down_res != null)
+                            {
+                                if (down_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, down_res.Point, new Vector4(0, 1, 0, 1));
+                                }
                             }
 
+                            Ray ray_left = new Ray();
+                            ray_left.Pos = CurrentNode.Position;
+                            ray_left.Dir = new Vector3(-80, 0, 0);
+                            var left_res = EditScene.Raycast(ray_left);
+                            if (left_res != null)
+                            {
+                                if (left_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, left_res.Point, new Vector4(0, 0, 1, 1));
+
+                                }
+                            }
+
+                            Ray ray_right = new Ray();
+                            ray_right.Pos = CurrentNode.Position;
+                            ray_right.Dir = new Vector3(80, 0, 0);
+                            var right_res = EditScene.Raycast(ray_right);
+                            if (right_res != null)
+                            {
+                                if (right_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, right_res.Point, new Vector4(0, 0, 1, 1));
+                                }
+                            }
+
+                            Ray ray_for = new Ray();
+                            ray_for.Pos = CurrentNode.Position;
+                            ray_for.Dir = new Vector3(0, 0, 80);
+                            var for_res = EditScene.Raycast(ray_for);
+                            if (for_res != null)
+                            {
+                                if (for_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, for_res.Point, new Vector4(1, 0, 0, 1));
+
+                                }
+                            }
+
+                            Ray ray_back = new Ray();
+                            ray_back.Pos = CurrentNode.Position;
+                            ray_back.Dir = new Vector3(0, 0, -80);
+                            var back_res = EditScene.Raycast(ray_back);
+                            if (back_res != null)
+                            {
+                                if (back_res.Hit)
+                                {
+                                    BearingLines.AddLine(CurrentNode.Position, back_res.Point, new Vector4(1, 0, 0, 1));
+                                }
+
+                            }
                         }
-                
+
+                        ms = Environment.TickCount - ms;
+
+                        //Console.WriteLine("PickTime:" + ms);
+
 
                         BearingLines.CreateBuffers();
                         //Console.WriteLine("CN:" + CurrentNode.ToString());

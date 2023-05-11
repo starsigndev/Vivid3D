@@ -36,7 +36,7 @@ namespace Editor.Logic
                     EditScene.RenderShadows();
                     EditSceneOT.ComputeVisibility();
                     EditSceneOT.Render();// RenderLeafs();
-                    Console.WriteLine("Rendering Octre-----------------");
+                //    Console.WriteLine("Rendering Octre-----------------");
                 }
                 else
                 {

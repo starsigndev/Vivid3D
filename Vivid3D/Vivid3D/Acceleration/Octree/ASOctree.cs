@@ -287,8 +287,8 @@ namespace Vivid.Acceleration.Octree
 
 
             }
-            Console.WriteLine("Dynamic Rendered:" + dy_d);
-            Console.WriteLine("Leafs Rendered:" + OctreeNode.LeafsRendered);
+           // Console.WriteLine("Dynamic Rendered:" + dy_d);
+           // Console.WriteLine("Leafs Rendered:" + OctreeNode.LeafsRendered);
         }
         public void InitializeVisibility()
         {
@@ -356,6 +356,12 @@ namespace Vivid.Acceleration.Octree
             //vis_rt.Release();
 
 
+
+        }
+
+        public RaycastResult Raycast(Ray ray)
+        {
+            return RootNode.Raycast(ray);
 
         }
 

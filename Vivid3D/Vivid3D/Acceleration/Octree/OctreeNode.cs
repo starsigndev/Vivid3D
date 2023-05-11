@@ -156,10 +156,10 @@ namespace Vivid.Acceleration.Octree
         public void Process()
         {
             int vertexCount = CountVerticesInBounds(Bounds);
-            Console.WriteLine("Processing:" + Bounds.Min.ToString() + " Max:" + Bounds.Max.ToString());
+           // Console.WriteLine("Processing:" + Bounds.Min.ToString() + " Max:" + Bounds.Max.ToString());
             if (vertexCount > ASOctree.VertexLeafLimit)
             {
-                Console.WriteLine("Subdividing:");
+         //       Console.WriteLine("Subdividing:");
                 Subdivide();
             }
             else
@@ -194,7 +194,7 @@ namespace Vivid.Acceleration.Octree
             if (Canditates.Count == 0)
             {
             }
-            Console.WriteLine("Candidates:" + Canditates.Count);
+           // Console.WriteLine("Candidates:" + Canditates.Count);
 
             // Parallel.ForEach(Canditates, ent =>
             foreach (var ent in Canditates)
@@ -328,7 +328,7 @@ namespace Vivid.Acceleration.Octree
             {
                 if (VertexCount > 0)
                 {
-                    Console.WriteLine("Leaf: Verts:" + LeafVertexCount);
+                   // Console.WriteLine("Leaf: Verts:" + LeafVertexCount);
                 }
                 else
                 {
@@ -472,6 +472,214 @@ namespace Vivid.Acceleration.Octree
                     sub.Write(w);
                 }
             }
+        }
+        public static bool RayToBounds(Ray ray, BoundingBox box)
+        {
+            float tmin = (box.Min.X - ray.Pos.X) / ray.Dir.X;
+            float tmax = (box.Max.X - ray.Pos.X) / ray.Dir.X;
+
+            if (tmin > tmax)
+            {
+                float temp = tmin;
+                tmin = tmax;
+                tmax = temp;
+            }
+
+            float tymin = (box.Min.Y - ray.Pos.Y) / ray.Dir.Y;
+            float tymax = (box.Max.Y - ray.Pos.Y) / ray.Dir.Y;
+
+            if (tymin > tymax)
+            {
+                float temp = tymin;
+                tymin = tymax;
+                tymax = temp;
+            }
+
+            if ((tmin > tymax) || (tymin > tmax))
+                return false;
+
+            if (tymin > tmin)
+                tmin = tymin;
+
+            if (tymax < tmax)
+                tmax = tymax;
+
+            float tzmin = (box.Min.Z - ray.Pos.Z) / ray.Dir.Z;
+            float tzmax = (box.Max.Z - ray.Pos.Z) / ray.Dir.Z;
+
+            if (tzmin > tzmax)
+            {
+                float temp = tzmin;
+                tzmin = tzmax;
+                tzmax = temp;
+            }
+
+            if ((tmin > tzmax) || (tzmin > tmax))
+                return false;
+
+            if (tzmin > tmin)
+                tmin = tzmin;
+
+            if (tzmax < tmax)
+                tmax = tzmax;
+
+            return true;
+        }
+        private const float EPSILON = 0.0000001f;
+        private RaycastResult RayToTri(Ray ray, Vector3 v0, Vector3 v1, Vector3 v2)
+        {
+            Vector3 edge1, edge2, h, s, q;
+            float a, f, u, v;
+            RaycastResult res = new RaycastResult();
+
+            edge1 = v1 - v0;// vertex1 - vertex0;
+            edge2 = v2 - v0;
+            h = Vector3.Cross(ray.Dir, edge2);
+
+
+            a = Vector3.Dot(edge1, h);
+            if (a > -EPSILON && a < EPSILON)
+                return res;    // This ray is parallel to this triangle.
+            f = 1.0f / a;
+            s = ray.Pos - v0;
+            u = f * Vector3.Dot(s, h);
+            if (u < 0.0f || u > 1.0f)
+                return res;
+            q = Vector3.Cross(s, edge1);
+            v = f * Vector3.Dot(ray.Dir, q);
+            if (v < 0.0f || u + v > 1.0f)
+                return res;
+            // At this stage we can compute t to find out where the intersection point is on the line.
+            float t = f * Vector3.Dot(edge2, q);
+
+            if (t > EPSILON) // ray intersection
+            {
+                //outIntersectionPoint = rayOrigin + rayVector * t;
+                res.Hit = true;
+                res.Point = ray.Pos + ray.Dir * t;
+
+                return res;
+            }
+            else // This means that there is a line intersection but not a ray intersection.
+                return res;
+
+            res.Hit = false;
+            return res;
+
+            return res;
+        }
+        public static object lockObj = new object();
+        public RaycastResult Raycast(Ray ray)
+        {
+
+
+            if (!Leaf)
+            {
+                if (RayToBounds(ray, Bounds))
+                {
+                    RaycastResult res = new RaycastResult();
+                    float close = 999999;
+                    RaycastResult closeres = null;
+
+             //       foreach (var node in this.SubNodes)
+                        Parallel.ForEach(this.SubNodes, node =>
+                        {
+
+
+                            var r1 = node.Raycast(ray);
+                            if (r1 != null)
+                            {
+                                if (r1.Hit)
+                                {
+                                    //r1.Node = mesh.Owner;
+                                    //r1.Entity = mesh.Owner as Entity;
+
+                                    lock (lockObj)
+                                    {
+                                        if (closeres == null)
+                                        {
+                                            closeres = r1;
+                                            close = (ray.Pos - r1.Point).LengthSquared;
+                                        }
+                                        else
+                                        {
+                                            float dist = (ray.Pos - r1.Point).LengthSquared;
+                                            if (dist < close)
+                                            {
+                                                close = dist;
+                                                closeres = r1;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        });
+
+                    return closeres;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+
+                RaycastResult res = new RaycastResult();
+                float close = 999999;
+                RaycastResult closeres = null;
+
+               // Console.WriteLine("Checking Leaf");
+                foreach(var mesh in Meshes)
+                {
+
+                    foreach (var tri in mesh.Triangles)
+                    {
+
+                        Vector3 v0, v1, v2;
+
+                        v0 = mesh.Vertices[tri.V0].Position;
+                        v1 = mesh.Vertices[tri.V1].Position;
+                        v2 = mesh.Vertices[tri.V2].Position;
+
+                        RaycastResult r1 = RayToTri(ray,v0,v1,v2);
+
+                        if (r1.Hit)
+                        {
+                            r1.Node = mesh.Owner;
+                            r1.Entity = mesh.Owner as Entity;
+
+                            if (closeres == null)
+                            {
+                                closeres = r1;
+                                close = (ray.Pos - r1.Point).LengthSquared;
+                            }
+                            else
+                            {
+                                float dist = (ray.Pos - r1.Point).LengthSquared;
+                                if (dist < close)
+                                {
+                                    close = dist;
+                                    closeres = r1;
+                                }
+                            }
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+                return closeres;
+
+            }
+
+            return null;
+
         }
 
     }

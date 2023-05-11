@@ -30,10 +30,10 @@ namespace OctreeTest
             Vivid.Nodes.FreeLook fl = new Vivid.Nodes.FreeLook();
             s1.MainCamera = fl;
             ot1 = new Vivid.Acceleration.Octree.ASOctree(s1);
-            Console.WriteLine("Leafs:" + ot1.LeafCount());
+           // Console.WriteLine("Leafs:" + ot1.LeafCount());
             ot1.Debug();
-            Console.WriteLine("Scene Verts:" + s1.VertexCount + " Tris:" + s1.TriCount);
-            Console.WriteLine("Octree Verts:" + ot1.VertexCount() + " Tris:" + ot1.TriangleCount());
+            //Console.WriteLine("Scene Verts:" + s1.VertexCount + " Tris:" + s1.TriCount);
+            //Console.WriteLine("Octree Verts:" + ot1.VertexCount() + " Tris:" + ot1.TriangleCount());
 
             var list = ot1.GetLeafs();
             int aa = 5;
