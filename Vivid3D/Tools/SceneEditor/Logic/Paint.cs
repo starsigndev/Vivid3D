@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using OpenTK.Mathematics;
 using static Editor.SceneEditor;
 using System.Diagnostics.Eventing.Reader;
+using Vivid.PostProcesses;
 
 namespace Editor.Logic
 {
     public class Paint
     {
-
+      
         public static void Draw(PaintEventArgs e)
         {
         
@@ -27,6 +28,11 @@ namespace Editor.Logic
             if (EditScene.Lights.Count == 0)
             {
                 EditScene.RenderSimple();
+                if (CurrentNode is Vivid.Scene.Entity)
+                {
+                    pp_outline.Specific = CurrentNode as Vivid.Scene.Entity;
+                    pp_outline.Process();
+                }
             }
             else
             {
@@ -40,8 +46,18 @@ namespace Editor.Logic
                 }
                 else
                 {
-                    EditScene.RenderShadows();
-                    EditScene.Render();
+                    //EditScene.RenderShadows();
+                    //EditScene.Render();
+                    FinalRender.Render();
+
+                    //   OpenTK.Graphics.OpenGL.GL.Clear(OpenTK.Graphics.OpenGL.ClearBufferMask.DepthBufferBit | OpenTK.Graphics.OpenGL.ClearBufferMask.ColorBufferBit);
+                    if (CurrentNode is Vivid.Scene.Entity)
+                    {
+                        pp_outline.Specific = CurrentNode as Vivid.Scene.Entity;
+                        pp_outline.Process();
+                    }
+
+
                 }
             }
         //    GemBridge.gem_ClearZBuffer();

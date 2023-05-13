@@ -70,6 +70,9 @@ namespace Editor.Logic
             EditCam.SetRotation(-25, 0, 0);
             CamPitch = -25;
             //t1 = new Texture2D("tex/t1.jpg");
+            pp_outline = new Vivid.PostProcesses.PPOutline(EditScene);
+            FinalRender = new Vivid.Renderers.Renderer(EditScene);
+            FinalRender.CurrentScene = EditScene;
         }
 
         public static void New_Scene()

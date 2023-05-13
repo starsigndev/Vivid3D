@@ -19,6 +19,7 @@ using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.WinForms;
 using Editor.Tools;
+using Vivid.PostProcesses;
 //using static Assimp.Metadata;
 
 namespace Editor
@@ -64,12 +65,14 @@ namespace Editor
         public static MeshLines BearingLines;
         public static Camera EditCam;
         public static float PX, PY;
+        public static PPOutline pp_outline;
 
         public static float MouseX, MouseY;
         public static float CamPitch = 0, CamYaw = 0;
         System.Windows.Forms.Timer timer;
         public static bool CamDrag = false;
         public static bool GizDrag = false;
+        public static Vivid.Renderers.Renderer FinalRender = null;
         public static Dictionary<TreeNode, Node> NodeMap = new Dictionary<TreeNode, Node>();
         public SceneEditor()
         {
@@ -583,6 +586,13 @@ namespace Editor
         {
             Editor.Editors.ModelEditor model_edit = new ModelEditor();
             model_edit.Show();
+        }
+
+        private void renderConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RenderConfig ren_config = new RenderConfig();
+            ren_config.Show();
+
         }
     }
 }

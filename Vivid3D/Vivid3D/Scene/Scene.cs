@@ -1258,6 +1258,7 @@ namespace Vivid.Scene
         public void Render()
         {
             bool firstPass = true;
+            Console.WriteLine("Lights:" + Lights.Count);
             foreach (var light in Lights)
             {
                 Root.Render(light, MainCamera, firstPass);

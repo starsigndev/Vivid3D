@@ -45,7 +45,7 @@ namespace Editor.Logic
             for (int z = -80; z < 80; z++)
             {
 
-                mesh.AddLine(new Vector3(-80, 0, z), new Vector3(80, 0, z), new Vector4(0, 1, 0, 1));
+                mesh.AddLine(new Vector3(-80, 0, z), new Vector3(80, 0, z), new Vector4(0, 0.5f, 1.0f, 1));
                 //Vector3 p1, p2, p3, p4;
                 
 

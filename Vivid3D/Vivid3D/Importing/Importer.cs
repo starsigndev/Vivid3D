@@ -436,8 +436,8 @@ namespace Vivid.Importing
                 {
                     Triangle tri = new Triangle();
                     tri.V0 = mesh.Faces[i].Indices[0];
-                    tri.V1 = mesh.Faces[i].Indices[2];
-                    tri.V2 = mesh.Faces[i].Indices[1];
+                    tri.V1 = mesh.Faces[i].Indices[1];
+                    tri.V2 = mesh.Faces[i].Indices[2];
 
                     gMesh.AddTriangle(tri);
                 }

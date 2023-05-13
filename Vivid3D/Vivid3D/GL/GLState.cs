@@ -36,7 +36,7 @@ namespace Vivid.State
             {
                 case CurrentGLState.LightFirstPass:
                     GL.Disable(EnableCap.Blend);
-                    GL.Disable(EnableCap.CullFace);
+                    GL.Enable(EnableCap.CullFace);
                     GL.CullFace(TriangleFace.Back);
                     GL.Enable(EnableCap.DepthTest);
                     GL.DepthFunc(DepthFunction.Lequal);

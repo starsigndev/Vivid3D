@@ -1,6 +1,7 @@
 ﻿using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using Vivid.App;
+using Vivid.Shaders;
 using Vivid.Texture;
 
 namespace Vivid.Draw
@@ -141,7 +142,7 @@ namespace Vivid.Draw
             }
         }
 
-        public void End()
+        public void End(ShaderModule shader = null)
         {
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Lequal);
@@ -188,7 +189,14 @@ namespace Vivid.Draw
                 GL.EnableVertexAttribArray(2);
                 GL.VertexAttribPointer(2, 4, VertexAttribPointerType.Float, false, 9 * 4, 5 * 4);
 
-                DrawSM.Bind();
+                if (shader == null)
+                {
+                    DrawSM.Bind();
+                }
+                else
+                {
+                    shader.Bind();
+                }
                 list.Texture[0].Bind(0);
 
                 GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, IndexBuffer);
@@ -196,7 +204,15 @@ namespace Vivid.Draw
 
                 list.Texture[0].Unbind(0);
 
-                DrawSM.Unbind();
+                if (shader == null)
+                {
+                    DrawSM.Unbind();
+                }
+                else
+                {
+                    shader.Unbind();
+                }
+            
                 //   gem_DrawEnd(handle);
                 //  GemBridge.gem_ClearZBuffer();
             }

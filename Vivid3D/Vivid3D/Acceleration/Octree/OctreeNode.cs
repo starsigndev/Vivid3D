@@ -72,13 +72,22 @@ namespace Vivid.Acceleration.Octree
             get;
             set;
         }
+
+        public OctreeNode Root
+        {
+            get;
+            set;
+        }
+
         public OctreeNode()
         {
-          
+            Root = null;
         }
-        public OctreeNode(BoundingBox bounds, Scene.Scene from,ASOctree owner)
+        public OctreeNode(BoundingBox bounds, Scene.Scene from,ASOctree owner,OctreeNode root=null)
         {
             Owner = owner;
+            Root = root;
+
             Meshes = new List<Meshes.Mesh>();
             Bounds = bounds;
             From = from;
@@ -148,7 +157,7 @@ namespace Vivid.Acceleration.Octree
             var sub_bounds = Bounds.SubdivideBoundingBox();
             foreach (var sub in sub_bounds)
             {
-                var new_node = new OctreeNode(sub, From,Owner);
+                var new_node = new OctreeNode(sub, From,Owner,this);
                 SubNodes.Add(new_node);
             }
         }
@@ -167,6 +176,27 @@ namespace Vivid.Acceleration.Octree
                 Leaf = true;
                 LeafVertexCount = vertexCount;
                 GatherLeaf();
+                if (Meshes.Count == 0)
+                {
+
+                    List<OctreeNode> subs = new List<OctreeNode>();
+                    foreach(var pnode in Root.SubNodes)
+                    {
+
+                        if(pnode == this)
+                        {
+
+                        }
+                        else
+                        {
+                            subs.Add(pnode);
+                        }
+
+                    }
+                    Root.SubNodes = subs;
+                    //int b = 5;
+
+                }
             }
         }
 
@@ -569,6 +599,7 @@ namespace Vivid.Acceleration.Octree
             return res;
         }
         public static object lockObj = new object();
+        public static object triLock = new object();
         public RaycastResult Raycast(Ray ray)
         {
 
@@ -630,49 +661,54 @@ namespace Vivid.Acceleration.Octree
                 float close = 999999;
                 RaycastResult closeres = null;
 
-               // Console.WriteLine("Checking Leaf");
-                foreach(var mesh in Meshes)
-                {
-
-                    foreach (var tri in mesh.Triangles)
+                // Console.WriteLine("Checking Leaf");
+             //   foreach (var mesh in Meshes)
+                    Parallel.ForEach(Meshes, mesh =>
                     {
 
-                        Vector3 v0, v1, v2;
+                          foreach (var tri in mesh.Triangles)
+                        //Parallel.ForEach(mesh.Triangles, tri =>
+                    {
 
-                        v0 = mesh.Vertices[tri.V0].Position;
-                        v1 = mesh.Vertices[tri.V1].Position;
-                        v2 = mesh.Vertices[tri.V2].Position;
+                                Vector3 v0, v1, v2;
 
-                        RaycastResult r1 = RayToTri(ray,v0,v1,v2);
+                                v0 = mesh.Vertices[tri.V0].Position;
+                                v1 = mesh.Vertices[tri.V1].Position;
+                                v2 = mesh.Vertices[tri.V2].Position;
 
-                        if (r1.Hit)
-                        {
-                            r1.Node = mesh.Owner;
-                            r1.Entity = mesh.Owner as Entity;
+                                RaycastResult r1 = RayToTri(ray, v0, v1, v2);
 
-                            if (closeres == null)
-                            {
-                                closeres = r1;
-                                close = (ray.Pos - r1.Point).LengthSquared;
-                            }
-                            else
-                            {
-                                float dist = (ray.Pos - r1.Point).LengthSquared;
-                                if (dist < close)
+                                lock (triLock)
                                 {
-                                    close = dist;
-                                    closeres = r1;
+
+                                    if (r1.Hit)
+                                    {
+                                        r1.Node = mesh.Owner;
+                                        r1.Entity = mesh.Owner as Entity;
+
+                                        if (closeres == null)
+                                        {
+                                            closeres = r1;
+                                            close = (ray.Pos - r1.Point).LengthSquared;
+                                        }
+                                        else
+                                        {
+                                            float dist = (ray.Pos - r1.Point).LengthSquared;
+                                            if (dist < close)
+                                            {
+                                                close = dist;
+                                                closeres = r1;
+                                            }
+                                        }
+                                    }
                                 }
-                            }
-                        }
 
 
 
+                            };
 
-                    }
 
-
-                }
+                    });
 
                 return closeres;
 
