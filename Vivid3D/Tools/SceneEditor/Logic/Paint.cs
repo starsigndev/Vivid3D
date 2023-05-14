@@ -31,7 +31,7 @@ namespace Editor.Logic
                 if (CurrentNode is Vivid.Scene.Entity)
                 {
                     pp_outline.Specific = CurrentNode as Vivid.Scene.Entity;
-                    pp_outline.Process();
+                    pp_outline.ProcessAndDraw();
                 }
             }
             else
@@ -104,7 +104,7 @@ namespace Editor.Logic
             draw.Begin();
             //draw.DrawTexture(LightIcon, 64, 64, 64, 64, 1, 1, 1, 1);
 
-
+            draw.Blend = Vivid.Draw.BlendMode.Alpha;
             Vector3 point = EditScene.MainCamera.TransformVector(new Vector3(0, 0, 1));
 
             foreach (var spawn in EditScene.Spawns)

@@ -12,10 +12,7 @@ void main(){
 
     vec4 co = texture(tR,UV) * col;
 
-    if(co.a<0.1)
-    {
-        discard;
-    }
+   
 
 
     //co.rgb = vec3(1,1,1);

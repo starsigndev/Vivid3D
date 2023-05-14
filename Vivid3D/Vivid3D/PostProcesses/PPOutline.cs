@@ -37,7 +37,7 @@ namespace Vivid.PostProcesses
             int a = 5;
         }
 
-        public override void Process()
+        public override void ProcessAndDraw()
         {
             //base.Process();
             BindTarget(0);

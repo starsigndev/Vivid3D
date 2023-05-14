@@ -84,6 +84,7 @@
             cbLightShafts.TabIndex = 4;
             cbLightShafts.Text = "Light Shafts";
             cbLightShafts.UseVisualStyleBackColor = true;
+            cbLightShafts.CheckedChanged += cbLightShafts_CheckedChanged;
             // 
             // button3
             // 

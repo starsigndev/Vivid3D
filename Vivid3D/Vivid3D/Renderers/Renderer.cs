@@ -30,13 +30,21 @@ namespace Vivid.Renderers
             set;
         }
 
+        public bool LightShaftsOn
+        {
+            get;
+            set;
+        }
+
         private PPBloom bloom;
+        private PPLightShafts lightShafts;
 
         public Renderer(Vivid.Scene.Scene scene)
         {
             BloomOn = false;
             CurrentScene = scene;
             bloom = new PPBloom(scene);
+            lightShafts = new PPLightShafts(scene);
             int a = 5;
           
         }
@@ -47,14 +55,19 @@ namespace Vivid.Renderers
             if (BloomOn)
             {
                 CurrentScene.RenderShadows();
-                bloom.Process();
+                bloom.ProcessAndDraw();
+            }
+            else if (LightShaftsOn)
+            {
+                lightShafts.ProcessAndDraw();
             }
             else
             {
+
                 CurrentScene.RenderShadows();
                 CurrentScene.Render();
-            }
 
+            }
 
         }
 

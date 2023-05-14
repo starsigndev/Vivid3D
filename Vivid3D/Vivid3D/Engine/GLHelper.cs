@@ -27,6 +27,8 @@ namespace Vivid.Engine
             GL.Disable(EnableCap.Blend);
             GL.Disable(EnableCap.CullFace);
             GL.CullFace(TriangleFace.Back);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
            
         }
     }

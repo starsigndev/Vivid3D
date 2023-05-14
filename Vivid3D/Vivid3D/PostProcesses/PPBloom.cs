@@ -118,9 +118,29 @@ namespace Vivid.PostProcesses
         }
 
 
-        public override void Process()
+        public override Vivid.Texture.Texture2D Process()
         {
             //base.Process();
+            GenerateBloom();
+
+            return GetTexture(1);
+            //DrawTarget(1);
+
+
+
+        }
+
+        public override void ProcessAndDraw()
+        {
+
+            GenerateBloom();
+
+            DrawTarget(1);
+
+        }
+
+        private void GenerateBloom()
+        {
             BindTarget(0);
             RenderLit();
             ReleaseTarget(0);
@@ -138,12 +158,6 @@ namespace Vivid.PostProcesses
             DrawTarget(0, combineFX);
             GetTexture(2).Unbind(1);
             ReleaseTarget(1);
-
-            DrawTarget(1);
-
-
         }
-
-
     }   
 }

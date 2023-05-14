@@ -23,5 +23,10 @@ namespace Editor.Editors
             FinalRender.BloomOn = cbBloom.Checked;
 
         }
+
+        private void cbLightShafts_CheckedChanged(object sender, EventArgs e)
+        {
+                FinalRender.LightShaftsOn = cbLightShafts.Checked;
+        }
     }
 }
