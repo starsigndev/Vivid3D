@@ -269,52 +269,19 @@ namespace Vivid.Acceleration.Octree
         Texture2D test = null;
         public void Render()
         {
-            if (test == null)
-            {
-                test = new Texture2D("tex/norm2.png");
-            }
+
             LightFX.Camera = Base.MainCamera;
             LightFX.Entity = null;
             bool first = true;
-            GLState.State = CurrentGLState.LightFirstPass;
-            foreach (var light in Base.Lights) {
-                LightTarget.Bind();
-                LightFX.Light = light;
-                LightFX.Bind();
-                light.RTC.Cube.Bind(3);
-                GLState.State = CurrentGLState.LightFirstPass;
-                RootNode.Render();
-
-                light.RTC.Cube.Release(3);
-                LightTarget.Release(); 
-                GLState.State = CurrentGLState.Draw;
-                if (first)
-                {
-                    Draw.Blend = BlendMode.Alpha;
-                }
-                else
-                {
-                    Draw.Blend = BlendMode.Additive;
-
-                }
-                first = false;
-                Draw.DrawNow(LightTarget.GetTexture(), new Maths.Rect(0, 0, VividApp.FrameWidth, VividApp.FrameHeight), new Maths.Color(1, 1, 1, 1),true);
-
-                GLState.State = CurrentGLState.LightSecondPass;
+    
+            foreach (var light in Base.Lights)
+            {
+                first = RenderLight(first, light);
 
             }
-            int dy_d = 0;
-            LightFX.Unbind();
-
-            Draw.Blend = BlendMode.Solid;
-
-           //  GL.ClearColor(0, 1, 0, 1.0f);
-          //   GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            // Console.WriteLine("Clearing!!!");
-            //GLState.State = CurrentGLState.LightSecondPass;     
-
            
-
+            LightFX.Unbind();
+        
             foreach(var dy in Dynamic)
             {
                 if (dy.IsVisible == false) continue;
@@ -325,14 +292,44 @@ namespace Vivid.Acceleration.Octree
                     firstPass = false;
                     //RenderGlobals.FirstPass = false;
                 }
-                dy_d++;
-                //int aa = 5;
-
-
+       
             }
            // Console.WriteLine("Dynamic Rendered:" + dy_d);
-            Console.WriteLine("Leafs Rendered:" + OctreeNode.LeafsRendered);
+        //    Console.WriteLine("Leafs Rendered:" + OctreeNode.LeafsRendered);
         }
+
+        private bool RenderLight(bool first, Light light)
+        {
+            LightTarget.Bind();
+            if (first)
+            {
+                Base.RenderLines();
+            }
+            LightFX.Light = light;
+            LightFX.Bind();
+            light.RTC.Cube.Bind(3);
+            GLState.State = CurrentGLState.LightFirstPass;
+            RootNode.Render();
+
+            //light.RTC.Cube.Release(3);
+            LightTarget.Release();
+            GLState.State = CurrentGLState.Draw;
+            if (first)
+            {
+                Draw.Blend = BlendMode.Alpha;
+            }
+       
+            first = false;
+            Draw.DrawNow(LightTarget.GetTexture(), new Maths.Rect(0, 0, VividApp.FrameWidth, VividApp.FrameHeight), new Maths.Color(1, 1, 1, 1), true);
+            if (first)
+            {
+                Draw.Blend = BlendMode.Additive;
+                first = false;
+            }
+          //  GLState.State = CurrentGLState.LightSecondPass;
+            return first;
+        }
+
         public void InitializeVisibility()
         {
             RootNode.InitializeVisibility();

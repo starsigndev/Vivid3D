@@ -12,6 +12,7 @@ using System.Diagnostics.Eventing.Reader;
 using Vivid.PostProcesses;
 using static System.Net.Mime.MediaTypeNames;
 using Vivid.Texture;
+using Vivid.State;
 
 namespace Editor.Logic
 {
@@ -25,7 +26,7 @@ namespace Editor.Logic
             RenderGlobals.CurrentCamera = EditScene.MainCamera;
 
             //      grid_node.RenderSimple();
-            //  EditScene.RenderLines();
+              EditScene.RenderLines();
          
             if (EditScene.Lights.Count == 0)
             {
@@ -106,6 +107,7 @@ namespace Editor.Logic
            // draw.Blend = Vivid.Draw.BlendMode.Alpha;
            // draw.Draw(test, new Vivid.Maths.Rect(0, 0, 256, 256), new Vivid.Maths.Color(1, 1, 1, 1));
             //draw.End();
+
             DrawIcons();
             //G_Control.Invalidate();
         //    Output.Invalidate();
@@ -117,6 +119,7 @@ namespace Editor.Logic
         static Texture2D test = null;
         private static void DrawIcons()
         {
+            GLState.State = CurrentGLState.Draw;
             draw.Begin();
             //draw.DrawTexture(LightIcon, 64, 64, 64, 64, 1, 1, 1, 1);
 

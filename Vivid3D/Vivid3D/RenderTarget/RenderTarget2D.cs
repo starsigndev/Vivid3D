@@ -74,7 +74,7 @@ namespace Vivid.RenderTarget
             GL.Viewport(0, 0, Width, Height);
             GL.ClearColor(0, 0, 0, 1);
             //GL.ClearDepthf(0.0f);
-            GL.ClearColor(1, 0, 0, 1);
+            GL.ClearColor(0, 0, 0, 1);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         //    GL.ClearColor(1, 0, 0, 1);
         }
