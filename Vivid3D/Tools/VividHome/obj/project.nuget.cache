@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gcFGhODHMag8TRstomCnSDImiBzudAEZYegl1qOcrJ+i61t6hMDDDkpMKUngK3YKjHeu+RG57CABlTRhWjYGsA==",
+  "dgSpecHash": "wm+E+MDH104mSnnOsHliDTGvTNs+GPAxH92EZ7iCnXT1t7NqsJ8BZLs3NOS+E6VBLuEPJHS2S0A2g7SND2G05A==",
   "success": true,
   "projectFilePath": "C:\\G3D\\Vivid3D\\Tools\\VividHome\\VividHome.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.2\\microsoft.windowsdesktop.app.ref.7.0.2.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.2\\microsoft.netcore.app.ref.7.0.2.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.2\\microsoft.aspnetcore.app.ref.7.0.2.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.2\\microsoft.netcore.app.host.win-x64.7.0.2.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

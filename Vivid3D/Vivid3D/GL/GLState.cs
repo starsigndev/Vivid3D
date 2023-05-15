@@ -4,7 +4,7 @@ namespace Vivid.State
 {
     public enum CurrentGLState
     {
-        LightFirstPass, LightSecondPass, Depth, Fullbright, None
+        LightFirstPass, LightSecondPass, Depth, Fullbright, None,Draw
     }
 
     public class GLState
@@ -34,6 +34,12 @@ namespace Vivid.State
             if (StateBound == true) return;
             switch (_CurrentState)
             {
+                case CurrentGLState.Draw:
+                    GL.Disable(EnableCap.DepthTest);
+                    GL.Disable(EnableCap.CullFace);
+                    GL.Disable(EnableCap.Blend);
+                    GL.Disable(EnableCap.ScissorTest);
+                    break;
                 case CurrentGLState.LightFirstPass:
                     GL.Disable(EnableCap.Blend);
                     GL.Enable(EnableCap.CullFace);
@@ -52,6 +58,13 @@ namespace Vivid.State
                     break;
 
                 case CurrentGLState.Depth:
+
+                    GL.Disable(EnableCap.CullFace);
+                    GL.Enable(EnableCap.DepthTest);
+                    GL.Disable(EnableCap.Blend);
+                    GL.DepthFunc(DepthFunction.Lequal);
+                    GL.Enable(EnableCap.CullFace);
+                    GL.CullFace(TriangleFace.Back);
 
                     break;
 

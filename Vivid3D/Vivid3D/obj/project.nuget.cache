@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q1kAzrzGpAWwN72UqMEN4qkSYSeec908JPGbWMGnfTM0SiJ/h1FXCYMR8/nlIlhZubHF7t2zkMS6V9y0mdndRQ==",
+  "dgSpecHash": "uTQQSBl68dojiB2deF+H9be4TeEGju5TyDa8Lo4D6bezFGOz144uMkjCDvgeV2z4fh7veIjFk5cN2M50rKdKpA==",
   "success": true,
   "projectFilePath": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
   "expectedPackageFiles": [
@@ -101,10 +101,7 @@
     "C:\\Users\\AntW\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\AntW\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\zkweb.system.drawing\\4.0.1\\zkweb.system.drawing.4.0.1.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.2\\microsoft.windowsdesktop.app.ref.7.0.2.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.2\\microsoft.netcore.app.ref.7.0.2.nupkg.sha512",
-    "C:\\Users\\AntW\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.2\\microsoft.aspnetcore.app.ref.7.0.2.nupkg.sha512"
+    "C:\\Users\\AntW\\.nuget\\packages\\zkweb.system.drawing\\4.0.1\\zkweb.system.drawing.4.0.1.nupkg.sha512"
   ],
   "logs": []
 }

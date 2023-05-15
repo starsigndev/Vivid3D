@@ -33,6 +33,7 @@
             addAllWithinFolderToolStripMenuItem = new ToolStripMenuItem();
             tsList = new ListBox();
             folderBrowserDialog1 = new FolderBrowserDialog();
+            clearListToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             // 
             // foldersToolStripMenuItem
             // 
-            foldersToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addAllWithinFolderToolStripMenuItem });
+            foldersToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addAllWithinFolderToolStripMenuItem, clearListToolStripMenuItem });
             foldersToolStripMenuItem.Name = "foldersToolStripMenuItem";
             foldersToolStripMenuItem.Size = new Size(71, 24);
             foldersToolStripMenuItem.Text = "Folders";
@@ -68,6 +69,13 @@
             tsList.Name = "tsList";
             tsList.Size = new Size(372, 504);
             tsList.TabIndex = 1;
+            // 
+            // clearListToolStripMenuItem
+            // 
+            clearListToolStripMenuItem.Name = "clearListToolStripMenuItem";
+            clearListToolStripMenuItem.Size = new Size(235, 26);
+            clearListToolStripMenuItem.Text = "Clear List";
+            clearListToolStripMenuItem.Click += clearListToolStripMenuItem_Click;
             // 
             // TextureSources
             // 
@@ -93,5 +101,6 @@
         private ToolStripMenuItem addAllWithinFolderToolStripMenuItem;
         private ListBox tsList;
         private FolderBrowserDialog folderBrowserDialog1;
+        private ToolStripMenuItem clearListToolStripMenuItem;
     }
 }

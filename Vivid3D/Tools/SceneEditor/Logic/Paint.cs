@@ -10,6 +10,8 @@ using OpenTK.Mathematics;
 using static Editor.SceneEditor;
 using System.Diagnostics.Eventing.Reader;
 using Vivid.PostProcesses;
+using static System.Net.Mime.MediaTypeNames;
+using Vivid.Texture;
 
 namespace Editor.Logic
 {
@@ -24,7 +26,7 @@ namespace Editor.Logic
 
             //      grid_node.RenderSimple();
             //  EditScene.RenderLines();
-            EditScene.RenderLines();
+         
             if (EditScene.Lights.Count == 0)
             {
                 EditScene.RenderSimple();
@@ -60,7 +62,8 @@ namespace Editor.Logic
 
                 }
             }
-        //    GemBridge.gem_ClearZBuffer();
+          //  EditScene.RenderLines();
+            //    GemBridge.gem_ClearZBuffer();
             //EditScene.RenderSimple(currentGiz);
 
             if (CurrentNode != null)
@@ -91,14 +94,27 @@ namespace Editor.Logic
                 //currentGiz.Turn(180, 0, 0);
                 OpenTK.Graphics.OpenGL.GL.Clear(OpenTK.Graphics.OpenGL.ClearBufferMask.DepthBufferBit);
                 CurrentGizmo.RenderSimple();
+         
+
+            }
+            if (test == null)
+            {
+                test = new Texture2D("tex/norm2.png");
             }
 
+            //draw.Begin();
+           // draw.Blend = Vivid.Draw.BlendMode.Alpha;
+           // draw.Draw(test, new Vivid.Maths.Rect(0, 0, 256, 256), new Vivid.Maths.Color(1, 1, 1, 1));
+            //draw.End();
             DrawIcons();
             //G_Control.Invalidate();
-
+        //    Output.Invalidate();
+            
             //GemBridge.gem_EndFrame();
         }
 
+
+        static Texture2D test = null;
         private static void DrawIcons()
         {
             draw.Begin();

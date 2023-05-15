@@ -66,6 +66,13 @@ namespace Vivid.Draw
             End();
         }
 
+        public void DrawNow(Texture2D tex,Vivid.Maths.Rect rect,Vivid.Maths.Color color,bool flip_uv = false,ShaderModule shader =null)
+        {
+            Begin();
+            Draw(tex, rect, color, flip_uv);
+            End(shader);
+        }
+
         public void Draw(Texture2D tex, Vivid.Maths.Rect rect, Vivid.Maths.Color color, bool flip_uv = false)
         {
             DrawList list = GetList(tex);
@@ -144,11 +151,11 @@ namespace Vivid.Draw
 
         public void End(ShaderModule shader = null)
         {
-            GL.Enable(EnableCap.DepthTest);
+            GL.Disable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Lequal);
           //  GL.Disable(EnableCap.DepthTest);
             GL.Viewport(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
-           // GL.Disable(EnableCap.ScissorTest);
+            GL.Disable(EnableCap.ScissorTest);
 
             switch (Blend)
             {
@@ -201,6 +208,12 @@ namespace Vivid.Draw
 
                 GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, IndexBuffer);
                 GL.DrawElements(PrimitiveType.Triangles, list.InfoList.Count * 6, DrawElementsType.UnsignedInt, 0);
+                GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, BufferHandle.Zero);
+                GL.BindVertexArray(VertexArrayHandle.Zero);
+                GL.BindBuffer(BufferTargetARB.ArrayBuffer, BufferHandle.Zero);
+                GL.DisableVertexAttribArray(0);
+                GL.DisableVertexAttribArray(1);
+                GL.DisableVertexAttribArray(2);
 
                 list.Texture[0].Unbind(0);
 

@@ -12,7 +12,7 @@ void main(){
 
     vec4 co = texture(tR,UV) * col;
 
-   
+    
 
 
     //co.rgb = vec3(1,1,1);

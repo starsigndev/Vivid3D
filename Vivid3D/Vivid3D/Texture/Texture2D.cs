@@ -50,7 +50,7 @@ namespace Vivid.Texture
             // Raw = new byte[Width * Height * 4];
             var Format = InternalFormat.Rgba8;
             Handle = GL.CreateTexture(TextureTarget.Texture2d);
-            GL.TextureStorage2D(Handle, 1, SizedInternalFormat.Rgba8, Width, Height);
+            GL.TextureStorage2D(Handle, 1, SizedInternalFormat.Rgba32f, Width, Height);
 
             GL.TextureParameteri(Handle, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
             GL.TextureParameteri(Handle, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);

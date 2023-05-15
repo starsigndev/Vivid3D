@@ -6,6 +6,7 @@ using Vivid.Mesh;
 using Vivid.Meshes;
 using Vivid.Physx;
 using Vivid.Renderers;
+using Vivid.State;
 
 namespace Vivid.Scene
 {
@@ -1265,6 +1266,8 @@ namespace Vivid.Scene
                 firstPass = false;
                 //RenderGlobals.FirstPass = false;
             }
+          //  GLState.State = CurrentGLState.LightFirstPass;
+
             Root.RenderStates();
             if (States.Count > 0)
             {
@@ -1423,6 +1426,9 @@ namespace Vivid.Scene
         {
             RenderGlobals.CurrentCamera = MainCamera;
             RenderGlobals.CurrentNode = null;
+
+            GLState.State = CurrentGLState.LightFirstPass;
+
             foreach (var ml in MeshLines)
             {
                 Matrix4 proj = RenderGlobals.CurrentCamera.Projection;

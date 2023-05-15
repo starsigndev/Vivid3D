@@ -156,10 +156,13 @@ namespace Vivid.Renderers
             var ShadowFB = mRT;
 
             Scene.Scene graph = Graph;
-
+            
             TextureTarget f = ShadowFB.SetFace(0);
 
+           
+
             SetCam(f, new_cam);
+
 
             // graph.RenderingShadows = true;
 

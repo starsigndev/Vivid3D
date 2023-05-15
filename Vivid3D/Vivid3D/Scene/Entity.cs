@@ -373,7 +373,8 @@ namespace Vivid.Scene
         {
             if (!Enabled) return;
 
-            GLHelper.PreRenderStandard(WriteDepth, DepthTest);
+            //GLHelper.PreRenderStandard(WriteDepth, DepthTest);
+            GLState.State = CurrentGLState.Depth;
 
             foreach (var mesh in Meshes)
             {

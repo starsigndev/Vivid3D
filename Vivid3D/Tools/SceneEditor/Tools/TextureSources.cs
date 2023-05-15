@@ -58,7 +58,7 @@ namespace Editor.Tools
 
             int c = r.ReadInt32();
 
-            for(int i = 0; i < c; i++)
+            for (int i = 0; i < c; i++)
             {
 
                 TextureSource src = new TextureSource();
@@ -71,11 +71,14 @@ namespace Editor.Tools
             Vivid.Importing.Importer.Sources.Clear();
             foreach (var ts in Sources)
             {
-               // tsList.Items.Add(ts);
+                // tsList.Items.Add(ts);
 
 
                 Vivid.Importing.Importer.AddSource(ts.Name, ts.FullPath);
             };
+
+            fs.Close();
+            r.Close();
         }
         public static void SaveList()
         {
@@ -84,7 +87,7 @@ namespace Editor.Tools
             BinaryWriter w = new BinaryWriter(fs);
 
             w.Write(Sources.Count);
-            foreach(TextureSource source in Sources)
+            foreach (TextureSource source in Sources)
             {
 
                 w.Write(source.Name);
@@ -138,5 +141,11 @@ namespace Editor.Tools
 
         }
 
+        private void clearListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Sources.Clear();
+            SaveList();
+            Rebuild();
+        }
     }
 }

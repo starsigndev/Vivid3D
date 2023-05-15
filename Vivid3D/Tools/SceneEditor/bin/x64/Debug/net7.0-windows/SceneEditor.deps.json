@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "SceneEditor/1.0.0": {
         "dependencies": {
+          "OpenTK": "5.0.0-pre.8",
           "OpenTK.WinForms": "4.0.0-pre.6",
           "Vivid": "1.0.0"
         },

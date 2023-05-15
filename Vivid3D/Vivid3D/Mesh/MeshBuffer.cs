@@ -83,7 +83,10 @@ namespace Vivid.Mesh
             GL.BindVertexArray(VertexArrayHandle.Zero);
             GL.BindBuffer(BufferTargetARB.ArrayBuffer, BufferHandle.Zero);
             GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, BufferHandle.Zero);
-
+            for(int i = 0; i < 8; i++)
+            {
+                GL.DisableVertexAttribArray((uint)i);
+            }
             return true;
         }
 
@@ -93,9 +96,9 @@ namespace Vivid.Mesh
             GL.BindBuffer(BufferTargetARB.ArrayBuffer, Buffer);
             GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, IndexBuffer);
             GL.DrawElements(PrimitiveType.Triangles, IndexCount, DrawElementsType.UnsignedInt, 0);
-            //GL.BindVertexArray(VertexArrayHandle.Zero);
-            // GL.BindBuffer(BufferTargetARB.ArrayBuffer,BufferHandle.Zero);
-            //  GL.BindBuffer(BufferTargetARB.ElementArrayBuffer,BufferHandle.Zero);
+            GL.BindVertexArray(VertexArrayHandle.Zero);
+            GL.BindBuffer(BufferTargetARB.ArrayBuffer,BufferHandle.Zero);
+             GL.BindBuffer(BufferTargetARB.ElementArrayBuffer,BufferHandle.Zero);
         }
     }
 }

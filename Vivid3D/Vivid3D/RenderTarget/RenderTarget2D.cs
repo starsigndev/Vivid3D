@@ -35,7 +35,7 @@ namespace Vivid.RenderTarget
             DB = new TextureDepth(w, h);
             RB = GL.CreateRenderbuffer();
             GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, RB);
-            GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, InternalFormat.DepthComponent32, w, h);
+            GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, InternalFormat.DepthComponent, w, h);
             GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, RenderbufferTarget.Renderbuffer, RB);
             GL.FramebufferTexture(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, BB.Handle, 0);
             DrawBufferMode db = DrawBufferMode.ColorAttachment0;
@@ -73,6 +73,8 @@ namespace Vivid.RenderTarget
 
             GL.Viewport(0, 0, Width, Height);
             GL.ClearColor(0, 0, 0, 1);
+            //GL.ClearDepthf(0.0f);
+            GL.ClearColor(1, 0, 0, 1);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         //    GL.ClearColor(1, 0, 0, 1);
         }

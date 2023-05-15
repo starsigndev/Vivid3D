@@ -395,6 +395,9 @@ namespace Vivid.Acceleration.Octree
                         mesh.Material.NormalMap.Bind(1);
                         mesh.Material.SpecularMap.Bind(2);
                         mesh.RenderMesh();
+                        mesh.Material.ColorMap.Unbind(0);
+                        mesh.Material.NormalMap.Unbind(1);
+                        mesh.Material.SpecularMap.Unbind(2);
                     }
                     OctreeNode.LeafsRendered++;
                 }

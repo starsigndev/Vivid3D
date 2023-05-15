@@ -12,6 +12,8 @@ using Vivid.Renderers;
 using Vivid.Physx;
 using Vivid.Meshes;
 using Vivid.Materials.Materials.Entity;
+using Vivid.Draw;
+using Vivid.Texture;
 
 namespace Vivid.Acceleration.Octree
 {
@@ -33,6 +35,9 @@ namespace Vivid.Acceleration.Octree
 
         public List<Entity> Dynamic = new List<Entity>();
         public static int DynamicC = 0;
+        private RenderTarget2D LightTarget;
+        private SmartDraw Draw = null;
+
 
         public ASOctree(Scene.Scene scene)
         {
@@ -42,6 +47,8 @@ namespace Vivid.Acceleration.Octree
             RootNode.CreateBuffers();
             LightFX = new Materials.Materials.Entity.LightFX();
             InitializeVisibility();
+            LightTarget = new RenderTarget2D(VividApp.FrameWidth, VividApp.FrameHeight);
+            Draw = new SmartDraw();
             //Base.Root = new Node();
 
         }
@@ -68,6 +75,8 @@ namespace Vivid.Acceleration.Octree
             BinaryReader r = new BinaryReader(stream);
 
             ReadScene(r);
+            Draw = new SmartDraw();
+            LightTarget = new RenderTarget2D(VividApp.FrameWidth, VividApp.FrameHeight);
 
             Meshes.Mesh mesh = new Meshes.Mesh(null);
 
@@ -114,9 +123,9 @@ namespace Vivid.Acceleration.Octree
             Base = scene;
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
             BinaryReader r = new BinaryReader(fs);
-
+            LightTarget = new RenderTarget2D(VividApp.FrameWidth, VividApp.FrameHeight);
             ReadScene(r);
-
+            Draw = new SmartDraw();
             AddLeafs(RootNode);
 
             fs.Close();
@@ -257,21 +266,55 @@ namespace Vivid.Acceleration.Octree
         {
             RootNode.Debug();
         }
-
+        Texture2D test = null;
         public void Render()
         {
+            if (test == null)
+            {
+                test = new Texture2D("tex/norm2.png");
+            }
             LightFX.Camera = Base.MainCamera;
             LightFX.Entity = null;
+            bool first = true;
             GLState.State = CurrentGLState.LightFirstPass;
             foreach (var light in Base.Lights) {
+                LightTarget.Bind();
                 LightFX.Light = light;
                 LightFX.Bind();
                 light.RTC.Cube.Bind(3);
+                GLState.State = CurrentGLState.LightFirstPass;
                 RootNode.Render();
+
+                light.RTC.Cube.Release(3);
+                LightTarget.Release(); 
+                GLState.State = CurrentGLState.Draw;
+                if (first)
+                {
+                    Draw.Blend = BlendMode.Alpha;
+                }
+                else
+                {
+                    Draw.Blend = BlendMode.Additive;
+
+                }
+                first = false;
+                Draw.DrawNow(LightTarget.GetTexture(), new Maths.Rect(0, 0, VividApp.FrameWidth, VividApp.FrameHeight), new Maths.Color(1, 1, 1, 1),true);
+
                 GLState.State = CurrentGLState.LightSecondPass;
+
             }
             int dy_d = 0;
             LightFX.Unbind();
+
+            Draw.Blend = BlendMode.Solid;
+
+           //  GL.ClearColor(0, 1, 0, 1.0f);
+          //   GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            // Console.WriteLine("Clearing!!!");
+            //GLState.State = CurrentGLState.LightSecondPass;     
+
+           
+
             foreach(var dy in Dynamic)
             {
                 if (dy.IsVisible == false) continue;

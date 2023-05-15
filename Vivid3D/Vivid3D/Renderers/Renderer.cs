@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vivid.Acceleration.Octree;
 using Vivid.PostProcesses;
+using Vivid.State;
 
 namespace Vivid.Renderers
 {
@@ -64,8 +65,11 @@ namespace Vivid.Renderers
             else
             {
 
-                CurrentScene.RenderShadows();
-                CurrentScene.Render();
+                    CurrentScene.RenderShadows();
+                      CurrentScene.Render();
+                //GLState.State = CurrentGLState.Draw;
+
+
 
             }
 
