@@ -282,18 +282,7 @@ namespace Vivid.Acceleration.Octree
            
             LightFX.Unbind();
         
-            foreach(var dy in Dynamic)
-            {
-                if (dy.IsVisible == false) continue;
-                bool firstPass = true;
-                foreach (var light in Base.Lights)
-                {
-                    dy.Render(light, Base.MainCamera, firstPass);
-                    firstPass = false;
-                    //RenderGlobals.FirstPass = false;
-                }
-       
-            }
+           
            // Console.WriteLine("Dynamic Rendered:" + dy_d);
         //    Console.WriteLine("Leafs Rendered:" + OctreeNode.LeafsRendered);
         }
@@ -311,12 +300,26 @@ namespace Vivid.Acceleration.Octree
             GLState.State = CurrentGLState.LightFirstPass;
             RootNode.Render();
 
+            foreach (var dy in Dynamic)
+            {
+                if (dy.IsVisible == false) continue;
+                bool firstPass = true;
+    
+                    dy.Render(light, Base.MainCamera, firstPass);
+                    firstPass = false;
+      
+
+            }
             //light.RTC.Cube.Release(3);
             LightTarget.Release();
             GLState.State = CurrentGLState.Draw;
             if (first)
             {
                 Draw.Blend = BlendMode.Alpha;
+            }
+            else
+            {
+                Draw.Blend = BlendMode.Additive;
             }
        
             first = false;
