@@ -49,6 +49,7 @@
             alignToObjectToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator7 = new ToolStripSeparator();
             globalPostProcessingToolStripMenuItem = new ToolStripMenuItem();
+            renderConfigToolStripMenuItem = new ToolStripMenuItem();
             focusOnNodeToolStripMenuItem = new ToolStripMenuItem();
             importToolStripMenuItem = new ToolStripMenuItem();
             import3DModelToolStripMenuItem = new ToolStripMenuItem();
@@ -92,7 +93,7 @@
             spaceCombo = new ToolStripComboBox();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
-            renderConfigToolStripMenuItem = new ToolStripMenuItem();
+            skySettingsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -172,67 +173,74 @@
             // cutToolStripMenuItem
             // 
             cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            cutToolStripMenuItem.Size = new Size(224, 26);
+            cutToolStripMenuItem.Size = new Size(202, 26);
             cutToolStripMenuItem.Text = "Cut";
             // 
             // copyToolStripMenuItem
             // 
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new Size(224, 26);
+            copyToolStripMenuItem.Size = new Size(202, 26);
             copyToolStripMenuItem.Text = "Copy";
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(221, 6);
+            toolStripSeparator2.Size = new Size(199, 6);
             // 
             // pasteInstanceToolStripMenuItem
             // 
             pasteInstanceToolStripMenuItem.Name = "pasteInstanceToolStripMenuItem";
-            pasteInstanceToolStripMenuItem.Size = new Size(224, 26);
+            pasteInstanceToolStripMenuItem.Size = new Size(202, 26);
             pasteInstanceToolStripMenuItem.Text = "Paste Instance";
             // 
             // pasteNewToolStripMenuItem
             // 
             pasteNewToolStripMenuItem.Name = "pasteNewToolStripMenuItem";
-            pasteNewToolStripMenuItem.Size = new Size(224, 26);
+            pasteNewToolStripMenuItem.Size = new Size(202, 26);
             pasteNewToolStripMenuItem.Text = "Paste New";
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(221, 6);
+            toolStripSeparator3.Size = new Size(199, 6);
             // 
             // alignToCameraToolStripMenuItem
             // 
             alignToCameraToolStripMenuItem.Name = "alignToCameraToolStripMenuItem";
-            alignToCameraToolStripMenuItem.Size = new Size(224, 26);
+            alignToCameraToolStripMenuItem.Size = new Size(202, 26);
             alignToCameraToolStripMenuItem.Text = "Align To Camera";
             alignToCameraToolStripMenuItem.Click += Menu_AlignToCamera;
             // 
             // alignToObjectToolStripMenuItem
             // 
             alignToObjectToolStripMenuItem.Name = "alignToObjectToolStripMenuItem";
-            alignToObjectToolStripMenuItem.Size = new Size(224, 26);
+            alignToObjectToolStripMenuItem.Size = new Size(202, 26);
             alignToObjectToolStripMenuItem.Text = "Align To Object";
             alignToObjectToolStripMenuItem.Click += Menu_AlignToObject;
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(221, 6);
+            toolStripSeparator7.Size = new Size(199, 6);
             // 
             // globalPostProcessingToolStripMenuItem
             // 
             globalPostProcessingToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { renderConfigToolStripMenuItem });
             globalPostProcessingToolStripMenuItem.Name = "globalPostProcessingToolStripMenuItem";
-            globalPostProcessingToolStripMenuItem.Size = new Size(224, 26);
+            globalPostProcessingToolStripMenuItem.Size = new Size(202, 26);
             globalPostProcessingToolStripMenuItem.Text = "Rendering";
+            // 
+            // renderConfigToolStripMenuItem
+            // 
+            renderConfigToolStripMenuItem.Name = "renderConfigToolStripMenuItem";
+            renderConfigToolStripMenuItem.Size = new Size(187, 26);
+            renderConfigToolStripMenuItem.Text = "Render Config";
+            renderConfigToolStripMenuItem.Click += renderConfigToolStripMenuItem_Click;
             // 
             // focusOnNodeToolStripMenuItem
             // 
             focusOnNodeToolStripMenuItem.Name = "focusOnNodeToolStripMenuItem";
-            focusOnNodeToolStripMenuItem.Size = new Size(224, 26);
+            focusOnNodeToolStripMenuItem.Size = new Size(202, 26);
             focusOnNodeToolStripMenuItem.Text = "Focus On Node";
             focusOnNodeToolStripMenuItem.Click += Menu_FocusOnNode;
             // 
@@ -351,7 +359,7 @@
             // 
             // otherToolStripMenuItem
             // 
-            otherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { propertyEditorToolStripMenuItem, pathToolsToolStripMenuItem, lightMapperToolStripMenuItem, generateOctreeToolStripMenuItem, toolStripSeparator9, textureFoldersToolStripMenuItem, toolStripSeparator10, modelEditorToolStripMenuItem });
+            otherToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { propertyEditorToolStripMenuItem, pathToolsToolStripMenuItem, lightMapperToolStripMenuItem, generateOctreeToolStripMenuItem, toolStripSeparator9, textureFoldersToolStripMenuItem, toolStripSeparator10, modelEditorToolStripMenuItem, skySettingsToolStripMenuItem });
             otherToolStripMenuItem.Name = "otherToolStripMenuItem";
             otherToolStripMenuItem.Size = new Size(58, 24);
             otherToolStripMenuItem.Text = "Tools";
@@ -359,50 +367,50 @@
             // propertyEditorToolStripMenuItem
             // 
             propertyEditorToolStripMenuItem.Name = "propertyEditorToolStripMenuItem";
-            propertyEditorToolStripMenuItem.Size = new Size(200, 26);
+            propertyEditorToolStripMenuItem.Size = new Size(224, 26);
             propertyEditorToolStripMenuItem.Text = "Property Editor";
             propertyEditorToolStripMenuItem.Click += Menu_OpenPropertyEditor;
             // 
             // pathToolsToolStripMenuItem
             // 
             pathToolsToolStripMenuItem.Name = "pathToolsToolStripMenuItem";
-            pathToolsToolStripMenuItem.Size = new Size(200, 26);
+            pathToolsToolStripMenuItem.Size = new Size(224, 26);
             pathToolsToolStripMenuItem.Text = "Path Tools";
             // 
             // lightMapperToolStripMenuItem
             // 
             lightMapperToolStripMenuItem.Name = "lightMapperToolStripMenuItem";
-            lightMapperToolStripMenuItem.Size = new Size(200, 26);
+            lightMapperToolStripMenuItem.Size = new Size(224, 26);
             lightMapperToolStripMenuItem.Text = "Light Mapper";
             // 
             // generateOctreeToolStripMenuItem
             // 
             generateOctreeToolStripMenuItem.Name = "generateOctreeToolStripMenuItem";
-            generateOctreeToolStripMenuItem.Size = new Size(200, 26);
+            generateOctreeToolStripMenuItem.Size = new Size(224, 26);
             generateOctreeToolStripMenuItem.Text = "Generate Octree";
             generateOctreeToolStripMenuItem.Click += Menu_GenerateOctree;
             // 
             // toolStripSeparator9
             // 
             toolStripSeparator9.Name = "toolStripSeparator9";
-            toolStripSeparator9.Size = new Size(197, 6);
+            toolStripSeparator9.Size = new Size(221, 6);
             // 
             // textureFoldersToolStripMenuItem
             // 
             textureFoldersToolStripMenuItem.Name = "textureFoldersToolStripMenuItem";
-            textureFoldersToolStripMenuItem.Size = new Size(200, 26);
+            textureFoldersToolStripMenuItem.Size = new Size(224, 26);
             textureFoldersToolStripMenuItem.Text = "Texture Sources";
             textureFoldersToolStripMenuItem.Click += textureFoldersToolStripMenuItem_Click;
             // 
             // toolStripSeparator10
             // 
             toolStripSeparator10.Name = "toolStripSeparator10";
-            toolStripSeparator10.Size = new Size(197, 6);
+            toolStripSeparator10.Size = new Size(221, 6);
             // 
             // modelEditorToolStripMenuItem
             // 
             modelEditorToolStripMenuItem.Name = "modelEditorToolStripMenuItem";
-            modelEditorToolStripMenuItem.Size = new Size(200, 26);
+            modelEditorToolStripMenuItem.Size = new Size(224, 26);
             modelEditorToolStripMenuItem.Text = "Model Editor";
             modelEditorToolStripMenuItem.Click += modelEditorToolStripMenuItem_Click;
             // 
@@ -555,12 +563,12 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
-            // renderConfigToolStripMenuItem
+            // skySettingsToolStripMenuItem
             // 
-            renderConfigToolStripMenuItem.Name = "renderConfigToolStripMenuItem";
-            renderConfigToolStripMenuItem.Size = new Size(224, 26);
-            renderConfigToolStripMenuItem.Text = "Render Config";
-            renderConfigToolStripMenuItem.Click += renderConfigToolStripMenuItem_Click;
+            skySettingsToolStripMenuItem.Name = "skySettingsToolStripMenuItem";
+            skySettingsToolStripMenuItem.Size = new Size(224, 26);
+            skySettingsToolStripMenuItem.Text = "Sky Settings";
+            skySettingsToolStripMenuItem.Click += Menu_SkySettings;
             // 
             // SceneEditor
             // 
@@ -653,5 +661,6 @@
         private ToolStripSeparator toolStripSeparator10;
         private ToolStripMenuItem modelEditorToolStripMenuItem;
         private ToolStripMenuItem renderConfigToolStripMenuItem;
+        private ToolStripMenuItem skySettingsToolStripMenuItem;
     }
 }

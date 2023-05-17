@@ -20,6 +20,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.WinForms;
 using Editor.Tools;
 using Vivid.PostProcesses;
+using SceneEditor.Editors;
 //using static Assimp.Metadata;
 
 namespace Editor
@@ -593,6 +594,12 @@ namespace Editor
             RenderConfig ren_config = new RenderConfig();
             ren_config.Show();
 
+        }
+
+        private void Menu_SkySettings(object sender, EventArgs e)
+        {
+            SkyEditor sky_Edit = new SkyEditor();
+            sky_Edit.Show();
         }
     }
 }

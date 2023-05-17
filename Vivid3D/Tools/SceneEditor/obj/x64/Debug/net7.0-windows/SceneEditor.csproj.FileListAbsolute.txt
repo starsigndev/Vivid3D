@@ -135,3 +135,4 @@ C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.SceneEditor
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Tools.TextureSources.resources
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.ModelEditor.resources
 C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\Editor.Editors.RenderConfig.resources
+C:\G3D\Vivid3D\Tools\SceneEditor\obj\x64\Debug\net7.0-windows\SceneEditor.Editors.SkyEditor.resources

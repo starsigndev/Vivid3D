@@ -19,6 +19,9 @@
     <Compile Update="Editors\RenderConfig.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Editors\SkyEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Editors\SpawnEditor.cs">
       <SubType>Form</SubType>
     </Compile>

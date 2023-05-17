@@ -161,6 +161,22 @@ namespace Vivid.Scene
             set;
         }
 
+        public SkyEntity SkySystem
+        {
+            get;
+            set;
+        }
+
+        public void AddProcSky()
+        {
+            SkySystem = new SkyEntity();
+        }
+
+        public void RemoveProcSky()
+        {
+            SkySystem = null;
+        }
+
         /// <summary>
         /// Returns a full list of every 'Entity' in the scene.
         /// </summary>
@@ -364,6 +380,7 @@ namespace Vivid.Scene
             States = new Stack<SceneState>();
             PossibleEvents = new List<SceneEvent>();
             CurrentEvents = new List<SceneEvent>();
+            SkySystem = null;
         }
 
         public int sc = 0;
@@ -1259,7 +1276,13 @@ namespace Vivid.Scene
         public void Render()
         {
             bool firstPass = true;
-            Console.WriteLine("Lights:" + Lights.Count);
+            //     Console.WriteLine("Lights:" + Lights.Count);
+
+            if (SkySystem != null)
+            {
+                SkySystem.RenderSky(MainCamera, Lights[0]);
+            }
+
             foreach (var light in Lights)
             {
                 Root.Render(light, MainCamera, firstPass);

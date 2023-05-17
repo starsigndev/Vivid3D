@@ -108,7 +108,10 @@ namespace Vivid.Shaders
         {
             GL.Uniform1i(GetLocation(name), value);
         }
-
+        public void SetUni(string name, float[] val)
+        {
+            GL.Uniform1f(GetLocation(name), val.Length, val);
+        }
         public void SetUni(string name, float value)
         {
             GL.Uniform1f(GetLocation(name), value);
@@ -119,6 +122,10 @@ namespace Vivid.Shaders
             GL.Uniform2f(GetLocation(name), value);
         }
 
+        public void SetUni(string name, Vector3[] val)
+        {
+            GL.Uniform3f(GetLocation(name), val.Length, val);
+        }
         public void SetUni(string name, Vector3 value)
         {
             GL.Uniform3f(GetLocation(name), value);
