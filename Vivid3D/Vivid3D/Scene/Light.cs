@@ -11,7 +11,7 @@ namespace Vivid.Scene
     public class Light : Node
     {
         public Vector3 Diffuse
-        {
+         {
             get;
             set;
         }
@@ -75,6 +75,8 @@ namespace Vivid.Scene
             InnerCone = 40;
             OuterCone = 40;
             CastShadows = true;
+            InnerCone = 12;
+            OuterCone = 12;
 
             //ShadowRT = GemBridge.gem_CreateRTC(512, 512);
         }

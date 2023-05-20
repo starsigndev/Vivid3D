@@ -16,7 +16,8 @@ namespace Vivid.Materials
         private int g_Proj, g_Model, g_View;
         private int g_LightPos, g_LightDiff, g_LightSpec, g_LightRange, g_LightDepth;
         private int g_CamPos, g_CamMinZ, g_CamMaxZ;
-
+        private int g_LightType = 0, g_LightCone;
+        private int g_LightDir;
         public override void SetUniforms()
         {
             //base.SetUniforms();
@@ -39,6 +40,9 @@ namespace Vivid.Materials
                 SetUni(g_LightSpec, Light.Specular);
                 SetUni(g_LightRange, Light.Range);
                 SetUni(g_LightDepth, Light.Range);
+                SetUni(g_LightType, (int)Light.Type);
+                SetUni(g_LightCone, Light.InnerCone);
+                SetUni(g_LightDir, Vector3.TransformVector(new Vector3(0, 0, 1), Light.WorldMatrix));
             }
             if (Camera != null)
             {
@@ -66,7 +70,10 @@ namespace Vivid.Materials
             g_LightDepth = GetLocation("g_LightDepth");
             g_CamPos = GetLocation("g_CameraPosition");
             g_CamMinZ = GetLocation("g_CameraMinZ");
+            g_LightType = GetLocation("g_LightType");
             g_CamMaxZ = GetLocation("g_CameraMaxZ");
+            g_LightCone = GetLocation("g_LightCone");
+            g_LightDir = GetLocation("g_LightDir");
             SetUni("g_TextureColor", 0);
             SetUni("g_TextureNormal", 1);
             SetUni("g_TextureSpecular", 2);

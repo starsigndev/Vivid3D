@@ -26,11 +26,11 @@ uniform vec3 g_MidColor;
 uniform float g_TopY;
 uniform vec3 g_Colors[6];  // Array of gradient colors
 uniform float g_ColorPositions[6];  // Array of positions for each color in the gradient
-
+uniform float g_SunGlow; // New uniform for the sun glow
 out vec4 color;
 
 void main(){
-    float ry = out_FragPos.y;
+   float ry = out_FragPos.y;
     
     // Normalize the fragment's vertical position
     float normalizedY = (ry + g_TopY) / (2.0 * g_TopY);
@@ -55,6 +55,10 @@ void main(){
     float sunFactor = dot(normalize(g_SunDirection), normalize(out_FragPos));
     float sunArea = 1.0 - smoothstep(g_SunSize, g_SunSize + 0.01, 1.0 - sunFactor);
     blendedColor += vec3(1.0, 0.7, 0.0) * sunArea; // Add orange-ish color
+
+    // Add sun glow
+    float sunGlowArea = 1.0 - smoothstep(g_SunSize, g_SunSize + g_SunGlow, 1.0 - sunFactor);
+    blendedColor += vec3(1.0, 0.8, 0.6) * sunGlowArea; // Add light orange color
     
     color = vec4(blendedColor, 1.0);
 }

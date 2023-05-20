@@ -135,12 +135,14 @@ namespace Vivid.Materials.Materials.Sky
             SetUni("g_BotColor", BotColor);
             SetUni("g_TopY", TopY);
             SetUni("g_SunDirection", SunPosition.Normalized());
-            SetUni("g_SunSize", 0.001f);
-            SetUni("g_SunIntensity", 1.0f);
-            SetUni("g_AtmosphereDensity", 0.4f);
+            SetUni("g_SunSize", 0.000001f);
+            SetUni("g_SunIntensity", 0.01f);
+            SetUni("g_AtmosphereDensity", 0.2f);
             SetUni("g_Colors", gradientColors);
             SetUni("g_ColorPositions", gradientPositions);
             SetUni("g_SunGlow", 0.35f);
+            SetUni("g_Rayleigh", 1.0f);
+            SetUni("g_Mie", 0.1f);
 
         }
 

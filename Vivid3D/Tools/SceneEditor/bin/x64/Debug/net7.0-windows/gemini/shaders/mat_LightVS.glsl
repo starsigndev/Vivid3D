@@ -27,6 +27,7 @@ out vec3 out_reflectVector;
 out vec3 out_pass_normal;
 out mat3 out_normMat;
 out mat3 out_TBN;
+out vec3 out_LocalNormal;
 
 void main(){
 
@@ -43,6 +44,12 @@ void main(){
 	vec3 N = normalize(normalMatrix * g_Normal);
 
 	vec4 worldPos = g_Model * vec4(g_Position,1.0);
+
+	
+
+    out_LocalNormal = N;
+
+
 
 	out_pass_normal = N;
 

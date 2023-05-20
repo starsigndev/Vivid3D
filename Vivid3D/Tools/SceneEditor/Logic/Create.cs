@@ -66,6 +66,7 @@ namespace Editor.Logic
             EditScene.Root.AddNode(new_light);
             new_light.Type = LightType.Spot;
             new_light.Position = EditScene.MainCamera.TransformPosition(new Vector3(0, 0, -5.0f));
+            new_light.Rotation = EditScene.MainCamera.Rotation;
             new_light.Name = "Light " + EditScene.Lights.Count;
         }
 
