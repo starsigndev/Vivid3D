@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\ContentPacker.csproj",
         "projectName": "ContentPacker",
         "projectPath": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\ContentPacker.csproj",
-        "packagesPath": "C:\\Users\\AntW\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Antony\\.nuget\\packages\\",
         "outputPath": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\AntW\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Antony\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,7 +80,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -90,11 +90,11 @@
         "projectUniqueName": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
         "projectName": "Vivid",
         "projectPath": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
-        "packagesPath": "C:\\Users\\AntW\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Antony\\.nuget\\packages\\",
         "outputPath": "C:\\G3D\\Vivid3D\\Vivid3D\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\AntW\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Antony\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -161,7 +161,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
         }
       }
     }

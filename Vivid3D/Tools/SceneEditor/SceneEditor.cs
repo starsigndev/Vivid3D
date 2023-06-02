@@ -598,8 +598,7 @@ namespace Editor
 
         private void Menu_SkySettings(object sender, EventArgs e)
         {
-            SkyEditor sky_Edit = new SkyEditor();
-            sky_Edit.Show();
+           //
         }
     }
 }

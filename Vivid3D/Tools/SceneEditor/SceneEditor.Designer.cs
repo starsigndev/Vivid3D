@@ -77,6 +77,7 @@
             textureFoldersToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator10 = new ToolStripSeparator();
             modelEditorToolStripMenuItem = new ToolStripMenuItem();
+            skySettingsToolStripMenuItem = new ToolStripMenuItem();
             debugToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
             sceneTree = new TreeView();
@@ -93,7 +94,6 @@
             spaceCombo = new ToolStripComboBox();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
-            skySettingsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -414,6 +414,13 @@
             modelEditorToolStripMenuItem.Text = "Model Editor";
             modelEditorToolStripMenuItem.Click += modelEditorToolStripMenuItem_Click;
             // 
+            // skySettingsToolStripMenuItem
+            // 
+            skySettingsToolStripMenuItem.Name = "skySettingsToolStripMenuItem";
+            skySettingsToolStripMenuItem.Size = new Size(224, 26);
+            skySettingsToolStripMenuItem.Text = "Sky Box";
+            skySettingsToolStripMenuItem.Click += Menu_SkySettings;
+            // 
             // debugToolStripMenuItem
             // 
             debugToolStripMenuItem.Name = "debugToolStripMenuItem";
@@ -562,13 +569,6 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // skySettingsToolStripMenuItem
-            // 
-            skySettingsToolStripMenuItem.Name = "skySettingsToolStripMenuItem";
-            skySettingsToolStripMenuItem.Size = new Size(224, 26);
-            skySettingsToolStripMenuItem.Text = "Sky Settings";
-            skySettingsToolStripMenuItem.Click += Menu_SkySettings;
             // 
             // SceneEditor
             // 
