@@ -10,6 +10,7 @@ namespace Vivid.UI.Forms
         bool Over = false;
         bool Down = false;
         private Texture2D SelectedImage;
+        public bool Drag = false;
 
         public IButton()
         {
@@ -51,7 +52,7 @@ namespace Vivid.UI.Forms
             }
             else
             {
-                SelectedCol += (new Maths.Color(0, 0, 0, 0) - SelectedCol) * 0.08f;
+                SelectedCol += (new Maths.Color(1, 1, 1, 0) - SelectedCol) * 0.08f;
             }
         }
 
@@ -61,6 +62,7 @@ namespace Vivid.UI.Forms
             Target = new Maths.Color(1.4f, 1.8f, 1.8f, 1.0f);
             OnClick?.Invoke(this, null);
             Down = true;
+            Drag = true;
         }
 
         public override void OnMouseUp(MouseID button)
@@ -70,12 +72,23 @@ namespace Vivid.UI.Forms
             OnEnter();
             OnClicked?.Invoke(this, null);
             Down = false;
+            Drag = false;
+        }
+
+        public override void OnMouseMove(Position position, Delta delta)
+        {
+            //base.OnMouseMove(position, delta);
+            if (Drag)
+            {
+                OnMove?.Invoke(this, (int)delta.x, (int)delta.y);
+             //   Environment.Exit(1);
+            }
         }
 
         public override void OnRender()
         {
             Draw(Image);
-            Draw(SelectedImage, -1, -1, -1, -1, SelectedCol);
+           // Draw(SelectedImage, -1, -1, -1, -1, SelectedCol);
             UI.DrawString(Text, RenderPosition.x + Size.w / 2 - UI.SystemFont.StringWidth(Text) / 2, RenderPosition.y + Size.h / 2 - UI.SystemFont.StringHeight() / 2 , new Maths.Color(1, 1, 1, 1));
         }
     }

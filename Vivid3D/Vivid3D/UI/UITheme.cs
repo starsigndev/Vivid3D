@@ -10,6 +10,12 @@ namespace Vivid.UI
             set;
         }
 
+        public Texture2D FramePure
+        {
+            get;
+            set;
+        }
+
         public Texture2D Button
         {
             get;
@@ -22,14 +28,26 @@ namespace Vivid.UI
             set;
         }
 
+        public Texture2D FrameShadow
+        {
+            get;
+            set;
+        }
+
         public UITheme(string name)
         {
-            var frame = Content.Content.GlobalFindItem(name + ".frame.png");
-            Frame = new Texture2D(frame.GetStream(), frame.Width, frame.Height);
+            //var frame = Content.Content.GlobalFindItem(name + ".frame.png");
+            Frame = new Texture2D("ui/theme/" + name + "/frame.png");
+
+            FramePure = new Texture2D("ui/theme/" + name + "/framepure.png");
+
             var button = Content.Content.GlobalFindItem(name + ".button.png");
-            Button = new Texture2D(button.GetStream(), button.Width, button.Height);
-            var button_sel = Content.Content.GlobalFindItem(name + ".button_selected.png");
-            ButtonSelected = new Texture2D(button_sel.GetStream(),button_sel.Width, button_sel.Height);
+            Button = new Texture2D("ui/theme/" + name + "/button.png");
+
+            FrameShadow = new Texture2D("ui/theme/" + name + "/shadow.png");
+
+            //var button_sel = Content.Content.GlobalFindItem(name + ".button_selected.png");
+            ButtonSelected = new Texture2D("ui/theme/"+name+"/buttonselected.png");// new Texture2D(button_sel.GetStream(),button_sel.Width, button_sel.Height);
         }
     }
 }

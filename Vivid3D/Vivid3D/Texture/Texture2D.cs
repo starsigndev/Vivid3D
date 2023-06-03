@@ -223,5 +223,11 @@ namespace Vivid.Texture
         }
 
         //public static Dictionary<string, Texture2D> Cache = new Dictionary<string, Texture2D>();
+        public void Copybuffer(int x,int y)
+        {
+            Bind(0);
+            GL.CopyTextureSubImage2D(Handle, 0, 0, 0, x, y, Width, Height);
+            Unbind(0);
+        }
     }
 }

@@ -205,6 +205,7 @@ namespace Vivid.App
             GL.Disable(EnableCap.Blend);
             Scene.ShaderModules.Shaders.InitShaders();
             int aa = 5;
+            Init();
             //  GL.Disable(EnableCap.)
         
         }
@@ -265,6 +266,7 @@ namespace Vivid.App
 
             GameInput.MousePosition = mp;
             GameInput.MouseDelta = delta;
+            Update();
             if (States.Count > 0)
             {
                 States.Peek().Update();
@@ -275,7 +277,7 @@ namespace Vivid.App
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             //base.OnRenderFrame(args);
-            GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             int time = Environment.TickCount;
@@ -289,10 +291,12 @@ namespace Vivid.App
             }
             fframes++;
 
+            Render();
             if (States.Count > 0)
             {
                 States.Peek().Render();
             }
+
 
             SwapBuffers();
         }

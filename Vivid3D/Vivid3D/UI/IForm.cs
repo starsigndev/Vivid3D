@@ -1,9 +1,12 @@
-﻿using Vivid.Maths;
+﻿using OpenTK.Compute.OpenCL;
+using Vivid.Maths;
+using Vivid.Shaders;
 using Vivid.Texture;
 
 namespace Vivid.UI
 {
     public delegate void Action(IForm form, object data = null);
+    public delegate void FormMove(IForm form, int x, int y);
 
     public class IForm
     {
@@ -74,6 +77,12 @@ namespace Vivid.UI
             set;
         }
 
+        public FormMove OnMove
+        {
+            get;
+            set;
+        }
+
         public Action OnDeactivated
         {
             get;
@@ -86,13 +95,39 @@ namespace Vivid.UI
             set;
         }
 
+        private Texture2D BGTex
+        {
+            get;
+            set;
+        }
+
+        public Maths.Size MinimumSize
+        {
+            get;
+            set;
+        }
+
+        private static Vivid.Draw.SMDrawBlur2D BlurFX
+        {
+            get;
+            set;
+        }
+
+        
+
         public IForm()
         {
+            if (BlurFX == null)
+            {
+                BlurFX = new Vivid.Draw.SMDrawBlur2D();
+            }
             Position = new Position(0, 0);
             Size = new Maths.Size(0, 0);
             Text = string.Empty;
             Forms = new List<IForm>();
+            BGTex = null;
             Root = null;
+            MinimumSize = new Maths.Size(0, 0);
             Color = new Maths.Color(1, 1, 1, 1);
             OnClick = null;
             OnClicked = null;
@@ -116,8 +151,24 @@ namespace Vivid.UI
 
         }
 
-        public IForm Set(Position position, Vivid.Maths.Size size, string text)
+        public IForm Set(int x,int y,int w,int h,string text = "")
         {
+            return Set(new Position(x, y), new Vivid.Maths.Size(w, h), text);
+
+        }
+        public IForm Set(Position position, Vivid.Maths.Size size, string text="")
+        {
+            if (MinimumSize.w > 0)
+            {
+                if (size.w < MinimumSize.w)
+                {
+                    size.w = MinimumSize.w;
+                }
+                if (size.h < MinimumSize.h)
+                {
+                    size.h = MinimumSize.h;
+                }
+            }
             Position = position;
             Size = size;
             Text = text;
@@ -165,7 +216,7 @@ namespace Vivid.UI
         {
         }
 
-        public void Draw(Texture2D image, int x = -1, int y = -1, int w = -1, int h = -1, Maths.Color col = null)
+        public void Draw(Texture2D image, int x = -1, int y = -1, int w = -1, int h = -1, Maths.Color col = null,ShaderModule shader=null)
         {
             if (x == -1)
             {
@@ -180,8 +231,8 @@ namespace Vivid.UI
             }
             else
             {
-                x = RenderPosition.x + x;
-                y = RenderPosition.y + y;
+               // x = RenderPosition.x + x;
+               // y = RenderPosition.y + y;
             }
 
             if(col == null)
@@ -190,7 +241,7 @@ namespace Vivid.UI
             }
             UI.Draw.Begin();
             UI.Draw.Draw(image,new Rect(x, y, w, h), new Vivid.Maths.Color(col.r, col.g,col.b, col.a));
-            UI.Draw.End();
+            UI.Draw.End(shader);
             
            
         }
@@ -226,6 +277,30 @@ namespace Vivid.UI
         {
 
         }
+
+        public void BlurBG(float blur=0.5f)
+        {
+            if (BGTex == null || BGTex.Width != Size.w || BGTex.Height != Size.h) 
+            {
+                BGTex = new Texture2D(Size.w, Size.h);
+            }
+            int ty = Vivid.App.VividApp.FrameHeight - (RenderPosition.y + Size.h);
+
+            //int sy = App.AppInfo.Height - ty;
+
+
+
+            BlurFX.Blur = 0.03f;
+            BGTex.Copybuffer(RenderPosition.x, ty);
+            Draw(BGTex,RenderPosition.x,RenderPosition.y+Size.h,Size.w,-Size.h,new Maths.Color(0,1,1,1),BlurFX);
+            //UI.Draw.Begin();
+            //UI.Draw.Draw(BGTex, new Rect(x, y, w, h), new Vivid.Maths.Color(col.r, col.g, col.b, col.a));
+            //UI.Draw.End();
+
+
+
+        }
+
         //public void ScaleColor(float scale)
         //{
 

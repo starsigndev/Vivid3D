@@ -84,13 +84,14 @@ namespace Vivid.UI
             if (UIBase == null)
             {
                 //UIBase = new Content.Content(VividApp.ContentPath + "uibase");
-                var cursor = Content.Content.GlobalFindItem("cursor1");
-                UICursor = new Texture2D(cursor.GetStream(), cursor.Width, cursor.Height);
+                //    var cursor = Content.Content.GlobalFindItem("cursor1");
+                //  UICursor = new Texture2D(cursor.GetStream(), cursor.Width, cursor.Height);
+                UICursor = new Texture2D("edit/cursor.png");
                 Draw = new SmartDraw();
 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("darkknight");
+                    Theme = new UITheme("darknight");
                 }
 
                 SystemFont = new kFont("gemini/font/orb.pf");
@@ -148,6 +149,7 @@ namespace Vivid.UI
 
         public void UpdateList(List<IForm> list)
         {
+            bool over_leave = false;
             if (Pressed[0] == null)
             {
                 foreach (var form in list)
@@ -159,6 +161,7 @@ namespace Vivid.UI
                             if (Over != form)
                             {
                                 Over.OnLeave();
+                                over_leave = true;
                             }
                         }
                         if (Over != form)
@@ -171,6 +174,17 @@ namespace Vivid.UI
                 }
             }
 
+            if (Over != null && Pressed[0]==null)
+            {
+                if (over_leave == false)
+                {
+                    if (Over.InBounds(MousePosition) == false)
+                    {
+                        Over.OnLeave();
+                        Over = null;
+                    }
+                }
+            }
             if (Over != null)
             {
                 Over.OnMouseMove(MousePosition, MouseDelta);

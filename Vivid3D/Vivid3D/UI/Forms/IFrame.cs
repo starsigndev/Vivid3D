@@ -2,13 +2,22 @@
 {
     public class IFrame : IForm
     {
-        public IFrame()
+        public IFrame(bool pure = false)
         {
-            Image = UI.Theme.Frame;
+            if (pure)
+            {
+                Image = UI.Theme.FramePure;
+            }
+            else
+            {
+                Image = UI.Theme.Frame;
+            }
+            Color = new Maths.Color(1, 1, 1, 0.75f);
         }
 
         public override void OnRender()
         {
+            BlurBG();
             Draw(Image);
         }
     }
