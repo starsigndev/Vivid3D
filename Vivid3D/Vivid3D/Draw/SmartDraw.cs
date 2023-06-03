@@ -155,7 +155,7 @@ namespace Vivid.Draw
             GL.DepthFunc(DepthFunction.Lequal);
           //  GL.Disable(EnableCap.DepthTest);
             GL.Viewport(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
-            GL.Disable(EnableCap.ScissorTest);
+        //    GL.Disable(EnableCap.ScissorTest);
 
             switch (Blend)
             {

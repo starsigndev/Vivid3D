@@ -2,7 +2,7 @@
 using Vivid.Maths;
 using Vivid.Shaders;
 using Vivid.Texture;
-
+using OpenTK.Graphics.OpenGL;
 namespace Vivid.UI
 {
     public delegate void Action(IForm form, object data = null);
@@ -58,10 +58,28 @@ namespace Vivid.UI
                 Position root = new Position(0, 0);
                 if (Root != null)
                 {
-                    root = Root.RenderPosition;
+                    root = Root.RenderPosition - Root.ScrollValue;
                 }
 
                 return root + Position;
+            }
+        }
+
+        public Maths.Size ContentSize
+        {
+            get
+            {
+
+                int max_y = 0;
+                foreach(var item in Forms)
+                {
+                    if (item.Position.y > max_y)
+                    {
+                        max_y = item.Position.y;
+                    }
+                }
+                return new Maths.Size(0, max_y);
+
             }
         }
 
@@ -113,6 +131,12 @@ namespace Vivid.UI
             set;
         }
 
+        public Position ScrollValue
+        {
+            get;
+            set;
+        }
+
         
 
         public IForm()
@@ -133,6 +157,7 @@ namespace Vivid.UI
             OnClicked = null;
             OnActivated = null;
             OnDeactivated = null;
+            ScrollValue = new Position(0, 0);
         }
 
         public IForm AddForm(IForm form)
@@ -258,10 +283,22 @@ namespace Vivid.UI
         public void Render()
         {
             OnRender();
+
+            int rx, ry, w, h;
+            rx = RenderPosition.x;
+            ry = RenderPosition.y;
+            w = Size.w;
+            h = Size.h;
+            int ty = Vivid.App.VividApp.FrameHeight - (ry + Size.h);
+          
             foreach (var form in Forms)
             {
+                GL.Enable(EnableCap.ScissorTest);
+                GL.Scissor(rx, ty, w, h);
                 form.Render();
+                GL.Disable(EnableCap.ScissorTest);
             }
+            
         }
 
         public virtual bool InBounds(Position pos)

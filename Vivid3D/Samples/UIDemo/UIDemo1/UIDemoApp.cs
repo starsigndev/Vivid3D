@@ -30,6 +30,13 @@ namespace UIDemo1
 
             ui.AddForm(win1);
 
+            IButton b1, b2;
+
+            b1 = new IButton().Set(20, 80, 120, 30, "Test 1") as IButton;
+            b2 = new IButton().Set(20, 550, 120, 40, "Window 2") as IButton;
+
+            win1.Content.AddForms(b1, b2);
+
             //base.Init();
         }
 

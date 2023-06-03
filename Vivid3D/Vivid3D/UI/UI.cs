@@ -111,6 +111,7 @@ namespace Vivid.UI
 
             GetMouse();
             Root = new IForm();
+            Root.Set(0, 0, Vivid.App.VividApp.FrameWidth, Vivid.App.VividApp.FrameHeight);
         }
 
         public void AddForm(IForm form)

@@ -50,6 +50,12 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public IVerticalScroller VerticalScroller
+        {
+            get;
+            set;
+        }
+
         public IWindow(string title)
         {
             Text = title;
@@ -60,7 +66,7 @@ namespace Vivid.UI.Forms
             ResizeButton = new IButton();
             AddForms(Title, Content, RightEdge, BottomEdge,ResizeButton);
             TitleHeight = 28;
-            EdgeSize = 8;
+            EdgeSize = 12;
             Title.OnMove = (form, xm, ym) =>
             {
                 Position.x += xm;
@@ -72,6 +78,13 @@ namespace Vivid.UI.Forms
                 Set(Position, new Maths.Size(Size.w+xm, Size.h+ym), Text);
             }         ;
             MinimumSize = new Maths.Size(128,128);
+            VerticalScroller = new IVerticalScroller();
+            RightEdge.AddForm(VerticalScroller);
+            VerticalScroller.OnMove = (form, x, y) =>
+            {
+                Content.ScrollValue = new Maths.Position(0, y);
+                Console.WriteLine("SY:" + Content.ScrollValue.y);
+            };
         }
 
         public override void AfterSet()
@@ -82,8 +95,15 @@ namespace Vivid.UI.Forms
             RightEdge.Set(Size.w - EdgeSize,Content.Position.y, EdgeSize, Content.Size.h);
             BottomEdge.Set(0, Content.Size.h+TitleHeight, Content.Size.w, EdgeSize);
             ResizeButton.Set(Size.w - EdgeSize, Content.Size.h + TitleHeight, EdgeSize, EdgeSize, "-");
+            VerticalScroller.Set(0, 0, EdgeSize, RightEdge.Size.h, "");
         }
-
+        public override void OnUpdate()
+        {
+            //base.OnUpdate();
+            int my = Content.ContentSize.h;
+            VerticalScroller.MaxValue = my;
+            Console.WriteLine("ContentY:" + my);
+        }
         public override void OnRender()
         {
             //base.OnRender();
