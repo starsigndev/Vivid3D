@@ -137,6 +137,11 @@ namespace Vivid.UI
             set;
         }
 
+        public bool Scissor
+        {
+            get;
+            set;
+        }
         
 
         public IForm()
@@ -145,6 +150,7 @@ namespace Vivid.UI
             {
                 BlurFX = new Vivid.Draw.SMDrawBlur2D();
             }
+            Scissor = false;
             Position = new Position(0, 0);
             Size = new Maths.Size(0, 0);
             Text = string.Empty;
@@ -290,13 +296,19 @@ namespace Vivid.UI
             w = Size.w;
             h = Size.h;
             int ty = Vivid.App.VividApp.FrameHeight - (ry + Size.h);
-          
+
             foreach (var form in Forms)
             {
-                GL.Enable(EnableCap.ScissorTest);
-                GL.Scissor(rx, ty, w, h);
+                if (Scissor)
+                {
+                    GL.Enable(EnableCap.ScissorTest);
+                    GL.Scissor(rx, ty, w, h);
+                }
                 form.Render();
-                GL.Disable(EnableCap.ScissorTest);
+                if (Scissor)
+                {
+                    GL.Disable(EnableCap.ScissorTest);
+                }
             }
             
         }

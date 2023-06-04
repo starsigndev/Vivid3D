@@ -3,6 +3,7 @@ using Vivid.Draw;
 using Vivid.Font;
 using Vivid.Maths;
 using Vivid.Texture;
+using Vivid.UI.Forms;
 using OpenTK.Graphics.OpenGL;
 namespace Vivid.UI
 {
@@ -21,6 +22,12 @@ namespace Vivid.UI
         }
 
         public IForm Root
+        {
+            get;
+            set;
+        }
+
+        public IMenu Menu
         {
             get;
             set;
@@ -111,7 +118,8 @@ namespace Vivid.UI
 
             GetMouse();
             Root = new IForm();
-            Root.Set(0, 0, Vivid.App.VividApp.FrameWidth, Vivid.App.VividApp.FrameHeight);
+            Root.Set(0, 30, Vivid.App.VividApp.FrameWidth, Vivid.App.VividApp.FrameHeight-30);
+            Menu = new IMenu().Set(0, 0, VividApp.FrameWidth, 30, "") as IMenu;
         }
 
         public void AddForm(IForm form)
@@ -142,6 +150,7 @@ namespace Vivid.UI
             List<IForm> form_list = new List<IForm>();
 
             AddToList(form_list, Root);
+            AddToList(form_list, Menu);
 
             form_list.Reverse();
 
@@ -234,7 +243,8 @@ namespace Vivid.UI
             
            // Draw.Begin();
             Root.Render();
-           // Draw.End();
+            Menu.Render();
+            // Draw.End();
 
             GL.Clear(ClearBufferMask.DepthBufferBit);// //..Disable(EnableCap.DepthTest);
 
@@ -242,6 +252,7 @@ namespace Vivid.UI
             Draw.Begin();
             Draw.Draw(UICursor, new Rect(MousePosition.x, MousePosition.y, 32, 32),new Maths.Color(1, 1, 1, 0.75f));
             Draw.End();
+          
 
             GL.Enable(EnableCap.DepthTest);
 

@@ -67,6 +67,7 @@ namespace Vivid.UI.Forms
             AddForms(Title, Content, RightEdge, BottomEdge,ResizeButton);
             TitleHeight = 28;
             EdgeSize = 12;
+            Content.Scissor = true;
             Title.OnMove = (form, xm, ym) =>
             {
                 Position.x += xm;

@@ -1,6 +1,7 @@
 ﻿using OpenTK.Windowing.Desktop;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,27 @@ namespace UIDemo1
 
             win1.Content.AddForms(b1, b2);
 
+            var file = ui.Menu.AddItem("File");
+            var edit = ui.Menu.AddItem("Edit");
+            ui.Menu.AddItem("Project");
+            file.AddItem("Load Project");
+            file.AddItem("Save Project");
+            file.AddItem("Exit");
+            var cut = edit.AddItem("Cut");
+            var paste = edit.AddItem("Paste");
+
+            paste.Click = (item) =>
+            {
+                Environment.Exit(0);
+            };
+
+            edit.AddItem("Other test item");
+
+            cut.AddItem("Cut this");
+            var co = cut.AddItem("Cut this other");
+            cut.AddItem("Cut other");
+            co.AddItem("Check 1");
+            co.AddItem("Other check 2");
             //base.Init();
         }
 
