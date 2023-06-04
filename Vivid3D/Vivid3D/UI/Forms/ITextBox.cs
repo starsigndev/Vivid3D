@@ -499,7 +499,7 @@ namespace Vivid.UI.Forms
             {
                 if (cx > mx)
                 {
-                    EditX = i - 1;
+                    EditX = TextStart + i - 1;
                     if (EditX < 0) EditX = 0;
                     return;
                 }

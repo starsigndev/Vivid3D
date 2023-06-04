@@ -80,7 +80,7 @@ namespace UIDemo1
             };
             win2.Content.Scissor = false;
 
-           // ui.AddForm(win2);
+            ui.AddForm(win2);
 
             ITextBox tb1 = new ITextBox().Set(20, 20, 150, 30, "") as ITextBox;
             frame1.AddForm(tb1);
