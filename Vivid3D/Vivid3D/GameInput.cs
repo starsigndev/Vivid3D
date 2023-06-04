@@ -18,6 +18,9 @@ namespace Vivid
         public static Vector2 MouseDelta;
         public static bool[] MouseButton = new bool[32];
         public static bool[] mKeyDown = new bool[512];
+        public static bool mShiftDown = false;
+        public static OpenTK.Windowing.GraphicsLibraryFramework.Keys mCurrentKey;
+        public static bool mKeyIsDown = false;
 
         public static bool MouseButtonDown(MouseID id)
         {

@@ -98,7 +98,7 @@ namespace Vivid.UI
 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("darknight");
+                    Theme = new UITheme("light");
                 }
 
                 SystemFont = new kFont("gemini/font/orb.pf");
@@ -115,6 +115,10 @@ namespace Vivid.UI
             }
 
             Active = null;
+            for(int i = 0; i < 255; i++)
+            {
+                LastKey[i] = false;
+            }
 
             GetMouse();
             Root = new IForm();
@@ -155,6 +159,134 @@ namespace Vivid.UI
             form_list.Reverse();
 
             UpdateList(form_list);
+            UpdateKeys();
+        }
+        bool firstKey = true;
+        int nextKey = 0;
+        int curKey = -1;
+        private bool[] LastKey = new bool[512];
+        private bool LastShift = false;
+        public void UpdateKeys()
+        {
+            if (!firstKey)
+            {
+                if (GameInput.mKeyDown[curKey] == false)
+                {
+                    firstKey = true;
+                    
+                }
+            }
+
+            if(GameInput.mShiftDown && !LastShift)
+            {
+                if (Active != null)
+                {
+                    Active.OnKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.LeftShift);
+                }
+                LastShift = true;
+            }
+            if(!GameInput.mShiftDown && LastShift)
+            {
+                if (Active != null)
+                {
+                    Active.OnKeyUp(OpenTK.Windowing.GraphicsLibraryFramework.Keys.LeftShift);
+                }
+                LastShift = false;
+            }
+
+            if (GameInput.mKeyIsDown)
+            {
+                
+                if (curKey == -1)
+                {
+                    curKey = (int)GameInput.mCurrentKey;
+                    nextKey = Environment.TickCount + 400;
+                    if (Active != null)
+                    {
+                        Active.OnKey(GameInput.mCurrentKey);
+                    }
+                }
+                else
+                {
+
+                    if (curKey == (int)GameInput.mCurrentKey)
+                    {
+                        int tick = Environment.TickCount;
+                        if (tick > nextKey)
+                        {
+                            nextKey = tick + 100;
+                            if (Active != null)
+                            {
+                                Active.OnKey(GameInput.mCurrentKey);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        curKey = -1;
+                    }
+                }
+            }
+            else
+            {
+                curKey = -1;
+            }
+
+            return;
+            for(int i = 0; i < 512; i++)
+            {
+                if (i == (int)OpenTK.Windowing.GraphicsLibraryFramework.Keys.LeftShift || i==(int)OpenTK.Windowing.GraphicsLibraryFramework.Keys.RightShift)
+                {
+                    continue;
+                }
+                bool key = GameInput.mKeyDown[i];
+                if(key && LastKey[i]==false)
+                {
+                   // Console.WriteLine("::::" + (OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                    if (Active != null)
+                    {
+                        Active.OnKeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                    }
+                }
+                if(!key && LastKey[i] == true)
+                {
+                    if (Active != null)
+                    {
+                        Active.OnKeyUp((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                    }
+                }
+                if (GameInput.mKeyDown[i])
+                {
+                    if (Active != null)
+                    {
+                        if (firstKey)
+                        {
+                            Active.OnKey((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                            nextKey = Environment.TickCount + 750;
+                            firstKey = false;
+                                curKey = i;
+                        }
+                        else
+                        {
+                            if (i != curKey)
+                            {
+                                firstKey = true;
+
+                            }
+                            else
+                            {
+                                if (Environment.TickCount > nextKey)
+                                {
+                                    Active.OnKey((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                                    nextKey = Environment.TickCount + 280;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                LastKey[i] = key;
+            }
         }
 
         public void UpdateList(List<IForm> list)
@@ -203,9 +335,11 @@ namespace Vivid.UI
                     if (GameInput.MouseButtonDown(MouseID.Left))
                     {
                         Pressed[0] = Over;
+                        Over.Active = true;
                         if (Active != null && Active != Over)
                         {
                             Active.OnDeactivate();
+                            Active.Active = false;
                         }
                         Active = Over;
                         Active.OnActivate();

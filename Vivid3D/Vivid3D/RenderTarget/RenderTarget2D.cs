@@ -56,6 +56,7 @@ namespace Vivid.RenderTarget
 
         ~RenderTarget2D()
         {
+            return;
             GL.DeleteFramebuffer(FB);
 
             GL.DeleteRenderbuffer(RB);

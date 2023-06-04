@@ -1,4 +1,5 @@
-﻿using Vivid.Texture;
+﻿using Vivid.Maths;
+using Vivid.Texture;
 
 namespace Vivid.UI
 {
@@ -34,11 +35,17 @@ namespace Vivid.UI
             set;
         }
 
+        public Vivid.Maths.Color TextColor
+        {
+            get;
+            set;
+        }
+
         public UITheme(string name)
         {
             //var frame = Content.Content.GlobalFindItem(name + ".frame.png");
             Frame = new Texture2D("ui/theme/" + name + "/frame.png");
-
+            TextColor = new Maths.Color(0.1f, 0.1f, 0.1f, 1.0f);
             FramePure = new Texture2D("ui/theme/" + name + "/framepure.png");
 
             var button = Content.Content.GlobalFindItem(name + ".button.png");

@@ -214,12 +214,37 @@ namespace Vivid.App
         {
             //base.OnKeyDown(e);
             GameInput.mKeyDown[(int)e.Key] = true; ;
+            
+            if (e.Shift)
+            {
+                GameInput.mShiftDown = true;
+            }
+           // else
+            {
+                GameInput.mCurrentKey = e.Key;
+                GameInput.mKeyIsDown = true;
+            }
         }
 
         protected override void OnKeyUp(KeyboardKeyEventArgs e)
         {
             //base.OnKeyUp(e);
-            GameInput.mKeyDown[(int)e.Key] = false;
+            Console.WriteLine("Key:" + e.Key.ToString());
+            Console.WriteLine("ID:" + (int)e.Key);
+            //GameInput.mKeyDown[(int)e.Key] = false;
+
+
+            if (e.Shift)
+            {
+                GameInput.mShiftDown = false;
+            }
+           // else
+            {
+                if(GameInput.mCurrentKey == e.Key)
+                {
+                    GameInput.mKeyIsDown = false;
+                }
+            }
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)

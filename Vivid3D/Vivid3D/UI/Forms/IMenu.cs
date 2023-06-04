@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Maths;
+using Vivid.Texture;
 
 namespace Vivid.UI.Forms
 {
@@ -16,6 +17,11 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public Texture2D Icon
+        {
+            get;
+            set;
+        }
         public MenuAction Click
         {
             get;
@@ -152,7 +158,7 @@ namespace Vivid.UI.Forms
                     Draw(UI.Theme.FramePure, dx-1, dy - 6, UI.SystemFont.StringWidth(item.Text) + 22, 29, new Maths.Color(1.4f, 1.4f, 1.4f, 0.8f));
                     Draw(UI.Theme.FramePure, dx, dy-4, UI.SystemFont.StringWidth(item.Text) + 20, 25, new Maths.Color(0.5f, 0.5f, 0.5f, 0.8f));
                 }
-                UI.DrawString(item.Text, dx+10,dy, new Maths.Color(1, 1, 1, 1));
+                UI.DrawString(item.Text, dx+10,dy,UI.Theme.TextColor);
                 item.DX = dx;
                 item.DY = dy;
                 dx += UI.SystemFont.StringWidth(item.Text) + 20;

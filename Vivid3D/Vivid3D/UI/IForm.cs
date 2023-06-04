@@ -143,6 +143,17 @@ namespace Vivid.UI
             set;
         }
         
+        public bool ScissorSelf
+        {
+            get;
+            set;
+        }
+
+        public bool Active
+        {
+            get;
+            set;
+        }
 
         public IForm()
         {
@@ -154,6 +165,8 @@ namespace Vivid.UI
             Position = new Position(0, 0);
             Size = new Maths.Size(0, 0);
             Text = string.Empty;
+            ScissorSelf = false;
+            Active = false;
             Forms = new List<IForm>();
             BGTex = null;
             Root = null;
@@ -205,6 +218,21 @@ namespace Vivid.UI
             Text = text;
             AfterSet();
             return this;
+        }
+
+        public virtual void OnKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys keys)
+        {
+
+        }
+
+        public virtual void OnKeyUp(OpenTK.Windowing.GraphicsLibraryFramework.Keys key)
+        {
+
+        }
+
+        public virtual void OnKey(OpenTK.Windowing.GraphicsLibraryFramework.Keys key)
+        {
+
         }
 
         public virtual void OnEnter()
@@ -288,7 +316,7 @@ namespace Vivid.UI
 
         public void Render()
         {
-            OnRender();
+           
 
             int rx, ry, w, h;
             rx = RenderPosition.x;
@@ -296,7 +324,16 @@ namespace Vivid.UI
             w = Size.w;
             h = Size.h;
             int ty = Vivid.App.VividApp.FrameHeight - (ry + Size.h);
-
+            if (ScissorSelf)
+            {
+                GL.Enable(EnableCap.ScissorTest);
+                GL.Scissor(rx, ty, w, h);
+            }
+            OnRender();
+            if (ScissorSelf)
+            {
+                GL.Disable(EnableCap.ScissorTest);
+            }
             foreach (var form in Forms)
             {
                 if (Scissor)
@@ -327,6 +364,13 @@ namespace Vivid.UI
 
         }
 
+        public virtual void AfterSetChildren()
+        {
+            foreach(var form in Forms)
+            {
+                form.AfterSet();
+            }
+        }
         public void BlurBG(float blur=0.5f)
         {
             if (BGTex == null || BGTex.Width != Size.w || BGTex.Height != Size.h) 

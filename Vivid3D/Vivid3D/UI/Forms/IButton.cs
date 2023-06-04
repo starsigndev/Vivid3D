@@ -18,13 +18,13 @@ namespace Vivid.UI.Forms
 
             Image = UI.Theme.Button;
             SelectedImage = UI.Theme.ButtonSelected;
-            Color = new Maths.Color(0.4f, 0.4f, 0.4f, 0.5f);
+            Color = new Maths.Color(0.65f, 0.65f, 0.65f, 0.5f);
         }
 
         public override void OnEnter()
         {
             //base.OnEnter();
-            Target = (new Maths.Color(1.4f, 1.4f, 1.4f, 0.7f));
+            Target = (new Maths.Color(1.0f, 1.0f, 1.0f, 0.85f));
             Over = true;
             //   Console.WriteLine("Button!!!!!!!!");
             // Environment.Exit(0);
@@ -34,7 +34,7 @@ namespace Vivid.UI.Forms
         {
             //base.OnLeave();
             Over = false;
-            Target = new Maths.Color(0.5f, 0.5f, 0.5f, 0.8f);
+            Target = new Maths.Color(0.65f, 0.65f, 0.65f, 0.8f);
         }
 
         public override void OnUpdate()
@@ -52,7 +52,7 @@ namespace Vivid.UI.Forms
             }
             else
             {
-                SelectedCol += (new Maths.Color(1, 1, 1, 0) - SelectedCol) * 0.08f;
+                SelectedCol += (new Maths.Color(0.65f, 0.65f, 0.65f, 0) - SelectedCol) * 0.08f;
             }
         }
 
@@ -89,7 +89,7 @@ namespace Vivid.UI.Forms
         {
             Draw(Image);
            // Draw(SelectedImage, -1, -1, -1, -1, SelectedCol);
-            UI.DrawString(Text, RenderPosition.x + Size.w / 2 - UI.SystemFont.StringWidth(Text) / 2, RenderPosition.y + Size.h / 2 - UI.SystemFont.StringHeight() / 2 , new Maths.Color(1, 1, 1, 1));
+            UI.DrawString(Text, RenderPosition.x + Size.w / 2 - UI.SystemFont.StringWidth(Text) / 2, RenderPosition.y + Size.h / 2 - UI.SystemFont.StringHeight() / 2 ,UI.Theme.TextColor);
         }
     }
 }

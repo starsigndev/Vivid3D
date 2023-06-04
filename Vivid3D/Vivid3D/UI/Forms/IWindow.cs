@@ -97,13 +97,14 @@ namespace Vivid.UI.Forms
             BottomEdge.Set(0, Content.Size.h+TitleHeight, Content.Size.w, EdgeSize);
             ResizeButton.Set(Size.w - EdgeSize, Content.Size.h + TitleHeight, EdgeSize, EdgeSize, "-");
             VerticalScroller.Set(0, 0, EdgeSize, RightEdge.Size.h, "");
+           // Content.AfterSetChildren();
         }
         public override void OnUpdate()
         {
             //base.OnUpdate();
             int my = Content.ContentSize.h;
             VerticalScroller.MaxValue = my;
-            Console.WriteLine("ContentY:" + my);
+         //   Console.WriteLine("ContentY:" + my);
         }
         public override void OnRender()
         {

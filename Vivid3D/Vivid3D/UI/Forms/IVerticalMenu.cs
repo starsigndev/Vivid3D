@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Maths;
+using Vivid.Texture;
 
 namespace Vivid.UI.Forms
 {
     public class IVerticalMenu : IForm
     {
+        public static Texture2D Arrow
+        {
+            get;
+            set;
+        }
         public List<MenuItem> Items
         {
             get;set;
@@ -36,6 +42,10 @@ namespace Vivid.UI.Forms
             OverItem = null;
             OpenMenu = null;
             OpenItem = null;
+            if (Arrow == null)
+            {
+                Arrow = new Texture2D("ui/arrow.png");
+            }
         }
 
         public override void OnMouseDown(MouseID button)
@@ -131,10 +141,19 @@ namespace Vivid.UI.Forms
                     Draw(UI.Theme.FramePure,RenderPosition.x, dy - 4,Size.w, 27, new Maths.Color(1.7f, 1.7f, 1.7f, 0.8f));
                     Draw(UI.Theme.FramePure,RenderPosition.x+1,dy-3,Size.w-2, 25, new Maths.Color(0.8f, 0.8f, 0.8f, 0.8f));
                 }
-                UI.DrawString(item.Text, dx, dy+5, new Maths.Color(1, 1, 1, 1));
+                if (item.Icon != null)
+                {
+                    Draw(item.Icon, RenderPosition.x + 5, dy+2, 16, 16, new Maths.Color(1, 1, 1, 1));
+                }
+                UI.DrawString(item.Text, dx+5, dy+5,UI.Theme.TextColor);
                 item.DY = dy;
+                if (item.SubItems.Count > 0)
+                {
+                    Draw(Arrow, RenderPosition.x + Size.w - 22, dy+2, 16, 16, new Maths.Color(1, 1, 1, 1));
+                }
                 dy = dy + UI.SystemFont.StringHeight() + 15;
                 item.DX = dx;
+
 
 
             }

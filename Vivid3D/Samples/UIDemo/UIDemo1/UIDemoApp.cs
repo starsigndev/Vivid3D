@@ -5,8 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vivid.Texture;
 using Vivid.UI;
 using Vivid.UI.Forms;
+using OpenTK.Graphics.OpenGL;
 
 namespace UIDemo1
 {
@@ -25,7 +27,7 @@ namespace UIDemo1
             IFrame frame1 = new IFrame().Set(new Vivid.Maths.Position(0, 0), new Vivid.Maths.Size(Vivid.App.VividApp.FrameWidth,Vivid.App.VividApp.FrameHeight),"") as IFrame;
             ui.AddForm(frame1);
             IButton but1 = new IButton().Set(new Vivid.Maths.Position(32, 32), new Vivid.Maths.Size(128, 32), "Test 1") as IButton;
-            frame1.AddForm(but1);
+            //frame1.AddForm(but1);
 
             IWindow win1 = new IWindow("Test").Set(64, 256, 300, 500, "Title") as IWindow;
 
@@ -52,6 +54,10 @@ namespace UIDemo1
                 Environment.Exit(0);
             };
 
+            var t1 = new Texture2D("ui/test1.png");
+
+            cut.Icon = t1;
+
             edit.AddItem("Other test item");
 
             cut.AddItem("Cut this");
@@ -60,6 +66,25 @@ namespace UIDemo1
             co.AddItem("Check 1");
             co.AddItem("Other check 2");
             //base.Init();
+
+            IWindow win2 = new IWindow("Render");
+            win2.Set(20, 20, 350, 450,"Render");
+            IRenderTarget view = new IRenderTarget();
+            view.Set(0, 0,win2.Content.Size.w,win2.Content.Size.h);
+            win2.Content.AddForm(view);
+
+            view.ActionRender = (w, h) =>
+            {
+                GL.ClearColor(0, 0, 0, 1);
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            };
+            win2.Content.Scissor = false;
+
+           // ui.AddForm(win2);
+
+            ITextBox tb1 = new ITextBox().Set(20, 20, 150, 30, "") as ITextBox;
+            frame1.AddForm(tb1);
+            
         }
 
         public override void Update()
