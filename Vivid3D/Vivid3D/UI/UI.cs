@@ -98,7 +98,7 @@ namespace Vivid.UI
 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("light");
+                    Theme = new UITheme("arc");
                 }
 
                 SystemFont = new kFont("gemini/font/neo2.pf");

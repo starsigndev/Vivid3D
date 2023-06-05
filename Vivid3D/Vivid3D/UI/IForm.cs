@@ -385,7 +385,7 @@ namespace Vivid.UI
 
             BlurFX.Blur = 0.03f;
             BGTex.Copybuffer(RenderPosition.x, ty);
-            Draw(BGTex,RenderPosition.x,RenderPosition.y+Size.h,Size.w,-Size.h,new Maths.Color(0,1,1,1),BlurFX);
+            Draw(BGTex,RenderPosition.x,RenderPosition.y+Size.h,Size.w,-Size.h,new Maths.Color(1,1,1,1),BlurFX);
             //UI.Draw.Begin();
             //UI.Draw.Draw(BGTex, new Rect(x, y, w, h), new Vivid.Maths.Color(col.r, col.g, col.b, col.a));
             //UI.Draw.End();

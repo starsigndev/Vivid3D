@@ -17,6 +17,18 @@ namespace Vivid.UI
             set;
         }
 
+        public Texture2D FrameH
+        {
+            get;
+            set;
+        }
+
+        public Texture2D FramePureH
+        {
+            get;
+            set;
+        }
+
         public Texture2D Button
         {
             get;
@@ -45,8 +57,10 @@ namespace Vivid.UI
         {
             //var frame = Content.Content.GlobalFindItem(name + ".frame.png");
             Frame = new Texture2D("ui/theme/" + name + "/frame.png");
-            TextColor = new Maths.Color(0.1f, 0.1f, 0.1f, 1.0f);
+            FrameH = new Texture2D("ui/theme/" + name + "/frameh.png");
+            TextColor = new Maths.Color(1f, 1f, 1f, 1.0f);
             FramePure = new Texture2D("ui/theme/" + name + "/framepure.png");
+            FramePureH = new Texture2D("ui/theme/" + name + "/framepureh.png");
 
             var button = Content.Content.GlobalFindItem(name + ".button.png");
             Button = new Texture2D("ui/theme/" + name + "/button.png");

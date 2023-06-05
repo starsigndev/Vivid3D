@@ -120,12 +120,12 @@ namespace Vivid.UI.Forms
                 TextStartX = x;
                 EditX = x;
                 
-                Console.WriteLine("XXX:" + x);
+               
 
             };
             Scroller.OnMove = (form, x, y) =>
             {
-                Console.WriteLine("Y:" + y);
+            
                 y = y / 100;
                 TextStartY = y;
                 if (TextStartY > Lines.Length - 1)
@@ -722,7 +722,7 @@ namespace Vivid.UI.Forms
             CurColor = new Maths.Color(1, 1, 1, 1);
             //base.OnRender();
             Draw(UI.Theme.Frame, RenderPosition.x, RenderPosition.y, Size.w, Size.h, new Maths.Color(2, 2, 2, 2));
-            Draw(UI.Theme.Frame, RenderPosition.x + 2, RenderPosition.y + 2, Size.w - 4, Size.h - 4, new Maths.Color(0.2f, 0.2f, 0.2f, 1.0f));
+            Draw(UI.Theme.Frame, RenderPosition.x + 2, RenderPosition.y + 2, Size.w - 4, Size.h - 4, new Maths.Color(0.35f, 0.35f, 0.35f, 1.0f));
 
             int dx, dy;
             dx = RenderPosition.x + 8;

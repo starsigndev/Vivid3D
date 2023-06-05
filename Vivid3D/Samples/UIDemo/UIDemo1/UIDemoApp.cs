@@ -31,7 +31,7 @@ namespace UIDemo1
 
             IWindow win1 = new IWindow("Test").Set(64, 256, 300, 500, "Title") as IWindow;
 
-//            ui.AddForm(win1);
+            ui.AddForm(win1);
 
             IButton b1, b2;
 
@@ -80,10 +80,12 @@ namespace UIDemo1
             };
             win2.Content.Scissor = false;
 
-            //ui.AddForm(win2);
+            ui.AddForm(win2);
 
             ITextBox tb1 = new ITextBox().Set(20, 20, 150, 30, "") as ITextBox;
             frame1.AddForm(tb1);
+            //tb1.Numeric = true;
+            tb1.Password = true;
             ITextArea ta1 = new ITextArea().Set(30, 80, 550, 500, "") as ITextArea;
             frame1.AddForm(ta1);
 

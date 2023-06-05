@@ -7,11 +7,25 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Maths;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Vivid.UI.Forms
 {
     public class ITextBox : IForm
     { 
+
+        public bool Numeric
+        {
+            get;
+            set;
+        }
+
+        public bool Password
+        {
+            get;
+            set;
+        }
+
         public int TextStart
         {
             get;
@@ -22,6 +36,18 @@ namespace Vivid.UI.Forms
         {
             get;
             set;
+        }
+
+        public float Value
+        {
+            get
+            {
+                return float.Parse(Text);
+            }
+            set
+            {
+                Text = value.ToString();
+            }
         }
 
         private bool CursorOn
@@ -94,14 +120,25 @@ namespace Vivid.UI.Forms
         private int GetActiveCursorX()
         {
             int cx = 0;
-            for(int i = TextStart; i < Text.Length; i++)
+            string text = Text;
+            if (Password)
+            {
+                string replace = "";
+                for (int i = 0; i < text.Length; i++)
+                {
+                    replace = replace + "*";
+                }
+                text = replace;
+            }
+
+            for (int i = TextStart; i < text.Length; i++)
             {
                 if (i == EditX) return cx;
-                cx = cx + UI.SystemFont.StringWidth(Text.Substring(i, 1));
+                cx = cx + UI.SystemFont.StringWidth(text.Substring(i, 1));
             }
             return cx;
         }
-
+        private string numerics = "0123456789.";
         public string KeyToChr(Keys key)
         {
             string chr = "";
@@ -325,7 +362,17 @@ namespace Vivid.UI.Forms
                 }
               
             }
-
+            if (Numeric)
+            {
+                if (numerics.IndexOf(chr) >= 0)
+                {
+                    return chr;
+                }
+                else
+                {
+                    return "";
+                }
+            }
             return chr;
         }
 
@@ -367,6 +414,10 @@ namespace Vivid.UI.Forms
             }
             string chr = "";
             chr = KeyToChr(key);
+            if (chr == "")
+            {
+                return;
+            }
             InsertChr(chr);
             //Text = Text + chr;
 //            EditX++;
@@ -495,7 +546,18 @@ namespace Vivid.UI.Forms
             //base.OnMouseDown(button);
             string txt = GetActiveText();
             int cx = 0;
-            for(int i = 0; i < txt.Length; i++)
+
+            if (Password)
+            {
+                string replace = "";
+                for (int i = 0; i < txt.Length; i++)
+                {
+                    replace = replace + "*";
+                }
+                txt = replace;
+            }
+
+            for (int i = 0; i < txt.Length; i++)
             {
                 if (cx > mx)
                 {
@@ -520,6 +582,16 @@ namespace Vivid.UI.Forms
             Draw(UI.Theme.Frame, RenderPosition.x + 2, RenderPosition.y + 2, Size.w - 4, Size.h - 4, new Maths.Color(0.2f, 0.2f, 0.2f, 1.0f));
 
             string text = GetActiveText();
+
+            if (Password)
+            {
+                string replace = "";
+                for(int i = 0; i < text.Length; i++)
+                {
+                    replace = replace + "*";
+                }
+                text = replace;
+            }
 
             UI.DrawString(text, RenderPosition.x + 7, RenderPosition.y + 8, new Maths.Color(1, 1, 1, 1));
 

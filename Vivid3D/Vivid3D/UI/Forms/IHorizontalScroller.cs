@@ -150,7 +150,7 @@ namespace Vivid.UI.Forms
             //base.OnRender();
 
             float v = Value;
-            Draw(UI.Theme.FramePure, RenderPosition.x+CurrentValue, RenderPosition.y , dh, Size.h);
+            Draw(UI.Theme.FramePureH, RenderPosition.x+CurrentValue, RenderPosition.y , dh, Size.h);
 
         }
 
