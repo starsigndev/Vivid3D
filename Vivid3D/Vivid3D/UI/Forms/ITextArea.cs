@@ -9,6 +9,10 @@ using Vivid.Maths;
 
 namespace Vivid.UI.Forms
 {
+    public enum TextTag
+    {
+        Color,Size,Font,Link,Image
+    }
     public class ITextArea : IForm
     {
         public override string Text
@@ -644,8 +648,45 @@ namespace Vivid.UI.Forms
                 }
             }
         }
+        public Vivid.Maths.Color NextColor(string text,int start)
+        {
+            Maths.Color col = new Maths.Color(0, 0, 0, 1);
+            int next = text.IndexOf(":", start + 1);
+            string r  = text.Substring(start + 1, next - start - 1);
+            int pv = next;
+            next = text.IndexOf(":", next + 1);
+            string g = text.Substring(pv + 1, next - pv - 1);
+            pv = next;
+            next = text.IndexOf("#", next + 1);
+            string b = text.Substring(pv + 1, next - pv - 1);
+            // int a = 5;
+            col.r = float.Parse(r);
+            col.g = float.Parse(g);
+            col.b = float.Parse(b);
+            return col;
+            
+        }
+        private Maths.Color CurColor = new Maths.Color(1, 1, 1,1);
+        public int ParseTag(string text,int i)
+        {
+            int next = text.IndexOf(':',i);
+            string tag = text.Substring(i,(next-i));
+
+            switch (tag)
+            {
+                case "COL":
+                    Vivid.Maths.Color col = NextColor(text, next);
+                    CurColor = col;
+                    //int a = 5;
+                    break;
+            }
+         
+
+            return 0;
+        }
         public override void OnRender()
         {
+            CurColor = new Maths.Color(1, 1, 1, 1);
             //base.OnRender();
             Draw(UI.Theme.Frame, RenderPosition.x, RenderPosition.y, Size.w, Size.h, new Maths.Color(2, 2, 2, 2));
             Draw(UI.Theme.Frame, RenderPosition.x + 2, RenderPosition.y + 2, Size.w - 4, Size.h - 4, new Maths.Color(0.2f, 0.2f, 0.2f, 1.0f));
@@ -658,8 +699,27 @@ namespace Vivid.UI.Forms
             {
                 if (Lines[i] == null) continue;
                 string text = GetActiveText(i);
-
-                UI.DrawString(text, dx, dy, new Maths.Color(1, 1, 1, 1));
+                dx = RenderPosition.x + 8;
+                for(int j = 0; j < text.Length; j++)
+                {
+                    if (text[j]=='#')
+                    {
+                        if (j + 1 >= text.Length)
+                        {
+                            continue;
+                        }
+                        if (text[j+1]=='#')
+                        {
+                            int control = ParseTag(text, j + 2);
+                            int next = text.IndexOf("#", j + 2)+1;
+                            j = next;
+                            continue;
+                        }
+                    }
+                    UI.DrawString(text[j].ToString(), dx, dy, CurColor); ;
+                    dx = dx + UI.SystemFont.StringWidth(text[j].ToString()); ;
+                }
+                //UI.DrawString(text, dx, dy, new Maths.Color(1, 1, 1, 1));
                 dy = dy + UI.SystemFont.StringHeight() + 8;
             }
 
