@@ -12,7 +12,34 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Vivid.UI.Forms
 {
     public class ITextBox : IForm
-    { 
+    {
+
+        public override string Text
+        {
+            get
+            {
+                return _val;
+            }
+            set
+            {
+                if (Numeric)
+                {
+                    float val = float.Parse(value);
+                    if (val < MinValue)
+                    {
+                        val = MinValue;
+                    }
+                    if (val > MaxValue)
+                    {
+                        val = MaxValue;
+                    }
+                    _val = val.ToString();
+                    return;
+                }
+                _val = value;
+            }
+        }
+        string _val;
 
         public bool Numeric
         {
@@ -73,12 +100,26 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public float MinValue
+        {
+            get;
+            set;
+        }
+
+        public float MaxValue
+        {
+            get;
+            set;
+        }
+
         public ITextBox()
         {
             TextStart = 0;
             ScissorSelf = true;
             EditX = 0;
             ShiftDown = false;
+            MinValue = -10;
+            MaxValue = 10;
             CursorOn = true;
             CursorBlinkInterval = 500;
             NextBlink = Environment.TickCount + CursorBlinkInterval;

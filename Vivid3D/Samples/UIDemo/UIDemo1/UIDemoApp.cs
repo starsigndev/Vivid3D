@@ -82,12 +82,17 @@ namespace UIDemo1
 
             ui.AddForm(win2);
 
-            ITextBox tb1 = new ITextBox().Set(20, 20, 150, 30, "") as ITextBox;
+            ITextBox tb1 = new ITextBox().Set(20, 20, 250, 30, "") as ITextBox;
             frame1.AddForm(tb1);
             //tb1.Numeric = true;
-            tb1.Password = true;
+            //tb1.Password = true;
+
             ITextArea ta1 = new ITextArea().Set(30, 80, 550, 500, "") as ITextArea;
-            frame1.AddForm(ta1);
+//            frame1.AddForm(ta1);
+
+            INumericBox num1 = new INumericBox();
+            num1.Set(30, 80, 130, 30, "");
+            frame1.AddForm(num1);
 
             ta1.SetText("This is a test for the text area editor control.This is to see if it works\r\nThis is the continuing test.\r\nAnd so is this, if it works, cool, if it does not, then all health shall feel thy wrath.\r\nor not. you know.\r\n     public override void OnKey(Keys key)\r\n        {\r\n            //base.OnKey(key);\r\n            switch (key)\r\n            {\r\n                case Keys.Left:\r\n                    EditX--;\r\n                    if (EditX < 0)\r\n                    {\r\n                        EditX = 0;\r\n                    }\r\n                    if (EditX < TextStart)\r\n                    {\r\n                        TextStart--;\r\n                    }\r\n                  \r\n                    return;\r\n                    break;\r\n                case Keys.Right:\r\n                    EditX++;\r\n                    if (EditX > Text.Length)\r\n                    {\r\n                        EditX = Text.Length;\r\n                    }\r\n                    return;\r\n                    break;\r\n                case Keys.Backspace:\r\n                    Backspace();\r\n                    return;\r\n                    break;\r\n                case Keys.Delete:\r\n                    Delete();\r\n                    return;\r\n                    break;\r\n               \r\n            }\r\n            string chr = \"\";\r\n            chr = KeyToChr(key);\r\n            InsertChr(chr);\r\n            //Text = Text + chr;\r\n//            EditX++;\r\n\r\n\r\n        }");
 

@@ -214,15 +214,19 @@ namespace Vivid.App
         {
             //base.OnKeyDown(e);
             GameInput.mKeyDown[(int)e.Key] = true; ;
-            
+            Console.WriteLine("Key:" + e.Key.ToString());
+            Console.WriteLine("ID:" + (int)e.Key);
             if (e.Shift)
             {
                 GameInput.mShiftDown = true;
             }
-           // else
+            // else
             {
-                GameInput.mCurrentKey = e.Key;
-                GameInput.mKeyIsDown = true;
+                if (e.Key != OpenTK.Windowing.GraphicsLibraryFramework.Keys.LeftShift && e.Key != OpenTK.Windowing.GraphicsLibraryFramework.Keys.RightShift)
+                {
+                    GameInput.mCurrentKey = e.Key;
+                    GameInput.mKeyIsDown = true;
+                }
             }
         }
 
@@ -238,11 +242,20 @@ namespace Vivid.App
             {
                 GameInput.mShiftDown = false;
             }
-           // else
+
+            if (e.Key == OpenTK.Windowing.GraphicsLibraryFramework.Keys.LeftShift || e.Key == OpenTK.Windowing.GraphicsLibraryFramework.Keys.RightShift)
             {
-                if(GameInput.mCurrentKey == e.Key)
+                GameInput.mShiftDown = false;
+            }
+
+                // else
                 {
-                    GameInput.mKeyIsDown = false;
+                if (e.Key != OpenTK.Windowing.GraphicsLibraryFramework.Keys.LeftShift && e.Key != OpenTK.Windowing.GraphicsLibraryFramework.Keys.RightShift)
+                {
+                    if (GameInput.mCurrentKey == e.Key)
+                    {
+                        GameInput.mKeyIsDown = false;
+                    }
                 }
             }
         }
