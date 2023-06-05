@@ -56,8 +56,15 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public bool CastShadow
+        {
+            get;
+            set;
+        }
+
         public IWindow(string title)
         {
+            CastShadow = false;
             Text = title;
             Title = new IButton();
             Content = new IFrame();
@@ -70,14 +77,20 @@ namespace Vivid.UI.Forms
             Content.Scissor = true;
             Title.OnMove = (form, xm, ym) =>
             {
-                Position.x += xm;
-                Position.y += ym;
+                if (!Static)
+                {
+                    Position.x += xm;
+                    Position.y += ym;
+                }
             };
             ResizeButton.Image = UI.Theme.ButtonSelected;
             ResizeButton.OnMove = (form, xm, ym) =>
             {
-                Set(Position, new Maths.Size(Size.w+xm, Size.h+ym), Text);
-            }         ;
+                if (!Static)
+                {
+                    Set(Position, new Maths.Size(Size.w + xm, Size.h + ym), Text);
+                }
+            };
             MinimumSize = new Maths.Size(128,128);
             VerticalScroller = new IVerticalScroller();
             RightEdge.AddForm(VerticalScroller);
@@ -109,8 +122,10 @@ namespace Vivid.UI.Forms
         public override void OnRender()
         {
             //base.OnRender();
-            Draw(UI.Theme.FrameShadow, RenderPosition.x + 16, RenderPosition.y + 32, Size.w + 16, Size.h + 16, new Maths.Color(1, 1, 1, 0.5f));
-
+            if (CastShadow)
+            {
+                Draw(UI.Theme.FrameShadow, RenderPosition.x + 16, RenderPosition.y + 32, Size.w + 16, Size.h + 16, new Maths.Color(1, 1, 1, 0.5f));
+            }
         }
 
     }

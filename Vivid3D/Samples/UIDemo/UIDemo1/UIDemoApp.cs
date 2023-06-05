@@ -31,7 +31,19 @@ namespace UIDemo1
 
             IWindow win1 = new IWindow("Test").Set(64, 256, 300, 500, "Title") as IWindow;
 
-            ui.AddForm(win1);
+            //ui.AddForm(win1);
+            IHorizontalSplitter split1 = new IHorizontalSplitter();
+            split1.Set(0, 0, frame1.Size.w, frame1.Size.h);
+            frame1.AddForm(split1);
+
+            IWindow w1 = new IWindow("Win1").Set(0, 0, 200, 200,"Window 1") as IWindow;
+            IWindow w2 = new IWindow("Win2").Set(0, 0, 200, 200,"RenderWindow") as IWindow;
+
+            split1.SetTop(w1);
+            split1.SetBottom(w2);
+
+
+            return;
 
             IButton b1, b2;
 

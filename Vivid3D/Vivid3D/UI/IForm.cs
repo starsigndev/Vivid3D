@@ -155,12 +155,18 @@ namespace Vivid.UI
             set;
         }
 
+        public bool Static
+        {
+            get;
+            set;
+        }
         public IForm()
         {
             if (BlurFX == null)
             {
                 BlurFX = new Vivid.Draw.SMDrawBlur2D();
             }
+            Static = false;
             Scissor = false;
             Position = new Position(0, 0);
             Size = new Maths.Size(0, 0);
