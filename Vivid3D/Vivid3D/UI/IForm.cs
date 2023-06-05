@@ -22,7 +22,7 @@ namespace Vivid.UI
             set;
         }
 
-        public string Text
+        public virtual string Text
         {
             get;
             set;

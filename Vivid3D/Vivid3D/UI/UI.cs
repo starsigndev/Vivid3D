@@ -101,8 +101,8 @@ namespace Vivid.UI
                     Theme = new UITheme("light");
                 }
 
-                SystemFont = new kFont("gemini/font/orb.pf");
-                SystemFont.Scale = 0.75f;  
+                SystemFont = new kFont("gemini/font/neo2.pf");
+                SystemFont.Scale = 0.65f;  
             }
 
             Over = null;

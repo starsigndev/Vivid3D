@@ -80,7 +80,10 @@ namespace Vivid.Font
 
                 if (cnum >= 0 && cnum <= 255)
                 {
-                    x = x + (int)(Chars[cnum].Width * Scale) + 2;
+                    if (Chars[cnum] != null)
+                    {
+                        x = x + (int)(Chars[cnum].Width * Scale) + 2;
+                    }
                 }
 
                 cc++;

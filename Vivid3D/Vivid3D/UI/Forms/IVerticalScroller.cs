@@ -7,8 +7,15 @@ using Vivid.Maths;
 
 namespace Vivid.UI.Forms
 {
+    public delegate void ValueChanged(float value);
     public class IVerticalScroller : IForm
     {
+
+        public ValueChanged OnValueChanged
+        {
+            get;
+            set;
+        }
 
         public int MaxValue
         {
@@ -85,7 +92,7 @@ namespace Vivid.UI.Forms
         {
             CurrentValue = 0;
             MaxValue = 350;
-
+            OnValueChanged = null;
         }
 
         public override void OnMouseDown(MouseID button)
