@@ -92,6 +92,11 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public IHorizontalScroller HScroller
+        {
+            get;
+            set;
+        }
         public ITextArea()
         {
 
@@ -104,8 +109,20 @@ namespace Vivid.UI.Forms
             CursorBlinkInterval = 500;
             NextBlink = Environment.TickCount + CursorBlinkInterval;
             Scroller = new IVerticalScroller();
+            HScroller = new IHorizontalScroller();
             AddForm(Scroller);
+            AddForm(HScroller);
             Scroller.MaxValue = 20;
+            HScroller.MaxValue = 20;
+            HScroller.OnMove = (form, x, y) =>
+            {
+                x = x / 100;
+                TextStartX = x;
+                EditX = x;
+                
+                Console.WriteLine("XXX:" + x);
+
+            };
             Scroller.OnMove = (form, x, y) =>
             {
                 Console.WriteLine("Y:" + y);
@@ -126,6 +143,7 @@ namespace Vivid.UI.Forms
         {
             //base.AfterSet();
             Scroller.Set(Size.w, 0, 12, Size.h, "");
+            HScroller.Set(0, Size.h, Size.w, 12, "");
         }
         public override void OnKey(Keys key)
         {
@@ -553,8 +571,23 @@ namespace Vivid.UI.Forms
                 Lines[line] = Lines[line] + text[i];
 
             }
+            int mw = 0;
             Scroller.MaxValue = Lines.Length * 100;
+            for(int i = 0; i < Lines.Length; i++)
+            {
+                if (Lines[i] == null)
+                {
+                    continue;
+                }
+                if (Lines[i].Length > mw)
+                {
+                    mw = Lines[i].Length;
+                }
+            }
+            HScroller.MaxValue = mw * 100;
+
             int a = 5;
+
         }
 
         public string GetActiveText(int line)
@@ -710,9 +743,17 @@ namespace Vivid.UI.Forms
                         }
                         if (text[j+1]=='#')
                         {
-                            int control = ParseTag(text, j + 2);
-                            int next = text.IndexOf("#", j + 2)+1;
-                            j = next;
+                            try
+                            {
+                                int control = ParseTag(text, j + 2);
+                                int next = text.IndexOf("#", j + 2) + 1;
+                                j = next;
+                            }
+                            catch (Exception e)
+                            {
+                                continue;
+                                
+                            }
                             continue;
                         }
                     }
