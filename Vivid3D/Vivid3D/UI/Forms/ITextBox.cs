@@ -24,7 +24,12 @@ namespace Vivid.UI.Forms
             {
                 if (Numeric)
                 {
-                    float val = float.Parse(value);
+                    if (value == "")
+                    {
+                        _val = "";
+                        return;
+                    }
+                   float val = float.Parse(value);
                     if (val < MinValue)
                     {
                         val = MinValue;

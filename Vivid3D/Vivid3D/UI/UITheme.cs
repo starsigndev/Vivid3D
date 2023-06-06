@@ -53,12 +53,24 @@ namespace Vivid.UI
             set;
         }
 
+        public Texture2D ArrowUp
+        {
+            get;
+            set;
+        }
+
+        public Texture2D ArrowDown
+        {
+            get;
+            set;
+        }
+
         public UITheme(string name)
         {
             //var frame = Content.Content.GlobalFindItem(name + ".frame.png");
             Frame = new Texture2D("ui/theme/" + name + "/frame.png");
             FrameH = new Texture2D("ui/theme/" + name + "/frameh.png");
-            TextColor = new Maths.Color(1f, 1f, 1f, 1.0f);
+            TextColor = new Maths.Color(0.1f, 0.1f, 0.1f, 1.0f);
             FramePure = new Texture2D("ui/theme/" + name + "/framepure.png");
             FramePureH = new Texture2D("ui/theme/" + name + "/framepureh.png");
 
@@ -67,6 +79,8 @@ namespace Vivid.UI
 
             FrameShadow = new Texture2D("ui/theme/" + name + "/shadow.png");
 
+            ArrowUp = new Texture2D("ui/theme/" + name + "/arrowup.png");
+            ArrowDown = new Texture2D("ui/theme/" + name + "/arrowdown.png");
             //var button_sel = Content.Content.GlobalFindItem(name + ".button_selected.png");
             ButtonSelected = new Texture2D("ui/theme/"+name+"/buttonselected.png");// new Texture2D(button_sel.GetStream(),button_sel.Width, button_sel.Height);
         }

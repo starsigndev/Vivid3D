@@ -34,7 +34,7 @@ namespace UIDemo1
             //ui.AddForm(win1);
             IHorizontalSplitter split1 = new IHorizontalSplitter();
             split1.Set(0, 0, frame1.Size.w, frame1.Size.h);
-            frame1.AddForm(split1);
+            //frame1.AddForm(split1);
 
             IWindow w1 = new IWindow("Win1").Set(0, 0, 200, 200,"Window 1") as IWindow;
             IWindow w2 = new IWindow("Win2").Set(0, 0, 200, 200,"RenderWindow") as IWindow;
@@ -43,7 +43,7 @@ namespace UIDemo1
             split1.SetBottom(w2);
 
 
-            return;
+           // return;
 
             IButton b1, b2;
 
@@ -103,7 +103,7 @@ namespace UIDemo1
 //            frame1.AddForm(ta1);
 
             INumericBox num1 = new INumericBox();
-            num1.Set(30, 80, 130, 30, "");
+            num1.Set(30, 80, 130, 28, "");
             frame1.AddForm(num1);
 
             ta1.SetText("This is a test for the text area editor control.This is to see if it works\r\nThis is the continuing test.\r\nAnd so is this, if it works, cool, if it does not, then all health shall feel thy wrath.\r\nor not. you know.\r\n     public override void OnKey(Keys key)\r\n        {\r\n            //base.OnKey(key);\r\n            switch (key)\r\n            {\r\n                case Keys.Left:\r\n                    EditX--;\r\n                    if (EditX < 0)\r\n                    {\r\n                        EditX = 0;\r\n                    }\r\n                    if (EditX < TextStart)\r\n                    {\r\n                        TextStart--;\r\n                    }\r\n                  \r\n                    return;\r\n                    break;\r\n                case Keys.Right:\r\n                    EditX++;\r\n                    if (EditX > Text.Length)\r\n                    {\r\n                        EditX = Text.Length;\r\n                    }\r\n                    return;\r\n                    break;\r\n                case Keys.Backspace:\r\n                    Backspace();\r\n                    return;\r\n                    break;\r\n                case Keys.Delete:\r\n                    Delete();\r\n                    return;\r\n                    break;\r\n               \r\n            }\r\n            string chr = \"\";\r\n            chr = KeyToChr(key);\r\n            InsertChr(chr);\r\n            //Text = Text + chr;\r\n//            EditX++;\r\n\r\n\r\n        }");

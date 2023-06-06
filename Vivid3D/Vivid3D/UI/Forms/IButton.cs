@@ -5,6 +5,13 @@ namespace Vivid.UI.Forms
 {
     public class IButton : IFrame
     {
+
+        public Texture2D Icon
+        {
+            get;
+            set;
+        }
+
         private Maths.Color Target;
         private Maths.Color SelectedCol = new Maths.Color(0, 0, 0, 0);
         bool Over = false;
@@ -88,8 +95,15 @@ namespace Vivid.UI.Forms
         public override void OnRender()
         {
             Draw(Image);
-           // Draw(SelectedImage, -1, -1, -1, -1, SelectedCol);
-            UI.DrawString(Text, RenderPosition.x + Size.w / 2 - UI.SystemFont.StringWidth(Text) / 2, RenderPosition.y + Size.h / 2 - UI.SystemFont.StringHeight() / 2 ,UI.Theme.TextColor);
+            // Draw(SelectedImage, -1, -1, -1, -1, SelectedCol);
+            if (Icon == null)
+            {
+                UI.DrawString(Text, RenderPosition.x + Size.w / 2 - UI.SystemFont.StringWidth(Text) / 2, RenderPosition.y + Size.h / 2 - UI.SystemFont.StringHeight() / 2, UI.Theme.TextColor);
+            }
+            else
+            {
+                Draw(Icon, RenderPosition.x + 6, RenderPosition.y + 6, Size.w - 12, Size.h - 12, new Maths.Color(1, 1, 1, 0.85f));
+            }
         }
     }
 }

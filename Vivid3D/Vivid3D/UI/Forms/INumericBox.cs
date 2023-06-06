@@ -36,6 +36,8 @@ namespace Vivid.UI.Forms
             Increment = 1f;
             Down = new IButton();
             Up = new IButton();
+            Down.Icon = UI.Theme.ArrowDown;
+            Up.Icon = UI.Theme.ArrowUp;
             Number = new ITextBox();
             Number.Numeric = true;
             AddForms(Up, Down, Number);
@@ -53,9 +55,9 @@ namespace Vivid.UI.Forms
 
         public override void AfterSet()
         {
-            Down.Set(0, 0, 32,Size.h, "\\/");
-            Up.Set(Size.w - 32, 0,32, Size.h, "/\\");
-            Number.Set(32, 0, Size.w - 64, Size.h, "0");
+            Down.Set(0, 0, 28,Size.h, "\\/");
+            Up.Set(Size.w - 28, 0,28, Size.h, "/\\");
+            Number.Set(28, 0, Size.w - 56, Size.h, "0");
             //base.AfterSet();
 
 

@@ -44,6 +44,10 @@ namespace Vivid.UI.Forms
         public void SetSplit(int y)
         {
             SplitY = y;
+            if (SplitY > Size.h - 40)
+            {
+                SplitY = Size.h - 40;
+            }
             UpdateForms();
         }
 
@@ -69,7 +73,7 @@ namespace Vivid.UI.Forms
             }
             if (BottomForm != null)
             {
-                BottomForm.Set(0, SplitY + 5, Size.w, Size.h - SplitY, BottomForm.Text);
+                BottomForm.Set(0, SplitY + 5, Size.w, Size.h - (SplitY+35), BottomForm.Text);
                 BottomForm.Static = true;
             }
         }

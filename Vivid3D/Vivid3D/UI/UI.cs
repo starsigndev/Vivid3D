@@ -98,7 +98,7 @@ namespace Vivid.UI
 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("arc");
+                    Theme = new UITheme("light");
                 }
 
                 SystemFont = new kFont("gemini/font/neo2.pf");
@@ -200,7 +200,7 @@ namespace Vivid.UI
                 if (curKey == -1)
                 {
                     curKey = (int)GameInput.mCurrentKey;
-                    nextKey = Environment.TickCount + 400;
+                    nextKey = Environment.TickCount + 350;
                     if (Active != null)
                     {
                         Active.OnKey(GameInput.mCurrentKey);
@@ -214,7 +214,7 @@ namespace Vivid.UI
                         int tick = Environment.TickCount;
                         if (tick > nextKey)
                         {
-                            nextKey = tick + 100;
+                            nextKey = tick + 60;
                             if (Active != null)
                             {
                                 Active.OnKey(GameInput.mCurrentKey);
