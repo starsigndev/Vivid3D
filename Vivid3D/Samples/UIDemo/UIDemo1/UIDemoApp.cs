@@ -106,6 +106,18 @@ namespace UIDemo1
             num1.Set(30, 80, 130, 28, "");
             frame1.AddForm(num1);
 
+            IVerticalMenu testMenu = new IVerticalMenu();
+
+            var copy = testMenu.AddItem("Copy this");
+            testMenu.AddItem("Cut this");
+            testMenu.AddItem("Paste here.");
+            copy.Click = (item) =>
+            {
+                Environment.Exit(1);
+            };
+
+            frame1.ContextForm = testMenu;
+
             ta1.SetText("This is a test for the text area editor control.This is to see if it works\r\nThis is the continuing test.\r\nAnd so is this, if it works, cool, if it does not, then all health shall feel thy wrath.\r\nor not. you know.\r\n     public override void OnKey(Keys key)\r\n        {\r\n            //base.OnKey(key);\r\n            switch (key)\r\n            {\r\n                case Keys.Left:\r\n                    EditX--;\r\n                    if (EditX < 0)\r\n                    {\r\n                        EditX = 0;\r\n                    }\r\n                    if (EditX < TextStart)\r\n                    {\r\n                        TextStart--;\r\n                    }\r\n                  \r\n                    return;\r\n                    break;\r\n                case Keys.Right:\r\n                    EditX++;\r\n                    if (EditX > Text.Length)\r\n                    {\r\n                        EditX = Text.Length;\r\n                    }\r\n                    return;\r\n                    break;\r\n                case Keys.Backspace:\r\n                    Backspace();\r\n                    return;\r\n                    break;\r\n                case Keys.Delete:\r\n                    Delete();\r\n                    return;\r\n                    break;\r\n               \r\n            }\r\n            string chr = \"\";\r\n            chr = KeyToChr(key);\r\n            InsertChr(chr);\r\n            //Text = Text + chr;\r\n//            EditX++;\r\n\r\n\r\n        }");
 
         }

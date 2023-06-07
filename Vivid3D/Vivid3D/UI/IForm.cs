@@ -160,6 +160,13 @@ namespace Vivid.UI
             get;
             set;
         }
+
+        public IForm ContextForm
+        {
+            get;
+            set;
+        }
+
         public IForm()
         {
             if (BlurFX == null)

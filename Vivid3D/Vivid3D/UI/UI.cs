@@ -81,6 +81,12 @@ namespace Vivid.UI
             set;
         }
 
+        public IForm ContextForm
+        {
+            get;
+            set;
+        }
+
         public static void DrawString(string text, int x, int y, Vivid.Maths.Color col)
         {
             SystemFont.DrawString(text, x, y, col.r, col.g, col.b, col.a, Draw);
@@ -154,6 +160,10 @@ namespace Vivid.UI
             List<IForm> form_list = new List<IForm>();
 
             AddToList(form_list, Root);
+            if (ContextForm != null)
+            {
+                AddToList(form_list, ContextForm);
+            }
             AddToList(form_list, Menu);
 
             form_list.Reverse();
@@ -332,8 +342,16 @@ namespace Vivid.UI
                 Over.OnMouseMove(MousePosition, MouseDelta);
                 if (Pressed[0] == null)
                 {
+                 
                     if (GameInput.MouseButtonDown(MouseID.Left))
                     {
+                        if (Over != ContextForm)
+                        {
+                            if (ContextForm != null)
+                            {
+                                ContextForm = null;
+                            }
+                        }
                         Pressed[0] = Over;
                         Over.Active = true;
                         if (Active != null && Active != Over)
@@ -344,6 +362,28 @@ namespace Vivid.UI
                         Active = Over;
                         Active.OnActivate();
                         Pressed[0].OnMouseDown(MouseID.Left);
+                    }
+                    if (GameInput.MouseButtonDown(MouseID.Right))
+                    {
+                        //Environment.Exit(1);
+                        if (Over.ContextForm != null)
+                        {
+                            bool use = true;
+                            if (ContextForm != null)
+                            {
+                                if (ContextForm == Over.ContextForm)
+                                {
+                                    use = false;
+                                }
+
+                            }
+                            if (use)
+                            {
+                                ContextForm = Over.ContextForm;
+                                ContextForm.Position = new Position(MousePosition.x, MousePosition.y);
+                            }
+                        }
+
                     }
                 }
                 else
@@ -377,7 +417,12 @@ namespace Vivid.UI
             
            // Draw.Begin();
             Root.Render();
+            if (ContextForm != null)
+            {
+                ContextForm.Render();
+            }
             Menu.Render();
+
             // Draw.End();
 
             GL.Clear(ClearBufferMask.DepthBufferBit);// //..Disable(EnableCap.DepthTest);

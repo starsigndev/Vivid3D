@@ -79,6 +79,16 @@ namespace Vivid.UI.Forms
 
         }
 
+        public MenuItem AddItem(string text)
+        {
+
+            MenuItem item = new MenuItem();
+            item.Text = text;
+            AddItem(item);
+            return item;
+
+        }
+
         public MenuItem AddItem(MenuItem item)
         {
           

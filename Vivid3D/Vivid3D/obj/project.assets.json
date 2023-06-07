@@ -5680,7 +5680,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Antony\\.nuget\\packages\\": {}
+    "C:\\Users\\Ant\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -5688,11 +5688,11 @@
       "projectUniqueName": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
       "projectName": "Vivid",
       "projectPath": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
-      "packagesPath": "C:\\Users\\Antony\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Ant\\.nuget\\packages\\",
       "outputPath": "C:\\G3D\\Vivid3D\\Vivid3D\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Antony\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ant\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
