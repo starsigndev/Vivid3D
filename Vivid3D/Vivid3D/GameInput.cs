@@ -16,6 +16,7 @@ namespace Vivid
     {
         public static Vector2 MousePosition;
         public static Vector2 MouseDelta;
+        public static Vector2 WheelDelta;
         public static bool[] MouseButton = new bool[32];
         public static bool[] mKeyDown = new bool[512];
         public static bool mShiftDown = false;

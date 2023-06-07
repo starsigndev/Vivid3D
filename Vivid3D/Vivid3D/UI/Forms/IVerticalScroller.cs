@@ -25,10 +25,31 @@ namespace Vivid.UI.Forms
 
         public int CurrentValue
         {
-            get;
-            set;
+            get
+            {
+                return _CV;
+            }
+            set
+            {
+                
+                _CV = value;
+                if (av2 > 1.0)
+                {
+                    av2 = 1.0f;
+                }
+                if (_CV > Size.h-dh)
+                {
+                    _CV = Size.h - dh;
+                }
+                if (_CV < 0)
+                {
+                    _CV = 0;
+                }
+                OnMove?.Invoke(this, 0, (int)((float)MaxValue * av2));
+            }
             
         }
+        public int _CV = 0;
         private float av2 = 0;
         private int dh = 0;
         public float Value
@@ -122,7 +143,7 @@ namespace Vivid.UI.Forms
                 {
                     CurrentValue = 0;
                 }
-                OnMove?.Invoke(this, 0,(int)((float)MaxValue*av2));
+           //     OnMove?.Invoke(this, 0,(int)((float)MaxValue*av2));
             }
             else
             {

@@ -94,7 +94,7 @@ namespace Vivid.Font
 
         public int StringHeight()
         {
-            return (int)(Chars[33].Height * Scale);
+            return (int)(Chars[33].Height * (Scale));
         }
 
         public void DrawString(string text, int x, int y, float r, float g, float b, float a, SmartDraw draw)

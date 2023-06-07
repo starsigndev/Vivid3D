@@ -123,13 +123,13 @@ namespace Vivid.UI.Forms
             {
                 if (position.x >= RenderPosition.x && position.x <= RenderPosition.x + Size.w)
                 {
-                    if (position.y >= dy && position.y <= (dy + UI.SystemFont.StringHeight() + 15))
+                    if (position.y >= dy && position.y <= (dy + UI.SystemFont.StringHeight() + 8))
                     {
                         OverItem = item;
                     }
                 }
              //   UI.DrawString(item.Text, dx, dy + 5, new Maths.Color(1, 1, 1, 1));
-                dy = dy + UI.SystemFont.StringHeight() + 15;
+                dy = dy + UI.SystemFont.StringHeight() + 8;
 
             }
         }
@@ -138,7 +138,7 @@ namespace Vivid.UI.Forms
         {
             //base.OnRender();
             BlurBG(0.35f);
-            Draw(UI.Theme.FramePure, -1, -1, -1, -1, new Maths.Color(0.5f, 0.5f, 0.5f, 0.75f));
+            Draw(UI.Theme.FramePure, -1, -1, -1, -1, new Maths.Color(0.5f, 0.5f, 0.5f, 0.88f));
 
             int dx = RenderPosition.x + 35;
             int dy = RenderPosition.y + 5;
@@ -155,13 +155,13 @@ namespace Vivid.UI.Forms
                 {
                     Draw(item.Icon, RenderPosition.x + 5, dy+2, 16, 16, new Maths.Color(1, 1, 1, 1));
                 }
-                UI.DrawString(item.Text, dx+5, dy+5,UI.Theme.TextColor);
+                UI.DrawString(item.Text, dx+5, dy+1,UI.Theme.TextColor);
                 item.DY = dy;
                 if (item.SubItems.Count > 0)
                 {
                     Draw(Arrow, RenderPosition.x + Size.w - 22, dy+2, 16, 16, new Maths.Color(1, 1, 1, 1));
                 }
-                dy = dy + UI.SystemFont.StringHeight() + 15;
+                dy = dy + UI.SystemFont.StringHeight() + 11;
                 item.DX = dx;
 
 

@@ -107,8 +107,8 @@ namespace Vivid.UI
                     Theme = new UITheme("light");
                 }
 
-                SystemFont = new kFont("gemini/font/neo2.pf");
-                SystemFont.Scale = 0.65f;  
+                SystemFont = new kFont("gemini/font/arial.pf");
+                SystemFont.Scale = 0.5f;  
             }
 
             Over = null;
@@ -340,6 +340,10 @@ namespace Vivid.UI
             if (Over != null)
             {
                 Over.OnMouseMove(MousePosition, MouseDelta);
+                if (GameInput.WheelDelta.Y != 0)
+                {
+                    Over.OnMouseWheelMove(GameInput.WheelDelta);
+                }
                 if (Pressed[0] == null)
                 {
                  

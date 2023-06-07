@@ -301,7 +301,10 @@ namespace Vivid.App
                 delta = new Vector2(0, 0);
                 first = false;
             }
+            var mw = this.MouseState.ScrollDelta;
 
+
+            GameInput.WheelDelta = mw;
             GameInput.MousePosition = mp;
             GameInput.MouseDelta = delta;
             Update();

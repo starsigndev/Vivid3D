@@ -3,6 +3,8 @@ using Vivid.Maths;
 using Vivid.Shaders;
 using Vivid.Texture;
 using OpenTK.Graphics.OpenGL;
+using System.Numerics;
+
 namespace Vivid.UI
 {
     public delegate void Action(IForm form, object data = null);
@@ -274,7 +276,10 @@ namespace Vivid.UI
         public virtual void OnMouseMove(Position position, Delta delta)
         {
         }
+        public virtual void OnMouseWheelMove(OpenTK.Mathematics.Vector2 delta)
+        {
 
+        }
         public virtual void OnMouseDown(MouseID button)
         {
         }

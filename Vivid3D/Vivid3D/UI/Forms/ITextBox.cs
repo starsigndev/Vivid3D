@@ -639,7 +639,7 @@ namespace Vivid.UI.Forms
                 text = replace;
             }
 
-            UI.DrawString(text, RenderPosition.x + 7, RenderPosition.y + 8, new Maths.Color(1, 1, 1, 1));
+            UI.DrawString(text, RenderPosition.x + 7, RenderPosition.y + 4, new Maths.Color(1, 1, 1, 1));
 
             int CursorX = GetActiveCursorX();
             CursorX += 4;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -124,6 +125,22 @@ namespace Vivid.UI.Forms
             HorizontalScroller.Set(0, Size.h - ScrollSize, Size.w, ScrollSize, "");
         }
         private int bigx = 0;
+        public override void OnMouseWheelMove(Vector2 delta)
+        {
+            //base.OnMouseWheelMove(delta);
+            //ScrollY -= (int)delta.Y * 15;
+            VerticalScroller.CurrentValue = VerticalScroller.CurrentValue - (int)delta.Y * 15;
+
+            if (ScrollY < 0)
+            {
+                ScrollY = 0;
+            }
+            if (ScrollY > VerticalScroller.MaxValue)
+            {
+                ScrollY = VerticalScroller.MaxValue;
+
+            }
+        }
         public int RenderItem(TreeItem item,ref int x,int y)
         {
             

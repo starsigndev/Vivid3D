@@ -148,7 +148,7 @@ namespace Vivid.UI.Forms
             Draw(UI.Theme.Frame, 0, 0, Size.w, Size.h, new Maths.Color(0.5f, 0.5f, 0.5f, 1.0f));
 
             int dx = 5;
-            int dy = 10;
+            int dy = 7;
 
             foreach(var item in Items)
             {

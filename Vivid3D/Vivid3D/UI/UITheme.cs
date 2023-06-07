@@ -70,7 +70,7 @@ namespace Vivid.UI
             //var frame = Content.Content.GlobalFindItem(name + ".frame.png");
             Frame = new Texture2D("ui/theme/" + name + "/frame.png");
             FrameH = new Texture2D("ui/theme/" + name + "/frameh.png");
-            TextColor = new Maths.Color(0.1f, 0.1f, 0.1f, 1.0f);
+            TextColor = new Maths.Color(1f, 1f, 1f, 1.0f);
             FramePure = new Texture2D("ui/theme/" + name + "/framepure.png");
             FramePureH = new Texture2D("ui/theme/" + name + "/framepureh.png");
 
