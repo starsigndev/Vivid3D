@@ -167,6 +167,12 @@ namespace Vivid.UI
             set;
         }
 
+        public bool DrawOutline
+        {
+            get;
+            set;
+        }
+
         public IForm()
         {
             if (BlurFX == null)
@@ -183,6 +189,7 @@ namespace Vivid.UI
             Forms = new List<IForm>();
             BGTex = null;
             Root = null;
+            DrawOutline = false;
             MinimumSize = new Maths.Size(0, 0);
             Color = new Maths.Color(1, 1, 1, 1);
             OnClick = null;
@@ -337,6 +344,10 @@ namespace Vivid.UI
             w = Size.w;
             h = Size.h;
             int ty = Vivid.App.VividApp.FrameHeight - (ry + Size.h);
+            if (DrawOutline)
+            {
+                Draw(UI.Theme.Frame, RenderPosition.x - 2, RenderPosition.y - 2, Size.w + 4, Size.h + 4, new Maths.Color(2, 2, 2, 2));
+            }
             if (ScissorSelf)
             {
                 GL.Enable(EnableCap.ScissorTest);
