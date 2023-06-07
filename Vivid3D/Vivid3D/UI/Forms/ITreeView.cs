@@ -155,10 +155,10 @@ namespace Vivid.UI.Forms
                 }
                 if (sub.Items.Count > 0)
                 {
-                    Draw(UI.Theme.FramePure, x - ScrollX, (y + 6) - ScrollY, 8, 8, new Maths.Color(0.2f, 0.2f, 0.2f, 1.0f));
+                    Draw(UI.Theme.Pure, x - ScrollX, (y + 6) - ScrollY, 8, 8, new Maths.Color(0.5f, 0.5f, 0.5f, 1.0f));
                     if (sub.Open)
                     {
-                        Draw(UI.Theme.FramePure, x + 2 - ScrollX, (y + 8) - ScrollY, 4, 4, new Maths.Color(0.8f, 0.8f, 0.8f, 1.0f));
+                        Draw(UI.Theme.Pure, x + 2 - ScrollX, (y + 8) - ScrollY, 4, 4, new Maths.Color(0.9f, 0.9f, 0.9f, 1.0f));
                     }
                 }
                 UI.DrawString(sub.Text, x+16-ScrollX, y-ScrollY,UI.Theme.TextColor);
