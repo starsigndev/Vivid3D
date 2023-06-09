@@ -109,11 +109,36 @@ namespace Vivid.UI.Forms
             }
         }
 
+        public IButton UpButton
+        {
+            get;
+            set;
+        }
+
+        public IButton DownButton
+        {
+            get;
+            set;
+        }
+
         public IVerticalScroller()
         {
             CurrentValue = 0;
             MaxValue = 350;
             OnValueChanged = null;
+            UpButton = new IButton();
+            DownButton = new IButton();
+            UpButton.Icon = UI.Theme.ArrowUp;
+            DownButton.Icon = UI.Theme.ArrowDown;
+            AddForms(UpButton, DownButton);
+
+        }
+
+        public override void AfterSet()
+        {
+            //base.AfterSet();
+            UpButton.Set(0, -12, Size.w, 12);
+            DownButton.Set(0,Size.h, Size.w, 12);
         }
 
         public override void OnMouseDown(MouseID button)
@@ -172,6 +197,7 @@ namespace Vivid.UI.Forms
             //base.OnRender();
 
             float v = Value;
+            Draw(UI.Theme.Pure, -1, -1, -1, -1, new Maths.Color(0.3f, 0.3f, 0.3f, 1.0f));
             Draw(UI.Theme.FramePure, RenderPosition.x, RenderPosition.y+CurrentValue, Size.w, dh);
 
         }

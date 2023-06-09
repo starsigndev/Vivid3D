@@ -102,7 +102,7 @@ namespace Vivid.UI.Forms
             }
             else
             {
-                Draw(Icon, RenderPosition.x + 6, RenderPosition.y + 6, Size.w - 12, Size.h - 12, new Maths.Color(1, 1, 1, 0.85f));
+                Draw(Icon, RenderPosition.x + 2, RenderPosition.y + 2, Size.w - 4, Size.h - 4, new Maths.Color(1, 1, 1, 0.85f));
             }
         }
     }

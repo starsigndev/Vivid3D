@@ -86,12 +86,27 @@ namespace Vivid.UI.Forms
 
             }
         }
+        public IButton LeftButton
+        {
+            get;
+            set;
+        }
 
+        public IButton RightButton
+        {
+            get;
+            set;
+        }
         public IHorizontalScroller()
         {
             CurrentValue = 0;
             MaxValue = 350;
             OnValueChanged = null;
+            LeftButton = new IButton();
+            RightButton = new IButton();
+            LeftButton.Icon = UI.Theme.ArrowLeft;
+            RightButton.Icon = UI.Theme.ArrowRight;
+            AddForms(LeftButton, RightButton);
         }
 
         public override void OnMouseDown(MouseID button)
@@ -111,6 +126,14 @@ namespace Vivid.UI.Forms
         }
         private bool Dragging = false;
         private bool over_drag = false;
+
+        public override void AfterSet()
+        {
+            //base.AfterSet();
+            LeftButton.Set(-12,0, 12, Size.h);
+            RightButton.Set(Size.w,0, 12,Size.h);
+        }
+
         public override void OnMouseMove(Position position, Delta delta)
         {
             if (Dragging)
@@ -150,6 +173,7 @@ namespace Vivid.UI.Forms
             //base.OnRender();
 
             float v = Value;
+            Draw(UI.Theme.Pure, -1, -1, -1, -1, new Maths.Color(0.3f, 0.3f, 0.3f, 1.0f));
             Draw(UI.Theme.FramePureH, RenderPosition.x+CurrentValue, RenderPosition.y , dh, Size.h);
 
         }

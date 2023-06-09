@@ -92,6 +92,12 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public TreeItem SelectedItem
+        {
+            get;
+            set;
+        }
+
         public TreeAction Click
         {
             get;
@@ -100,7 +106,7 @@ namespace Vivid.UI.Forms
 
         public ITreeView()
         {
-            ScrollSize = 12;
+            ScrollSize = 14;
             VerticalScroller = new IVerticalScroller();
             HorizontalScroller = new IHorizontalScroller();
             AddForms(VerticalScroller, HorizontalScroller);
@@ -121,8 +127,8 @@ namespace Vivid.UI.Forms
         public override void AfterSet()
         {
             //base.AfterSet();
-            VerticalScroller.Set(Size.w - ScrollSize, 0, ScrollSize, Size.h, "");
-            HorizontalScroller.Set(0, Size.h - ScrollSize, Size.w, ScrollSize, "");
+            VerticalScroller.Set(Size.w - ScrollSize, 12, ScrollSize, Size.h-25, "");
+            HorizontalScroller.Set(12, Size.h - ScrollSize, Size.w-24-ScrollSize, ScrollSize, "");
         }
         private int bigx = 0;
         public override void OnMouseWheelMove(Vector2 delta)
@@ -152,7 +158,11 @@ namespace Vivid.UI.Forms
                 {
                     Draw(UI.Theme.FramePure, RenderPosition.x+1, y-ScrollY, Size.w - ScrollSize-2, UI.SystemFont.StringHeight() + 4, new Maths.Color(0.7f, 0.7f, 0.7f, 1.0f));
                        
+                }else if(sub == SelectedItem)
+                {
+                    Draw(UI.Theme.FramePure, RenderPosition.x + 1, y - ScrollY, Size.w - ScrollSize - 2, UI.SystemFont.StringHeight() + 4, new Maths.Color(0.7f, 0.95f, 0.95f, 1.0f));
                 }
+                
                 if (sub.Items.Count > 0)
                 {
                     Draw(UI.Theme.Pure, x - ScrollX, (y + 6) - ScrollY, 8, 8, new Maths.Color(0.5f, 0.5f, 0.5f, 1.0f));
@@ -211,6 +221,9 @@ namespace Vivid.UI.Forms
                 OverItem.Click?.Invoke(OverItem);
 
                 Click?.Invoke(OverItem);
+
+                SelectedItem = OverItem; 
+
             }  
         }
 

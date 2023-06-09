@@ -107,7 +107,7 @@ namespace Vivid.UI.Forms
 
             mh = Items.Count * (UI.SystemFont.StringHeight() + 15);
 
-            Size = new Maths.Size(mw, mh);
+            Size = new Maths.Size(mw, mh-10);
 
 
             return item;
@@ -138,7 +138,7 @@ namespace Vivid.UI.Forms
         {
             //base.OnRender();
             BlurBG(0.35f);
-            Draw(UI.Theme.FramePure, -1, -1, -1, -1, new Maths.Color(0.5f, 0.5f, 0.5f, 0.88f));
+            Draw(UI.Theme.Pure, -1, -1, -1, -1, new Maths.Color(0.6f, 0.6f, 0.6f, 0.95f));
 
             int dx = RenderPosition.x + 35;
             int dy = RenderPosition.y + 5;

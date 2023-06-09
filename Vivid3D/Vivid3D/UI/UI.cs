@@ -104,11 +104,11 @@ namespace Vivid.UI
 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("arc");
+                    Theme = new UITheme("darknight");
                 }
 
                 SystemFont = new kFont("gemini/font/arial.pf");
-                SystemFont.Scale = 0.5f;  
+                SystemFont.Scale = 0.45f;  
             }
 
             Over = null;

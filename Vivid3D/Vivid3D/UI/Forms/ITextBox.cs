@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using System.Collections.Generic;
@@ -619,6 +620,15 @@ namespace Vivid.UI.Forms
         {
             //base.OnMouseMove(position, delta);
             mx = position.x - RenderPosition.x;
+        }
+
+        public override void OnMouseWheelMove(Vector2 delta)
+        {
+            //base.OnMouseWheelMove(delta); ;
+            if (Numeric)
+            {
+                Value = Value + delta.Y;
+            }
         }
 
         public override void OnRender()
