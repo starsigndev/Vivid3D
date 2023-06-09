@@ -9,6 +9,7 @@ using Vivid.Texture;
 using Vivid.UI;
 using Vivid.UI.Forms;
 using OpenTK.Graphics.OpenGL;
+using Vivid.App;
 
 namespace UIDemo1
 {
@@ -94,8 +95,18 @@ namespace UIDemo1
 
             ui.AddForm(win2);
 
+            IToolBar toolbar = new IToolBar().Set(0, 0, VividApp.FrameWidth, 32, "") as IToolBar;
+
+            var tb_but1 = new IButton().Set(0, 0, 65, 30, "Test") as IButton;
+            var tb_but2 = new IButton().Set(0, 0, 90, 30, "Transform") as IButton;
+
+            toolbar.AddTool(tb_but1);
+            toolbar.AddTool(tb_but2);
+
+            frame1.AddForm(toolbar);
+
             ITextBox tb1 = new ITextBox().Set(20, 20, 250, 30, "") as ITextBox;
-            frame1.AddForm(tb1);
+          //  frame1.AddForm(tb1);
             //tb1.Numeric = true;
             //tb1.Password = true;
 

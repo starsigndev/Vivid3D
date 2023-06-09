@@ -21,7 +21,7 @@ namespace Vivid.UI.Forms
 
         public IButton()
         {
-            Target = new Maths.Color(0.5f, 0.5f, 0.5f, 0.8f);
+            Target = new Maths.Color(0.7f, 0.7f, 0.7f, 0.8f);
 
             Image = UI.Theme.Button;
             SelectedImage = UI.Theme.ButtonSelected;
@@ -68,7 +68,7 @@ namespace Vivid.UI.Forms
             }
             else
             {
-                SelectedCol += (new Maths.Color(0.65f, 0.65f, 0.65f, 0) - SelectedCol) * 0.08f;
+                SelectedCol += (new Maths.Color(1.05f, 1.05f,1.05f, 1.0f) - SelectedCol) * 0.08f;
             }
         }
         int next_down = 0;
@@ -113,7 +113,7 @@ namespace Vivid.UI.Forms
             }
             else
             {
-                Draw(Icon, RenderPosition.x + 2, RenderPosition.y + 2, Size.w - 4, Size.h - 4, new Maths.Color(1, 1, 1, 0.85f));
+                Draw(Icon, RenderPosition.x + 4, RenderPosition.y + 4, Size.w - 8, Size.h -8, new Maths.Color(1, 1, 1, 0.85f));
             }
         }
     }
