@@ -46,6 +46,15 @@ namespace Vivid.UI.Forms
 
         public override void OnUpdate()
         {
+
+            if (Down)
+            {
+                if (Environment.TickCount > next_down)
+                {
+                    next_down = next_down + 100;
+                    MouseDown?.Invoke(this, null);
+                }
+            }
             Color = Color + (Target - Color) * new Maths.Color(0.03f, 0.03f, 0.03f, 0.75f);
             //base.OnUpdate();
 
@@ -62,7 +71,7 @@ namespace Vivid.UI.Forms
                 SelectedCol += (new Maths.Color(0.65f, 0.65f, 0.65f, 0) - SelectedCol) * 0.08f;
             }
         }
-
+        int next_down = 0;
         public override void OnMouseDown(MouseID button)
         {
             //base.OnMouseDown(button);
@@ -70,6 +79,7 @@ namespace Vivid.UI.Forms
             OnClick?.Invoke(this, null);
             Down = true;
             Drag = true;
+            next_down = Environment.TickCount + 500;
         }
 
         public override void OnMouseUp(MouseID button)
@@ -80,6 +90,7 @@ namespace Vivid.UI.Forms
             OnClicked?.Invoke(this, null);
             Down = false;
             Drag = false;
+            next_down = 0;
         }
 
         public override void OnMouseMove(Position position, Delta delta)

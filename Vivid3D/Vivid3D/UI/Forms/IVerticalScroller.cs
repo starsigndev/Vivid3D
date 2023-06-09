@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Maths;
@@ -130,6 +131,21 @@ namespace Vivid.UI.Forms
             DownButton = new IButton();
             UpButton.Icon = UI.Theme.ArrowUp;
             DownButton.Icon = UI.Theme.ArrowDown;
+            DownButton.OnClick = (form,data)=>{
+                CurrentValue = CurrentValue + 10;
+            };
+            UpButton.OnClick = (form, data) =>
+            {
+                CurrentValue = (int)CurrentValue - 10;
+            };
+            DownButton.MouseDown = (form, data) =>
+            {
+                CurrentValue = CurrentValue + 10;
+            };
+            UpButton.MouseDown = (form, data) =>
+            {
+                CurrentValue = CurrentValue - 10;
+            };
             AddForms(UpButton, DownButton);
 
         }

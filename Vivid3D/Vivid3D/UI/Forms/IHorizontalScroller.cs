@@ -24,10 +24,31 @@ namespace Vivid.UI.Forms
 
         public int CurrentValue
         {
-            get;
-            set;
+            get
+            {
+                return _CV;
+            }
+            set
+            {
+
+                _CV = value;
+                if (av2 > 1.0)
+                {
+                    av2 = 1.0f;
+                }
+                if (_CV > Size.w - dh)
+                {
+                    _CV = Size.w - dh;
+                }
+                if (_CV < 0)
+                {
+                    _CV = 0;
+                }
+                OnMove?.Invoke(this, (int)((float)MaxValue * av2),0);
+            }
 
         }
+        private int _CV = 0;
         private float av2 = 0;
         private int dh = 0;
         public float Value
@@ -106,7 +127,24 @@ namespace Vivid.UI.Forms
             RightButton = new IButton();
             LeftButton.Icon = UI.Theme.ArrowLeft;
             RightButton.Icon = UI.Theme.ArrowRight;
+            LeftButton.OnClick = (form, data) =>
+            {
+                CurrentValue = CurrentValue - 10;
+            };
+            RightButton.OnClick = (form, data) =>
+            {
+                CurrentValue = CurrentValue + 10;
+            };
+            LeftButton.MouseDown = (form, data) =>
+            {
+                CurrentValue = CurrentValue - 10;
+            };
+            RightButton.MouseDown = (form, data) =>
+            {
+                CurrentValue = CurrentValue + 10;
+            };
             AddForms(LeftButton, RightButton);
+
         }
 
         public override void OnMouseDown(MouseID button)

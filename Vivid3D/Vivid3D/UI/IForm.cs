@@ -89,6 +89,12 @@ namespace Vivid.UI
         {
             get;
             set;
+        } 
+
+        public Action MouseDown
+        {
+            get;
+            set;
         }
 
         public Action OnActivated
