@@ -157,7 +157,10 @@ namespace UIDemo1
             IEnumSelector sel1 = new IEnumSelector(typeof(TestEnum));
             sel1.Set(350, 100, 120, 30, "");
 
-            frame1.AddForm(sel1);
+            //frame1.AddForm(sel1);
+            IDateSelector dsel1 = new IDateSelector();
+            dsel1.Set(350, 100, 210, 30, "");
+            frame1.AddForm(dsel1);
 
             frame1.ContextForm = testMenu;
 

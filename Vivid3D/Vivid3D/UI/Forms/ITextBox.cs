@@ -12,6 +12,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Vivid.UI.Forms
 {
+    public delegate void TextChanged(ITextBox box, string val);
     public class ITextBox : IForm
     {
 
@@ -28,6 +29,7 @@ namespace Vivid.UI.Forms
                     if (value == "")
                     {
                         _val = "";
+                        OnChange?.Invoke(this, Text);
                         return;
                     }
                    float val = float.Parse(value);
@@ -40,9 +42,11 @@ namespace Vivid.UI.Forms
                         val = MaxValue;
                     }
                     _val = val.ToString();
+                    OnChange?.Invoke(this, Text);
                     return;
                 }
                 _val = value;
+                OnChange?.Invoke(this, Text);
             }
         }
         string _val;
@@ -81,6 +85,12 @@ namespace Vivid.UI.Forms
             {
                 Text = value.ToString();
             }
+        }
+
+        public TextChanged OnChange
+        {
+            get;
+            set;
         }
 
         private bool CursorOn
@@ -451,14 +461,17 @@ namespace Vivid.UI.Forms
                     break;
                 case Keys.Backspace:
                     Backspace();
+                    OnChange?.Invoke(this, Text);
                     return;
                     break;
                 case Keys.Delete:
                     Delete();
+                    OnChange?.Invoke(this, Text);
                     return;
                     break;
                
             }
+            
             string chr = "";
             chr = KeyToChr(key);
             if (chr == "")
@@ -466,6 +479,7 @@ namespace Vivid.UI.Forms
                 return;
             }
             InsertChr(chr);
+            OnChange?.Invoke(this, Text);
             //Text = Text + chr;
 //            EditX++;
 
