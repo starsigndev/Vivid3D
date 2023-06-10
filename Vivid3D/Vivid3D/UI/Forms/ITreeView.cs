@@ -127,7 +127,7 @@ namespace Vivid.UI.Forms
         public override void AfterSet()
         {
             //base.AfterSet();
-            VerticalScroller.Set(Size.w - ScrollSize, 12, ScrollSize, Size.h-25, "");
+            VerticalScroller.Set(Size.w - ScrollSize, 12, ScrollSize, Size.h-26, "");
             HorizontalScroller.Set(12, Size.h - ScrollSize, Size.w-24-ScrollSize, ScrollSize, "");
         }
         private int bigx = 0;

@@ -13,6 +13,10 @@ using Vivid.App;
 
 namespace UIDemo1
 {
+    public enum TestEnum
+    {
+        Test1,OpenGL,DirectX,Other,Cool
+    }
     public class UIDemoApp : Vivid.App.VividApp
     {
 
@@ -150,6 +154,10 @@ namespace UIDemo1
 
             frame1.AddForm(tv);
 
+            IEnumSelector sel1 = new IEnumSelector(typeof(TestEnum));
+            sel1.Set(350, 100, 120, 30, "");
+
+            frame1.AddForm(sel1);
 
             frame1.ContextForm = testMenu;
 
