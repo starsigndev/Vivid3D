@@ -97,7 +97,7 @@ namespace UIDemo1
             };
             win2.Content.Scissor = false;
 
-            ui.AddForm(win2);
+            //ui.AddForm(win2);
 
             IToolBar toolbar = new IToolBar().Set(0, 0, VividApp.FrameWidth, 32, "") as IToolBar;
 
@@ -107,7 +107,7 @@ namespace UIDemo1
             toolbar.AddTool(tb_but1);
             toolbar.AddTool(tb_but2);
 
-            frame1.AddForm(toolbar);
+//            frame1.AddForm(toolbar);
 
             ITextBox tb1 = new ITextBox().Set(20, 20, 250, 30, "") as ITextBox;
           //  frame1.AddForm(tb1);
@@ -163,6 +163,38 @@ namespace UIDemo1
             frame1.AddForm(dsel1);
 
             frame1.ContextForm = testMenu;
+
+            frame1.Forms.Clear();
+
+            var win3 = new IWindow("Options");
+            var win4 = new IWindow("Settings");
+            win4.Set(300, 300, 200, 200, "OTher");
+
+            IWindow dock = new IWindow("Vivid3D");
+            dock.Set(150, 150, frame1.Size.w-200, frame1.Size.h-200,dock.Text);
+            //     dock.Static = true;
+
+            ui.AddWindow(dock);
+            dock.WindowDock = true;
+
+            //            frame1.AddForm(dock);
+
+            var win5 = new IWindow("").Set(400, 200, 250, 250, "Win other") as IWindow;
+            var win6 = new IWindow("").Set(300, 80, 300, 300, "Effects") as IWindow;
+
+            win3.Set(200, 200, 300, 250, "Render");
+
+            ui.AddWindow(win3);
+            ui.AddWindow(win4);
+            ui.AddWindow(win5);
+            ui.AddWindow(win6);
+
+            //frame1.AddForm(win3);
+
+
+            //dock.DockWindow(w2, DockArea.Top);
+           // dock.DockWindow(win3, DockArea.Left);
+           // dock.DockWindow(win4, DockArea.Right);
 
             ta1.SetText("This is a test for the text area editor control.This is to see if it works\r\nThis is the continuing test.\r\nAnd so is this, if it works, cool, if it does not, then all health shall feel thy wrath.\r\nor not. you know.\r\n     public override void OnKey(Keys key)\r\n        {\r\n            //base.OnKey(key);\r\n            switch (key)\r\n            {\r\n                case Keys.Left:\r\n                    EditX--;\r\n                    if (EditX < 0)\r\n                    {\r\n                        EditX = 0;\r\n                    }\r\n                    if (EditX < TextStart)\r\n                    {\r\n                        TextStart--;\r\n                    }\r\n                  \r\n                    return;\r\n                    break;\r\n                case Keys.Right:\r\n                    EditX++;\r\n                    if (EditX > Text.Length)\r\n                    {\r\n                        EditX = Text.Length;\r\n                    }\r\n                    return;\r\n                    break;\r\n                case Keys.Backspace:\r\n                    Backspace();\r\n                    return;\r\n                    break;\r\n                case Keys.Delete:\r\n                    Delete();\r\n                    return;\r\n                    break;\r\n               \r\n            }\r\n            string chr = \"\";\r\n            chr = KeyToChr(key);\r\n            InsertChr(chr);\r\n            //Text = Text + chr;\r\n//            EditX++;\r\n\r\n\r\n        }");
 

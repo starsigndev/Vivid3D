@@ -21,7 +21,7 @@ namespace UIDemo1
             native_settings.Flags = OpenTK.Windowing.Common.ContextFlags.ForwardCompatible;
             native_settings.IsEventDriven = false;
             native_settings.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
-            native_settings.Size = new OpenTK.Mathematics.Vector2i(1024, 768);
+            native_settings.Size = new OpenTK.Mathematics.Vector2i(1400, 850);
             native_settings.Title = "UI Demo - Application";
             native_settings.RedBits = 10;
             native_settings.GreenBits = 10;

@@ -248,6 +248,10 @@ namespace Vivid.UI
             return this;
         }
 
+        public virtual void DragOver(IForm form,int mx,int my)
+        {
+
+        }
         public virtual void OnKeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys keys)
         {
 

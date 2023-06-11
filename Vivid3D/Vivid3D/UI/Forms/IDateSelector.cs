@@ -95,7 +95,7 @@ namespace Vivid.UI.Forms
             if (SelectFrame == null)
             {
 
-                SelectFrame = new IFrame().Set(0, 30, 220, 200, "") as IFrame;
+                SelectFrame = new IFrame().Set(0, 33, 220, 200, "") as IFrame;
                 SelectFrame.DrawOutline = true;
 
                 var monthl = new IButton().Set(5, 5, 22, 25, "") as IButton;

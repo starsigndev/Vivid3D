@@ -9,6 +9,7 @@ namespace Vivid.UI
 {
     public class UI
     {
+        public static UI This = null;
         public static Content.Content UIBase
         {
             get;
@@ -22,6 +23,12 @@ namespace Vivid.UI
         }
 
         public IForm Root
+        {
+            get;
+            set;
+        }
+
+        public List<IWindow> Windows
         {
             get;
             set;
@@ -94,6 +101,7 @@ namespace Vivid.UI
 
         public UI()
         {
+            This = this;
             if (UIBase == null)
             {
                 //UIBase = new Content.Content(VividApp.ContentPath + "uibase");
@@ -104,7 +112,7 @@ namespace Vivid.UI
 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("arc");
+                    Theme = new UITheme("darknight");
                 }
 
                 SystemFont = new kFont("gemini/font/arial.pf");
@@ -130,12 +138,18 @@ namespace Vivid.UI
             Root = new IForm();
             Root.Set(0, 30, Vivid.App.VividApp.FrameWidth, Vivid.App.VividApp.FrameHeight-30);
             Menu = new IMenu().Set(0, 0, VividApp.FrameWidth, 30, "") as IMenu;
+            Windows = new List<IWindow>();
         }
 
         public void AddForm(IForm form)
         {
             Root.AddForm(form);
             form.Root = Root;
+        }
+
+        public void AddWindow(IWindow window)
+        {
+            Windows.Add(window);
         }
 
         public void AddForms(params IForm[] forms)
@@ -160,6 +174,12 @@ namespace Vivid.UI
             List<IForm> form_list = new List<IForm>();
 
             AddToList(form_list, Root);
+
+            foreach(var win in Windows)
+            {
+                AddToList(form_list, win);
+            }
+
             if (ContextForm != null)
             {
                 AddToList(form_list, ContextForm);
@@ -298,9 +318,47 @@ namespace Vivid.UI
                 LastKey[i] = key;
             }
         }
+        public IForm GetBeneath(List<IForm> list,IForm ignore)
+        {
+            foreach (var form in list)
+            {
+                if (form == ignore) continue;
+                if (form.InBounds(MousePosition))
+                {
+                    return form;
+                    break;
+                }
+            }
+            return null;
+        }
+
+        IWindow CurrentDock;
+        IWindow DockWindow;
 
         public void UpdateList(List<IForm> list)
         {
+
+            if (CurrentDock != null)
+            {
+                if (Pressed[0] == null)
+                {
+
+                    var target = CurrentDock.DetermineDock(new Forms.Point(MousePosition.x, MousePosition.y), 128);
+                    if (target != null)
+                    {
+
+                        if(target.Position != DockPosition.None)
+                        {
+                            CurrentDock.DockWindow(DockWindow, new Forms.Point(MousePosition.x, MousePosition.y), 128);
+                        }
+
+                    };
+
+                        CurrentDock = null;
+                    DockWindow = null;
+                }
+            }
+
             bool over_leave = false;
             if (Pressed[0] == null)
             {
@@ -340,6 +398,46 @@ namespace Vivid.UI
             if (Over != null)
             {
                 Over.OnMouseMove(MousePosition, MouseDelta);
+                if (Pressed[0] == Over)
+                {
+
+                    if (Over is IWindow)
+                    {
+                        var be = GetBeneath(list, Over);
+
+                        if (be != null)
+                        {
+
+                            if (be.Root is IWindow)
+                            {
+                                // Environment.Exit(1);
+                                var win = be.Root as IWindow;
+                                if (win.WindowDock)
+                                {
+                                    CurrentDock = be.Root as IWindow;
+                                    DockWindow = Over as IWindow;
+                                }
+                            }
+                            if (be is IWindow)
+                            {
+                                var win2 = be as IWindow;
+                                if (win2.WindowDock)
+                                {
+                                    CurrentDock = be as IWindow;
+                                    DockWindow = Over as IWindow;
+                                }
+                            }
+                            //be.DragOver(Over, MousePosition.x, MousePosition.y);
+
+
+                        }
+
+                    }
+
+                    //Console.WriteLine("!!!!!!!!!")
+
+                }
+
                 if (GameInput.WheelDelta.Y != 0)
                 {
                     Over.OnMouseWheelMove(GameInput.WheelDelta);
@@ -366,6 +464,21 @@ namespace Vivid.UI
                         Active = Over;
                         Active.OnActivate();
                         Pressed[0].OnMouseDown(MouseID.Left);
+                        if(Over is IWindow)
+                        {
+                            if (Windows.Contains(Over))
+                            {
+                                Windows.Remove((IWindow)Over);
+                                Windows.Add((IWindow)Over);
+                            }
+                        }else if(Over.Root is IWindow)
+                        {
+                            if (Windows.Contains(Over.Root))
+                            {
+                                Windows.Remove((IWindow)Over.Root);
+                                Windows.Add((IWindow)Over.Root);
+                            }
+                        }
                     }
                     if (GameInput.MouseButtonDown(MouseID.Right))
                     {
@@ -421,6 +534,91 @@ namespace Vivid.UI
             
            // Draw.Begin();
             Root.Render();
+
+            foreach(var win in Windows)
+            {
+                win.Render();
+            }
+
+            if (CurrentDock != null)
+            {
+                //CurrentDock.Draw(UI.Theme.Pure);
+                //CurrentDock.DetermineDockPosition(new Forms.Point(MousePosition.x,MousePosition.y),)
+                var target = CurrentDock.DetermineDock(new Forms.Point(MousePosition.x, MousePosition.y), 128);
+                if (target != null)
+                {
+                    //Console.WriteLine("Pos:" + target.Position);
+                    Maths.Color col = new Maths.Color(0.7f, 0.7f, 0.7f, 0.5f);
+                    int rx, ry, rw, rh;
+                    switch (target.Position)
+                    {
+                        case DockPosition.Left:
+                            rx = (int)target.Space.Area.X;
+                            ry = (int)target.Space.Area.Y;
+                            rw = (int)target.Space.Area.Width / 4;
+                            rh = (int)target.Space.Area.Height;
+                            rx = CurrentDock.RenderPosition.x + rx;
+                            ry = CurrentDock.RenderPosition.y + ry;
+                            ry = ry + CurrentDock.TitleHeight;
+                            rh = rh - CurrentDock.TitleHeight;
+                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh, col);
+                            break;
+                        case DockPosition.Right:
+                            rx = (int)target.Space.Area.X+(int)target.Space.Area.Width - (int)target.Space.Area.Width / 4;
+                            ry = (int)target.Space.Area.Y;
+                            rw = (int)target.Space.Area.Width / 4;
+                            rh = (int)target.Space.Area.Height;
+                            rx = CurrentDock.RenderPosition.x + rx;
+                            ry = CurrentDock.RenderPosition.y + ry;
+                            ry = ry + CurrentDock.TitleHeight;
+                            rh = rh - CurrentDock.TitleHeight;
+                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+                            break;
+                        case DockPosition.Top:
+                            rx = (int)target.Space.Area.X;
+                            ry = (int)target.Space.Area.Y;
+                            rw = (int)target.Space.Area.Width;
+                            rh = (int)target.Space.Area.Height / 4;
+                            rx = CurrentDock.RenderPosition.x + rx;
+                            ry = CurrentDock.RenderPosition.y + ry;
+                            ry = ry + CurrentDock.TitleHeight;
+                            rh = rh - CurrentDock.TitleHeight;
+                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+                            break;
+                        case DockPosition.Bottom:
+                            rx = (int)target.Space.Area.X;
+                            ry = (int)target.Space.Area.Height - (int)target.Space.Area.Height / 4;
+                            rw = (int)target.Space.Area.Width;
+                            rh = (int)target.Space.Area.Height / 4;
+                            rx = CurrentDock.RenderPosition.x + rx;
+                            ry = CurrentDock.RenderPosition.y + ry;
+                            ry = ry + CurrentDock.TitleHeight;
+                            rh = rh - CurrentDock.TitleHeight;
+                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+                            break;
+                        case DockPosition.Centre:
+
+                            rx = (int)target.Space.Area.X;
+                            ry = (int)target.Space.Area.Y;
+                            rw = (int)target.Space.Area.Width;
+                            rh = (int)target.Space.Area.Height;
+                            rx = CurrentDock.RenderPosition.x + rx;
+                            ry = CurrentDock.RenderPosition.y + ry;
+                            ry = ry + CurrentDock.TitleHeight;
+                            rh = rh - CurrentDock.TitleHeight;
+                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+
+                            break;
+                    }
+
+                 //   Environment.Exit(1);
+                 
+                    //CurrentDock.Draw(UI.Theme.Frame,)
+
+                }
+
+            }
+
             if (ContextForm != null)
             {
                 ContextForm.Render();
