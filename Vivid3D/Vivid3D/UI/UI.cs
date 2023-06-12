@@ -5,6 +5,8 @@ using Vivid.Maths;
 using Vivid.Texture;
 using Vivid.UI.Forms;
 using OpenTK.Graphics.OpenGL;
+using Vivid.PostProcesses;
+
 namespace Vivid.UI
 {
     public class UI
@@ -109,7 +111,7 @@ namespace Vivid.UI
                 //  UICursor = new Texture2D(cursor.GetStream(), cursor.Width, cursor.Height);
                 UICursor = new Texture2D("edit/cursor.png");
                 Draw = new SmartDraw();
-
+                
                 if (Theme == null)
                 {
                     Theme = new UITheme("darknight");
@@ -178,6 +180,7 @@ namespace Vivid.UI
             foreach(var win in Windows)
             {
                 AddToList(form_list, win);
+                win.Update();
             }
 
             if (ContextForm != null)
@@ -403,33 +406,38 @@ namespace Vivid.UI
 
                     if (Over is IWindow)
                     {
-                        var be = GetBeneath(list, Over);
+                        var ww = Over as IWindow;
 
-                        if (be != null)
+                        if (ww.Docked == false)
                         {
+                            var be = GetBeneath(list, Over);
 
-                            if (be.Root is IWindow)
+                            if (be != null)
                             {
-                                // Environment.Exit(1);
-                                var win = be.Root as IWindow;
-                                if (win.WindowDock)
+
+                                if (be.Root is IWindow)
                                 {
-                                    CurrentDock = be.Root as IWindow;
-                                    DockWindow = Over as IWindow;
+                                    // Environment.Exit(1);
+                                    var win = be.Root as IWindow;
+                                    if (win.WindowDock)
+                                    {
+                                        CurrentDock = be.Root as IWindow;
+                                        DockWindow = Over as IWindow;
+                                    }
                                 }
-                            }
-                            if (be is IWindow)
-                            {
-                                var win2 = be as IWindow;
-                                if (win2.WindowDock)
+                                if (be is IWindow)
                                 {
-                                    CurrentDock = be as IWindow;
-                                    DockWindow = Over as IWindow;
+                                    var win2 = be as IWindow;
+                                    if (win2.WindowDock)
+                                    {
+                                        CurrentDock = be as IWindow;
+                                        DockWindow = Over as IWindow;
+                                    }
                                 }
-                            }
-                            //be.DragOver(Over, MousePosition.x, MousePosition.y);
+                                //be.DragOver(Over, MousePosition.x, MousePosition.y);
 
 
+                            }
                         }
 
                     }
@@ -524,7 +532,15 @@ namespace Vivid.UI
 
             foreach (var f in form.Forms)
             {
-                AddToList(list, f);
+
+                if (f.Override != null)
+                {
+                    AddToList(list, f.Override);
+                }
+                else
+                {
+                    AddToList(list, f);
+                }
             }
         }
 
@@ -587,7 +603,7 @@ namespace Vivid.UI
                             break;
                         case DockPosition.Bottom:
                             rx = (int)target.Space.Area.X;
-                            ry = (int)target.Space.Area.Height - (int)target.Space.Area.Height / 4;
+                            ry = (int)+target.Space.Area.Y+(int)target.Space.Area.Height - (int)target.Space.Area.Height / 4;
                             rw = (int)target.Space.Area.Width;
                             rh = (int)target.Space.Area.Height / 4;
                             rx = CurrentDock.RenderPosition.x + rx;

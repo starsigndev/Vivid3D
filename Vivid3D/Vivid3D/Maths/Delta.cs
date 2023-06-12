@@ -14,6 +14,14 @@
             set;
         }
 
+        public float Length
+        {
+            get
+            {
+                return (float)Math.Sqrt(x * x + y * y);
+            }
+        }
+
         public Delta(float x, float y)
         {
             this.x = x;

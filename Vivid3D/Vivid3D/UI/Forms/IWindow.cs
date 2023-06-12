@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Maths;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Vivid.UI.Forms
 {
@@ -185,11 +186,50 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public IWindow DockedTo
+        {
+            get;
+            set;
+        }
+
         public bool WindowDock
         {
             get;
             set;
         }
+
+        public bool Docked
+        {
+            get;
+            set;
+        }
+
+        public IWindow ActiveDockedWindow
+        {
+            get;
+            set;
+        }
+
+        public IWindow OverTab
+        {
+            get;
+            set;
+        }
+
+        public IFrame ThisContent
+        {
+            get;
+            set;
+        }
+
+        public DockingSpace BoundSpace
+        {
+            get;
+            set;
+
+        }
+
+        public List<IWindow> DockedWindows { get; set; }
 
         private List<DockingSpace> dockingSpaces;
         bool Drag = false;
@@ -199,6 +239,9 @@ namespace Vivid.UI.Forms
         {
             CastShadow = false;
             Text = title;
+            ActiveDockedWindow = null;
+            Docked = false;
+            DockedWindows = new List<IWindow>();
             //       Title = new IButton();
             Content = new IFrame();
             RightEdge = new IFrame(true);
@@ -209,6 +252,8 @@ namespace Vivid.UI.Forms
             EdgeSize = 12;
             Content.Scissor = true;
             WindowDock = false;
+            DrawOutline = true;
+            ThisContent = Content;
             //Title.OnMove = (form, xm, ym) =>
             //{
             //    if (!Static)
@@ -253,13 +298,82 @@ namespace Vivid.UI.Forms
 
             // Content.AfterSetChildren();
         }
+
+
+        public void CleanUpDockingSpaces(List<DockingSpace> dockingSpaces)
+        {
+            for (int i = dockingSpaces.Count - 1; i >= 0; i--)
+            {
+                var space = dockingSpaces[i];
+
+                // If the space has no window, remove it and expand neighbouring spaces
+                if (space.IsEmpty)
+                {
+                    dockingSpaces.RemoveAt(i);
+
+                    foreach (var otherSpace in dockingSpaces)
+                    {
+                        // If the spaces are horizontally adjacent, expand horizontally
+                        if (Math.Abs(space.Area.Top - otherSpace.Area.Top) < 1e-6 && Math.Abs(space.Area.Bottom - otherSpace.Area.Bottom) < 1e-6)
+                        {
+                            if (Math.Abs(space.Area.Right - otherSpace.Area.Left) < 1e-6)  // space is to the left of otherSpace
+                            {
+                                otherSpace.Area = new DockRect(otherSpace.Area.Left - space.Area.Width, otherSpace.Area.Top, otherSpace.Area.Width + space.Area.Width, otherSpace.Area.Height);
+                            }
+                            else if (Math.Abs(space.Area.Left - otherSpace.Area.Right) < 1e-6)  // space is to the right of otherSpace
+                            {
+                                otherSpace.Area = new DockRect(otherSpace.Area.Left, otherSpace.Area.Top, otherSpace.Area.Width + space.Area.Width, otherSpace.Area.Height);
+                            }
+                        }
+                        // If the spaces are vertically adjacent, expand vertically
+                        else if (Math.Abs(space.Area.Left - otherSpace.Area.Left) < 1e-6 && Math.Abs(space.Area.Right - otherSpace.Area.Right) < 1e-6)
+                        {
+                            if (Math.Abs(space.Area.Bottom - otherSpace.Area.Top) < 1e-6)  // space is above otherSpace
+                            {
+                                otherSpace.Area = new DockRect(otherSpace.Area.Left, otherSpace.Area.Top - space.Area.Height, otherSpace.Area.Width, otherSpace.Area.Height + space.Area.Height);
+                            }
+                            else if (Math.Abs(space.Area.Top - otherSpace.Area.Bottom) < 1e-6)  // space is below otherSpace
+                            {
+                                otherSpace.Area = new DockRect(otherSpace.Area.Left, otherSpace.Area.Top, otherSpace.Area.Width, otherSpace.Area.Height + space.Area.Height);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         public void DockWindow(IWindow win, Point pos, double edge)
         {
             var target = DetermineDock(pos, edge);
-            target.Space.DockedWindow = win;
+            if (target.Space.DockedWindow != null)
+            {
+                if (target.Space.DockedWindow.DockedWindows.Contains(win))
+                {
+                    return;
+                }
+                if(target.Space.DockedWindow == win)
+                {
+                    return;
+                }
+                target.Space.DockedWindow.DockedWindows.Add(win);
+                win.Set(Position.x,Position.y,target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h,win.Text);
+                UI.This.Windows.Remove(win);
+                //win.Root.Forms.Remove(win);
+                //win.Root = null;
+
+                return;
+                //Environment.Exit(0);
+
+            }
+            else
+            {
+                target.Space.DockedWindow = win;
+                win.BoundSpace = target.Space;
+            }
             int rx, ry, rw, rh;
             Content.AddForm(win);
             UI.This.Windows.Remove(win);
+            win.Docked = true;
+            win.DockedTo = this;
             switch (target.Position)
             {
                 case DockPosition.Left:
@@ -305,7 +419,7 @@ namespace Vivid.UI.Forms
                     break;
                 case DockPosition.Bottom:
                     rx = (int)target.Space.Area.X;
-                    ry = (int)target.Space.Area.Height - (int)target.Space.Area.Height / 4;
+                    ry = (int)target.Space.Area.Y+(int)target.Space.Area.Height - (int)target.Space.Area.Height / 4;
                     rw = (int)target.Space.Area.Width;
                     rh = (int)target.Space.Area.Height / 4;
                     win.Set(rx, ry, rw, rh, win.Text);
@@ -348,7 +462,7 @@ namespace Vivid.UI.Forms
                 case DockPosition.Left:
                   
                     ax = (int)space.Area.X + (int)windowRect.Width;
-                    ay = (int)space.Area.Y + (int)windowRect.Y;
+                    ay = (int)space.Area.Y;// + (int)windowRect.Y;
                     aw = (int)space.Area.Size.Width - (int)windowRect.Width;
                     ah = (int)space.Area.Size.Height;
                     newSpace.Area = new DockRect(ax, ay, aw, ah);
@@ -496,7 +610,33 @@ namespace Vivid.UI.Forms
                     Drag = true;
                 }
             }
+            if (OverTab != null)
+            {
+                ActiveDockedWindow = OverTab;
+                if(OverTab == this)
+                {
+                    ActiveDockedWindow = null;
+                    Content.Override = null;
+                   // Forms.Remove(Content);
+                   // Content = ThisContent;
+                   // Forms.Add(Content);
+      
+                }
+                else
+                {
+                    ActiveDockedWindow = OverTab;
+                    Content.Override = OverTab.Content;
+                    Content.Override.Root = Content.Root;
+                 //   OverTab.Content.Size = Content.Size;
+                //    OverTab.Content.Position = Content.Position;
+                   // Forms.Remove(Content);
+                   // Content = OverTab.Content;
+                   // Forms.Add(Content);
+                    //Content.Root = this;
 
+
+                }
+            }
             //Drag = true;
 
         }
@@ -507,12 +647,60 @@ namespace Vivid.UI.Forms
             Drag = false;
         }
         Position mp;
+
+        public void CheckTab(IWindow win,int dx,int dy,int mx,int my)
+        {
+
+            //            Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(text) + 15, TitleHeight, new Maths.Color(0.7f, 0.7f, 0.7f, 0.85f));
+            if (mx >= RenderPosition.x + dx && mx <= RenderPosition.x +dx+ UI.SystemFont.StringWidth(win.Text) + 15)
+            {
+                if(my>=RenderPosition.y+dy && my <= RenderPosition.y+dy + TitleHeight)
+                {
+                    OverTab = win;
+                }
+            }
+
+        }
+
+        public void Undock()
+        {
+            if (Docked)
+            {
+                Docked = false;
+                DockedTo.Content.Forms.Remove(this);
+                UI.This.Windows.Add(this);
+                DockedTo = null;
+                BoundSpace.DockedWindow = null;
+            
+
+            }
+        }
+
         public override void OnMouseMove(Position position, Delta delta)
         {
             mp = new Position(position.x, position.y);
-            mp.x = mp.x-RenderPosition.x;
-            mp.y = mp.y-RenderPosition.y;
+            mp.x = mp.x - RenderPosition.x;
+            mp.y = mp.y - RenderPosition.y;
             //base.OnMouseMove(position, delta);
+            OverTab = null;
+            CheckTab(this, 0, 0, position.x, position.y);
+            int dx, dy;
+
+            dx = UI.SystemFont.StringWidth(Text) + 20;
+
+            foreach (var tab in DockedWindows)
+            {
+                CheckTab(tab, dx, 0, position.x, position.y);
+                dx = dx + UI.SystemFont.StringWidth(tab.Text) + 12;
+
+            }
+            if (OverTab != null)
+            {
+                //Environment.Exit(1);
+
+            }
+
+
             if (Drag)
             {
 
@@ -520,8 +708,96 @@ namespace Vivid.UI.Forms
                 //   Environment.Exit(1);
                 if (!Static)
                 {
-                    Position.x = Position.x + (int)delta.x;
-                    Position.y = Position.y +(int) delta.y;
+
+                    if (Docked)
+                    {
+
+                        //Console.WriteLine("Del:" + delta.Length);
+                        if (delta.Length > 30)
+                        {
+                            if (ActiveDockedWindow == null)
+                            {
+                                Undock();
+                            }
+                            else
+                            {
+
+
+                                DockedWindows.Remove(ActiveDockedWindow);
+                                ActiveDockedWindow.Position = RenderPosition + mp;
+                                UI.This.Windows.Add(ActiveDockedWindow);
+                                UI.This.Pressed[0] = null;
+                                if (Content.Override == ActiveDockedWindow.Content)
+                                {
+                                    ActiveDockedWindow.Content.Root = ActiveDockedWindow;
+                                    ActiveDockedWindow.Drag = true;
+                                    UI.This.Pressed[0] = ActiveDockedWindow;
+                                    UI.This.Over = ActiveDockedWindow;
+                                    Content.Override = null;
+                                    ActiveDockedWindow = null;
+                                    Drag = false;
+
+
+                                }
+                                // UI.This.Over = null;
+
+
+
+
+                            }
+                            //Docked = false;
+
+
+                        }
+                    }
+                    else
+                    {
+                        if (ActiveDockedWindow != null)
+                        {
+
+                            if (delta.Length > 30)
+                            {
+
+                                DockedWindows.Remove(ActiveDockedWindow);
+                                ActiveDockedWindow.Position = RenderPosition + mp;
+                                UI.This.Windows.Add(ActiveDockedWindow);
+                                UI.This.Pressed[0] = null;
+                                if (Content.Override == ActiveDockedWindow.Content)
+                                {
+                                    ActiveDockedWindow.Content.Root = ActiveDockedWindow;
+                                    ActiveDockedWindow.Drag = true;
+                                    UI.This.Pressed[0] = ActiveDockedWindow;
+                                    UI.This.Over = ActiveDockedWindow;
+                                    Content.Override = null;
+                                    ActiveDockedWindow = null;
+                                    Drag = false;
+
+
+                                }
+                                // UI.This.Over = null;
+
+
+
+
+                            }
+                            else
+                            {
+
+                                Position.x = Position.x + (int)delta.x;
+                                Position.y = Position.y + (int)delta.y;
+                            }
+                            //Docked = false;
+
+
+                        }
+                        else
+                        {
+                            Position.x = Position.x + (int)delta.x;
+                                Position.y = Position.y + (int)delta.y;
+                        }
+                        //int b = 5;
+
+                    }
                 }
             }
         }
@@ -533,13 +809,62 @@ namespace Vivid.UI.Forms
 
         }
 
+        private void DrawTab(IWindow tab, int x, int y)
+        {
+
+            if (ActiveDockedWindow==null)
+            {
+                if(tab == this)
+                {
+                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(1.35f, 1.35f, 1.35f, 0.85f));
+                }
+                else
+                {
+                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(0.5f, 0.5f, 0.5f, 0.85f));
+                }
+            }
+            else
+            {
+                if (ActiveDockedWindow == tab)
+                {
+                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(1.35f, 1.35f, 1.35f, 0.85f));
+                }
+                else
+                {
+                    if (tab == OverTab)
+                    {
+                        Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(0.7f, 0.7f, 0.7f, 0.85f));
+                    }
+                    else
+                    {
+                        Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(0.5f, 0.5f, 0.5f, 0.85f));
+                    }
+                }
+            }
+          //   if (HighlightArea)
+            //     {
+
+            UI.DrawString(tab.Text, RenderPosition.x +x+4, RenderPosition.y, UI.Theme.TextColor);
+        }
+
         public override void OnRender()
         {
             //base.OnRender();
-            Draw(UI.Theme.FrameH, RenderPosition.x, RenderPosition.y, Size.w, TitleHeight, new Maths.Color(0.7f, 0.7f, 0.7f, 0.85f));
+
+            DrawTab(this, 0, 0);
+            int dx, dy;
+
+            dx = UI.SystemFont.StringWidth(Text) + 20;
+
+            foreach(var win in DockedWindows)
+            {
+                DrawTab(win, dx, 0);
+                dx = dx + UI.SystemFont.StringWidth(win.Text) + 12;
+            }
+            //Draw(UI.Theme.FrameH, RenderPosition.x, RenderPosition.y, Size.w, TitleHeight, new Maths.Color(0.7f, 0.7f, 0.7f, 0.85f));
          //   if (HighlightArea)
        //     {
-                UI.DrawString(Text, RenderPosition.x + 8, RenderPosition.y, UI.Theme.TextColor);
+            //    UI.DrawString(Text, RenderPosition.x + 8, RenderPosition.y, UI.Theme.TextColor);
        
 
 
@@ -547,6 +872,9 @@ namespace Vivid.UI.Forms
             {
                 Draw(UI.Theme.FrameShadow, RenderPosition.x + 16, RenderPosition.y + 32, Size.w + 16, Size.h + 16, new Maths.Color(1, 1, 1, 0.5f));
             }
+
+     
+
         }
 
     }

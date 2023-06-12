@@ -184,10 +184,20 @@ namespace UIDemo1
 
             win3.Set(200, 200, 300, 250, "Render");
 
+            var but11 = new IButton().Set(20, 20, 200, 30, "But1") as IButton;
+            var but2 = new IButton().Set(30, 50, 180, 40, "Other!") as IButton;
+
+            win3.Content.AddForm(but11);
+            win4.Content.AddForm(but2);
+            but11.OnClick = (form, data) =>
+            {
+                Environment.Exit(1);
+            };
             ui.AddWindow(win3);
             ui.AddWindow(win4);
             ui.AddWindow(win5);
-            ui.AddWindow(win6);
+            //ui.AddWindow(win6);
+
 
             //frame1.AddForm(win3);
 

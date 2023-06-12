@@ -24,8 +24,8 @@
         }
         public override void OnRender()
         {
-            BlurBG();
-            Draw(Image);
+        //    BlurBG();
+            Draw(UI.Theme.Pure);
         }
     }
 }

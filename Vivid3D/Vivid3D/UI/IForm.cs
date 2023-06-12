@@ -181,12 +181,20 @@ namespace Vivid.UI
             set;
         }
 
+        public IForm Override
+        {
+            get;
+            set;
+        }
+
         public IForm()
         {
+            Override = null;
             if (BlurFX == null)
             {
                 BlurFX = new Vivid.Draw.SMDrawBlur2D();
             }
+     
             Static = false;
             Scissor = false;
             Position = new Position(0, 0);
@@ -345,7 +353,17 @@ namespace Vivid.UI
             OnUpdate();
             foreach (var form in Forms)
             {
-                form.Update();
+
+                if (form.Override != null)
+                {
+                    form.Override.Update();
+
+                }
+                else
+                {
+                    form.Update();
+
+                }
             }
         }
 
@@ -354,8 +372,11 @@ namespace Vivid.UI
            
 
             int rx, ry, w, h;
-            rx = RenderPosition.x;
-            ry = RenderPosition.y;
+           // if (x == -1)
+         //   {
+                rx = RenderPosition.x;
+                ry = RenderPosition.y;
+         
             w = Size.w;
             h = Size.h;
             int ty = Vivid.App.VividApp.FrameHeight - (ry + Size.h);
@@ -380,7 +401,16 @@ namespace Vivid.UI
                     GL.Enable(EnableCap.ScissorTest);
                     GL.Scissor(rx, ty, w, h);
                 }
-                form.Render();
+
+                if (form.Override != null)
+                {
+                    form.Override.Render();
+                }
+                else
+                {
+                    form.Render();
+                }
+                
                 if (Scissor)
                 {
                     GL.Disable(EnableCap.ScissorTest);
