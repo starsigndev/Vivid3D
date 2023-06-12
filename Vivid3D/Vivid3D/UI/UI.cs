@@ -556,6 +556,11 @@ namespace Vivid.UI
                 win.Render();
             }
 
+            foreach(var win in Windows)
+            {
+                win.DebugSpaces();
+            }
+
             if (CurrentDock != null)
             {
                 //CurrentDock.Draw(UI.Theme.Pure);

@@ -171,11 +171,12 @@ namespace UIDemo1
             win4.Set(300, 300, 200, 200, "OTher");
 
             IWindow dock = new IWindow("Vivid3D");
-            dock.Set(150, 150, frame1.Size.w-200, frame1.Size.h-200,dock.Text);
+           
             //     dock.Static = true;
 
             ui.AddWindow(dock);
             dock.WindowDock = true;
+            dock.Set(150, 150, frame1.Size.w - 200, frame1.Size.h - 200, dock.Text);
 
             //            frame1.AddForm(dock);
 
