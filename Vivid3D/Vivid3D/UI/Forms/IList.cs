@@ -141,7 +141,7 @@ namespace Vivid.UI.Forms
                 }
                 else
                 {
-                    item.Color += (new Maths.Color(1.7f, 0.7f, 0.7f, 0.97f) - item.Color) * 0.1f;
+                    item.Color += (new Maths.Color(1.7f, 1.7f, 1.7f, 0.97f) - item.Color) * 0.1f;
                 }
             }
         }
@@ -170,7 +170,7 @@ namespace Vivid.UI.Forms
             {
                 if(item == OverItem)
                 {
-                    Draw(UI.Theme.Frame, ix - 5, iy-2, Size.w, UI.SystemFont.StringHeight() + 6, new Maths.Color(0.7f, 0.7f, 0.7f, 0.8f));
+                    Draw(UI.Theme.Frame, ix - 5, iy-2, Size.w, UI.SystemFont.StringHeight() + 6, new Maths.Color(0.5f, 0.5f, 0.5f, 0.8f));
                 }
                 UI.DrawString(item.Name, ix, iy,item.Color);
                 iy = iy + UI.SystemFont.StringHeight() + 8;

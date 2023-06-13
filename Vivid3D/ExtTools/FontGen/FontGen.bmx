@@ -1,7 +1,7 @@
 
 Graphics 800,600
 
-Local lf:String = "arial.ttf"
+Local lf:String = "systemfont2.ttf"
 
 Local font:TimageFont = LoadImageFont(lf,38) 
 

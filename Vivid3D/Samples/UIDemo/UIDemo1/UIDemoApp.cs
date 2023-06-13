@@ -193,7 +193,8 @@ namespace UIDemo1
             dock.WindowDock = true;
             dock.Set(150, 150, frame1.Size.w - 200, frame1.Size.h - 200, dock.Text);
 
-            //            frame1.AddForm(dock);
+            // frame1.AddForm(dock);
+            ui.AddWindow(dock);
 
             var win5 = new IWindow("").Set(400, 200, 250, 250, "Win other") as IWindow;
             var win6 = new IWindow("").Set(300, 80, 300, 300, "Effects") as IWindow;
@@ -209,12 +210,12 @@ namespace UIDemo1
             {
                 Environment.Exit(1);
             };
-            //ui.AddWindow(win3);
-           // ui.AddWindow(win4);
-           // ui.AddWindow(win5);
-           // win3.WindowDock = true;
-           // win3.Set(200, 200, 450, 450, "Render");
-            //ui.AddWindow(win6);
+            ui.AddWindow(win3);
+            ui.AddWindow(win4);
+            ui.AddWindow(win5);
+         //   win3.WindowDock = true;
+            win3.Set(200, 200, 450, 450, "Render");
+            ui.AddWindow(win6);
 
 
             //frame1.AddForm(win3);

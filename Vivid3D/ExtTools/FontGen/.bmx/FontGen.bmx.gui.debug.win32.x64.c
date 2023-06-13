@@ -1,7 +1,7 @@
 #include "FontGen.bmx.gui.debug.win32.x64.h"
 struct BBString_4{BBClass_String* clas;BBULONG hash;int length;BBChar buf[4];};
 struct BBString_3{BBClass_String* clas;BBULONG hash;int length;BBChar buf[3];};
-struct BBString_9{BBClass_String* clas;BBULONG hash;int length;BBChar buf[9];};
+struct BBString_15{BBClass_String* clas;BBULONG hash;int length;BBChar buf[15];};
 static struct BBString_4 _s14={
 	&bbStringClass,
 	0x2fe105a741f7b240,
@@ -20,11 +20,11 @@ static struct BBString_3 _s13={
 	3,
 	{67,87,58}
 };
-static struct BBString_9 _s11={
+static struct BBString_15 _s11={
 	&bbStringClass,
-	0x27355f0ecc002e4d,
-	9,
-	{97,114,105,97,108,46,116,116,102}
+	0xbf22078e444a77ee,
+	15,
+	{115,121,115,116,101,109,102,111,110,116,50,46,116,116,102}
 };
 struct BBDebugScope_1{int kind; const char *name; BBDebugDecl decls[2]; };
 struct BBDebugScope_2{int kind; const char *name; BBDebugDecl decls[3]; };

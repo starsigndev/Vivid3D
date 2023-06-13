@@ -114,11 +114,11 @@ namespace Vivid.UI
                 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("darknight");
+                    Theme = new UITheme("vividdark");
                 }
 
-                SystemFont = new kFont("gemini/font/arial.pf");
-                SystemFont.Scale = 0.45f;  
+                SystemFont = new kFont("gemini/font/systemfont2.pf");
+                SystemFont.Scale = 0.38f;  
             }
 
             Over = null;
@@ -558,7 +558,7 @@ namespace Vivid.UI
 
             foreach(var win in Windows)
             {
-                win.DebugSpaces();
+               // win.DebugSpaces();
             }
 
             if (CurrentDock != null)

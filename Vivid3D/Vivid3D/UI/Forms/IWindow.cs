@@ -1120,6 +1120,19 @@ namespace Vivid.UI.Forms
                     MergeRight(space);
                     MergeUp(space);
                     MergeDown(space);
+              
+                    if (space.X + space.Width > Size.w)
+                {
+                   // int change = space.X + space.Width;
+                  //  change = change - Size.w;
+                 //   space.Width -= change;
+                }
+                if (space.Y + space.Height > Size.h)
+                {
+                //    int change = space.Y + space.Height;
+               //     change = change - Size.h;
+               //     space.Height -= change;
+                }
                 //
 
                 if (space.DockedWindow != null)
@@ -1293,28 +1306,28 @@ namespace Vivid.UI.Forms
             {
                 if(tab == this)
                 {
-                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(1.35f, 1.35f, 1.35f, 0.85f));
+                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight-3, new Maths.Color(1.35f, 1.35f, 1.35f, 0.85f));
                 }
                 else
                 {
-                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(0.5f, 0.5f, 0.5f, 0.85f));
+                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight-3, new Maths.Color(0.5f, 0.5f, 0.5f, 0.85f));
                 }
             }
             else
             {
                 if (ActiveDockedWindow == tab)
                 {
-                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(1.35f, 1.35f, 1.35f, 0.85f));
+                    Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight-3, new Maths.Color(1.35f, 1.35f, 1.35f, 0.85f));
                 }
                 else
                 {
                     if (tab == OverTab)
                     {
-                        Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(0.7f, 0.7f, 0.7f, 0.85f));
+                        Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight-3, new Maths.Color(0.7f, 0.7f, 0.7f, 0.85f));
                     }
                     else
                     {
-                        Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight, new Maths.Color(0.5f, 0.5f, 0.5f, 0.85f));
+                        Draw(UI.Theme.Frame, RenderPosition.x + x, RenderPosition.y + y, UI.SystemFont.StringWidth(tab.Text) + 15, TitleHeight-3, new Maths.Color(0.5f, 0.5f, 0.5f, 0.85f));
                     }
                 }
             }

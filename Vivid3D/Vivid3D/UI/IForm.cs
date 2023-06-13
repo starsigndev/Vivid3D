@@ -359,7 +359,7 @@ namespace Vivid.UI
             int ty = Vivid.App.VividApp.FrameHeight - (ry + Size.h);
             if (DrawOutline)
             {
-                Draw(UI.Theme.Frame, RenderPosition.x - 2, RenderPosition.y - 2, Size.w + 4, Size.h + 4, new Maths.Color(2, 2, 2, 2));
+                Draw(UI.Theme.Frame, RenderPosition.x - 2, RenderPosition.y - 2, Size.w + 4, Size.h + 4, new Maths.Color(3, 3, 3, 2));
             }
             if (ScissorSelf)
             {

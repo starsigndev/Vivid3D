@@ -1,7 +1,7 @@
 
 Graphics 800,600
 
-Local lf:String = "norm2.ttf"
+Local lf:String = "systemfont.ttf"
 
 Local font:TimageFont = LoadImageFont(lf,38) 
 
