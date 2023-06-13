@@ -52,7 +52,8 @@ namespace Vivid.UI.Forms
                 if (Environment.TickCount > next_down)
                 {
                     next_down = next_down + 100;
-                    MouseDown?.Invoke(this, null);
+                    InvokeMouseDown(this, null);
+                    
                 }
             }
             Color = Color + (Target - Color) * new Maths.Color(0.03f, 0.03f, 0.03f, 0.75f);
@@ -76,7 +77,8 @@ namespace Vivid.UI.Forms
         {
             //base.OnMouseDown(button);
             Target = new Maths.Color(1.4f, 1.8f, 1.8f, 1.0f);
-            OnClick?.Invoke(this, null);
+            //OnClick?.Invoke(this, null);
+            InvokeClick(this, null);
             Down = true;
             Drag = true;
             next_down = Environment.TickCount + 500;
@@ -87,7 +89,9 @@ namespace Vivid.UI.Forms
             //base.OnMouseUp(button);
             Target = new Maths.Color(0.5f, 0.5f, 0.5f, 0.8f);
             OnEnter();
-            OnClicked?.Invoke(this, null);
+           
+            InvokeClicked(this,null);
+
             Down = false;
             Drag = false;
             next_down = 0;
@@ -98,7 +102,8 @@ namespace Vivid.UI.Forms
             //base.OnMouseMove(position, delta);
             if (Drag)
             {
-                OnMove?.Invoke(this, (int)delta.x, (int)delta.y);
+              
+                InvokeMove(this, (int)delta.x, (int)delta.y);
              //   Environment.Exit(1);
             }
         }

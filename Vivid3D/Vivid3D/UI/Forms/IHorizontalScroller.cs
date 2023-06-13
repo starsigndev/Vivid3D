@@ -44,7 +44,9 @@ namespace Vivid.UI.Forms
                 {
                     _CV = 0;
                 }
-                OnMove?.Invoke(this, (int)((float)MaxValue * av2),0);
+
+                //OnMove?.Invoke(this, (int)((float)MaxValue * av2),0);
+                InvokeMove(this,(int)((float)MaxValue*av2),0);
             }
 
         }
@@ -127,6 +129,13 @@ namespace Vivid.UI.Forms
             RightButton = new IButton();
             LeftButton.Icon = UI.Theme.ArrowLeft;
             RightButton.Icon = UI.Theme.ArrowRight;
+
+            LeftButton.OnClick += LeftButton_OnClick;
+            RightButton.OnClick += RightButton_OnClick;
+            LeftButton.MouseDown += LeftButton_MouseDown;
+            RightButton.MouseDown += RightButton_MouseDown;
+
+            /*
             LeftButton.OnClick = (form, data) =>
             {
                 CurrentValue = CurrentValue - 10;
@@ -143,8 +152,30 @@ namespace Vivid.UI.Forms
             {
                 CurrentValue = CurrentValue + 10;
             };
+            */
             AddForms(LeftButton, RightButton);
 
+        }
+
+        private void RightButton_MouseDown(IForm form, object data = null)
+        {
+            CurrentValue = CurrentValue + 10;
+        }
+
+        private void LeftButton_MouseDown(IForm form, object data = null)
+        {
+            CurrentValue = CurrentValue - 10;
+        }
+
+        private void RightButton_OnClick(IForm form, object data = null)
+        {
+            CurrentValue = CurrentValue + 10;
+        }
+
+        private void LeftButton_OnClick(IForm form, object data = null)
+        {
+            //throw new NotImplementedException();
+            CurrentValue = CurrentValue - 10;
         }
 
         public override void OnMouseDown(MouseID button)
@@ -182,7 +213,9 @@ namespace Vivid.UI.Forms
                 {
                     CurrentValue = 0;
                 }
-                OnMove?.Invoke(this, (int)((float)MaxValue * av2),0);
+                //OnMove?.Invoke(this, (int)((float)MaxValue * av2),0);
+                InvokeMove(this, (int)((float)MaxValue * av2), 0);
+
             }
             else
             {

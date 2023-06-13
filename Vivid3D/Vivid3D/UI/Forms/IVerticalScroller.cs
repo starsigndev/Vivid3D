@@ -46,7 +46,8 @@ namespace Vivid.UI.Forms
                 {
                     _CV = 0;
                 }
-                OnMove?.Invoke(this, 0, (int)((float)MaxValue * av2));
+              //  OnMove?.Invoke(this, 0, (int)((float)MaxValue * av2));
+                InvokeMove(this,0,(int)((float)MaxValue * av2));
             }
             
         }
@@ -131,18 +132,18 @@ namespace Vivid.UI.Forms
             DownButton = new IButton();
             UpButton.Icon = UI.Theme.ArrowUp;
             DownButton.Icon = UI.Theme.ArrowDown;
-            DownButton.OnClick = (form,data)=>{
+            DownButton.OnClick += (form,data)=>{
                 CurrentValue = CurrentValue + 10;
             };
-            UpButton.OnClick = (form, data) =>
+            UpButton.OnClick += (form, data) =>
             {
                 CurrentValue = (int)CurrentValue - 10;
             };
-            DownButton.MouseDown = (form, data) =>
+            DownButton.MouseDown += (form, data) =>
             {
                 CurrentValue = CurrentValue + 10;
             };
-            UpButton.MouseDown = (form, data) =>
+            UpButton.MouseDown += (form, data) =>
             {
                 CurrentValue = CurrentValue - 10;
             };

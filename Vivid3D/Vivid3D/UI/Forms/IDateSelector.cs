@@ -80,7 +80,7 @@ namespace Vivid.UI.Forms
                 }
                 SelectFrame.AddForm(day_but);
                 day_buts.Add(day_but);
-                day_but.OnClick = (form, data) =>
+                day_but.OnClick += (form, data) =>
                 {
                     Date = new DateTime(Date.Year, Date.Month, day_num);
                 };
@@ -109,7 +109,7 @@ namespace Vivid.UI.Forms
 
                 month_lab = month;
 
-                monthl.OnClick = (form, data) =>
+                monthl.OnClick += (form, data) =>
                 {
 
                     int new_month = Date.Month - 1;
@@ -122,7 +122,7 @@ namespace Vivid.UI.Forms
 
                 };
 
-                monthr.OnClick = (form, data) =>
+                monthr.OnClick += (form, data) =>
                 {
 
                     int new_month = Date.Month + 1;

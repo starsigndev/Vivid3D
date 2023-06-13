@@ -114,7 +114,7 @@ namespace Vivid.UI.Forms
             AddForm(HScroller);
             Scroller.MaxValue = 20;
             HScroller.MaxValue = 20;
-            HScroller.OnMove = (form, x, y) =>
+            HScroller.OnMove += (form, x, y) =>
             {
                 x = x / 100;
                 TextStartX = x;
@@ -123,7 +123,7 @@ namespace Vivid.UI.Forms
                
 
             };
-            Scroller.OnMove = (form, x, y) =>
+            Scroller.OnMove += (form, x, y) =>
             {
             
                 y = y / 100;

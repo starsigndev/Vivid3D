@@ -339,7 +339,7 @@ namespace Vivid.UI.Forms
             //}
             //};
             ResizeButton.Image = UI.Theme.ButtonSelected;
-            ResizeButton.OnMove = (form, xm, ym) =>
+            ResizeButton.OnMove += (form, xm, ym) =>
             {
                 if (!Static)
                 {
@@ -349,10 +349,10 @@ namespace Vivid.UI.Forms
             MinimumSize = new Maths.Size(0, 0);
             VerticalScroller = new IVerticalScroller();
             RightEdge.AddForm(VerticalScroller);
-            VerticalScroller.OnMove = (form, x, y) =>
+            VerticalScroller.OnMove += (form, x, y) =>
             {
                 Content.ScrollValue = new Maths.Position(0, y);
-                Console.WriteLine("SY:" + Content.ScrollValue.y);
+               
             };
             Static = false;
         }
@@ -869,7 +869,7 @@ namespace Vivid.UI.Forms
                 }
 
                 dy++;
-                if (dy >= DockMan.Height)
+                if (dy >= Size.h)
 
 
                 {
@@ -939,7 +939,7 @@ namespace Vivid.UI.Forms
                 }
 
                 dx++;
-                if (dx >= DockMan.Width)
+                if (dx >= Size.w)
 
 
                 {
@@ -1101,9 +1101,9 @@ namespace Vivid.UI.Forms
             {
 
                 dockingSpaces[0].Area.X = 0;
-                dockingSpaces[0].Area.Y = 0;
-                dockingSpaces[0].Area.Width = DockMan.Width;
-                dockingSpaces[0].Area.Height = DockMan.Height;
+                dockingSpaces[0].Area.Y = TitleHeight;
+                dockingSpaces[0].Area.Width = Size.w;
+                dockingSpaces[0].Area.Height = Size.h;
                 dockingSpaces[0].DockedWindow = null;
                 return;
             }
@@ -1132,7 +1132,7 @@ namespace Vivid.UI.Forms
             int b = 5;
 
         }
-        public void Undock()
+        public void Undock(Position pos)
         {
             if (Docked)
             {
@@ -1141,6 +1141,7 @@ namespace Vivid.UI.Forms
                 this.Root = null;
                 UI.This.Windows.Add(this);
                 //DockedTo = null;
+                this.Position = pos + new Position(-5, -5);
                 BoundSpace.DockedWindow = null;
                 //DockedTo.dockingSpaces = MergeAdjacentEmptySpaces(DockedTo.dockingSpaces);
                 DockedTo.RemoveAndMerge(BoundSpace);
@@ -1189,18 +1190,18 @@ namespace Vivid.UI.Forms
                     {
 
                         //Console.WriteLine("Del:" + delta.Length);
-                        if (delta.Length > 30)
+                        if (delta.Length > 25)
                         {
                             if (ActiveDockedWindow == null)
                             {
-                                Undock();
+                                Undock(position);
                             }
                             else
                             {
 
 
                                 DockedWindows.Remove(ActiveDockedWindow);
-                                ActiveDockedWindow.Position = RenderPosition + mp;
+                                ActiveDockedWindow.Position = position + new Position(-5, -5);
                                 UI.This.Windows.Add(ActiveDockedWindow);
                                 UI.This.Pressed[0] = null;
                                 if (Content.Override == ActiveDockedWindow.Content)

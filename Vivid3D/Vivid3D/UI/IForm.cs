@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace Vivid.UI
 {
-    public delegate void Action(IForm form, object data = null);
+    public delegate void FormAction(IForm form, object data = null);
     public delegate void FormMove(IForm form, int x, int y);
 
     public class IForm
@@ -85,41 +85,18 @@ namespace Vivid.UI
             }
         }
 
-        public Action OnClick
-        {
-            get;
-            set;
-        } 
+        public event FormAction OnClick;
 
-        public Action MouseDown
-        {
-            get;
-            set;
-        }
+        public event FormAction MouseDown;
 
-        public Action OnActivated
-        {
-            get;
-            set;
-        }
+        public event FormAction OnActivated;
 
-        public FormMove OnMove
-        {
-            get;
-            set;
-        }
 
-        public Action OnDeactivated
-        {
-            get;
-            set;
-        }
+        public event FormMove OnMove;
 
-        public Action OnClicked
-        {
-            get;
-            set;
-        }
+        public event FormAction OnDeactivated;
+
+        public event FormAction OnClicked;
 
         private Texture2D BGTex
         {
@@ -468,5 +445,23 @@ namespace Vivid.UI
 
         //}
 
+        //Invokes
+
+        public void InvokeMouseDown(IForm form,object data)
+        {
+            MouseDown?.Invoke(form, null);
+        }
+        public void InvokeMove(IForm form,int x,int y)
+        {
+            OnMove?.Invoke(this,x, y);
+        }
+        public void InvokeClicked(IForm form,object data)
+        {
+            OnClicked?.Invoke(this, data);
+        }
+        public void InvokeClick(IForm form,object data)
+        {
+            OnClick?.Invoke(form, data);
+        }
     }
 }

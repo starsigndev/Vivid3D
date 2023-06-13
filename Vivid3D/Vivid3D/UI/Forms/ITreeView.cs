@@ -112,12 +112,12 @@ namespace Vivid.UI.Forms
             AddForms(VerticalScroller, HorizontalScroller);
             Root = new TreeItem();
             ScissorSelf = true;
-            VerticalScroller.OnMove = (item, x, y) =>
+            VerticalScroller.OnMove += (item, x, y) =>
             {
                 //ScrollValue = new Maths.Position(0, y);
                 ScrollY = y;
             };
-            HorizontalScroller.OnMove = (item, x, y) =>
+            HorizontalScroller.OnMove += (item, x, y) =>
             {
                 ScrollX = x;
             };

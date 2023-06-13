@@ -41,12 +41,12 @@ namespace Vivid.UI.Forms
             Number = new ITextBox();
             Number.Numeric = true;
             AddForms(Up, Down, Number);
-            Down.OnClick = (form,data) =>
+            Down.OnClick += (form,data) =>
             {
                 float num = Number.Value - Increment;
                 Number.Text = num.ToString();
             };
-            Up.OnClick = (form, data) =>
+            Up.OnClick += (form, data) =>
             {
                 float num = Number.Value + Increment;
                 Number.Text = num.ToString();
