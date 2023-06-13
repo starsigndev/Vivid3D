@@ -31,6 +31,7 @@ namespace UIDemo1
             ui = new UI();
             IFrame frame1 = new IFrame().Set(new Vivid.Maths.Position(0, 0), new Vivid.Maths.Size(Vivid.App.VividApp.FrameWidth,Vivid.App.VividApp.FrameHeight),"") as IFrame;
             ui.AddForm(frame1);
+            frame1.Color = frame1.Color * 0.75f;
             IButton but1 = new IButton().Set(new Vivid.Maths.Position(32, 32), new Vivid.Maths.Size(128, 32), "Test 1") as IButton;
             //frame1.AddForm(but1);
 
@@ -210,14 +211,21 @@ namespace UIDemo1
             {
                 Environment.Exit(1);
             };
-            ui.AddWindow(win3);
+           ui.AddWindow(win3);
             ui.AddWindow(win4);
             ui.AddWindow(win5);
-         //   win3.WindowDock = true;
+           win3.WindowDock = true;
             win3.Set(200, 200, 450, 450, "Render");
-            ui.AddWindow(win6);
+            //    ui.AddWindow(win6);
 
+            ILabelButton lb1 = new ILabelButton().Set(20, 20, 5, 5, "Load Project") as ILabelButton;
 
+            frame1.AddForm(lb1);
+
+            lb1.OnClick += (form, data) =>
+            {
+                Environment.Exit(0);
+            };
             //frame1.AddForm(win3);
 
 

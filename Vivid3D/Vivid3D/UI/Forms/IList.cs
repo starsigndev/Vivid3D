@@ -170,7 +170,7 @@ namespace Vivid.UI.Forms
             {
                 if(item == OverItem)
                 {
-                    Draw(UI.Theme.Frame, ix - 5, iy-2, Size.w, UI.SystemFont.StringHeight() + 6, new Maths.Color(0.5f, 0.5f, 0.5f, 0.8f));
+                    Draw(UI.Theme.Frame, ix - 5, iy-2, Size.w, UI.SystemFont.StringHeight() + 6, new Maths.Color(1f, 1f, 1f, 0.8f));
                 }
                 UI.DrawString(item.Name, ix, iy,item.Color);
                 iy = iy + UI.SystemFont.StringHeight() + 8;

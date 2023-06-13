@@ -12,7 +12,7 @@
             {
                 Image = UI.Theme.Frame;
             }
-            Color = new Maths.Color(1, 1, 1, 0.55f);
+            Color = new Maths.Color(0.8f, 0.8f, 0.8f, 0.95f);
         }
         public override void AfterSet()
         {

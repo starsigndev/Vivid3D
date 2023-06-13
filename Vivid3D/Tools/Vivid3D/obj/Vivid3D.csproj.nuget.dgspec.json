@@ -1,0 +1,148 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\G3D\\Vivid3D\\Tools\\Vivid3D\\Vivid3D.csproj": {}
+  },
+  "projects": {
+    "C:\\G3D\\Vivid3D\\Tools\\Vivid3D\\Vivid3D.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\G3D\\Vivid3D\\Tools\\Vivid3D\\Vivid3D.csproj",
+        "projectName": "Vivid3D",
+        "projectPath": "C:\\G3D\\Vivid3D\\Tools\\Vivid3D\\Vivid3D.csproj",
+        "packagesPath": "C:\\Users\\Ant\\.nuget\\packages\\",
+        "outputPath": "C:\\G3D\\Vivid3D\\Tools\\Vivid3D\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ant\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj": {
+                "projectPath": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
+        "projectName": "Vivid",
+        "projectPath": "C:\\G3D\\Vivid3D\\Vivid3D\\Vivid.csproj",
+        "packagesPath": "C:\\Users\\Ant\\.nuget\\packages\\",
+        "outputPath": "C:\\G3D\\Vivid3D\\Vivid3D\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ant\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AssimpNet": {
+              "target": "Package",
+              "version": "[5.0.0-beta1, )"
+            },
+            "Ionic.Zlib.Core": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "OpenTK": {
+              "target": "Package",
+              "version": "[5.0.0-pre.8, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.0-preview.2.23128.3, )"
+            },
+            "ZKWeb.System.Drawing": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400-preview.23225.8\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

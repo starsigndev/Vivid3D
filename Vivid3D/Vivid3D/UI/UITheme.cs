@@ -83,6 +83,12 @@ namespace Vivid.UI
             set;
         }
 
+        public Texture2D Highlight
+        {
+            get;
+            set;
+        }
+
         public UITheme(string name)
         {
             //var frame = Content.Content.GlobalFindItem(name + ".frame.png");
@@ -102,6 +108,7 @@ namespace Vivid.UI
             ArrowLeft = new Texture2D("ui/theme/" + name + "/arrowleft.png");
             ArrowRight = new Texture2D("ui/theme/" + name + "/arrowright.png");
             Pure = new Texture2D("ui/theme/" + name + "/pure.png");
+            Highlight = new Texture2D("ui/theme/" + name + "/highlight.png");
             //var button_sel = Content.Content.GlobalFindItem(name + ".button_selected.png");
             ButtonSelected = new Texture2D("ui/theme/"+name+"/buttonselected.png");// new Texture2D(button_sel.GetStream(),button_sel.Width, button_sel.Height);
         }

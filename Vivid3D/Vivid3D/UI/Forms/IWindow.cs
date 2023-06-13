@@ -323,12 +323,13 @@ namespace Vivid.UI.Forms
             RightEdge = new IFrame(true);
             BottomEdge = new IFrame(true);
             ResizeButton = new IButton();
-            AddForms(Content);// RightEdge, BottomEdge,ResizeButton);
+            AddForms(Content,ResizeButton);// RightEdge, BottomEdge,ResizeButton);
             TitleHeight = 18;
-            EdgeSize = 12;
+            EdgeSize = 16;
             Content.Scissor = true;
             WindowDock = false;
-            DrawOutline = true;
+            //    DrawOutline = true;
+            Content.DrawOutline = true;
             ThisContent = Content;
             //Title.OnMove = (form, xm, ym) =>
             //{
@@ -344,6 +345,7 @@ namespace Vivid.UI.Forms
                 if (!Static)
                 {
                     Set(Position, new Maths.Size(Size.w + xm, Size.h + ym), Text);
+                    UpdateDocks();
                 }
             };
             MinimumSize = new Maths.Size(0, 0);
@@ -364,7 +366,7 @@ namespace Vivid.UI.Forms
             Content.Set(0, TitleHeight, Size.w, (Size.h - TitleHeight + 1));
             RightEdge.Set(Size.w - EdgeSize, Content.Position.y, EdgeSize, Content.Size.h);
             BottomEdge.Set(0, Content.Size.h + TitleHeight, Content.Size.w, EdgeSize);
-            ResizeButton.Set(Size.w - EdgeSize, Content.Size.h + TitleHeight, EdgeSize, EdgeSize, "-");
+            ResizeButton.Set(Size.w - EdgeSize+3, Content.Size.h+2+3, EdgeSize-2, EdgeSize-2, "");
             VerticalScroller.Set(0, 12, EdgeSize, RightEdge.Size.h - 24, "");
             if (WindowDock)
             {
@@ -506,6 +508,10 @@ namespace Vivid.UI.Forms
                 }
                 target.Space.DockedWindow.DockedWindows.Add(win);
                 win.Set(Position.x, Position.y, target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h, win.Text);
+                foreach (var dw in win.DockedWindows)
+                {
+                    dw.Set(Position.x, Position.y, target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h, dw.Text);
+                }
                 UI.This.Windows.Remove(win);
                 //win.Root.Forms.Remove(win);
                 //win.Root = null;
@@ -532,7 +538,10 @@ namespace Vivid.UI.Forms
                     rw = (int)target.Space.Area.Width / 4;
                     rh = (int)target.Space.Area.Height;
                     win.Set(rx, ry, rw, rh, win.Text);
-
+                    foreach (var dw in win.DockedWindows)
+                    {
+                        dw.Set(Position.x, Position.y, target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h, dw.Text);
+                    }
                     SplitDockingSpace(target.Space, new DockRect(rx, ry, rw, rh), target.Position);
                     //rx = CurrentDock.RenderPosition.x + rx;
                     //ry = CurrentDock.RenderPosition.y + ry;
@@ -546,6 +555,10 @@ namespace Vivid.UI.Forms
                     rw = (int)target.Space.Area.Width / 4;
                     rh = (int)target.Space.Area.Height;
                     win.Set(rx, ry, rw, rh, win.Text);
+                    foreach (var dw in win.DockedWindows)
+                    {
+                        dw.Set(Position.x, Position.y, target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h, dw.Text);
+                    }
                     SplitDockingSpace(target.Space, new DockRect(rx, ry, rw, rh), target.Position);
 
                     // rx = CurrentDock.RenderPosition.x + rx;
@@ -560,6 +573,10 @@ namespace Vivid.UI.Forms
                     rw = (int)target.Space.Area.Width;
                     rh = (int)target.Space.Area.Height / 4;
                     win.Set(rx, ry, rw, rh, win.Text);
+                    foreach (var dw in win.DockedWindows)
+                    {
+                        dw.Set(Position.x, Position.y, target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h, dw.Text);
+                    }
                     SplitDockingSpace(target.Space, new DockRect(rx, ry, rw, rh), target.Position);
                     //  rx = CurrentDock.RenderPosition.x + rx;
                     //  ry = CurrentDock.RenderPosition.y + ry;
@@ -573,6 +590,10 @@ namespace Vivid.UI.Forms
                     rw = (int)target.Space.Area.Width;
                     rh = (int)target.Space.Area.Height / 4;
                     win.Set(rx, ry, rw, rh, win.Text);
+                    foreach (var dw in win.DockedWindows)
+                    {
+                        dw.Set(Position.x, Position.y, target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h, dw.Text);
+                    }
                     SplitDockingSpace(target.Space, new DockRect(rx, ry, rw, rh), target.Position);
                     //  rx = CurrentDock.RenderPosition.x + rx;
                     // ry = CurrentDock.RenderPosition.y + ry;
@@ -587,6 +608,10 @@ namespace Vivid.UI.Forms
                     rw = (int)target.Space.Area.Width;
                     rh = (int)target.Space.Area.Height;
                     win.Set(rx, ry, rw, rh, win.Text);
+                    foreach (var dw in win.DockedWindows)
+                    {
+                        dw.Set(Position.x, Position.y, target.Space.DockedWindow.Size.w, target.Space.DockedWindow.Size.h, dw.Text);
+                    }
                     //rx = CurrentDock.RenderPosition.x + rx;
                     // ry = CurrentDock.RenderPosition.y + ry;
                     // ry = ry + CurrentDock.TitleHeight;
@@ -1095,6 +1120,47 @@ namespace Vivid.UI.Forms
             space.Width = space.Width + change;
 
         }
+        public void UpdateDocks()
+        {
+            foreach (var space in dockingSpaces)
+            {
+
+                //for (int i = 0; i < 5; i++)
+                //{
+                MergeLeft(space);
+                MergeRight(space);
+                MergeUp(space);
+                MergeDown(space);
+
+                if (space.X + space.Width > Size.w)
+                {
+                    // int change = space.X + space.Width;
+                    //  change = change - Size.w;
+                    //   space.Width -= change;
+                }
+                if (space.Y + space.Height > Size.h)
+                {
+                    //    int change = space.Y + space.Height;
+                    //     change = change - Size.h;
+                    //     space.Height -= change;
+                }
+                //
+
+                if (space.DockedWindow != null)
+                {
+                    space.DockedWindow.Set(space.X, space.Y, space.Width, space.Height, space.DockedWindow.Text);
+                    foreach (var dw in space.DockedWindow.DockedWindows)
+                    {
+                        dw.Set(space.X, space.Y, space.Width, space.Height, dw.Text);
+                    }
+                }
+
+            }
+
+            int b = 5;
+
+        }
+    
         public void RemoveAndMerge(DockingSpace toRemove)
         {
             if (dockingSpaces.Count == 1)
@@ -1138,6 +1204,10 @@ namespace Vivid.UI.Forms
                 if (space.DockedWindow != null)
                 {
                     space.DockedWindow.Set(space.X, space.Y, space.Width, space.Height, space.DockedWindow.Text);
+                    foreach(var dw in space.DockedWindow.DockedWindows)
+                    {
+                        dw.Set(space.X, space.Y, space.Width, space.Height, dw.Text);
+                    }
                 }
 
             }

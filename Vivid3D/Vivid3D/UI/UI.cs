@@ -118,7 +118,7 @@ namespace Vivid.UI
                 }
 
                 SystemFont = new kFont("gemini/font/systemfont2.pf");
-                SystemFont.Scale = 0.38f;  
+                SystemFont.Scale = 0.36f;  
             }
 
             Over = null;
@@ -569,7 +569,7 @@ namespace Vivid.UI
                 if (target != null)
                 {
                     //Console.WriteLine("Pos:" + target.Position);
-                    Maths.Color col = new Maths.Color(0.7f, 0.7f, 0.7f, 0.5f);
+                    Maths.Color col = new Maths.Color(0.7f, 0.7f, 0.7f, 0.65f);
                     int rx, ry, rw, rh;
                     switch (target.Position)
                     {
@@ -582,7 +582,7 @@ namespace Vivid.UI
                             ry = CurrentDock.RenderPosition.y + ry;
                             ry = ry + CurrentDock.TitleHeight;
                             rh = rh - CurrentDock.TitleHeight;
-                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh, col);
+                            CurrentDock.Draw(UI.Theme.Highlight, rx, ry, rw, rh, col);
                             break;
                         case DockPosition.Right:
                             rx = (int)target.Space.Area.X+(int)target.Space.Area.Width - (int)target.Space.Area.Width / 4;
@@ -593,7 +593,7 @@ namespace Vivid.UI
                             ry = CurrentDock.RenderPosition.y + ry;
                             ry = ry + CurrentDock.TitleHeight;
                             rh = rh - CurrentDock.TitleHeight;
-                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+                            CurrentDock.Draw(UI.Theme.Highlight, rx, ry, rw, rh,col);
                             break;
                         case DockPosition.Top:
                             rx = (int)target.Space.Area.X;
@@ -604,7 +604,7 @@ namespace Vivid.UI
                             ry = CurrentDock.RenderPosition.y + ry;
                             ry = ry + CurrentDock.TitleHeight;
                             rh = rh - CurrentDock.TitleHeight;
-                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+                            CurrentDock.Draw(UI.Theme.Highlight, rx, ry, rw, rh,col);
                             break;
                         case DockPosition.Bottom:
                             rx = (int)target.Space.Area.X;
@@ -615,7 +615,7 @@ namespace Vivid.UI
                             ry = CurrentDock.RenderPosition.y + ry;
                             ry = ry + CurrentDock.TitleHeight;
                             rh = rh - CurrentDock.TitleHeight;
-                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+                            CurrentDock.Draw(UI.Theme.Highlight, rx, ry, rw, rh,col);
                             break;
                         case DockPosition.Centre:
 
@@ -627,7 +627,7 @@ namespace Vivid.UI
                             ry = CurrentDock.RenderPosition.y + ry;
                             ry = ry + CurrentDock.TitleHeight;
                             rh = rh - CurrentDock.TitleHeight;
-                            CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh,col);
+                            CurrentDock.Draw(UI.Theme.Highlight, rx, ry, rw, rh,col);
 
                             break;
                     }
