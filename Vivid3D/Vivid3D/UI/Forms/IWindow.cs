@@ -346,7 +346,7 @@ namespace Vivid.UI.Forms
                     Set(Position, new Maths.Size(Size.w + xm, Size.h + ym), Text);
                 }
             };
-            MinimumSize = new Maths.Size(128, 128);
+            MinimumSize = new Maths.Size(0, 0);
             VerticalScroller = new IVerticalScroller();
             RightEdge.AddForm(VerticalScroller);
             VerticalScroller.OnMove = (form, x, y) =>
@@ -595,8 +595,14 @@ namespace Vivid.UI.Forms
 
                     break;
             }
+            win.Size.w = target.Space.Width;
+            win.Size.h = target.Space.Height;
+            //CheckOverwrite();
 
         }
+
+        
+
         private async void SplitDockingSpace(DockingSpace space, DockRect windowRect, DockPosition position)
         {
             // Create a new docking space for the docked window
@@ -812,27 +818,28 @@ namespace Vivid.UI.Forms
 
         }
 
-        public void MergeRight(DockingSpace space)
+        public void MergeDown(DockingSpace space)
         {
 
-            int dx = space.X + space.Width;
-
+            int dy = space.Y + space.Height;
+            int sy = 2000;
 
             while (true)
             {
-                int dy = space.Y;
+                int dx = space.X + 1;
                 bool hit = false;
-                for (int y = 0; y < space.Height; y++)
+                for (int x = 0; x < space.Width - 2; x++)
                 {
 
-                    int cy = dy + y;
+                    int cx = dx + x;
 
+                    hit = false;
 
                     foreach (var check in dockingSpaces)
                     {
                         if (check == space) continue;
 
-                        if (check.Hit(dx, dy))
+                        if (check.Hit(cx, dy))
                         {
                             int b = 5;
                             hit = true;
@@ -842,53 +849,67 @@ namespace Vivid.UI.Forms
 
                     if (hit)
                     {
-                        
+
+                        if (dy < sy)
+                        {
+                            sy = dy;
+                        }
 
                         break;
                     }
-
                 }
 
                 if (hit)
                 {
-                    int change = dx - (space.X + space.Width);
-                    space.Width = space.Width + change;
-                    return;
-                    int bb = 5;
+                    //int change = dx - (space.X + space.Width);
+                    //space.Width = space.Width + change;
+                    //return;
+                    //int bb = 5;
+
                 }
 
-                dx++;
-                if (dx >= DockMan.Width)
+                dy++;
+                if (dy >= DockMan.Height)
+
+
                 {
-                    int change = dx - space.X;
-                    
-                    space.Width =  change;
-                    return;
+                    if (dy < sy)
+                    {
+                        sy = dy;
+                    }
+                    break;
+
+
                 }
             }
+            int change = sy - space.Y;
+
+            space.Height = change;
+            return;
         }
 
-        public void MergeLeft(DockingSpace space)
+        public void MergeRight(DockingSpace space)
         {
 
-            int dx = space.X;
-            
+            int dx = space.X + space.Width;
+            int sx = 2000;
 
             while (true)
             {
-                int dy = space.Y;
+                int dy = space.Y + 1;
                 bool hit = false;
-                for (int y = 0; y < space.Height; y++)
+                for (int y = 0; y < space.Height-2; y++)
                 {
 
                     int cy = dy + y;
 
-                  
+                    hit = false;
+
                     foreach (var check in dockingSpaces)
                     {
                         if (check == space) continue;
 
-                        if (check.Hit(dx, dy))
+                        if (check.Hit(dx, cy))
                         {
                             int b = 5;
                             hit = true;
@@ -898,6 +919,80 @@ namespace Vivid.UI.Forms
 
                     if (hit)
                     {
+
+                        if (dx < sx)
+                        {
+                            sx = dx;
+                        }
+
+                        break;
+                    }
+                }
+
+                if (hit)
+                {
+                    //int change = dx - (space.X + space.Width);
+                    //space.Width = space.Width + change;
+                    //return;
+                    //int bb = 5;
+
+                }
+
+                dx++;
+                if (dx >= DockMan.Width)
+
+
+                {
+                    if (dx < sx)
+                    {
+                        sx = dx;
+                    }
+                    break;
+
+                   
+                }
+            }
+            int change = sx - space.X;
+
+            space.Width = change;
+            return;
+        }
+        public void MergeUp(DockingSpace space)
+        {
+
+            int dy = space.Y;
+
+            int sy = -2000;
+            while (true)
+            {
+                int dx = space.X + 1;
+                bool hit = false;
+                for (int x = 0; x < space.Width - 2; x++)
+                {
+
+                    int cx = dx + x;
+                    hit = false;
+
+                    foreach (var check in dockingSpaces)
+                    {
+                        if (check == space) continue;
+
+                        if (check.Hit(cx, dy))
+                        {
+                            int b = 5;
+                            hit = true;
+                            break;
+                        }
+                    }
+
+                    if (hit)
+                    {
+
+                        if (dy > sy)
+                        {
+                            sy = dy;
+                        }
+
                         break;
                     }
 
@@ -908,23 +1003,102 @@ namespace Vivid.UI.Forms
                     int bb = 5;
                     if (dx == space.X)
                     {
-                        return;
+                        //   return;
+                    }
+                }
+
+                dy--;
+                if (dy <= 0)
+                {
+                    if (dy > sy)
+                    {
+                        sy = dy;
+                    }
+                    break;
+                    //return;
+                }
+
+
+            }
+
+            int change = space.Y - sy;
+            space.Y = space.Y - change;
+            space.Height = space.Height + change;
+
+        }
+        public void MergeLeft(DockingSpace space)
+        {
+
+            int dx = space.X;
+
+            int sx = -2000;
+            while (true)
+            {
+                int dy = space.Y + 1;
+                bool hit = false;
+                for (int y = 0; y < space.Height-2; y++)
+                {
+
+                    int cy = dy + y;
+                    hit = false;
+                  
+                    foreach (var check in dockingSpaces)
+                    {
+                        if (check == space) continue;
+
+                        if (check.Hit(dx, cy))
+                        {
+                            int b = 5;
+                            hit = true;
+                            break;
+                        }
+                    }
+
+                    if (hit)
+                    {
+
+                        if (dx > sx)
+                        {
+                            sx = dx;
+                        }
+
+                        break;
+                    }
+
+                }
+
+                if (hit)
+                {
+                    int bb = 5;
+                    if (dx == space.X)
+                    {
+                     //   return;
                     }
                 }
 
                 dx--;
                 if (dx <= 0)
                 {
-                    int change = space.X;
-                    space.X = 0;
-                    space.Width = space.Width + change;
-                    return;
+                    if (dx > sx)
+                    {
+                        sx = dx;
+                    }
+                    break;
+                    //return;
                 }
+
+
             }
+
+            int change = space.X - sx;
+            space.X = space.X - change;
+            space.Width = space.Width + change;
+
         }
         public void RemoveAndMerge(DockingSpace toRemove)
         {
-            if (dockingSpaces.Count == 1) {
+            if (dockingSpaces.Count == 1)
+            {
 
                 dockingSpaces[0].Area.X = 0;
                 dockingSpaces[0].Area.Y = 0;
@@ -935,11 +1109,18 @@ namespace Vivid.UI.Forms
             }
             dockingSpaces.Remove(toRemove);
 
-            foreach(var space in dockingSpaces)
+
+
+            foreach (var space in dockingSpaces)
             {
 
-                MergeLeft(space);
-                MergeRight(space);
+                //for (int i = 0; i < 5; i++)
+                //{
+                    MergeLeft(space);
+                    MergeRight(space);
+                    MergeUp(space);
+                    MergeDown(space);
+                //
 
                 if (space.DockedWindow != null)
                 {
@@ -1179,7 +1360,7 @@ namespace Vivid.UI.Forms
                 foreach (var space in dockingSpaces)
                 {
 
-                    Draw(UI.Theme.Pure, RenderPosition.x + space.X, RenderPosition.y + space.Y, space.Width, space.Height, space.DebugCol);
+                    Draw(UI.Theme.Pure, RenderPosition.x + space.X, RenderPosition.y+TitleHeight + space.Y+3, space.Width, space.Height, space.DebugCol);
 
                 }
             } 
