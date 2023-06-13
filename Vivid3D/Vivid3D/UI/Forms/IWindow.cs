@@ -384,7 +384,19 @@ namespace Vivid.UI.Forms
                 {
                     PrevSize = Size;
                     Set(Position, new Maths.Size(Size.w + xm, Size.h + ym), Text);
-                    RemoveAndMerge(null);
+
+                    foreach (var space in dockingSpaces)
+                    {
+                        if (space.DockedWindow != null)
+                        {
+                            space.DockedWindow.Set(space.X, space.Y, space.Width, space.Height, space.DockedWindow.Text);
+                            foreach (var dw in space.DockedWindow.DockedWindows)
+                            {
+                                dw.Set(space.X, space.Y, space.Width, space.Height, dw.Text);
+                            }
+                        }
+                    }
+                    //  RemoveAndMerge(null);
 
 
                     //UpdateDocks();
@@ -626,9 +638,9 @@ namespace Vivid.UI.Forms
                     //     CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh, col);
                     break;
                 case DockPosition.Top:
-                    rx = (int)target.Space.Area.X;
+                    rx = (int)target.Space.Area.X + 1;
                     ry = (int)target.Space.Area.Y;
-                    rw = (int)target.Space.Area.Width;
+                    rw = (int)target.Space.Area.Width - 2;
                     rh = (int)target.Space.Area.Height / 4;
                     win.Set(rx, ry, rw, rh, win.Text);
                     foreach (var dw in win.DockedWindows)
@@ -644,7 +656,7 @@ namespace Vivid.UI.Forms
                     break;
                 case DockPosition.Bottom:
                     rx = (int)target.Space.Area.X;
-                    ry = (int)target.Space.Area.Y + (int)target.Space.Area.Height - (int)target.Space.Area.Height / 4;
+                    ry = ((int)target.Space.Area.Y + (int)target.Space.Area.Height - (int)target.Space.Area.Height / 4);
                     rw = (int)target.Space.Area.Width;
                     rh = (int)target.Space.Area.Height / 4;
                     win.Set(rx, ry, rw, rh, win.Text);
@@ -916,7 +928,7 @@ namespace Vivid.UI.Forms
             {
                 int dx = space.X + 1;
                 bool hit = false;
-                for (int x = 0; x < space.Width - 2; x++)
+                for (int x = 12; x < space.Width - 12; x++)
                 {
 
                     int cx = dx + x;
@@ -971,10 +983,7 @@ namespace Vivid.UI.Forms
                 }
             }
 
-            if (sy > Size.h-TitleHeight)
-            {
-                sy = Size.h - TitleHeight;
-            }
+        
 
             int change = sy - space.Y;
 
@@ -992,7 +1001,7 @@ namespace Vivid.UI.Forms
             {
                 int dy = space.Y + 1;
                 bool hit = false;
-                for (int y = 0; y < space.Height-2; y++)
+                for (int y = 12; y < space.Height-12; y++)
                 {
 
                     int cy = dy + y;
@@ -1065,7 +1074,7 @@ namespace Vivid.UI.Forms
             {
                 int dx = space.X + 1;
                 bool hit = false;
-                for (int x = 0; x < space.Width - 2; x++)
+                for (int x = 12; x < space.Width - 12; x++)
                 {
 
                     int cx = dx + x;
@@ -1106,7 +1115,7 @@ namespace Vivid.UI.Forms
                 }
 
                 dy--;
-                if (dy < 1)
+                if (dy < 0)
                 {
                     if (dy > sy)
                     {
@@ -1119,10 +1128,7 @@ namespace Vivid.UI.Forms
 
             }
 
-            if (sy < 0)
-            {
-                sy = 0;
-            }
+          
             int change = space.Y - sy;
             space.Y = space.Y - change;
             space.Height = space.Height + change;
@@ -1138,7 +1144,7 @@ namespace Vivid.UI.Forms
             {
                 int dy = space.Y + 1;
                 bool hit = false;
-                for (int y = 0; y < space.Height-2; y++)
+                for (int y = 12; y < space.Height-12; y++)
                 {
 
                     int cy = dy + y;
@@ -1179,7 +1185,7 @@ namespace Vivid.UI.Forms
                 }
 
                 dx--;
-                if (dx < 1)
+                if (dx < 0)
                 {
                     if (dx > sx)
                     {
@@ -1191,11 +1197,7 @@ namespace Vivid.UI.Forms
 
 
             }
-            if (sx < 0)
-            {
-                sx = 0;
-            }
-
+       
             int change = space.X - sx;
             space.X = space.X - change;
             space.Width = space.Width + change;
@@ -1233,7 +1235,7 @@ namespace Vivid.UI.Forms
                     MergeRight(space);
                     MergeUp(space);
                     MergeDown(space);
-             //   space.UpdateProportions(this);
+             
               
                     if (space.X + space.Width > Size.w)
                 {
@@ -1252,13 +1254,17 @@ namespace Vivid.UI.Forms
                 if (space.DockedWindow != null)
                 {
                     space.DockedWindow.Set(space.X, space.Y, space.Width, space.Height, space.DockedWindow.Text);
-                    foreach(var dw in space.DockedWindow.DockedWindows)
+                    foreach (var dw in space.DockedWindow.DockedWindows)
                     {
                         dw.Set(space.X, space.Y, space.Width, space.Height, dw.Text);
                     }
+
                 }
+                space.UpdateProportions(this);
 
             }
+
+          
 
             int b = 5;
 
