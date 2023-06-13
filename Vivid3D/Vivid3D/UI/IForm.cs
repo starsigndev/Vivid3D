@@ -24,6 +24,12 @@ namespace Vivid.UI
             set;
         }
 
+        public Vivid.Maths.Size PrevSize
+        {
+            get;
+            set;
+        }
+
         public virtual string Text
         {
             get;
@@ -164,8 +170,10 @@ namespace Vivid.UI
             set;
         }
 
+
         public IForm()
         {
+            
             Override = null;
             if (BlurFX == null)
             {
@@ -190,6 +198,20 @@ namespace Vivid.UI
             OnActivated = null;
             OnDeactivated = null;
             ScrollValue = new Position(0, 0);
+        }
+        public void Resized(int w,int h)
+        { 
+
+            int a = 5;
+        }
+        public void ResizeUI(int w,int h)
+        {
+            float xi, yi, wi, hi;
+
+            //xi = Position.x 
+
+
+            //int b = 5;
         }
 
         public IForm AddForm(IForm form)
@@ -449,6 +471,19 @@ namespace Vivid.UI
         //{
 
         //}
+
+
+        //Drag & Drop
+
+        public void BeginDragAndDrop()
+        {
+
+        }
+
+        public void EndDragAndDrop()
+        {
+
+        }
 
         //Invokes
 

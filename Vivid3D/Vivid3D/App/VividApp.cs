@@ -183,6 +183,7 @@ namespace Vivid.App
             _FW = e.Width;
             _FH = e.Height;
             GL.Viewport(0, 0, _FW, _FH);
+            Vivid.UI.UI.This.ResizeUI(_FW, _FH);
         }
 
         protected override void OnLoad()

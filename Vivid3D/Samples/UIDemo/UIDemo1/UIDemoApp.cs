@@ -171,7 +171,7 @@ namespace UIDemo1
             var win4 = new IWindow("Settings");
             win4.Set(300, 300, 200, 200, "OTher");
 
-            IWindow dock = new IWindow("Vivid3D");
+            IWindow dock = new IWindow("Vivid3D",true);
 
             //     dock.Static = true;
 
@@ -192,7 +192,7 @@ namespace UIDemo1
 
             //ui.AddWindow(dock);
             dock.WindowDock = true;
-            dock.Set(150, 150, frame1.Size.w - 200, frame1.Size.h - 200, dock.Text);
+            dock.Set(150, 150, frame1.Size.w - 350, frame1.Size.h - 350, dock.Text);
 
             // frame1.AddForm(dock);
             ui.AddWindow(dock);
@@ -214,8 +214,8 @@ namespace UIDemo1
            ui.AddWindow(win3);
             ui.AddWindow(win4);
             ui.AddWindow(win5);
-           win3.WindowDock = true;
-            win3.Set(200, 200, 450, 450, "Render");
+      //     win3.WindowDock = true;
+      //      win3.Set(200, 200, 450, 450, "Render");
             //    ui.AddWindow(win6);
 
             ILabelButton lb1 = new ILabelButton().Set(20, 20, 5, 5, "Load Project") as ILabelButton;

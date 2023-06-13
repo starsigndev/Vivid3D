@@ -1,4 +1,5 @@
 ﻿using OpenTK.Compute.OpenCL;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -170,7 +171,10 @@ namespace Vivid.UI.Forms
         public DockRect Area { get; set; }
         public DockPosition Position { get; set; }
         public IWindow DockedWindow { get; set; }
-
+        private float originalXRatio;
+        private float originalYRatio;
+        private float originalWidthRatio;
+        private float originalHeightRatio;
         public DockingSpace(DockRect area, DockPosition position, IWindow dockedWindow = null)
         {
             Area = area;
@@ -182,6 +186,32 @@ namespace Vivid.UI.Forms
             DebugCol.g = (float)rnd.NextDouble();
             DebugCol.b = (float)rnd.NextDouble();
             DebugCol.a = 0.35f;
+    
+            int aa = 5;
+        }
+
+        public void UpdateProportions(IWindow dockedWindow)
+        {
+            originalXRatio = ((float)Area.X / (float)dockedWindow.Size.w);
+            originalYRatio = ((float)Area.Y / (float)(dockedWindow.Size.h-18));
+            originalWidthRatio = ((float)Area.Width / (float)dockedWindow.Size.w);
+            originalHeightRatio = ((float)Area.Height / (float)(dockedWindow.Size.h-18));
+
+            int bb = 5;
+        }
+         
+        public void WindowResize(IWindow win)
+        {
+            float X, Y, Width, Height;
+
+            X = originalXRatio * win.Size.w;
+            Y = originalYRatio * (win.Size.h-18);
+            Width = originalWidthRatio * win.Size.w;
+            Height = originalHeightRatio * (win.Size.h - 18);
+
+            Area = new DockRect(X, Y, Width, Height);
+
+            int aaa = 5;
         }
 
         public bool IsEmpty => DockedWindow == null;
@@ -311,7 +341,7 @@ namespace Vivid.UI.Forms
         bool Drag = false;
         bool HighlightArea = false;
 
-        public IWindow(string title)
+        public IWindow(string title,bool resizable=false)
         {
             CastShadow = false;
             Text = title;
@@ -323,8 +353,16 @@ namespace Vivid.UI.Forms
             RightEdge = new IFrame(true);
             BottomEdge = new IFrame(true);
             ResizeButton = new IButton();
-            AddForms(Content,ResizeButton);// RightEdge, BottomEdge,ResizeButton);
+            if (resizable)
+            {
+                AddForms(Content, ResizeButton);// RightEdge, BottomEdge,ResizeButton);
+            }
+            else
+            {
+                AddForms(Content);
+            }
             TitleHeight = 18;
+
             EdgeSize = 16;
             Content.Scissor = true;
             WindowDock = false;
@@ -344,8 +382,12 @@ namespace Vivid.UI.Forms
             {
                 if (!Static)
                 {
+                    PrevSize = Size;
                     Set(Position, new Maths.Size(Size.w + xm, Size.h + ym), Text);
-                    UpdateDocks();
+                    RemoveAndMerge(null);
+
+
+                    //UpdateDocks();
                 }
             };
             MinimumSize = new Maths.Size(0, 0);
@@ -368,12 +410,28 @@ namespace Vivid.UI.Forms
             BottomEdge.Set(0, Content.Size.h + TitleHeight, Content.Size.w, EdgeSize);
             ResizeButton.Set(Size.w - EdgeSize+3, Content.Size.h+2+3, EdgeSize-2, EdgeSize-2, "");
             VerticalScroller.Set(0, 12, EdgeSize, RightEdge.Size.h - 24, "");
-            if (WindowDock)
+            if (WindowDock && dockingSpaces == null)
             {
                 dockingSpaces = new List<DockingSpace>();
-                dockingSpaces.Add(new DockingSpace(new DockRect(0, 0, Size.w, Size.h), DockPosition.None));
+                dockingSpaces.Add(new DockingSpace(new DockRect(0, 0, Size.w, Size.h - TitleHeight), DockPosition.None));
+                dockingSpaces[0].UpdateProportions(this);
                 DockMan.Width = Size.w;
                 DockMan.Height = Size.h;
+            }
+            else
+            {
+                if (dockingSpaces != null)
+                {
+                    if (dockingSpaces.Count > 0)
+                    {
+                        foreach (var space in dockingSpaces)
+                        {
+                            space.WindowResize(this);
+                            //space.UpdateProportions(this);
+
+                        }
+                    }
+                }
             }
             //{
 
@@ -648,6 +706,7 @@ namespace Vivid.UI.Forms
                     ah = (int)space.Area.Height;
                     newSpace.Area = new DockRect(ax, ay, aw, ah);
                     space.Area = windowRect;
+                    space.UpdateProportions(this);
                     //newSpace.Area.X = newSpace.Area.X + windowRect.Width;
                     //space.Area.X += windowRect.Width;
                     //space.Area.Width -= windowRect.Width;
@@ -661,6 +720,7 @@ namespace Vivid.UI.Forms
                     ah = (int)space.Area.Size.Height;
                     newSpace.Area = new DockRect(ax, ay, aw, ah);
                     space.Area = windowRect;
+                    space.UpdateProportions(this);
 
                     // space.Area.Width -= windowRect.Width;
                     break;
@@ -672,6 +732,7 @@ namespace Vivid.UI.Forms
                     ah = (int)space.Area.Size.Height - (int)windowRect.Height;
                     newSpace.Area = new DockRect(ax, ay, aw, ah);
                     space.Area = windowRect;
+                    space.UpdateProportions(this);
                     //   space.Area.Y += windowRect.Height;
                     //     space.Area.Height -= windowRect.Height;
                     break;
@@ -683,10 +744,12 @@ namespace Vivid.UI.Forms
                     ah = (int)space.Area.Size.Height - (int)windowRect.Height;
                     newSpace.Area = new DockRect(ax, ay, aw, ah);
                     space.Area = windowRect;
+                    space.UpdateProportions(this);
                     //       space.Area.Height -= windowRect.Height;
                     break;
             }
 
+            newSpace.UpdateProportions(this);
             dockingSpaces.Add(newSpace);
         }
 
@@ -894,7 +957,7 @@ namespace Vivid.UI.Forms
                 }
 
                 dy++;
-                if (dy >= Size.h)
+                if (dy >= Size.h-TitleHeight)
 
 
                 {
@@ -907,6 +970,12 @@ namespace Vivid.UI.Forms
 
                 }
             }
+
+            if (sy > Size.h-TitleHeight)
+            {
+                sy = Size.h - TitleHeight;
+            }
+
             int change = sy - space.Y;
 
             space.Height = change;
@@ -977,6 +1046,10 @@ namespace Vivid.UI.Forms
                    
                 }
             }
+            if (sx > Size.w)
+            {
+                sx = Size.w;
+            }
             int change = sx - space.X;
 
             space.Width = change;
@@ -1033,7 +1106,7 @@ namespace Vivid.UI.Forms
                 }
 
                 dy--;
-                if (dy <= 0)
+                if (dy < 1)
                 {
                     if (dy > sy)
                     {
@@ -1046,6 +1119,10 @@ namespace Vivid.UI.Forms
 
             }
 
+            if (sy < 0)
+            {
+                sy = 0;
+            }
             int change = space.Y - sy;
             space.Y = space.Y - change;
             space.Height = space.Height + change;
@@ -1102,7 +1179,7 @@ namespace Vivid.UI.Forms
                 }
 
                 dx--;
-                if (dx <= 0)
+                if (dx < 1)
                 {
                     if (dx > sx)
                     {
@@ -1114,78 +1191,49 @@ namespace Vivid.UI.Forms
 
 
             }
+            if (sx < 0)
+            {
+                sx = 0;
+            }
 
             int change = space.X - sx;
             space.X = space.X - change;
             space.Width = space.Width + change;
 
         }
-        public void UpdateDocks()
-        {
-            foreach (var space in dockingSpaces)
-            {
-
-                //for (int i = 0; i < 5; i++)
-                //{
-                MergeLeft(space);
-                MergeRight(space);
-                MergeUp(space);
-                MergeDown(space);
-
-                if (space.X + space.Width > Size.w)
-                {
-                    // int change = space.X + space.Width;
-                    //  change = change - Size.w;
-                    //   space.Width -= change;
-                }
-                if (space.Y + space.Height > Size.h)
-                {
-                    //    int change = space.Y + space.Height;
-                    //     change = change - Size.h;
-                    //     space.Height -= change;
-                }
-                //
-
-                if (space.DockedWindow != null)
-                {
-                    space.DockedWindow.Set(space.X, space.Y, space.Width, space.Height, space.DockedWindow.Text);
-                    foreach (var dw in space.DockedWindow.DockedWindows)
-                    {
-                        dw.Set(space.X, space.Y, space.Width, space.Height, dw.Text);
-                    }
-                }
-
-            }
-
-            int b = 5;
-
-        }
-    
+  
         public void RemoveAndMerge(DockingSpace toRemove)
         {
+           
             if (dockingSpaces.Count == 1)
             {
 
                 dockingSpaces[0].Area.X = 0;
-                dockingSpaces[0].Area.Y = TitleHeight;
+                dockingSpaces[0].Area.Y = 0;
                 dockingSpaces[0].Area.Width = Size.w;
-                dockingSpaces[0].Area.Height = Size.h;
+                dockingSpaces[0].Area.Height = Size.h - TitleHeight;
                 dockingSpaces[0].DockedWindow = null;
+                dockingSpaces[0].UpdateProportions(this);
                 return;
             }
-            dockingSpaces.Remove(toRemove);
 
+            if (toRemove != null)
+            {
+                dockingSpaces.Remove(toRemove);
 
+            }
 
             foreach (var space in dockingSpaces)
             {
 
+             
                 //for (int i = 0; i < 5; i++)
                 //{
                     MergeLeft(space);
                     MergeRight(space);
                     MergeUp(space);
                     MergeDown(space);
+             //   space.UpdateProportions(this);
               
                     if (space.X + space.Width > Size.w)
                 {

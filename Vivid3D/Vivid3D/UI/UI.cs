@@ -96,6 +96,7 @@ namespace Vivid.UI
             set;
         }
 
+
         public static void DrawString(string text, int x, int y, Vivid.Maths.Color col)
         {
             SystemFont.DrawString(text, x, y, col.r, col.g, col.b, col.a, Draw);
@@ -141,6 +142,13 @@ namespace Vivid.UI
             Root.Set(0, 30, Vivid.App.VividApp.FrameWidth, Vivid.App.VividApp.FrameHeight-30);
             Menu = new IMenu().Set(0, 0, VividApp.FrameWidth, 30, "") as IMenu;
             Windows = new List<IWindow>();
+        }
+
+
+        public void ResizeUI(int w,int h)
+        {
+            Root.Resized(w, h);
+           
         }
 
         public void AddForm(IForm form)
@@ -558,7 +566,7 @@ namespace Vivid.UI
 
             foreach(var win in Windows)
             {
-               // win.DebugSpaces();
+                win.DebugSpaces();
             }
 
             if (CurrentDock != null)
@@ -568,6 +576,8 @@ namespace Vivid.UI
                 var target = CurrentDock.DetermineDock(new Forms.Point(MousePosition.x, MousePosition.y), 128);
                 if (target != null)
                 {
+                    var th = 18;
+
                     //Console.WriteLine("Pos:" + target.Position);
                     Maths.Color col = new Maths.Color(0.7f, 0.7f, 0.7f, 0.65f);
                     int rx, ry, rw, rh;
@@ -575,7 +585,7 @@ namespace Vivid.UI
                     {
                         case DockPosition.Left:
                             rx = (int)target.Space.Area.X;
-                            ry = (int)target.Space.Area.Y;
+                            ry = (int)target.Space.Area.Y + th;
                             rw = (int)target.Space.Area.Width / 4;
                             rh = (int)target.Space.Area.Height;
                             rx = CurrentDock.RenderPosition.x + rx;
@@ -586,7 +596,7 @@ namespace Vivid.UI
                             break;
                         case DockPosition.Right:
                             rx = (int)target.Space.Area.X+(int)target.Space.Area.Width - (int)target.Space.Area.Width / 4;
-                            ry = (int)target.Space.Area.Y;
+                            ry = (int)target.Space.Area.Y + th;
                             rw = (int)target.Space.Area.Width / 4;
                             rh = (int)target.Space.Area.Height;
                             rx = CurrentDock.RenderPosition.x + rx;
@@ -597,7 +607,7 @@ namespace Vivid.UI
                             break;
                         case DockPosition.Top:
                             rx = (int)target.Space.Area.X;
-                            ry = (int)target.Space.Area.Y;
+                            ry = (int)target.Space.Area.Y + th;
                             rw = (int)target.Space.Area.Width;
                             rh = (int)target.Space.Area.Height / 4;
                             rx = CurrentDock.RenderPosition.x + rx;
@@ -608,7 +618,7 @@ namespace Vivid.UI
                             break;
                         case DockPosition.Bottom:
                             rx = (int)target.Space.Area.X;
-                            ry = (int)+target.Space.Area.Y+(int)target.Space.Area.Height - (int)target.Space.Area.Height / 4;
+                            ry = (int)+target.Space.Area.Y + (int)target.Space.Area.Height - (int)target.Space.Area.Height / 4 + th;
                             rw = (int)target.Space.Area.Width;
                             rh = (int)target.Space.Area.Height / 4;
                             rx = CurrentDock.RenderPosition.x + rx;
@@ -620,7 +630,7 @@ namespace Vivid.UI
                         case DockPosition.Centre:
 
                             rx = (int)target.Space.Area.X;
-                            ry = (int)target.Space.Area.Y;
+                            ry = (int)target.Space.Area.Y + th;
                             rw = (int)target.Space.Area.Width;
                             rh = (int)target.Space.Area.Height;
                             rx = CurrentDock.RenderPosition.x + rx;
