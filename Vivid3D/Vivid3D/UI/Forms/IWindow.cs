@@ -199,6 +199,18 @@ namespace Vivid.UI.Forms
 
             int bb = 5;
         }
+
+        public void UpdateDocked()
+        {
+
+            //DockedWindow.Position = new Position(X, Y);
+            //DockedWindow.Size = new Maths.Size(Width, Height);
+            if (DockedWindow != null)
+            {
+                DockedWindow.Set(X, Y, Width, Height, DockedWindow.Text);
+
+            }
+        }
          
         public void WindowResize(IWindow win)
         {
@@ -337,8 +349,8 @@ namespace Vivid.UI.Forms
 
         public List<IWindow> DockedWindows { get; set; }
 
-        private List<DockingSpace> dockingSpaces;
-        bool Drag = false;
+        public List<DockingSpace> dockingSpaces;
+        public bool Drag = false;
         bool HighlightArea = false;
 
         public IWindow(string title,bool resizable=false)
@@ -1314,6 +1326,10 @@ namespace Vivid.UI.Forms
 
             }
 
+            if (GameInput.MouseButtonDown(MouseID.Left)==false)
+            {
+                Drag = false;
+            }
 
             if (Drag)
             {
@@ -1332,6 +1348,7 @@ namespace Vivid.UI.Forms
                             if (ActiveDockedWindow == null)
                             {
                                 Undock(position);
+                                Console.WriteLine("**************************");
                             }
                             else
                             {

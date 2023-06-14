@@ -185,10 +185,24 @@ namespace Vivid.UI
 
             AddToList(form_list, Root);
 
-            foreach(var win in Windows)
+
+            if (draggingSpaces == false)
             {
-                AddToList(form_list, win);
-                win.Update();
+                foreach (var win in Windows)
+                {
+                    Console.WriteLine("Updating windows.");
+                    AddToList(form_list, win);
+                    win.Update();
+                }
+            }
+            else
+            {
+                Pressed[0] = null;
+                foreach(IWindow win in Windows)
+                {
+                    win.OnMouseUp(MouseID.Left);
+                    win.Drag = false;
+                }
             }
 
             if (ContextForm != null)
@@ -201,7 +215,236 @@ namespace Vivid.UI
 
             UpdateList(form_list);
             UpdateKeys();
+
+            UpdateWindows();
+
         }
+        IWindow dragWin = null;
+        bool draggingSpaces;
+        private List<DockingSpace> dragSpaces = new List<DockingSpace>();
+        List<DockingSpace> top = new List<DockingSpace>();
+        List<DockingSpace> bot = new List<DockingSpace>();
+        List<DockingSpace> left = new List<DockingSpace>();
+        List<DockingSpace> right = new List<DockingSpace>();
+
+        public void UpdateWindows()
+        {
+
+          
+
+            int mx, my;
+            mx = MousePosition.x;
+            my = MousePosition.y;
+
+
+
+            foreach (var win in Windows)
+            {
+
+                int cx, cy;
+                cx = mx - win.Position.x;
+                cy = my - win.Position.y;
+
+                if (draggingSpaces == false)
+                {
+
+                    dragSpaces.Clear();
+                    if (win.WindowDock)
+                    {
+
+                        void CollectTop(List<DockingSpace> list, List<DockingSpace> spaces)
+                        {
+                            foreach (var space in spaces)
+                            {
+
+                                if (space.Y < 10) continue;
+
+                                if (cx > 0 && cx < win.Size.w)
+                                {
+
+                                    if (cy > space.Y+5 && cy < space.Y + 15)
+                                    {
+                                        //Console.WriteLine("Moving Top:");
+                                        list.Add(space);
+                                        //Environment.Exit(0);
+                                    }
+
+                                }
+
+                            }
+                        }
+
+                        void CollectBot(List<DockingSpace> list,List<DockingSpace> spaces)
+                        {
+                            foreach(var sp in spaces)
+                            {
+
+                                if (sp.Y+sp.Height >= win.Size.h-30) continue;
+
+                                if (cx > 0 && cx < win.Size.w)
+                                {
+
+                                    if (cy > sp.Y + sp.Height+5 && cy < (sp.Y+sp.Height+15))
+                                    {
+                                        //Console.WriteLine("Moving Top:");
+                                        list.Add(sp);
+
+                                        //Environment.Exit(0);
+                                    }
+
+                                }
+
+
+                            }
+                        }
+
+                        void CollectLeft(List<DockingSpace> list, List<DockingSpace> spaces)
+                        {
+                            foreach (var sp in spaces)
+                            {
+
+                                if (sp.X <= 1) continue;
+
+                                if (cy > 0 && cy < win.Size.h)
+                                {
+
+                                    if (cx > sp.X - 5 && cx < (sp.X + 5) )
+                                    {
+                                        //Console.WriteLine("Moving Top:");
+                                        list.Add(sp);
+
+                                        //Environment.Exit(0);
+                                    }
+
+                                }
+
+
+                            }
+                        }
+
+                        void CollectRight(List<DockingSpace> list, List<DockingSpace> spaces)
+                        {
+                            foreach (var sp in spaces)
+                            {
+
+                                if (sp.X+sp.Width>=win.Size.w-15) continue;
+
+                                if (cy > 0 && cy < win.Size.h)
+                                {
+
+                                    if (cx > sp.X+sp.Width - 5 && cx < (sp.X + sp.Width+5))
+                                    {
+                                        //Console.WriteLine("Moving Top:");
+                                        list.Add(sp);
+
+                                        //Environment.Exit(0);
+                                    }
+
+                                }
+
+
+                            }
+                        }
+
+
+
+                        top.Clear();
+                        bot.Clear();
+                        left.Clear();
+                        right.Clear();
+
+                        
+                        CollectTop(top, win.dockingSpaces);
+                        CollectBot(bot, win.dockingSpaces);
+                        CollectLeft(left, win.dockingSpaces);
+                        CollectRight(right, win.dockingSpaces);
+
+                 
+
+                        if (top.Count > 0 || bot.Count>0 || left.Count>0 || right.Count>0)
+
+                        {
+                            //Console.WriteLine("Moving Top.");
+
+                            if (!draggingSpaces)
+                            {
+
+                                if (GameInput.MouseButtonDown(MouseID.Left))
+                                {
+                                    draggingSpaces = true;
+                                    dragWin = win;
+
+                                    foreach (var space in top)
+                                    {
+                                        dragSpaces.Add(space);
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+
+            if (draggingSpaces)
+            {
+                int dy = (int)MouseDelta.y;
+                int dx = (int)MouseDelta.x;
+
+                
+                foreach(var sp in top)
+                {
+
+                    sp.Y = sp.Y + dy;
+                    sp.Height = sp.Height - dy;
+                    sp.UpdateProportions(dragWin);
+                    sp.UpdateDocked();
+
+                }
+
+                foreach(var sp in bot)
+                {
+
+                    sp.Height = sp.Height + dy;
+                    sp.UpdateProportions(dragWin);
+                    sp.UpdateDocked();
+
+                }
+
+                foreach(var sp in left)
+                {
+                    sp.X = sp.X + dx;
+                    sp.Width = sp.Width - dx;
+                    sp.UpdateProportions(dragWin);
+                    sp.UpdateDocked();
+                    //Environment.Exit(0);
+
+
+                }
+
+                foreach(var sp in right)
+                {
+
+                    sp.Width = sp.Width + dx;
+                    sp.UpdateProportions(dragWin);
+                    sp.UpdateDocked();
+
+                }
+
+                if (GameInput.MouseButtonDown(MouseID.Left) == false)
+                {
+                    draggingSpaces = false;
+                    dragWin = null;
+                    //Environment.Exit(0);
+                }
+            }
+
+        }
+
         bool firstKey = true;
         int nextKey = 0;
         int curKey = -1;
