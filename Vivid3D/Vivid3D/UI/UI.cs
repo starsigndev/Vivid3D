@@ -230,7 +230,7 @@ namespace Vivid.UI
         public void UpdateWindows()
         {
 
-          
+            if (DockWindow != null) return;
 
             int mx, my;
             mx = MousePosition.x;
@@ -262,7 +262,7 @@ namespace Vivid.UI
                                 if (cx > 0 && cx < win.Size.w)
                                 {
 
-                                    if (cy > space.Y+5 && cy < space.Y + 15)
+                                    if (cy > space.Y+10 && cy < space.Y + 20)
                                     {
                                         //Console.WriteLine("Moving Top:");
                                         list.Add(space);
@@ -284,7 +284,7 @@ namespace Vivid.UI
                                 if (cx > 0 && cx < win.Size.w)
                                 {
 
-                                    if (cy > sp.Y + sp.Height+5 && cy < (sp.Y+sp.Height+15))
+                                    if (cy > sp.Y + sp.Height+10 && cy < (sp.Y+sp.Height+20))
                                     {
                                         //Console.WriteLine("Moving Top:");
                                         list.Add(sp);
@@ -392,6 +392,17 @@ namespace Vivid.UI
 
             if (draggingSpaces)
             {
+
+                int cx, cy;
+                cx = mx - dragWin.Position.x;
+                cy = my - dragWin.Position.y;
+
+                if(cx<35 || cy<15 || cx>= dragWin.Size.w-15 || cy >= dragWin.Size.h - 25)
+                {
+                    draggingSpaces = false;
+                    return;
+                }
+
                 int dy = (int)MouseDelta.y;
                 int dx = (int)MouseDelta.x;
 
@@ -434,6 +445,22 @@ namespace Vivid.UI
                     sp.UpdateDocked();
 
                 }
+
+                List<DockingSpace> all = new List<DockingSpace>();
+                void add(List<DockingSpace> all,List<DockingSpace> sp)
+                {
+                    foreach(var s in sp)
+                    {
+                        all.Add(s);
+                    }
+                }
+
+              
+
+                //foreach(var sp in left)
+                //{
+
+                
 
                 if (GameInput.MouseButtonDown(MouseID.Left) == false)
                 {
@@ -794,7 +821,29 @@ namespace Vivid.UI
                 }
             }
         }
+        public void DrawDockLines(IWindow win)
+        {
 
+            foreach(var space in win.dockingSpaces)
+            {
+
+                int rx, ry, rw, rh;
+
+                rx = win.Position.x + space.X - 4;
+                ry = win.Position.y+win.TitleHeight + space.Y;
+                rw = space.Width;
+                rh = space.Height;
+
+                win.Draw(UI.Theme.Pure, rx, ry, rw, 5, new Maths.Color(2, 2, 2, 0.5f));
+                win.Draw(UI.Theme.Pure, rx, ry, 5, rh, new Maths.Color(2, 2, 2, 0.5f));
+                win.Draw(UI.Theme.Pure, rx + rw, ry, 5, rh, new Maths.Color(2,2,2, 0.5f));
+                win.Draw(UI.Theme.Pure, rx, ry + rh, rw, 5, new Maths.Color(2,2,2, 0.5f));
+
+                
+
+            }
+
+        }
         public void Render()
         {
 
@@ -809,7 +858,11 @@ namespace Vivid.UI
 
             foreach(var win in Windows)
             {
-                win.DebugSpaces();
+             //   win.DebugSpaces();
+                if (win.WindowDock)
+                {
+                    DrawDockLines(win);
+                }
             }
 
             if (CurrentDock != null)

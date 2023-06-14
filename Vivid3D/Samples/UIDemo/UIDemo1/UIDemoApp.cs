@@ -215,7 +215,7 @@ namespace UIDemo1
             ui.AddWindow(win4);
             ui.AddWindow(win5);
       //     win3.WindowDock = true;
-      //      win3.Set(200, 200, 450, 450, "Render");
+            win3.Set(200, 200, 450, 450, "Render");
             //    ui.AddWindow(win6);
 
             ILabelButton lb1 = new ILabelButton().Set(20, 20, 5, 5, "Load Project") as ILabelButton;
