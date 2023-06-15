@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vivid.Texture;
 
 namespace Vivid.UI.Forms
 {
@@ -12,7 +13,26 @@ namespace Vivid.UI.Forms
         public IToolBar() { }
 
         private int CurrentX = 10;
-        public void AddTool(IForm form)
+
+        public IForm AddTool(string text)
+        {
+            IButton button = new IButton().SetText(text) as IButton;
+            return AddTool(button);
+
+        }
+
+        public IForm AddTool(Texture2D icon)
+        {
+            IButton button = new IButton();
+            button.Icon = icon;
+            return AddTool(button);
+
+        }
+        public void AddSpace(int space)
+        {
+            CurrentX += space;
+        }
+        public IForm AddTool(IForm form)
         {
             AddForm(form);
           
@@ -22,15 +42,16 @@ namespace Vivid.UI.Forms
                 var but = form as IButton;
                 if (but.Icon == null)
                 {
-                    form.Size = new Maths.Size(UI.SystemFont.StringWidth(form.Text) + 15, 20);
+                    form.Size = new Maths.Size(UI.SystemFont.StringWidth(form.Text) + 25, 30);
                 }
                 else
                 {
-                    form.Size = new Maths.Size(28, 20);
+                    form.Size = new Maths.Size(38, 30);
                 }
             }
                 
             CurrentX = CurrentX + form.Size.w + 10;
+            return form;
 
         }
 

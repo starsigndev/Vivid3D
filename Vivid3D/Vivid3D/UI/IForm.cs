@@ -170,6 +170,17 @@ namespace Vivid.UI
             set;
         }
 
+        public string ToolTip
+        {
+            get;
+            set;
+        }
+
+        public bool Highlight
+        {
+            get;
+            set;
+        }
 
         public IForm()
         {
@@ -179,7 +190,8 @@ namespace Vivid.UI
             {
                 BlurFX = new Vivid.Draw.SMDrawBlur2D();
             }
-     
+            Highlight = false;
+            ToolTip = "";
             Static = false;
             Scissor = false;
             Position = new Position(0, 0);
@@ -229,7 +241,11 @@ namespace Vivid.UI
             }
 
         }
-
+        public IForm SetText(string text)
+        {
+            Text = text;
+            return this;
+        }
         public IForm Set(int x,int y,int w,int h,string text = "")
         {
             return Set(new Position(x, y), new Vivid.Maths.Size(w, h), text);

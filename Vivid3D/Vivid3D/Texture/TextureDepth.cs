@@ -43,5 +43,9 @@ namespace Vivid.Texture
             GL.TextureParameteri(Handle, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
             GL.TextureParameteri(Handle, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
         }
+        public void Delete()
+        {
+            GL.DeleteTexture(Handle);
+        }
     }
 }

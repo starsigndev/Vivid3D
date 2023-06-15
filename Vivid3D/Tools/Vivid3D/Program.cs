@@ -12,7 +12,7 @@ namespace Vivid3D
             NativeWindowSettings native_settings = new NativeWindowSettings();
 
             game_win.RenderFrequency = 0;
-            game_win.UpdateFrequency = 60;
+            game_win.UpdateFrequency = 120;
             game_win.IsMultiThreaded = false;
 
 
@@ -22,7 +22,8 @@ namespace Vivid3D
             native_settings.Flags = OpenTK.Windowing.Common.ContextFlags.ForwardCompatible;
             native_settings.IsEventDriven = false;
             native_settings.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
-            native_settings.Size = new OpenTK.Mathematics.Vector2i(1400, 850);
+            native_settings.Location = new OpenTK.Mathematics.Vector2i(0, 0);
+            native_settings.Size = new OpenTK.Mathematics.Vector2i(1920, 1000);
             native_settings.Title = "Vivid3D - (c)Star Signal 2023";
             native_settings.RedBits = 10;
             native_settings.GreenBits = 10;

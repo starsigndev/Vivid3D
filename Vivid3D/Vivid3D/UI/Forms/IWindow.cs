@@ -347,18 +347,25 @@ namespace Vivid.UI.Forms
 
         }
 
+        public bool HasTitleBar
+        {
+            get;
+            set;
+        }
+
         public List<IWindow> DockedWindows { get; set; }
 
         public List<DockingSpace> dockingSpaces;
         public bool Drag = false;
         bool HighlightArea = false;
 
-        public IWindow(string title,bool resizable=false)
+        public IWindow(string title,bool resizable=false,bool titlebar = true)
         {
             CastShadow = false;
             Text = title;
             ActiveDockedWindow = null;
             Docked = false;
+            HasTitleBar = titlebar;
             DockedWindows = new List<IWindow>();
             //       Title = new IButton();
             Content = new IFrame();
@@ -429,7 +436,15 @@ namespace Vivid.UI.Forms
         {
             //base.AfterSet();
             // Title.Set(0, 0, Size.w, TitleHeight, Text);
-            Content.Set(0, TitleHeight, Size.w, (Size.h - TitleHeight + 1));
+            if (HasTitleBar)
+            {
+                Content.Set(0, TitleHeight, Size.w, (Size.h - TitleHeight + 1));
+            }
+            else
+            {
+                TitleHeight = 0;
+                Content.Set(0, 0, Size.w, Size.h);
+            }
             RightEdge.Set(Size.w - EdgeSize, Content.Position.y, EdgeSize, Content.Size.h);
             BottomEdge.Set(0, Content.Size.h + TitleHeight, Content.Size.w, EdgeSize);
             ResizeButton.Set(Size.w - EdgeSize+3, Content.Size.h+2+3, EdgeSize-2, EdgeSize-2, "");
@@ -575,7 +590,7 @@ namespace Vivid.UI.Forms
                    area.Right <= usedArea.Right &&
                    area.Bottom <= usedArea.Bottom;
         }
-        public void DockWindow(IWindow win, Point pos, double edge)
+        public void DockWindow(IWindow win, Point pos, double edge,int feature_size=-1)
         {
             var target = DetermineDock(pos, edge);
             if (target.Space.DockedWindow != null)
@@ -617,8 +632,15 @@ namespace Vivid.UI.Forms
                 case DockPosition.Left:
                     rx = (int)target.Space.Area.X;
                     ry = (int)target.Space.Area.Y;
-                    rw = (int)target.Space.Area.Width / 4;
-                    rh = (int)target.Space.Area.Height;
+                    if (feature_size != -1)
+                    {
+                        rw = feature_size;
+                    }
+                    else
+                    {
+                        rw = (int)target.Space.Area.Width / 4;
+                    }
+                        rh = (int)target.Space.Area.Height;
                     win.Set(rx, ry, rw, rh, win.Text);
                     foreach (var dw in win.DockedWindows)
                     {
@@ -1520,5 +1542,7 @@ namespace Vivid.UI.Forms
                 }
             } 
         }
+     
+
     }
 }

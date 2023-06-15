@@ -67,7 +67,7 @@ namespace UIDemo1
             var cut = edit.AddItem("Cut");
             var paste = edit.AddItem("Paste");
 
-            paste.Click = (item) =>
+            paste.Click += (item) =>
             {
                 Environment.Exit(0);
             };
@@ -127,7 +127,7 @@ namespace UIDemo1
             var copy = testMenu.AddItem("Copy this");
             testMenu.AddItem("Cut this");
             testMenu.AddItem("Paste here.");
-            copy.Click = (item) =>
+            copy.Click += (item) =>
             {
                 Environment.Exit(1);
             };

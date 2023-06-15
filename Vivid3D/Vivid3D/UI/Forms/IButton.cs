@@ -25,13 +25,13 @@ namespace Vivid.UI.Forms
 
             Image = UI.Theme.Button;
             SelectedImage = UI.Theme.ButtonSelected;
-            Color = new Maths.Color(0.65f, 0.65f, 0.65f, 0.5f);
+            Color = new Maths.Color(0.85f, 0.85f, 0.68f, 0.5f);
         }
 
         public override void OnEnter()
         {
             //base.OnEnter();
-            Target = (new Maths.Color(1.0f, 1.0f, 1.0f, 0.85f));
+            Target = (new Maths.Color(1.2f, 1.2f, 1.2f, 0.85f));
             Over = true;
             //   Console.WriteLine("Button!!!!!!!!");
             // Environment.Exit(0);
@@ -41,7 +41,7 @@ namespace Vivid.UI.Forms
         {
             //base.OnLeave();
             Over = false;
-            Target = new Maths.Color(0.65f, 0.65f, 0.65f, 0.8f);
+            Target = new Maths.Color(0.85f, 0.85f, 0.85f, 0.8f);
         }
 
         public override void OnUpdate()
@@ -56,7 +56,7 @@ namespace Vivid.UI.Forms
                     
                 }
             }
-            Color = Color + (Target - Color) * new Maths.Color(0.03f, 0.03f, 0.03f, 0.75f);
+            Color = Color + (Target - Color) * new Maths.Color(0.06f, 0.06f, 0.06f, 0.75f);
             //base.OnUpdate();
 
             if(Down)
@@ -111,6 +111,10 @@ namespace Vivid.UI.Forms
         public override void OnRender()
         {
             Draw(Image);
+            if (Highlight)
+            {
+                Draw(UI.Theme.Highlight, -1, -1, -1, -1, new Maths.Color(2, 2, 2, 1));
+            }
             // Draw(SelectedImage, -1, -1, -1, -1, SelectedCol);
             if (Icon == null)
             {

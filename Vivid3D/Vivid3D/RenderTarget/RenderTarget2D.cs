@@ -62,6 +62,14 @@ namespace Vivid.RenderTarget
             GL.DeleteRenderbuffer(RB);
         }
 
+        public void Delete()
+        {
+            GL.DeleteFramebuffer(FB);
+
+            GL.DeleteRenderbuffer(RB);
+            BB.Delete();
+            DB.Delete();
+        }
         public void ClearZ()
         {
         }
@@ -73,7 +81,7 @@ namespace Vivid.RenderTarget
             VividApp.BoundRT2D = this;
 
             GL.Viewport(0, 0, Width, Height);
-            GL.ClearColor(0, 0, 0, 1);
+          //  GL.ClearColor(0, 0, 0, 1);
             //GL.ClearDepthf(0.0f);
             GL.ClearColor(0, 0, 0, 1);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);

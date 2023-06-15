@@ -40,6 +40,8 @@ namespace Vivid.Texture
             set;
         }
 
+        
+
         public static Dictionary<string, Texture2D> Cache = new Dictionary<string, Texture2D>();
 
         public Texture2D(int width, int height)
@@ -149,6 +151,11 @@ namespace Vivid.Texture
                 Console.WriteLine("Invalid texture handle.");
                 Environment.Exit(0);
             }
+        }
+
+        public void Delete()
+        {
+            GL.DeleteTexture(Handle);
         }
 
         public void Bind(int unit)

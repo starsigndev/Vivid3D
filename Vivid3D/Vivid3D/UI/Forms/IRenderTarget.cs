@@ -16,11 +16,7 @@ namespace Vivid.UI.Forms
             set;
         }
 
-        public RenderAction ActionRender
-        {
-            get;
-            set;
-        }
+        public event RenderAction ActionRender;
 
         public IRenderTarget()
         {
@@ -34,7 +30,13 @@ namespace Vivid.UI.Forms
             {
                 Size = Root.Size;
             }
+            if (RenderTarget != null)
+            {
+                RenderTarget.Delete();
+            }
             RenderTarget = new RenderTarget.RenderTarget2D(Size.w, Size.h);
+            Position = new Maths.Position(0, 0);
+           
 
         }
 
@@ -48,8 +50,9 @@ namespace Vivid.UI.Forms
             RenderTarget.Release();
 
 
-         
-            Draw(RenderTarget.GetTexture());
+
+
+            Draw(RenderTarget.GetTexture(), RenderPosition.x, RenderPosition.y + Size.h, Size.w, -Size.h, new Maths.Color(1, 1, 1, 1));
         }
 
 

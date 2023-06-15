@@ -22,17 +22,18 @@ namespace Vivid.UI.Forms
             get;
             set;
         }
-        public MenuAction Click
-        {
-            get;
-            set;
-        }
+        public event MenuAction Click;
 
         public int DX, DY;
         public MenuItem()
         {
             DX = DY = 0;
             Click = null;
+        }
+
+        public void InvokeClick()
+        {
+            Click?.Invoke(this);
         }
 
         public MenuItem AddItem(string text)

@@ -381,7 +381,7 @@ namespace Vivid.Scene
             PossibleEvents = new List<SceneEvent>();
             CurrentEvents = new List<SceneEvent>();
             SkySystem = null;
-            AddProcSky();
+         //   AddProcSky();
         }
 
         public int sc = 0;

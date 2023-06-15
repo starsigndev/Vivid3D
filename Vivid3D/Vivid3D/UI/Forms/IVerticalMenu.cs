@@ -53,7 +53,7 @@ namespace Vivid.UI.Forms
             //base.OnMouseDown(button);
             if (OverItem != null)
             {
-                OverItem.Click?.Invoke(OverItem);
+                OverItem.InvokeClick();
                 if (OpenMenu != null)
                 {
                     Forms.Remove(OpenMenu);

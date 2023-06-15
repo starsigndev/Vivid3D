@@ -179,6 +179,24 @@ namespace Vivid.UI
         public void Update()
         {
             GetMouse();
+
+
+            if (Pressed[0] == null || Pressed[0] == MovingZones)
+            {
+                UpdateWindows();
+            }
+
+            if (Pressed[0] == MovingZones)
+            {
+                if (GameInput.MouseButtonDown(MouseID.Left) == false)
+                {
+                    Pressed[0] = null;
+                }
+                else
+                {
+                    return;
+                }
+            }
             Root.Update();
 
             List<IForm> form_list = new List<IForm>();
@@ -216,7 +234,7 @@ namespace Vivid.UI
             UpdateList(form_list);
             UpdateKeys();
 
-            UpdateWindows();
+           
 
         }
         IWindow dragWin = null;
@@ -226,6 +244,7 @@ namespace Vivid.UI
         List<DockingSpace> bot = new List<DockingSpace>();
         List<DockingSpace> left = new List<DockingSpace>();
         List<DockingSpace> right = new List<DockingSpace>();
+        private IForm MovingZones = new IForm();
 
         public void UpdateWindows()
         {
@@ -236,7 +255,7 @@ namespace Vivid.UI
             mx = MousePosition.x;
             my = MousePosition.y;
 
-
+          
 
             foreach (var win in Windows)
             {
@@ -364,6 +383,8 @@ namespace Vivid.UI
                         if (top.Count > 0 || bot.Count>0 || left.Count>0 || right.Count>0)
 
                         {
+
+                            
                             //Console.WriteLine("Moving Top.");
 
                             if (!draggingSpaces)
@@ -371,6 +392,7 @@ namespace Vivid.UI
 
                                 if (GameInput.MouseButtonDown(MouseID.Left))
                                 {
+                                    Pressed[0] = MovingZones;
                                     draggingSpaces = true;
                                     dragWin = win;
 
@@ -844,6 +866,10 @@ namespace Vivid.UI
             }
 
         }
+
+        IForm WaitOver = null;
+        int WaitUntil = 0;
+
         public void Render()
         {
 
@@ -952,6 +978,48 @@ namespace Vivid.UI
             }
             Menu.Render();
 
+
+            if(WaitOver == null)
+            {
+                if (Over != null)
+                {
+                    WaitOver = Over;
+                    WaitUntil = Environment.TickCount + 1000;
+                }
+            }
+            else
+            {
+                if(WaitOver != Over)
+                {
+                    WaitOver = null;
+
+                }
+            }
+
+
+            if (WaitOver != null)
+            {
+
+                if (Environment.TickCount > WaitUntil)
+                {
+                    if (Over != null)
+                    {
+                        if (Over.ToolTip != "")
+                        {
+
+                            int w = UI.SystemFont.StringWidth(Over.ToolTip) + 10;
+                            int h = UI.SystemFont.StringHeight() + 10;
+                            Draw.Begin();
+
+                            Draw.Draw(UI.Theme.Pure, new Rect(MousePosition.x + 20, MousePosition.y - 10, w, h), new Maths.Color(1, 1, 1, 1));
+                            Draw.End();
+                            UI.DrawString(Over.ToolTip, MousePosition.x + 25, MousePosition.y - 5, UI.Theme.TextColor);
+                            //       Draw.End();
+                        }
+                    }
+                }
+            }
+
             // Draw.End();
 
             GL.Clear(ClearBufferMask.DepthBufferBit);// //..Disable(EnableCap.DepthTest);
@@ -960,6 +1028,8 @@ namespace Vivid.UI
             Draw.Begin();
             Draw.Draw(UICursor, new Rect(MousePosition.x, MousePosition.y, 32, 32),new Maths.Color(1, 1, 1, 0.75f));
             Draw.End();
+
+
           
 
             GL.Enable(EnableCap.DepthTest);
