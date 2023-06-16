@@ -125,6 +125,7 @@ namespace Vivid.UI.Forms
 
         public IVerticalScroller()
         {
+            Scroller = false;
             CurrentValue = 0;
             MaxValue = 350;
             OnValueChanged = null;

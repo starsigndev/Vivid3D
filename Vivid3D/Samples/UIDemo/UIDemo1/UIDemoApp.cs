@@ -91,11 +91,7 @@ namespace UIDemo1
             view.Set(0, 0,win2.Content.Size.w,win2.Content.Size.h);
             win2.Content.AddForm(view);
 
-            view.ActionRender = (w, h) =>
-            {
-                GL.ClearColor(0, 0, 0, 1);
-                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            };
+           
             win2.Content.Scissor = false;
 
             //ui.AddForm(win2);
@@ -110,13 +106,13 @@ namespace UIDemo1
 
 //            frame1.AddForm(toolbar);
 
-            ITextBox tb1 = new ITextBox().Set(20, 20, 250, 30, "") as ITextBox;
-          //  frame1.AddForm(tb1);
+            ITextBox tb1 = new ITextBox().Set(20, 60, 250, 30, "") as ITextBox;
+            frame1.AddForm(tb1);
             //tb1.Numeric = true;
             //tb1.Password = true;
 
             ITextArea ta1 = new ITextArea().Set(30, 80, 550, 500, "") as ITextArea;
-//            frame1.AddForm(ta1);
+          //  frame1.AddForm(ta1);
 
             INumericBox num1 = new INumericBox();
             num1.Set(30, 80, 130, 28, "");
@@ -165,7 +161,7 @@ namespace UIDemo1
 
             frame1.ContextForm = testMenu;
 
-            frame1.Forms.Clear();
+        //    frame1.Forms.Clear();
 
             var win3 = new IWindow("Options");
             var win4 = new IWindow("Settings");
@@ -195,27 +191,30 @@ namespace UIDemo1
             dock.Set(150, 150, frame1.Size.w - 350, frame1.Size.h - 350, dock.Text);
 
             // frame1.AddForm(dock);
-            ui.AddWindow(dock);
+           // ui.AddWindow(dock);
 
             var win5 = new IWindow("").Set(400, 200, 250, 250, "Win other") as IWindow;
             var win6 = new IWindow("").Set(300, 80, 300, 300, "Effects") as IWindow;
 
-          
+            win3.Set(200, 200, 450, 450, "Rende");
+            var scroll_area = new IScrollArea().Set(0, 0, win3.Content.Size.w, win3.Content.Size.h, "") as IScrollArea;
+            win3.Content.AddForm(scroll_area);
 
             var but11 = new IButton().Set(20, 20, 200, 30, "But1") as IButton;
-            var but2 = new IButton().Set(30, 50, 180, 40, "Other!") as IButton;
-
-            win3.Content.AddForm(but11);
-            win4.Content.AddForm(but2);
+            var but2 = new IButton().Set(30, 800, 180, 40, "Other!") as IButton;
+            scroll_area.AddForms(but11, but2);
+            
+           // win3.Content.AddForm(but11);
+          //  win3.Content.AddForm(but2);
             but11.OnClick += (form, data) =>
             {
                 Environment.Exit(1);
             };
            ui.AddWindow(win3);
-            ui.AddWindow(win4);
-            ui.AddWindow(win5);
+           // ui.AddWindow(win4);
+           // ui.AddWindow(win5);
       //     win3.WindowDock = true;
-            win3.Set(200, 200, 450, 450, "Render");
+            
             //    ui.AddWindow(win6);
 
             ILabelButton lb1 = new ILabelButton().Set(20, 20, 5, 5, "Load Project") as ILabelButton;

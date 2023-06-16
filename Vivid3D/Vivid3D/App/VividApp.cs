@@ -239,7 +239,7 @@ namespace Vivid.App
             //base.OnKeyUp(e);
             Console.WriteLine("Key:" + e.Key.ToString());
             Console.WriteLine("ID:" + (int)e.Key);
-            //GameInput.mKeyDown[(int)e.Key] = false;
+            GameInput.mKeyDown[(int)e.Key] = false;
 
 
             if (e.Shift)

@@ -66,7 +66,15 @@ namespace Vivid.UI
                 Position root = new Position(0, 0);
                 if (Root != null)
                 {
-                    root = Root.RenderPosition - Root.ScrollValue;
+                    if (Scroller)
+                    {
+                        root = Root.RenderPosition - Root.ScrollValue;
+                    }
+                    else
+                    {
+                        root = Root.RenderPosition;
+                    }
+                    
                 }
 
                 return root + Position;
@@ -79,16 +87,30 @@ namespace Vivid.UI
             {
 
                 int max_y = 0;
+                int max_x = 0;
                 foreach(var item in Forms)
                 {
-                    if (item.Position.y > max_y)
+                    if (item.Scroller)
                     {
-                        max_y = item.Position.y;
+                        if (item.Position.y > max_y)
+                        {
+                            max_y = item.Position.y;
+                        }
+                        if (item.Position.x > max_x)
+                        {
+                            max_x = item.Position.x;
+                        }
                     }
                 }
-                return new Maths.Size(0, max_y);
+                return new Maths.Size(max_x, max_y);
 
             }
+        }
+
+        public bool Scroller
+        {
+            get;
+            set;
         }
 
         public event FormAction OnClick;
@@ -182,10 +204,17 @@ namespace Vivid.UI
             set;
         }
 
+        public bool DirectKeys
+        {
+            get;
+            set;
+        }
+
         public IForm()
         {
             
             Override = null;
+            Scroller = true;
             if (BlurFX == null)
             {
                 BlurFX = new Vivid.Draw.SMDrawBlur2D();
@@ -199,6 +228,7 @@ namespace Vivid.UI
             Text = string.Empty;
             ScissorSelf = false;
             Active = false;
+            DirectKeys = false;
             Forms = new List<IForm>();
             BGTex = null;
             Root = null;

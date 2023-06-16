@@ -129,7 +129,7 @@ namespace Vivid.UI.Forms
             RightButton = new IButton();
             LeftButton.Icon = UI.Theme.ArrowLeft;
             RightButton.Icon = UI.Theme.ArrowRight;
-
+            Scroller = false;
             LeftButton.OnClick += LeftButton_OnClick;
             RightButton.OnClick += RightButton_OnClick;
             LeftButton.MouseDown += LeftButton_MouseDown;

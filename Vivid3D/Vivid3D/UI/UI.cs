@@ -6,6 +6,7 @@ using Vivid.Texture;
 using Vivid.UI.Forms;
 using OpenTK.Graphics.OpenGL;
 using Vivid.PostProcesses;
+using BepuPhysics;
 
 namespace Vivid.UI
 {
@@ -499,6 +500,7 @@ namespace Vivid.UI
         int curKey = -1;
         private bool[] LastKey = new bool[512];
         private bool LastShift = false;
+        bool directKeyStart = true;
         public void UpdateKeys()
         {
             if (!firstKey)
@@ -507,6 +509,40 @@ namespace Vivid.UI
                 {
                     firstKey = true;
                     
+                }
+            }
+
+            if (Active != null)
+            {
+                if (Active.DirectKeys)
+                {
+                    if (directKeyStart)
+                    {
+                        for(int i = 0; i < 512; i++)
+                        {
+                            LastKey[i] = false;
+                            GameInput.mKeyDown[i] = false;
+                        }
+                        directKeyStart = false;
+                    }
+                    for(int i = 0; i < 512; i++)
+                    {
+                        if (GameInput.KeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i) && LastKey[i]==false)
+                        {
+                            Active.OnKeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                        }
+                        if(!GameInput.KeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i) && LastKey[i])
+                        {
+                            Active.OnKeyUp((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                        }
+
+                        LastKey[i] = GameInput.KeyDown((OpenTK.Windowing.GraphicsLibraryFramework.Keys)i);
+                    }
+                    //int b = 5;
+                    return;
+                }
+                {
+                    directKeyStart = true;
                 }
             }
 
@@ -663,7 +699,7 @@ namespace Vivid.UI
             }
 
             bool over_leave = false;
-            if (Pressed[0] == null)
+            if (Pressed[0] == null && Pressed[1]==null)
             {
                 foreach (var form in list)
                 {
@@ -687,7 +723,7 @@ namespace Vivid.UI
                 }
             }
 
-            if (Over != null && Pressed[0]==null)
+            if (Over != null && Pressed[0]==null && Pressed[1] ==null)
             {
                 if (over_leave == false)
                 {
@@ -750,77 +786,85 @@ namespace Vivid.UI
                 {
                     Over.OnMouseWheelMove(GameInput.WheelDelta);
                 }
-                if (Pressed[0] == null)
+
+                for (int i = 0; i < 2; i++)
                 {
-                 
-                    if (GameInput.MouseButtonDown(MouseID.Left))
+                    if (Pressed[i] == null)
                     {
-                        if (Over != ContextForm)
+
+                        if (GameInput.MouseButtonDown((MouseID)i))
                         {
-                            if (ContextForm != null)
+                            if (Over != ContextForm)
                             {
-                                ContextForm = null;
-                            }
-                        }
-                        Pressed[0] = Over;
-                        Over.Active = true;
-                        if (Active != null && Active != Over)
-                        {
-                            Active.OnDeactivate();
-                            Active.Active = false;
-                        }
-                        Active = Over;
-                        Active.OnActivate();
-                        Pressed[0].OnMouseDown(MouseID.Left);
-                        if(Over is IWindow)
-                        {
-                            if (Windows.Contains(Over))
-                            {
-                                Windows.Remove((IWindow)Over);
-                                Windows.Add((IWindow)Over);
-                            }
-                        }else if(Over.Root is IWindow)
-                        {
-                            if (Windows.Contains(Over.Root))
-                            {
-                                Windows.Remove((IWindow)Over.Root);
-                                Windows.Add((IWindow)Over.Root);
-                            }
-                        }
-                    }
-                    if (GameInput.MouseButtonDown(MouseID.Right))
-                    {
-                        //Environment.Exit(1);
-                        if (Over.ContextForm != null)
-                        {
-                            bool use = true;
-                            if (ContextForm != null)
-                            {
-                                if (ContextForm == Over.ContextForm)
+                                if (ContextForm != null)
                                 {
-                                    use = false;
+                                    ContextForm = null;
+                                }
+                            }
+                            Pressed[i] = Over;
+                            Over.Active = true;
+                            if (Active != null && Active != Over)
+                            {
+                                Active.OnDeactivate();
+                                Active.Active = false;
+                            }
+                            Active = Over;
+                            Active.OnActivate();
+                            Pressed[i].OnMouseDown((MouseID)i);
+                            if (Over is IWindow)
+                            {
+                                if (Windows.Contains(Over))
+                                {
+                                    Windows.Remove((IWindow)Over);
+                                    Windows.Add((IWindow)Over);
+                                }
+                            }
+                            else if (Over.Root is IWindow)
+                            {
+                                if (Windows.Contains(Over.Root))
+                                {
+                                    Windows.Remove((IWindow)Over.Root);
+                                    Windows.Add((IWindow)Over.Root);
+                                }
+                            }
+                        }
+                        if (i == 1)
+                        {
+                            if (GameInput.MouseButtonDown(MouseID.Right))
+                            {
+                                //Environment.Exit(1);
+                                if (Over.ContextForm != null)
+                                {
+                                    bool use = true;
+                                    if (ContextForm != null)
+                                    {
+                                        if (ContextForm == Over.ContextForm)
+                                        {
+                                            use = false;
+                                        }
+
+                                    }
+                                    if (use)
+                                    {
+                                        ContextForm = Over.ContextForm;
+                                        ContextForm.Position = new Position(MousePosition.x, MousePosition.y);
+                                    }
                                 }
 
                             }
-                            if (use)
-                            {
-                                ContextForm = Over.ContextForm;
-                                ContextForm.Position = new Position(MousePosition.x, MousePosition.y);
-                            }
                         }
-
                     }
-                }
-                else
-                {
-                    if (!GameInput.MouseButtonDown(MouseID.Left))
+                    else
                     {
-                        Pressed[0].OnMouseUp(MouseID.Left);
-                        if (Over != Pressed[0])
+                        if (!GameInput.MouseButtonDown((MouseID)i))
                         {
-                            Pressed[0].OnLeave();
+                            Pressed[i].OnMouseUp((MouseID)i);
+                            if (Over != Pressed[i])
+                            {
+                                Pressed[i].OnLeave();
+                            }
+                            Pressed[i] = null;
                         }
-                        Pressed[0] = null;
                     }
                 }
             }
