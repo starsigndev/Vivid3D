@@ -19,7 +19,7 @@ namespace Vivid3D.Forms
 
             Set(0, 0, VividApp.FrameWidth, 45, "");
             AddSpace(32);
-            var move = AddTool(new Texture2D("ui/v3d/moveicon.png"));
+            var move = AddTool(new Texture2D("ui/v3d/moveicon2.png"));
             var rotate = AddTool(new Texture2D("ui/v3d/rotateIcon.png"));
             var scale = AddTool(new Texture2D("ui/v3d/scaleIcon.png"));
             move.ToolTip = "Set the editor to translate mode.";

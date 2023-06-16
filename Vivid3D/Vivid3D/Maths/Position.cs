@@ -25,5 +25,10 @@
         {
             return new Position(a.x + b.x, a.y + b.y);
         }
+        public static Position operator+(Position a,Delta b)
+        {
+            return new Position(a.x + (int)b.x, a.y + (int)b.y);
+        }
+
     }
 }

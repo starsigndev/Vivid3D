@@ -640,7 +640,7 @@ namespace Vivid.UI.Forms
                     {
                         rw = (int)target.Space.Area.Width / 4;
                     }
-                        rh = (int)target.Space.Area.Height;
+                    rh = (int)target.Space.Area.Height;
                     win.Set(rx, ry, rw, rh, win.Text);
                     foreach (var dw in win.DockedWindows)
                     {
@@ -689,10 +689,18 @@ namespace Vivid.UI.Forms
                     //   CurrentDock.Draw(UI.Theme.Frame, rx, ry, rw, rh, col);
                     break;
                 case DockPosition.Bottom:
+
+                    int ch = (int)target.Space.Area.Height / 4;
+
+                    if (feature_size != -1)
+                    {
+                        ch = feature_size;
+                    }
+
                     rx = (int)target.Space.Area.X;
-                    ry = ((int)target.Space.Area.Y + (int)target.Space.Area.Height - (int)target.Space.Area.Height / 4);
+                    ry = ((int)target.Space.Area.Y + (int)target.Space.Area.Height - ch);
                     rw = (int)target.Space.Area.Width;
-                    rh = (int)target.Space.Area.Height / 4;
+                    rh = (int)ch;
                     win.Set(rx, ry, rw, rh, win.Text);
                     foreach (var dw in win.DockedWindows)
                     {

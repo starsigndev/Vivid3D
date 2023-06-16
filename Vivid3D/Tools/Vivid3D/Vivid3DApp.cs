@@ -39,7 +39,7 @@ namespace Vivid3D
 
             MainWindow = new FMainWindow();
 
-            MainWindow.Set(2, 75, VividApp.FrameWidth-7, VividApp.FrameHeight - 80, "Vivid3D");
+            MainWindow.Set(2, 75, VividApp.FrameWidth-7, VividApp.FrameHeight - 83, "Vivid3D");
             MainWindow.Static = true;
             MainUI.AddForm(MainToolBar);
 

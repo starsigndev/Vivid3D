@@ -9,7 +9,7 @@ namespace Vivid
 
     public enum MouseID
     {
-        Left, Right, Middle, Back, Forwards
+        Left, Right, Middle, Back=3, Forwards=4
     }
 
     public static class GameInput

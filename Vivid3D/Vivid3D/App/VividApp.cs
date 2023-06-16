@@ -275,6 +275,10 @@ namespace Vivid.App
             {
                 GameInput.MouseButton[1] = true;
             }
+            if(e.Button == OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Button4)
+            {
+                GameInput.MouseButton[3] = true;
+            }
         }
 
         protected override void OnMouseUp(MouseButtonEventArgs e)
@@ -287,6 +291,10 @@ namespace Vivid.App
             if (e.Button == OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Right)
             {
                 GameInput.MouseButton[1] = false;
+            }
+            if(e.Button == OpenTK.Windowing.GraphicsLibraryFramework.MouseButton.Button4)
+            {
+                GameInput.MouseButton[3] = false;
             }
         }
 

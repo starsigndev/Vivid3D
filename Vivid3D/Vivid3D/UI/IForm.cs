@@ -343,6 +343,12 @@ namespace Vivid.UI
         {
 
         }
+
+        public virtual void OnDoubleClick(MouseID button)
+        {
+
+        }
+
         public virtual void OnMouseDown(MouseID button)
         {
         }

@@ -282,7 +282,7 @@ namespace Vivid.UI
                                 if (cx > 0 && cx < win.Size.w)
                                 {
 
-                                    if (cy > space.Y+10 && cy < space.Y + 20)
+                                    if (cy > space.Y-5 && cy < space.Y + 5)
                                     {
                                         //Console.WriteLine("Moving Top:");
                                         list.Add(space);
@@ -304,7 +304,7 @@ namespace Vivid.UI
                                 if (cx > 0 && cx < win.Size.w)
                                 {
 
-                                    if (cy > sp.Y + sp.Height+10 && cy < (sp.Y+sp.Height+20))
+                                    if (cy > sp.Y + sp.Height-5 && cy < (sp.Y+sp.Height+5))
                                     {
                                         //Console.WriteLine("Moving Top:");
                                         list.Add(sp);
@@ -674,6 +674,8 @@ namespace Vivid.UI
         IWindow CurrentDock;
         IWindow DockWindow;
 
+        private int[] LastClick = new int[32]; 
+
         public void UpdateList(List<IForm> list)
         {
 
@@ -787,8 +789,9 @@ namespace Vivid.UI
                     Over.OnMouseWheelMove(GameInput.WheelDelta);
                 }
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 18; i++)
                 {
+                 
                     if (Pressed[i] == null)
                     {
 
@@ -811,6 +814,15 @@ namespace Vivid.UI
                             Active = Over;
                             Active.OnActivate();
                             Pressed[i].OnMouseDown((MouseID)i);
+                            if (Environment.TickCount < LastClick[i]+500)
+                            {
+                                Pressed[i].OnDoubleClick((MouseID)i);
+                            }
+                            else
+                            {
+                                LastClick[i] = Environment.TickCount;
+                            }
+
                             if (Over is IWindow)
                             {
                                 if (Windows.Contains(Over))
