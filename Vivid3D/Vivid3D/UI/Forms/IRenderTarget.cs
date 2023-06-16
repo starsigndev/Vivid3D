@@ -17,6 +17,7 @@ namespace Vivid.UI.Forms
         }
 
         public event RenderAction ActionRender;
+        public event RenderAction PreRender;
 
         public IRenderTarget()
         {
@@ -46,6 +47,7 @@ namespace Vivid.UI.Forms
         public override void OnRender()
         {
             //base.OnRender();
+            PreRender?.Invoke(Size.w, Size.h);
             RenderTarget.Bind();
             ActionRender?.Invoke(Size.w, Size.h);
             RenderTarget.Release();

@@ -69,6 +69,8 @@ namespace Vivid.RenderTarget
             int af = (int)TextureTarget.TextureCubeMapPositiveX + face;
 
             TextureTarget at = (TextureTarget)(((int)TextureTarget.TextureCubeMapPositiveX) + face);
+            GL.ClearColor(1,1,1,1);
+
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             return at;
         }

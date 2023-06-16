@@ -54,14 +54,7 @@ namespace FpsTechDemo1.AppStates
 
             menu_frame.AddForms(solo_game, online_game);
 
-            solo_game.OnClick = (form, data) =>
-            {
-
-              //  music_chan.Stop();
-                VividApp.PushState(new StateSelectMap());
-
-            };
-
+        
 
         }
 

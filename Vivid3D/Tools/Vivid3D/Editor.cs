@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Vivid.Scene;
+using OpenTK.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +33,10 @@ namespace Vivid3D
             CurrentScene = new Vivid.Scene.Scene();
             EditCamera = CurrentScene.MainCamera;
             GameCamera = EditCamera;
+            var light = new Light();
+            light.Position = new Vector3(0, 8, 0);
+            CurrentScene.Lights.Add(light);
+            light.Range = 40;
 
         }
 

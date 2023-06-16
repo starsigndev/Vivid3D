@@ -1077,6 +1077,7 @@ namespace Vivid.UI
             }
 
             // Draw.End();
+            GL.Disable(EnableCap.ScissorTest);
 
             GL.Clear(ClearBufferMask.DepthBufferBit);// //..Disable(EnableCap.DepthTest);
 

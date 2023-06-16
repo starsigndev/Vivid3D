@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid;
+using Vivid.App;
 using Vivid.Maths;
 using Vivid.State;
 using Vivid.UI.Forms;
@@ -28,6 +29,7 @@ namespace Vivid3D.Forms
 
             CurrentScene = Editor.CurrentScene;
             ActionRender += SceneRT_RenderScene;
+            PreRender += FSceneRT_PreRender;
             var grid = Features.Grid.CreateGrid();
             CurrentScene.MeshLines.Add(grid);
             EditCam = Editor.EditCamera;
@@ -37,6 +39,13 @@ namespace Vivid3D.Forms
             DirectKeys = true;
 
 
+        }
+
+        private void FSceneRT_PreRender(int w, int h)
+        {
+            //throw new NotImplementedException();
+            OpenTK.Graphics.OpenGL.GL.Disable(OpenTK.Graphics.OpenGL.EnableCap.ScissorTest);
+            Editor.CurrentScene.RenderShadows();
         }
 
         public override void OnKeyDown(Keys keys)
@@ -56,7 +65,13 @@ namespace Vivid3D.Forms
                 case Keys.S:
                     MoveVector.Z = 1.0f;
                     break;
+                case Keys.Space:
+
+                    Editor.CurrentScene.Lights[0].Position = Editor.EditCamera.Position;
+
+                    break;
             }
+
         }
 
         public override void OnKeyUp(Keys keys)
@@ -121,7 +136,7 @@ namespace Vivid3D.Forms
 
 
             scene.RenderLines();
-            scene.RenderShadows();
+          
             scene.Render();
             GLState.State = CurrentGLState.Draw;
             //  scene.RenderShadows();

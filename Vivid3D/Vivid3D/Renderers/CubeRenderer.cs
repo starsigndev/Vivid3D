@@ -141,7 +141,7 @@ namespace Vivid.Renderers
                     break;
             }
         }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        
         public void RenderDepth(Vector3 pos, float maxz)
         {
             var pcam = Graph.MainCamera;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid;
+using Vivid.Scene;
 using Vivid.UI.Forms;
 
 namespace Vivid3D.Forms
@@ -108,8 +109,16 @@ namespace Vivid3D.Forms
                     fx = 10;
                     fy = fy + IconSize * 2;
                 }
+                fileitem.OnContentClicked += Fileitem_OnContentClicked;
 
             }
+        }
+
+        private void Fileitem_OnContentClicked(FContentItem item)
+        {
+            var node = Vivid.Importing.Importer.ImportEntity<Entity>(item.FileInfo.FullName);
+            Editor.CurrentScene.AddNode(node);
+
         }
 
         private void Folder_OnContentClicked(FContentItem item)

@@ -70,7 +70,7 @@ namespace Vivid.Scene
             Diffuse = Vector3.One;
             Specular = Vector3.One;
             Range = 100.0f;
-            RTC = new RenderTargetCube(2048, 2048);
+            RTC = new RenderTargetCube(1024,1024);
             Type = LightType.Point;
             InnerCone = 40;
             OuterCone = 40;

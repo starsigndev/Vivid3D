@@ -46,6 +46,7 @@ namespace Vivid.State
                     GL.CullFace(TriangleFace.Back);
                     GL.Enable(EnableCap.DepthTest);
                     GL.DepthFunc(DepthFunction.Lequal);
+                    GL.Disable(EnableCap.ScissorTest);
                     break;
 
                 case CurrentGLState.LightSecondPass:
@@ -55,6 +56,7 @@ namespace Vivid.State
                     GL.Enable(EnableCap.CullFace);
                     GL.CullFace(TriangleFace.Back);
                     GL.DepthFunc(DepthFunction.Lequal);
+                    GL.Disable(EnableCap.ScissorTest);
                     break;
 
                 case CurrentGLState.Depth:
@@ -65,6 +67,7 @@ namespace Vivid.State
                     GL.DepthFunc(DepthFunction.Lequal);
                     GL.Enable(EnableCap.CullFace);
                     GL.CullFace(TriangleFace.Back);
+                    GL.Disable(EnableCap.ScissorTest);
 
                     break;
 
