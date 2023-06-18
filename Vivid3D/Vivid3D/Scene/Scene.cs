@@ -367,6 +367,7 @@ namespace Vivid.Scene
         public Scene()
         {
             Root = new Node();
+            Root.Name = "Root Node";
             Lights = new List<Light>();
             MainCamera = new Camera();
             ShadowRender = new CubeRenderer(this, null);

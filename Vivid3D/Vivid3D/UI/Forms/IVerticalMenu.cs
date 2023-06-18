@@ -107,7 +107,7 @@ namespace Vivid.UI.Forms
 
             mh = Items.Count * (UI.SystemFont.StringHeight() + 15);
 
-            Size = new Maths.Size(mw, mh-10);
+            Size = new Maths.Size(mw, mh-5);
 
 
             return item;

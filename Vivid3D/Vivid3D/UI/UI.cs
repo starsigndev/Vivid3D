@@ -97,6 +97,12 @@ namespace Vivid.UI
             set;
         }
 
+        public IForm ToolBar
+        {
+            get;
+            set;
+        }
+
 
         public static void DrawString(string text, int x, int y, Vivid.Maths.Color col)
         {
@@ -228,6 +234,11 @@ namespace Vivid.UI
             {
                 AddToList(form_list, ContextForm);
             }
+
+            AddToList(form_list, ToolBar);
+
+            ToolBar.Update();
+
             AddToList(form_list, Menu);
 
             form_list.Reverse();
@@ -946,6 +957,8 @@ namespace Vivid.UI
                     DrawDockLines(win);
                 }
             }
+
+            ToolBar.Render();
 
             if (CurrentDock != null)
             {

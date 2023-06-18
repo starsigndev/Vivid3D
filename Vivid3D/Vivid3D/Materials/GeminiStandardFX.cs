@@ -51,10 +51,10 @@ namespace Vivid.Materials
                 SetUni(g_CamMinZ, Camera.DepthStart);
                 SetUni(g_CamMaxZ, Camera.DepthEnd);
             }
-            //SetUni("g_TextureColor", 0);
-            // SetUni("g_TextureNormal", 1);
-            //  SetUni("g_TextureSpecular", 2);
-            //   SetUni("g_TextureShadow", 3);
+            SetUni("g_TextureColor", 0);
+             SetUni("g_TextureNormal", 1);
+              SetUni("g_TextureSpecular", 2);
+               SetUni("g_TextureShadow", 3);
         }
 
         public override void InitUniforms()

@@ -50,7 +50,7 @@ namespace Vivid.UI.Forms
                 //  Console.WriteLine("V:" + Values[Values.Count - 1]);
             }
 
-
+            EType = etype;
 
             CurrentSelection = 0;
             Open = false;
@@ -65,7 +65,8 @@ namespace Vivid.UI.Forms
             Draw(UI.Theme.Frame);
 
 
-            UI.DrawString(Values[CurrentSelection], RenderPosition.x + 6, RenderPosition.y + 8, UI.Theme.TextColor);
+            UI.DrawString(Values[CurrentSelection], RenderPosition.x + 6, RenderPosition.y + 4, UI.Theme.TextColor);
+            UI.DrawString(EType.Name, RenderPosition.x + Size.w + 8, RenderPosition.y + 3, UI.Theme.TextColor);
         }
 
         public override void OnMouseDown(MouseID button)

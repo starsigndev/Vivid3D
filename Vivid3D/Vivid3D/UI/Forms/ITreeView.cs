@@ -44,6 +44,12 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public object Data
+        {
+            get;
+            set;
+        }
+
         public TreeItem()
         {
             Items = new List<TreeItem>();
@@ -115,6 +121,7 @@ namespace Vivid.UI.Forms
             VerticalScroller.OnMove += (item, x, y) =>
             {
                 //ScrollValue = new Maths.Position(0, y);
+               
                 ScrollY = y;
             };
             HorizontalScroller.OnMove += (item, x, y) =>
@@ -165,13 +172,13 @@ namespace Vivid.UI.Forms
                 
                 if (sub.Items.Count > 0)
                 {
-                    Draw(UI.Theme.Pure, x - ScrollX, (y + 6) - ScrollY, 8, 8, new Maths.Color(0.5f, 0.5f, 0.5f, 1.0f));
+                    Draw(UI.Theme.Pure, x - ScrollX, (y + 6) - ScrollY, 8, 8, new Maths.Color(1.8f, 1.8f,1.8f, 1.0f));
                     if (sub.Open)
                     {
-                        Draw(UI.Theme.Pure, x + 2 - ScrollX, (y + 8) - ScrollY, 4, 4, new Maths.Color(0.9f, 0.9f, 0.9f, 1.0f));
+                        Draw(UI.Theme.Pure, x + 2 - ScrollX, (y + 8) - ScrollY, 4, 4, new Maths.Color(3.4f,3.4f, 3.4f, 1.0f));
                     }
                 }
-                UI.DrawString(sub.Text, x+16-ScrollX, y-ScrollY,UI.Theme.TextColor);
+                UI.DrawString(sub.Text, x+16-ScrollX, y+3-ScrollY,UI.Theme.TextColor);
                 
                 int bx = x + 16 + UI.SystemFont.StringWidth(sub.Text);
 
@@ -243,8 +250,9 @@ namespace Vivid.UI.Forms
             //ScrollX = 0;
 
             int y = RenderItem(Root,ref dx,RenderPosition.y+8);
-            y = y - RenderPosition.y;
-            VerticalScroller.MaxValue = (y - (Size.h-32));
+            //  y = y - RenderPosition.y;
+            VerticalScroller.MaxValue = y - 108;
+            if(VerticalScroller.MaxValue<0) VerticalScroller.MaxValue = 0;
             dx = dx - RenderPosition.x;
             
             int mv = bigx-(Size.w-ScrollSize);

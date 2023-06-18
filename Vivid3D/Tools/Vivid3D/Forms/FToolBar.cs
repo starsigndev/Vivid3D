@@ -22,6 +22,17 @@ namespace Vivid3D.Forms
             var move = AddTool(new Texture2D("ui/v3d/moveicon2.png"));
             var rotate = AddTool(new Texture2D("ui/v3d/rotateIcon.png"));
             var scale = AddTool(new Texture2D("ui/v3d/scaleIcon.png"));
+
+            var space_sel = new IEnumSelector(typeof(SpaceMode));
+
+            space_sel.OnSelected += Space_sel_OnSelected;
+
+            space_sel.Size = new Vivid.Maths.Size(140, 20);
+
+            AddTool(space_sel);
+
+            space_sel.Position.y = space_sel.Position.y + 6;
+
             move.ToolTip = "Set the editor to translate mode.";
             rotate.ToolTip = "Set the editor to rotate mode.";
             scale.ToolTip = "Set the editor to scale mode.";
@@ -36,6 +47,20 @@ namespace Vivid3D.Forms
 
             move.Highlight = true;
 
+        }
+
+        private void Space_sel_OnSelected(string value)
+        {
+            switch (value)
+            {
+                case "Local":
+                    Editor.SpaceMode = SpaceMode.Local;
+                    break;
+                case "Global":
+                    Editor.SpaceMode = SpaceMode.Global;
+                   break;
+
+            }
         }
 
         private void Scale_OnClick(Vivid.UI.IForm form, object data = null)

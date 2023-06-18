@@ -290,6 +290,9 @@ namespace Vivid.Importing
 
             result.Name = s.RootNode.Name;
 
+            string entity_path = Path.GetDirectoryName(path) + "\\";
+
+
             // result.Rotation = Conv.AssimpMatrixToGLMMatrix(s.RootNode.Transform);
 
             List<Meshes.Mesh> meshes = new List<Meshes.Mesh>();
@@ -306,8 +309,10 @@ namespace Vivid.Importing
                     var item = Content.Content.GlobalFindItem(tex);
                     if (item == null)
                     {
+                        bool found = false;
                         if (File.Exists(mat.TextureDiffuse.FilePath))
                         {
+                            found = true;
                             nmat.ColorMap = new Texture.Texture2D(mat.TextureDiffuse.FilePath);
                         }
                         else
@@ -323,12 +328,18 @@ namespace Vivid.Importing
                                 {
                                     //int bb = 5;
                                     nmat.ColorMap = new Texture.Texture2D(src.path);
+                                    found = true;
 
                                 }
 
                             }
 
 
+
+                        }
+                        if(found == false)
+                        {
+                            nmat.ColorMap = new Texture.Texture2D(entity_path + tex);
 
                         }
                     }

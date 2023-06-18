@@ -17,6 +17,8 @@ namespace Vivid3D.Forms
         {
             SceneTree = new ITreeView();
             AddForm(SceneTree);
+            Editor.SceneTree = SceneTree;
+            Editor.UpdateSceneGraph();
         }
         public override void AfterSet()
         {

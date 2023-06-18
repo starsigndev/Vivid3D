@@ -70,6 +70,12 @@ namespace Vivid.Scene
         private Vector3 _Scale = new Vector3(1, 1, 1);
         private Matrix4 _ScaleMat = Matrix4.Identity;
 
+        public object EditData
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// This is the local position, which will be relative to the parent node in actual use.
         /// </summary>

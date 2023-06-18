@@ -32,8 +32,23 @@ namespace Vivid3D.Forms
             {
                 Environment.Exit(1);
             };
-            
-            
+
+            var cr = AddItem("Create");
+
+            var cr_lights = cr.AddItem("Lights");
+
+            var cr_lights_point = cr_lights.AddItem("Point Light");
+            var cr_lights_spot = cr_lights.AddItem("Spot Light");
+            var cr_lights_dir = cr_lights.AddItem("Directional Light");
+
+            cr_lights_point.Click += (item) =>
+            {
+
+                Editor.CreatePointLight();
+
+            };
+
+
 
 
 

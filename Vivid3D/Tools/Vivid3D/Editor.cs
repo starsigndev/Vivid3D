@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vivid.UI.Forms;
+using Vivid.App;
+using Vivid3D.Forms;
 
 namespace Vivid3D
 {
@@ -26,6 +29,50 @@ namespace Vivid3D
         public static Vivid.Scene.Scene CurrentScene = null;
         public static Vivid.Scene.Camera EditCamera = null;
         public static Vivid.Scene.Camera GameCamera = null;
+        public static ITreeView SceneTree = null;
+        public static Node SelectedNode = null;
+        public static float GizmoSpeed = 0.02f;
+
+        //Gizmo
+        //Gizmos
+        public static Entity GizmoMove, GizmoRotate, GizmoScale;
+        public static Entity CurrentGizmo;
+        public static bool g_x, g_y, g_z;
+
+        public static void UpdateSceneGraph()
+        {
+            SceneTree.Root = new TreeItem();
+            SceneTree.Root.Text = "Scene";
+            AddNodeToTree(CurrentScene.Root,SceneTree.Root);
+            int lid = 0;
+            foreach(var light in CurrentScene.Lights)
+            {
+                lid++;
+                var item = SceneTree.Root.AddItem("Light " + lid);
+                item.Data = (light);
+                item.Click = (item) =>
+                {
+                    Editor.SetSelectedNode((Node)item.Data);
+                };
+            }
+        }
+
+        public static void AddNodeToTree(Node node,TreeItem root)
+        {
+            var item = root.AddItem(node.Name);
+            node.EditData = item;
+            item.Data = (object)node;
+            item.Click = (item) =>
+            {
+                Editor.SetSelectedNode((Node)item.Data);
+            };
+
+            foreach(var subnode in node.Nodes)
+            {
+                AddNodeToTree(subnode, item);
+                
+            }
+        }
 
         public static void NewScene()
         {
@@ -33,11 +80,71 @@ namespace Vivid3D
             CurrentScene = new Vivid.Scene.Scene();
             EditCamera = CurrentScene.MainCamera;
             GameCamera = EditCamera;
-            var light = new Light();
-            light.Position = new Vector3(0, 8, 0);
-            CurrentScene.Lights.Add(light);
-            light.Range = 40;
+            SelectedNode = null;
 
+        }
+
+        public static RaycastResult CamPick(Vector2 pos,Entity just = null)
+        {
+
+            int _fw, _fh;
+            _fw = VividApp.FrameWidth;
+            _fh = VividApp.FrameHeight;
+            VividApp.FrameWidth = (int)FSceneRT.RenderSize.X;
+            VividApp.FrameHeight = (int)FSceneRT.RenderSize.Y;
+            RaycastResult res = null;
+            if (just == null)
+            {
+                res = CurrentScene.MousePick((int)pos.X, (int)pos.Y);
+            }
+            else
+            {
+                res = CurrentScene.MousePickNode((int)pos.X, (int)pos.Y, just);
+            }
+
+            VividApp.FrameWidth = _fw;
+            VividApp.FrameHeight = _fh;
+
+            return res;
+        }
+
+        public static void SetSelectedNode(Node node)
+        {
+            SelectedNode = node;
+            Editor.SceneTree.SelectedItem = (TreeItem)node.EditData;
+            CurrentGizmo.Position = node.Position;
+        }
+
+        public static void CreatePointLight()
+        {
+
+            var light = new Light();
+
+            Vector3 light_pos = EditCamera.TransformPosition(new Vector3(0, 0, -5));
+
+            light.Position = light_pos;
+
+            CurrentScene.Lights.Add(light);
+
+            UpdateSceneGraph();
+
+        }
+
+        public long GenerateUID(object data)
+        {
+
+            return 0;
+        }
+
+        public void WriteData(object data)
+        {
+
+        }
+
+        public object ReadData(Stream source)
+        {
+
+            return null;
         }
 
     }

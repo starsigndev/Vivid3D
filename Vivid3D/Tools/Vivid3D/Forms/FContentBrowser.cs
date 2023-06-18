@@ -116,8 +116,18 @@ namespace Vivid3D.Forms
 
         private void Fileitem_OnContentClicked(FContentItem item)
         {
-            var node = Vivid.Importing.Importer.ImportEntity<Entity>(item.FileInfo.FullName);
-            Editor.CurrentScene.AddNode(node);
+
+            switch (item.FileInfo.Extension)
+            {
+                case ".fbx":
+                case ".obj":
+                case ".dae":
+                    var node = Vivid.Importing.Importer.ImportEntity<Entity>(item.FileInfo.FullName);
+                    Editor.CurrentScene.AddNode(node);
+                    Editor.UpdateSceneGraph();
+                    break;
+            }
+           
 
         }
 
