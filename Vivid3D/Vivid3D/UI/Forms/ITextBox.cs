@@ -32,6 +32,11 @@ namespace Vivid.UI.Forms
                         OnChange?.Invoke(this, Text);
                         return;
                     }
+                    if(value == "-")
+                    {
+                        _val = "-";
+                        return;
+                    }
                    float val = float.Parse(value);
                     if (val < MinValue)
                     {
@@ -79,6 +84,14 @@ namespace Vivid.UI.Forms
         {
             get
             {
+                if (Text.Length == 0)
+                {
+                    return 0;
+                }
+                if(Text == "-")
+                {
+                    return 0;
+                }
                 return float.Parse(Text);
             }
             set
@@ -87,11 +100,7 @@ namespace Vivid.UI.Forms
             }
         }
 
-        public TextChanged OnChange
-        {
-            get;
-            set;
-        }
+        public event TextChanged OnChange;
 
         private bool CursorOn
         {
@@ -134,8 +143,8 @@ namespace Vivid.UI.Forms
             ScissorSelf = true;
             EditX = 0;
             ShiftDown = false;
-            MinValue = -10;
-            MaxValue = 10;
+            MinValue = -1000;
+            MaxValue = 1000;
             CursorOn = true;
             CursorBlinkInterval = 500;
             NextBlink = Environment.TickCount + CursorBlinkInterval;
@@ -195,7 +204,7 @@ namespace Vivid.UI.Forms
             }
             return cx;
         }
-        private string numerics = "0123456789.";
+        private string numerics = "0123456789.-";
         public string KeyToChr(Keys key)
         {
             string chr = "";
@@ -606,7 +615,7 @@ namespace Vivid.UI.Forms
         {
             //base.OnMouseDown(button);
             string txt = GetActiveText();
-            int cx = 0;
+            int cx = 5;
 
             if (Password)
             {
@@ -622,12 +631,13 @@ namespace Vivid.UI.Forms
             {
                 if (cx > mx)
                 {
-                    EditX = TextStart + i - 1;
+                    EditX = TextStart + i;
                     if (EditX < 0) EditX = 0;
                     return;
                 }
                 cx = cx + UI.SystemFont.StringWidth(txt[i].ToString());
             }
+            EditX = txt.Length;
         }
 
         public override void OnMouseMove(Position position, Delta delta)
@@ -663,7 +673,7 @@ namespace Vivid.UI.Forms
                 text = replace;
             }
 
-            UI.DrawString(text, RenderPosition.x + 7, RenderPosition.y + 4, new Maths.Color(1, 1, 1, 1));
+            UI.DrawString(text, RenderPosition.x + 7, RenderPosition.y + 6, new Maths.Color(1, 1, 1, 1));
 
             int CursorX = GetActiveCursorX();
             CursorX += 4;

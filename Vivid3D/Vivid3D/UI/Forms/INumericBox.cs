@@ -55,9 +55,9 @@ namespace Vivid.UI.Forms
 
         public override void AfterSet()
         {
-            Down.Set(0, 0, 28,Size.h, "\\/");
-            Up.Set(Size.w - 28, 0,28, Size.h, "/\\");
-            Number.Set(28, 0, Size.w - 56, Size.h, "0");
+            Down.Set(0, 12, 18,11, "\\/");
+            Up.Set(0, 0,18,11, "/\\");
+            Number.Set(18, 0, Size.w - 20, Size.h-2, "0");
             //base.AfterSet();
 
 

@@ -113,6 +113,7 @@ namespace Vivid3D
             SelectedNode = node;
             Editor.SceneTree.SelectedItem = (TreeItem)node.EditData;
             CurrentGizmo.Position = node.Position;
+            FNodeEditor.Editor.SetNode(node);
         }
 
         public static void CreatePointLight()

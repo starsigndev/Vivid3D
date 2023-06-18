@@ -126,7 +126,7 @@ namespace Vivid.UI
                 }
 
                 SystemFont = new kFont("gemini/font/systemfont2.pf");
-                SystemFont.Scale = 0.36f;  
+                SystemFont.Scale = 0.30f;  
             }
 
             Over = null;

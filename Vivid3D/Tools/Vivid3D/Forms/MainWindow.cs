@@ -28,6 +28,12 @@ namespace Vivid3D.Forms
             set;
         }
 
+        public FNodeEditor NodeEditor
+        {
+            get;
+            set;
+        }
+
         public FMainWindow() : base("Vivid3D",false,false)
         {
 
@@ -35,6 +41,7 @@ namespace Vivid3D.Forms
             SceneGraph = new FSceneGraph();
             SceneView = new FSceneView();
             ContentBrowser = new FContentBrowser();
+            NodeEditor = new FNodeEditor();
 
             Vivid3DApp.MainUI.AddWindow(this);
             WindowDock = true;
@@ -51,9 +58,12 @@ namespace Vivid3D.Forms
             Vivid3DApp.MainUI.AddWindow(SceneGraph);
             Vivid3D.Vivid3DApp.MainUI.AddWindow(SceneView);
             Vivid3DApp.MainUI.AddWindow(ContentBrowser);
+            Vivid3DApp.MainUI.AddForm(NodeEditor);
             Dock(ContentBrowser, DockPosition.Bottom);
             Dock(SceneGraph, DockPosition.Left);
+            Dock(NodeEditor, DockPosition.Right);
             Dock(SceneView, DockPosition.Centre);
+            
             ContentBrowser.ScanPath("C:/Content/");
         }
 
@@ -69,7 +79,10 @@ namespace Vivid3D.Forms
                     pp = new Point(64, Size.h / 2);
 
                     break;
-      
+                case DockPosition.Right:
+
+                    pp = new Point(Size.w - 64, Size.h / 2);
+
                     break;
                 case DockPosition.Centre:
 

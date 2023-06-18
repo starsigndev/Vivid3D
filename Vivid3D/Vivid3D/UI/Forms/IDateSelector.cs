@@ -140,7 +140,7 @@ namespace Vivid.UI.Forms
                 year.Number.Text = Date.Year.ToString();
 
 
-                year.Number.OnChange = (form, val) =>
+                year.Number.OnChange += (form, val) =>
                 {
                     int valc = (int)year.Number.Value;
                     Date = new DateTime(valc, Date.Month, Date.Day);
