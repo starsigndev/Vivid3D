@@ -1,5 +1,6 @@
 ﻿using BepuPhysics.Constraints;
 using OpenTK.Mathematics;
+using System.Formats.Asn1;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Vivid.Audio;
@@ -100,6 +101,32 @@ namespace Vivid.Scene
                 return ref _LocalPos;
             }
          
+        }
+
+        public Vector3 EulerRotation
+        {
+            get
+            {
+                var q = Rotation.ExtractRotation();
+                var eu = q.ToEulerAngles();
+
+                eu.X = MathHelper.RadiansToDegrees(eu.X);
+                eu.Y = MathHelper.RadiansToDegrees(eu.Y);
+                eu.Z = MathHelper.RadiansToDegrees(eu.Z);
+
+                return eu;
+
+            }
+            set
+            {
+                var ea = value;
+                ea.X = MathHelper.DegreesToRadians(ea.X);
+                ea.Y = MathHelper.DegreesToRadians(ea.Y);
+                ea.Z = MathHelper.DegreesToRadians(ea.Z);
+                var q = Quaternion.FromEulerAngles(ea);
+                Rotation = Matrix4.CreateFromQuaternion(q);
+
+            }
         }
 
         public virtual void Changed()

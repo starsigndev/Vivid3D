@@ -37,8 +37,15 @@ namespace Vivid.UI.Forms
                         _val = "-";
                         return;
                     }
-                   float val = float.Parse(value);
-                    if (val < MinValue)
+                    float val = 0;
+                    try
+                    {
+                        val = float.Parse(value);
+                    }catch(Exception ex) 
+                    {
+                        val = 0;
+                    }
+                        if (val < MinValue)
                     {
                         val = MinValue;
                     }

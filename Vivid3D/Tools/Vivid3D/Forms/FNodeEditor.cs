@@ -38,6 +38,9 @@ namespace Vivid3D.Forms
             Display = new IScrollArea();
             Content.AddForm(Display);
             Editor = this;
+            Display.Scissor = true;
+            //Display.ScissorSelf = true;
+
 
         }
 
@@ -96,6 +99,23 @@ namespace Vivid3D.Forms
                 node.Position = new Vector3(node.Position.X,node.Position.Y,box.Value);
             };
 
+
+            var rot = AddVector3(node.EulerRotation,"Rotation");
+
+            rot[0].Number.OnChange += (box, val) =>
+            {
+                node.EulerRotation = new Vector3(box.Value, node.EulerRotation.Y, node.EulerRotation.Z);
+            };
+
+            rot[1].Number.OnChange += (box, val) =>
+            {
+                node.EulerRotation = new Vector3(node.EulerRotation.X, box.Value, node.EulerRotation.Z);
+            };
+
+            rot[2].Number.OnChange += (box, val) =>
+            {
+                node.EulerRotation = new Vector3(node.EulerRotation.X, node.EulerRotation.Y, box.Value);
+            };
 
             var scale = AddVector3(node.Scale, "Scale");
 
