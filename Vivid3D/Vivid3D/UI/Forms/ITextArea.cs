@@ -1,4 +1,5 @@
-﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using Assimp.Configs;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -139,6 +140,22 @@ namespace Vivid.UI.Forms
                 EditY = TextStartY;
             };
         }
+
+        public void AddLine(string text)
+        {
+
+            string[] new_lines = new string[Lines.Length + 1];
+            for(int i = 0; i < Lines.Length; i++)
+            {
+                new_lines[i] = Lines[i];
+            }
+
+            new_lines[Lines.Length] = text;
+            Lines = new_lines;
+            UpdateScrollers();
+
+        }
+
         public override void AfterSet()
         {
             //base.AfterSet();
@@ -520,6 +537,12 @@ namespace Vivid.UI.Forms
                 EditX++;
                 return;
             }
+            if (EditX < 0)
+            {
+                EditX = 0;
+                Text = chr;
+                return;
+            }
             if (EditX < Text.Length)
             {
 
@@ -553,6 +576,27 @@ namespace Vivid.UI.Forms
                 ShiftDown = false;
             }
         }
+
+        public void UpdateScrollers()
+        {
+            int mw = 0;
+            Scroller.MaxValue = Lines.Length * 100;
+            for (int i = 0; i < Lines.Length; i++)
+            {
+                if (Lines[i] == null)
+                {
+                    continue;
+                }
+                if (Lines[i].Length > mw)
+                {
+                    mw = Lines[i].Length;
+                }
+            }
+            HScroller.MaxValue = mw * 100;
+
+            int a = 5;
+        }
+
         public void SetText(string text)
         {
 

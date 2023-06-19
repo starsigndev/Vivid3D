@@ -579,7 +579,7 @@ namespace Vivid.UI.Forms
                 return DockPosition.None;
             }
         }
-
+      
         private static bool IsAreaWithinUsedSpaces(DockRect area, DockingSpace space1, DockingSpace space2)
         {
             // Check if the merged area is within the already used space.

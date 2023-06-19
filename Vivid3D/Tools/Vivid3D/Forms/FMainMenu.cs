@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vivid.App;
 using Vivid.UI.Forms;
+using Vivid3D.Windows;
 
 namespace Vivid3D.Forms
 {
@@ -27,6 +28,18 @@ namespace Vivid3D.Forms
 
             var edit = AddItem("Edit");
 
+            var edit_csg = edit.AddItem("CSG");
+
+            var csg_union = edit_csg.AddItem("Open CSG Editor");
+
+            csg_union.Click += (item) =>
+            {
+
+                WCsg new_csg = new WCsg();
+               
+                Vivid3DApp.MainUI.AddWindow(new_csg);
+
+            };
 
             exit_app.Click += (item) =>
             {
