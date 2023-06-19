@@ -1320,7 +1320,7 @@ namespace Vivid.Scene
                 rem.Root = null;
                 return;
             }
-            foreach(var sub in from.Nodes)
+            foreach(var sub in from.Nodes.ToArray())
             {
                 RemoveNodeIfFound(sub, rem);
             }

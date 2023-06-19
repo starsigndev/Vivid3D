@@ -208,8 +208,12 @@ namespace Vivid.UI.Forms
             if (DockedWindow != null)
             {
                 DockedWindow.Set(X, Y, Width, Height, DockedWindow.Text);
-
+                foreach(var win in DockedWindow.DockedWindows)
+                {
+                    win.Set(0, 0, Width, Height, win.Text);
+                }
             }
+
         }
          
         public void WindowResize(IWindow win)
@@ -795,7 +799,7 @@ namespace Vivid.UI.Forms
                     ax = (int)space.Area.X;
                     ay = (int)space.Area.Y;
                     aw = (int)space.Area.Size.Width;
-                    ah = (int)space.Area.Size.Height - (int)windowRect.Height;
+                    ah = (int)space.Area.Size.Height - ((int)windowRect.Height+6);
                     newSpace.Area = new DockRect(ax, ay, aw, ah);
                     space.Area = windowRect;
                     space.UpdateProportions(this);

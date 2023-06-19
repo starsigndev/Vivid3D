@@ -297,6 +297,7 @@ namespace Vivid.UI
             Position = position;
             Size = size;
             Text = text;
+
             AfterSet();
             return this;
         }
@@ -486,7 +487,7 @@ namespace Vivid.UI
 
         public virtual void AfterSet()
         {
-
+            
         }
 
         public virtual void AfterSetChildren()

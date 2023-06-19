@@ -42,7 +42,7 @@ namespace Vivid.CSG
             var tris1 = recevier.Meshes[0].Triangles;
             var tris2 = input.Meshes[0].Triangles;
             var verts1 = recevier.Meshes[0].Vertices;
-            var verts2 = recevier.Meshes[0].Vertices;
+            var verts2 = input.Meshes[0].Vertices;
             //
 
             int vert_base = recevier.Meshes[0].Vertices.Count;
@@ -121,7 +121,9 @@ namespace Vivid.CSG
 
             mesh.CreateBuffers();
 
+            res.AddMesh(mesh);
 
+            mesh.Material = recevier.Meshes[0].Material;
 
             return res;
         }

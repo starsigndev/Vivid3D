@@ -63,6 +63,17 @@ namespace Vivid3D.Windows
                 FConsoleOutput.LogMessage("CSG Error 2: No Receiver Node.");
             }
 
+            var csg = new Vivid.CSG.CSGGen();
+
+            var new_entity = csg.Perform(InputNode as Entity, RecvNode as Entity,(Vivid.CSG.CSGGen.CSGOpType)OperatorType.CurrentSelection);
+
+            Editor.CurrentScene.RemoveNode(RecvNode);
+            Editor.CurrentScene.RemoveNode(InputNode);
+            Editor.CurrentScene.AddNode(new_entity);
+            Editor.UpdateSceneGraph();
+
+
+
             FConsoleOutput.LogMessage("CSG operation complete. Type:" + OperatorType.ToString());
 
         }

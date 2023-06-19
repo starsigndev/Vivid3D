@@ -126,7 +126,7 @@ namespace Vivid.UI
                 }
 
                 SystemFont = new kFont("gemini/font/systemfont2.pf");
-                SystemFont.Scale = 0.33f;  
+                SystemFont.Scale = 0.3f;  
             }
 
             Over = null;
@@ -293,7 +293,7 @@ namespace Vivid.UI
                                 if (cx > 0 && cx < win.Size.w)
                                 {
 
-                                    if (cy > space.Y-5 && cy < space.Y + 5)
+                                    if (cy > space.Y-11 && cy < space.Y + 8)
                                     {
                                         //Console.WriteLine("Moving Top:");
                                         list.Add(space);
@@ -315,7 +315,7 @@ namespace Vivid.UI
                                 if (cx > 0 && cx < win.Size.w)
                                 {
 
-                                    if (cy > sp.Y + sp.Height-5 && cy < (sp.Y+sp.Height+5))
+                                    if (cy > sp.Y + sp.Height-5 && cy < (sp.Y+sp.Height+11))
                                     {
                                         //Console.WriteLine("Moving Top:");
                                         list.Add(sp);
