@@ -268,6 +268,7 @@ namespace Vivid.Scene
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void RenderSimple()
         {
+            if (!Enabled) return;
             GLHelper.PreRenderStandard(WriteDepth, DepthTest);
 
             foreach (var mesh in Meshes)

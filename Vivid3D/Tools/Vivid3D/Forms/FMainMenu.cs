@@ -28,16 +28,16 @@ namespace Vivid3D.Forms
 
             var edit = AddItem("Edit");
 
-            var edit_csg = edit.AddItem("CSG");
+ //           var edit_csg = edit.AddItem("CSG");
 
-            var csg_union = edit_csg.AddItem("Open CSG Editor");
+   //         var csg_union = edit_csg.AddItem("Open CSG Editor");
 
-            csg_union.Click += (item) =>
+     //       csg_union.Click += (item) =>
             {
 
-                WCsg new_csg = new WCsg();
+              //  WCsg new_csg = new WCsg();
                
-                Vivid3DApp.MainUI.AddWindow(new_csg);
+             //   Vivid3DApp.MainUI.AddWindow(new_csg);
 
             };
 

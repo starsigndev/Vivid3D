@@ -156,6 +156,20 @@ namespace Vivid.Meshes
         public Vector4 BoneIDS;// = new dpos4();
         public Vector4 Weights;
 
+        public Vertex Clone()
+        {
+
+            var v = new Vertex();
+            v.Position = Position;
+            v.Normal = Normal;
+            v.TexCoord = TexCoord;
+            v.BiNormal = BiNormal;
+            v.Tangent = Tangent;
+            v.Color = Color;
+            return v;
+
+        }
+
         public Vertex()
         {
             //Position = new dpos3();
@@ -169,6 +183,12 @@ namespace Vivid.Meshes
             TexCoord = new Vector3(0, 0, 0);//16
             BoneIDS = new Vector4(); //19
             Weights = new Vector4(); //23
+        }
+        public Vertex(Vector3 pos,Vector3 norm,Vector3 tex)
+        {
+            Position = pos;
+            Normal = norm;
+            TexCoord = tex;
         }
     }
 

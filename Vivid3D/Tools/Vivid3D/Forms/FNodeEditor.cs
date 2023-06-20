@@ -71,6 +71,15 @@ namespace Vivid3D.Forms
             Display.ClearForms();
             CurrentY = 20;
 
+            var enabled = AddCheckBox("Enabled?");
+
+            enabled.Checked = CurrentNode.Enabled;
+
+            enabled.OnChecked += (form, check) =>
+            {
+                CurrentNode.Enabled = check;
+            };
+
             var name = AddTextBox("Name") as ITextBox;
 
             name.Text = node.Name;
@@ -144,13 +153,28 @@ namespace Vivid3D.Forms
 
         }
 
+        public ICheckBox AddCheckBox(string name)
+        {
+
+            var cb = new ICheckBox(name);
+
+            cb.Set(15, CurrentY, 14, 14, cb.Text);
+
+            CurrentY += 35;
+
+            Display.AddForm(cb);
+
+            return cb;
+
+        }
+
         public IForm AddTextBox(string text)
         {
 
             var lab = new ILabel().Set(15, CurrentY, 40, 25, text) as ILabel;
             var edit = new ITextBox().Set(70, CurrentY-4, 280, 25) as ITextBox;
 
-            CurrentY += 55;
+            CurrentY += 45;
 
             Display.AddForms(lab, edit);
 

@@ -302,6 +302,12 @@ namespace Vivid.Scene
             _ScaleMat = Matrix4.CreateScale(1, 1, 1);
         }
 
+        RaycastResult Raycast(Vector3 offset,Vector3 dir,bool ignoreSelf)
+        {
+
+            return null;
+        }
+
         public virtual void Start()
         {
 
@@ -524,6 +530,7 @@ namespace Vivid.Scene
         /// </summary>
         public virtual void RenderSimple()
         {
+            if (!Enabled) return;
             RenderGlobals.CurrentNode = this;
             foreach (var node in Nodes)
             {
@@ -542,6 +549,7 @@ namespace Vivid.Scene
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Render(Light l, Camera c, bool firstPass)
         {
+            if (!Enabled) return;
             foreach (var node in Nodes)
             {
                 node.Render(l, c, firstPass);
@@ -566,6 +574,7 @@ namespace Vivid.Scene
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void RenderDepth(Camera c, bool ignore_child = false)
         {
+            if (!Enabled) return;
             RenderGlobals.CurrentNode = this;
             foreach (var node in Nodes)
             {
