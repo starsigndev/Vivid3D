@@ -1,10 +1,19 @@
 
 # Vivid3D
-Vivid3D is an SDK comprising of a C# 3D engine powered by OpenGL 4.0 - with a series of tools to aid developement.
+Vivid3D is an open-source 3D editor/engine comprising of a C# 3D engine powered by OpenGL 4.0 - with a series of tools to aid developement.
 
 It is written almost entirely in C#, for use within C# Net 7.0 Desktop/console applications.
 
 It is still in active development and will recieve updates daily.
+
+![v3d6](https://github.com/starsigndev/Vivid3D/assets/129375387/ff39ac2e-cec5-4b96-b4e4-e801d24db3b2)
+![v3d5](https://github.com/starsigndev/Vivid3D/assets/129375387/3d991f73-cb41-457b-afb5-be69373dd5f9)
+![v3d4](https://github.com/starsigndev/Vivid3D/assets/129375387/fd404e9f-e5a7-46b1-b284-2d0c49985171)
+![v3d3](https://github.com/starsigndev/Vivid3D/assets/129375387/41a47d78-27a8-4e2f-90cb-1b2ca1e730ce)
+![v3d2](https://github.com/starsigndev/Vivid3D/assets/129375387/2d54d118-7314-4982-9766-10ab082f570c)
+![v3d1](https://github.com/starsigndev/Vivid3D/assets/129375387/3a3f4d00-3842-42c6-acd1-491a0f6cd13c)
+
+
 
 This is just the beginning of the project, many more feature and tools for it to come.
 ![ui3](https://github.com/starsigndev/Vivid3D/assets/129375387/618ab7be-452b-4b6e-9783-b62492dfc400)
