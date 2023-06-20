@@ -149,7 +149,49 @@ namespace Vivid3D.Forms
 
             };
 
+            if(node is Light)
+            {
+
+                var light = node as Light;
+
+                var shadows = AddCheckBox("Cast Shadows?");
+
+                shadows.Checked = light.CastShadows;
+
+                shadows.OnChecked += (form, val) =>
+                {
+
+                    light.CastShadows = val;
+
+                };
+
+                var light_type = AddEnum(typeof(LightType));
+
+                light_type.CurrentSelection = (int)light.Type;
+
+                light_type.OnSelected += (sel) =>
+                {
+
+                    light.Type = (LightType)light_type.CurrentSelection;
+
+                };
+
+            }
+
             //int a = 5;
+
+        }
+
+        public IEnumSelector AddEnum(Type type)
+        {
+
+            var form = new IEnumSelector(type);
+            form.Set(15, CurrentY, 120, 25, "");
+           
+            Display.AddForm(form);
+
+            CurrentY += 45;
+            return form;
 
         }
 

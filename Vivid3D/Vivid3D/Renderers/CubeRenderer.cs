@@ -141,7 +141,46 @@ namespace Vivid.Renderers
                     break;
             }
         }
-        
+        public void Clear()
+        {
+           
+
+            var ShadowFB = mRT;
+
+            Scene.Scene graph = Graph;
+
+            TextureTarget f = ShadowFB.SetFace(0);
+
+
+
+            SetCam(f, new_cam);
+
+
+            // graph.RenderingShadows = true;
+
+            //graph.RenderDepth();
+
+            SetCam(ShadowFB.SetFace(1), new_cam);
+           // graph.RenderDepth();
+
+            // ShadowFB.Release(); graph.CamOverride = null;
+
+            SetCam(ShadowFB.SetFace(2), new_cam);
+         //   graph.RenderDepth();
+
+            SetCam(ShadowFB.SetFace(3), new_cam);
+//            graph.RenderDepth();
+
+            SetCam(ShadowFB.SetFace(4), new_cam);
+  //          graph.RenderDepth();
+
+            SetCam(ShadowFB.SetFace(5), new_cam);
+    //        graph.RenderDepth();
+
+            ShadowFB.Release();
+
+    
+        }
         public void RenderDepth(Vector3 pos, float maxz)
         {
             var pcam = Graph.MainCamera;

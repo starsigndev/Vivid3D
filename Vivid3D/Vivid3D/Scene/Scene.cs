@@ -1352,7 +1352,14 @@ namespace Vivid.Scene
             foreach (var light in Lights)
             {
                 ShadowRender.mRT = light.RTC;
-                ShadowRender.RenderDepth(light.Position, light.Range);
+                if (light.CastShadows)
+                {
+                    ShadowRender.RenderDepth(light.Position, light.Range);
+                }
+                else
+                {
+                    ShadowRender.Clear();
+                }
             }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
