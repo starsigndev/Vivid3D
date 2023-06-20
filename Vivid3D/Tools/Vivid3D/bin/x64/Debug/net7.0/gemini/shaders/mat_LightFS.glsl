@@ -205,10 +205,10 @@ void main(){
 
     vec4 tex_Col = texture2D(g_TextureColor,out_TexCoord.xy);
 
-    fc.rgb = ((diffuse + (specular*specv.rgb))) * vec3(shadow,shadow,shadow);
+    fc.rgb = ((diffuse + (specular*specv.rgb*g_LightSpecular))) * vec3(shadow,shadow,shadow);
     fc.a = 1.0;
 
-    fc.rgb *= out_Color.rgb;
+    fc.rgb *= out_Color.rgb * g_LightDiffuse;
 
     fc = fc * tex_Col;
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Maths;
@@ -15,6 +16,12 @@ namespace Vivid.UI.Forms
     public delegate void TextChanged(ITextBox box, string val);
     public class ITextBox : IForm
     {
+
+        public float Increment
+        {
+            get;
+            set;
+        }
 
         public override string Text
         {
@@ -155,6 +162,7 @@ namespace Vivid.UI.Forms
             CursorOn = true;
             CursorBlinkInterval = 500;
             NextBlink = Environment.TickCount + CursorBlinkInterval;
+            Increment = 1.0f;
         }
 
         public override void OnUpdate()
@@ -658,7 +666,7 @@ namespace Vivid.UI.Forms
             //base.OnMouseWheelMove(delta); ;
             if (Numeric)
             {
-                Value = Value + delta.Y;
+                Value = Value + delta.Y * Increment;
             }
         }
 

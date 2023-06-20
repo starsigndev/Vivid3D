@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Vivid;
 using Vivid.Scene;
 using Vivid.UI.Forms;
+using Vivid3D.Windows;
 
 namespace Vivid3D.Forms
 {
@@ -64,7 +65,23 @@ namespace Vivid3D.Forms
                     }
                 }
             };
-         
+
+            IVerticalMenu c_menu = new IVerticalMenu();
+
+            Display.ContextForm = c_menu;
+
+            var cr = c_menu.AddItem("Create");
+
+            var cr_script = cr.AddItem("C# Script");
+
+            cr_script.Click += (item) =>
+            {
+
+                var new_file = new WNewFile();
+                Vivid3DApp.MainUI.Top = new_file; 
+
+            };
+
 
         }
         

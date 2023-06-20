@@ -176,10 +176,75 @@ namespace Vivid3D.Forms
 
                 };
 
+                var light_diff = AddVector3(light.Diffuse, "Diffuse", 0.05f);
+
+                light_diff[0].Number.OnChange += (box, val) =>
+                {
+                    light.Diffuse = new Vector3(box.Value,light.Diffuse.Y,light.Diffuse.Z);
+                };
+                light_diff[1].Number.OnChange += (box, val) =>
+                {
+                    light.Diffuse = new Vector3(light.Diffuse.X,box.Value,  light.Diffuse.Z);
+                };
+
+                light_diff[2].Number.OnChange += (box, val) =>
+                {
+                    light.Diffuse = new Vector3(light.Diffuse.X,light.Diffuse.Y,box.Value);
+                };
+
+
+                var light_spec = AddVector3(light.Specular, "Specular",0.05f);
+
+
+                light_spec[0].Number.OnChange += (box, val) =>
+                {
+                    light.Specular = new Vector3(box.Value, light.Specular.Y, light.Specular.Z);
+                };
+
+                light_spec[1].Number.OnChange += (box, val) =>
+                {
+                    light.Specular = new Vector3(light.Specular.X, box.Value, light.Specular.Z);
+                };
+
+                light_spec[2].Number.OnChange += (box, val) =>
+                {
+                    light.Specular = new Vector3(light.Specular.X, light.Specular.Y, box.Value);
+                };
+
+                var light_range = AddFloat(light.Range, "Range",5.0f);
+
+                light_range.Number.OnChange += (box, val) =>
+                {
+                    if (box.Value > 1.0f)
+                    {
+                        light.Range = box.Value;
+                    }
+                };
+
+
             }
 
             //int a = 5;
 
+        }
+
+        public INumericBox AddFloat(float def, string name,float interval=1.0f)
+        {
+            var nlab = new ILabel().Set(10, CurrentY + 4, 5, 5, name) as ILabel;
+
+
+            //var lx = new ILabel().Set(87, CurrentY + 4, 20, 20, "def");
+            var lx_num = new INumericBox().Set(100, CurrentY, 80, 25) as INumericBox;
+
+            lx_num.Increment = interval;
+            lx_num.Number.Increment = interval;
+
+            Display.AddForms(nlab, lx_num);
+
+            lx_num.Number.Value = def;
+
+            CurrentY += 45;
+            return lx_num;
         }
 
         public IEnumSelector AddEnum(Type type)
@@ -224,7 +289,7 @@ namespace Vivid3D.Forms
 
         }
 
-        public INumericBox[] AddVector3(Vector3 vec,string name)
+        public INumericBox[] AddVector3(Vector3 vec,string name,float interval=1.0f)
         {
 
 
@@ -243,6 +308,10 @@ namespace Vivid3D.Forms
             lx_num.Number.Value = vec.X;
             ly_num.Number.Value = vec.Y;
             lz_num.Number.Value = vec.Z;
+            lx_num.Increment = ly_num.Increment = lz_num.Increment = interval;
+            lx_num.Number.Increment = interval;
+            ly_num.Number.Increment = interval;
+            lz_num.Number.Increment = interval;
 
             lx_num.Number.OnChange += (tb, val) =>
             {

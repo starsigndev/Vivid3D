@@ -103,6 +103,12 @@ namespace Vivid.UI
             set;
         }
 
+        public IForm Top
+        {
+            get;
+            set;
+        }
+
 
         public static void DrawString(string text, int x, int y, Vivid.Maths.Color col)
         {
@@ -223,7 +229,7 @@ namespace Vivid.UI
             else
             {
                 Pressed[0] = null;
-                foreach(IWindow win in Windows)
+                foreach (IWindow win in Windows)
                 {
                     win.OnMouseUp(MouseID.Left);
                     win.Drag = false;
@@ -241,6 +247,11 @@ namespace Vivid.UI
 
             AddToList(form_list, Menu);
 
+            if (Top != null)
+            {
+                Top.Update();
+                AddToList(form_list, Top);
+            }
             form_list.Reverse();
 
             UpdateList(form_list);
@@ -959,6 +970,13 @@ namespace Vivid.UI
             }
 
             ToolBar.Render();
+
+            if (Top != null)
+            {
+                Top.Position = new Position(VividApp.FrameWidth / 2 - Top.Size.w / 2, VividApp.FrameHeight / 2 - Top.Size.h / 2);
+                Top.Render();
+            }
+
 
             if (CurrentDock != null)
             {
