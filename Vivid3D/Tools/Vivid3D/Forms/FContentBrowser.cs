@@ -78,7 +78,43 @@ namespace Vivid3D.Forms
             {
 
                 var new_file = new WNewFile();
-                Vivid3DApp.MainUI.Top = new_file; 
+                Vivid3DApp.MainUI.Top = new_file;
+                new_file.OnFileNamePicked += (name) =>
+                {
+
+                    string class_name = "";
+                    string ext = Path.GetExtension(name);
+                    if(ext=="")
+                    {
+                        class_name = name;
+                        name = name + ".cs";
+                    }
+                    else
+                    {
+                        class_name = Path.GetFileNameWithoutExtension(name);
+                    }
+
+                    string[] code = File.ReadAllLines("template/NewCSScript.cs");
+                    string[] new_code = new string[code.Length];
+
+                    int ln = 0;
+                    foreach(var line in code.ToArray())
+                    {
+                        new_code[ln] = line.Replace("_SCRIPT_NAME_", class_name);
+                        ln++;
+                    }
+
+                    File.WriteAllLines(Paths.Peek()+"\\"+name, new_code);
+
+                    int b = 5;
+                    //if (Path.GetExtension(name))
+                   //{
+
+                    
+
+                };
+
+
 
             };
 

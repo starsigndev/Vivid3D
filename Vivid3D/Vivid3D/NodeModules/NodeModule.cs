@@ -8,5 +8,32 @@ namespace Vivid.NodeModules
 {
     public class NodeModule
     {
+
+        public virtual void Begin()
+        {
+
+        }
+
+        public virtual void Update()
+        {
+
+        }
+
+        public virtual void CreateUI()
+        {
+
+        }
+
+        public virtual void Render()
+        {
+
+        }
+
+
+        public virtual void End()
+        {
+
+        }
+
     }
 }

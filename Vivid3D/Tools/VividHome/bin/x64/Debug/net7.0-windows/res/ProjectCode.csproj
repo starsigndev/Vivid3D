@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Vivid">
+      <HintPath>"C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\Vivid.dll"</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
