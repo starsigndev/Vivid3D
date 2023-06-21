@@ -462,6 +462,12 @@ namespace Vivid.UI.Forms
             //base.OnKey(key);
             switch (key)
             {
+                case Keys.Enter:
+                    UI.This.Active = null;
+                    OnDeactivate();
+                    Active = false;
+                    OnChange?.Invoke(this, Text);
+                    break;
                 case Keys.Left:
                     EditX--;
                     if (EditX < 0)

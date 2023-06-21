@@ -334,8 +334,8 @@ namespace Vivid.Scene
         }
         public virtual void Stop()
         {
-      
-          
+
+            if (Playing == false) return;
             //if (ObjState != null)
             //{
             ObjState.ResetState();

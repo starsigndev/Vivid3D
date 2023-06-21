@@ -11,7 +11,7 @@ namespace Vivid.Reflection
     public class ObjectState
     {
         private readonly object _sourceObject;
-        private readonly Dictionary<PropertyInfo, object> _propertyValues;
+        public readonly Dictionary<PropertyInfo, object> _propertyValues;
 
         public ObjectState(object sourceObject)
         {

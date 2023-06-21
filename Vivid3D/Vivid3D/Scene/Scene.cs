@@ -866,6 +866,10 @@ namespace Vivid.Scene
             UpdatePhysics();
             MainCamera.Update();
             Root.Update();
+            foreach(var light in Lights)
+            {
+                light.Update();
+            }
             Root.UpdateStates();
         }
 
