@@ -48,8 +48,19 @@ namespace Vivid3D
 
         public static void Play()
         {
+            if(PlayMode == PlayMode.Pause)
+            {
+                PlayMode = PlayMode.Play;
+                return;
+            }
             PlayMode = PlayMode.Play;
             CurrentScene.Start();
+        }
+
+        public static void Pause()
+        {
+            if (PlayMode != PlayMode.Play) return;
+            PlayMode = PlayMode.Pause;
         }
         public static void Update()
         {
@@ -60,9 +71,14 @@ namespace Vivid3D
         }
         public static void Stop()
         {
+            if (PlayMode == PlayMode.Stopped) return;
             PlayMode = PlayMode.Stopped;
             CurrentScene.Stop();
-        }
+            if (FNodeEditor.Editor.CurrentNode != null)
+            {
+                FNodeEditor.Editor.SetNode(FNodeEditor.Editor.CurrentNode);
+            }
+        } 
 
         public static void UpdateSceneGraph()
         {

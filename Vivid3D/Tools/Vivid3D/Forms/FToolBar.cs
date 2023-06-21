@@ -41,13 +41,30 @@ namespace Vivid3D.Forms
             play.OnClick += (form, data) =>
             {
                 Editor.Play();
+                play.Highlight = true;
+                stop.Highlight = false;
+                pause.Highlight = false;
                // Editor.PlayMode = PlayMode.Play;
             };
             stop.OnClick += (form, data) =>
             {
                 Editor.Stop();
+                play.Highlight = false;
+                pause.Highlight = false;
+                stop.Highlight = false;
             };
 
+            pause.OnClick += (form, data) =>
+            {
+                if (Editor.PlayMode != PlayMode.Play)
+                {
+                    return;
+                }
+                Editor.Pause();
+                play.Highlight = false;
+                pause.Highlight = true;
+                stop.Highlight = false;
+            };
 
             move.ToolTip = "Set the editor to translate mode.";
             rotate.ToolTip = "Set the editor to rotate mode.";

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,12 @@ namespace Vivid.UI.Forms
         {
             //base.OnMouseDown(button);
             InvokeClick(this, button);
+        }
+
+        public override void OnMouseWheelMove(Vector2 delta)
+        {
+            //base.OnMouseWheelMove(delta);
+            VerticalScroller.CurrentValue = VerticalScroller.CurrentValue - (int)delta.Y*25;
         }
 
         public override void OnUpdate()

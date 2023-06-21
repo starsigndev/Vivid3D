@@ -304,14 +304,64 @@ namespace Vivid3D.Forms
                     {
                         var f = AddFloat((float)prop.GetValue(mod), prop.Name);
 
+                        f.Number.OnChange += (tb, val) =>
+                        {
+
+                            prop.SetValue(mod, f.Number.Value);
+
+                        };
+
+
                     }
 
                     if(prop.PropertyType.ToString().Contains("System.String"))
                     {
                         var tb = AddTextBox(prop.Name);
                         tb.Text = (string)prop.GetValue(mod);
+
+                        
+
+                        tb.OnChange += (tb, val) =>
+                        {
+
+                            prop.SetValue(mod, val);
+
+                        };
+
+
                     }
                    
+                    if(prop.PropertyType.ToString().Contains("System.Boolean"))
+                    {
+                        var cb = AddCheckBox(prop.Name);
+
+                        cb.Checked = (bool)prop.GetValue(mod);
+
+                        cb.OnChecked += (b,val) =>
+                        {
+                            prop.SetValue(mod, val);
+                        };
+
+                    }
+
+                    if(prop.PropertyType.ToString().Contains("Int32") || prop.PropertyType.ToString().Contains("Int64"))
+                    {
+
+                        var nb = AddFloat(float.Parse(prop.GetValue(mod).ToString()), prop.Name);
+
+                        nb.Number.OnChange += (b, val) =>
+                        {
+                            if (val.ToString() == "" || val.ToString()=="-")
+                            {
+                                prop.SetValue(mod, 0);
+                            }
+                            else
+                            {
+                                prop.SetValue(mod, System.Int32.Parse(val.ToString()));
+                            }
+                        };
+
+                    }
 
 
                 }
@@ -370,7 +420,7 @@ namespace Vivid3D.Forms
 
         }
 
-        public IForm AddTextBox(string text)
+        public ITextBox AddTextBox(string text)
         {
 
             var lab = new ILabel().Set(15, CurrentY, 40, 25, text) as ILabel;
