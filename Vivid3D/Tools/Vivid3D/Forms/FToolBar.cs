@@ -33,6 +33,22 @@ namespace Vivid3D.Forms
 
             space_sel.Position.y = space_sel.Position.y + 6;
 
+            AddSpace(356);
+
+            var play = AddTool(new Texture2D("ui/v3d/playicon.png"));
+            var pause = AddTool(new Texture2D("ui/v3d/pauseicon.png"));
+            var stop = AddTool(new Texture2D("ui/v3d/stopicon.png"));
+            play.OnClick += (form, data) =>
+            {
+                Editor.Play();
+               // Editor.PlayMode = PlayMode.Play;
+            };
+            stop.OnClick += (form, data) =>
+            {
+                Editor.Stop();
+            };
+
+
             move.ToolTip = "Set the editor to translate mode.";
             rotate.ToolTip = "Set the editor to rotate mode.";
             scale.ToolTip = "Set the editor to scale mode.";

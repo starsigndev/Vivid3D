@@ -21,9 +21,16 @@ namespace Vivid3D
         Local,Global,Screen,Smart
     }
 
+    public enum PlayMode
+    {
+        Play,Pause,Stopped
+    }
+
     public class Editor
     {
 
+        public static PlayMode PlayMode = PlayMode.Stopped;
+        public static string ProjectPath = "";
         public static EditorMode EditMode = EditorMode.Translate;
         public static SpaceMode SpaceMode = SpaceMode.Local;
         public static Vivid.Scene.Scene CurrentScene = null;
@@ -38,6 +45,24 @@ namespace Vivid3D
         public static Entity GizmoMove, GizmoRotate, GizmoScale;
         public static Entity CurrentGizmo;
         public static bool g_x, g_y, g_z;
+
+        public static void Play()
+        {
+            PlayMode = PlayMode.Play;
+            CurrentScene.Start();
+        }
+        public static void Update()
+        {
+            if (PlayMode == PlayMode.Play)
+            {
+                CurrentScene.Update();
+            }
+        }
+        public static void Stop()
+        {
+            PlayMode = PlayMode.Stopped;
+            CurrentScene.Stop();
+        }
 
         public static void UpdateSceneGraph()
         {

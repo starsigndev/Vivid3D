@@ -4,7 +4,6 @@ C:\G3D\Vivid3D\Tools\VividHome\bin\x64\Debug\net7.0-windows\VividHome.runtimecon
 C:\G3D\Vivid3D\Tools\VividHome\bin\x64\Debug\net7.0-windows\VividHome.dll
 C:\G3D\Vivid3D\Tools\VividHome\bin\x64\Debug\net7.0-windows\VividHome.pdb
 C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.csproj.AssemblyReference.cache
-C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.Form1.resources
 C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.NewProject.resources
 C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.csproj.GenerateResource.cache
 C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.GeneratedMSBuildEditorConfig.editorconfig
@@ -16,3 +15,4 @@ C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\refint\VividHome.dll
 C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.pdb
 C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.genruntimeconfig.cache
 C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\ref\VividHome.dll
+C:\G3D\Vivid3D\Tools\VividHome\obj\x64\Debug\net7.0-windows\VividHome.VividHome.resources

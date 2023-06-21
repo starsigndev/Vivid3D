@@ -57,6 +57,7 @@ namespace Vivid3D
         {
             //base.Update();
             MainUI.Update();
+            Editor.Update();
         }
 
         public override void Render()

@@ -7,6 +7,7 @@ using Vivid.UI.Forms;
 using OpenTK.Graphics.OpenGL;
 using Vivid.PostProcesses;
 using BepuPhysics;
+using System.Collections.Generic;
 
 namespace Vivid.UI
 {
@@ -109,6 +110,12 @@ namespace Vivid.UI
             set;
         }
 
+        public DragObject DragObj
+        {
+            get;
+            set;
+        }
+
 
         public static void DrawString(string text, int x, int y, Vivid.Maths.Color col)
         {
@@ -157,6 +164,16 @@ namespace Vivid.UI
             Windows = new List<IWindow>();
         }
 
+        public void BeginDrag(DragObject drag)
+        {
+            DragObj = drag;
+        }
+
+        public void EndDrag(IForm form)
+        {
+            DragObj = null;
+
+        }
 
         public void ResizeUI(int w,int h)
         {
@@ -188,11 +205,72 @@ namespace Vivid.UI
             MousePosition = new Position((int)GameInput.MousePosition.X,(int)GameInput.MousePosition.Y);
             MouseDelta = new Delta(GameInput.MouseDelta.X, GameInput.MouseDelta.Y);
         }
+        public IForm GetOver(Position pos)
+        {
+            List<IForm> form_list = new List<IForm>();
 
+            AddToList(form_list, Root);
+
+            foreach (var win in Windows)
+            {
+            //    Console.WriteLine("Updating windows.");
+                AddToList(form_list, win);
+                win.Update();
+            } 
+
+            if (ContextForm != null)
+            {
+                AddToList(form_list, ContextForm);
+            }
+
+            AddToList(form_list, ToolBar);
+
+            ToolBar.Update();
+
+            AddToList(form_list, Menu);
+
+            if (Top != null)
+            {
+                Top.Update();
+                AddToList(form_list, Top);
+            }
+            form_list.Reverse();
+
+            foreach (var form in form_list)
+            {
+                if (form.InBounds(MousePosition))
+                {
+                    return form;
+                    break;
+                }
+            }
+        
+
+
+            return null;
+        }
         public void Update()
         {
             GetMouse();
 
+            if (DragObj != null)
+            {
+                
+                if (GameInput.MouseButtonDown(MouseID.Left) == false)
+                {
+                    IForm cur = GetOver(MousePosition);
+
+                    if (cur != null)
+                    {
+                        cur.AcceptDrop(DragObj);
+                    }
+                    DragObj = null;
+                }
+
+           
+                return;
+
+            }
 
             if (Pressed[0] == null || Pressed[0] == MovingZones)
             {
@@ -976,6 +1054,17 @@ namespace Vivid.UI
                 Top.Position = new Position(VividApp.FrameWidth / 2 - Top.Size.w / 2, VividApp.FrameHeight / 2 - Top.Size.h / 2);
                 Top.Render();
             }
+
+            if (DragObj != null)
+            {
+
+                UI.Draw.Begin();
+                UI.Draw.Draw(DragObj.Image, new Rect(MousePosition.x - 12, MousePosition.y - 12, 64, 64), new Maths.Color(1, 1, 1, 1));
+                UI.Draw.End();
+                UI.DrawString(DragObj.Text, MousePosition.x, MousePosition.y + 68, new Maths.Color(1, 1, 1, 1));
+
+            }
+
 
 
             if (CurrentDock != null)

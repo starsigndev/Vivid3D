@@ -8,6 +8,26 @@ namespace Vivid3D
         {
             Console.WriteLine("Entering Vivid3D.");
 
+            if (args.Length > 0)
+            {
+                Console.WriteLine("Starting project:" + args[0]);
+
+                if (args[0].Length > 0)
+                {
+                    Editor.ProjectPath = args[0];
+                }
+                else
+                {
+                    Editor.ProjectPath = "C:\\Projects\\Simple\\";
+                }
+            }
+            else
+            {
+                Editor.ProjectPath = "C:\\Projects\\Simple\\";
+            }
+
+            int bb = 5;
+
             GameWindowSettings game_win = new GameWindowSettings();
             NativeWindowSettings native_settings = new NativeWindowSettings();
 

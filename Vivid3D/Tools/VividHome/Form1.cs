@@ -1,10 +1,15 @@
+using System.Diagnostics;
+
 namespace VividHome
 {
-    public partial class Form1 : Form
+    public partial class VividHome : Form
     {
-        public static Form1 This = null;
+
+        public static string EnginePath = "C:\\G3D\\Vivid3D\\Tools\\Vivid3D\\bin\\x64\\Debug\\net7.0\\Vivid3D.exe";
+
+        public static VividHome This = null;
         public static List<string> Projects = new List<string>();
-        public Form1()
+        public VividHome()
         {
             InitializeComponent();
             This = this;
@@ -62,6 +67,30 @@ namespace VividHome
             NewProject proj = new NewProject();
 
             proj.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            int proj_num = lbProjects.SelectedIndex;
+            string actual_path = Projects[proj_num];
+
+            string directory = Path.GetDirectoryName(EnginePath);
+
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                FileName = EnginePath,
+                Arguments = actual_path,
+                WorkingDirectory = directory
+            };
+
+            Process process = new Process()
+            {
+                StartInfo = startInfo
+            };
+
+            process.Start();
+
         }
     }
 }

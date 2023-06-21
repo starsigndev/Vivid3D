@@ -1,6 +1,6 @@
 ﻿namespace VividHome
 {
-    partial class Form1
+    partial class VividHome
     {
         /// <summary>
         ///  Required designer variable.
@@ -78,6 +78,7 @@
             button1.TabIndex = 2;
             button1.Text = "Load Project";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -88,7 +89,7 @@
             button2.Text = "Delete Project";
             button2.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // VividHome
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -99,7 +100,7 @@
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MainMenuStrip = menuStrip1;
-            Name = "Form1";
+            Name = "VividHome";
             Text = "Vivid3D - Home";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

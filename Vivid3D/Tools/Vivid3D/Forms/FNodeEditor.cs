@@ -10,6 +10,8 @@ using Vivid.UI.Forms;
 using OpenTK.Mathematics;
 using System.Security.Cryptography;
 using System.Windows.Markup;
+using Vivid.Script;
+using Vivid.NodeModules;
 
 namespace Vivid3D.Forms
 {
@@ -40,7 +42,31 @@ namespace Vivid3D.Forms
             Editor = this;
             Display.Scissor = true;
             //Display.ScissorSelf = true;
+            Display.OnDrop += (form, data) =>
+            {
 
+                if (CurrentNode == null)
+                {
+
+                    FConsoleOutput.LogMessage("No node is selected, can not add module.");
+                    return;
+
+                }
+                Console.WriteLine("Accepted:" + data.Text);
+                // int bb = 5;
+
+                var res = Vivid.Script.Scripting.LoadScript(data.Path) as NodeModule;
+                res.Node = CurrentNode;
+                if(CurrentNode is Entity)
+                {
+                    res.Entity = CurrentNode as Entity;
+                }
+                if(CurrentNode is SkeletalEntity)
+                {
+                    res.SkeletalEntity = CurrentNode as SkeletalEntity;
+                }
+                CurrentNode.Modules.Add(res);
+            };
 
         }
 

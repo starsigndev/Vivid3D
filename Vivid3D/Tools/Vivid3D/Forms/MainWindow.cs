@@ -72,9 +72,9 @@ namespace Vivid3D.Forms
             Dock(SceneView, DockPosition.Centre);
             Dock(Console, DockPosition.Bottom);
             //ContentBrowser.AddDock(Console);
-            
 
-            ContentBrowser.ScanPath("C:/Content/");
+
+            ContentBrowser.ScanPath(Editor.ProjectPath);
         }
 
         public void Dock(IWindow win,DockPosition position)

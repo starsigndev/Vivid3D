@@ -254,6 +254,18 @@ namespace Vivid.Scene
             set;
         }
 
+        public bool Playing
+        {
+            get;
+            set;
+        }
+
+        public Reflection.ObjectState ObjState
+        {
+            get;
+            set;
+        }
+
         public void PushState(NodeState state)
         {
 
@@ -286,6 +298,7 @@ namespace Vivid.Scene
         public Node()
         {
             Name = "Node001";
+            Playing = false;
             Position = new Vector3();
             WorldPosition = new Vector3();
             Rotation = Matrix4.Identity;
@@ -310,7 +323,32 @@ namespace Vivid.Scene
 
         public virtual void Start()
         {
+            if (Playing) return;
+            Playing = true;
+            ObjState = new Reflection.ObjectState(this);
+            foreach (var mod in Modules)
+            {
+                mod.Store();
+                mod.Begin();
+            }
+        }
+        public virtual void Stop()
+        {
+      
+          
+            //if (ObjState != null)
+            //{
+            ObjState.ResetState();
+            Playing = false;
+            ObjState = null;
 
+            
+            foreach(var mod in Modules)
+            {
+                mod.End();
+                mod.Restore();
+
+            }
         }
 
         public void UpdateStates()
@@ -679,7 +717,15 @@ namespace Vivid.Scene
         public void Update()
         {
             if (!Enabled) return;
-            UpdateNode();
+
+            if (Playing)
+            {
+                UpdateNode();
+                foreach (var mod in Modules)
+                {
+                    mod.Update();
+                }
+            }
 
             if(this is SkeletalEntity)
             {

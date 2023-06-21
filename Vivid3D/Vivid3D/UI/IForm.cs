@@ -9,6 +9,7 @@ namespace Vivid.UI
 {
     public delegate void FormAction(IForm form, object data = null);
     public delegate void FormMove(IForm form, int x, int y);
+    public delegate void ActionDrop(IForm form, DragObject drag);
 
     public class IForm
     {
@@ -125,6 +126,8 @@ namespace Vivid.UI
         public event FormAction OnDeactivated;
 
         public event FormAction OnClicked;
+
+        public event ActionDrop OnDrop;
 
         private Texture2D BGTex
         {
@@ -275,6 +278,10 @@ namespace Vivid.UI
         {
             Text = text;
             return this;
+        }
+        public void AcceptDrop(DragObject drop)
+        {
+            OnDrop?.Invoke(this, drop);
         }
         public IForm Set(int x,int y,int w,int h,string text = "")
         {

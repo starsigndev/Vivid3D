@@ -98,9 +98,19 @@ namespace Vivid3D.Forms
             //base.OnMouseDown(button);
             if(button == MouseID.Left)
             {
-                Drag = true;
-                Root.Forms.Remove(this);
-                Root.Forms.Add(this);
+                if (FileInfo != null)
+                {
+                    DragObject drag = new DragObject();
+                    drag.Image = FileIcon;
+                    drag.Text = FileInfo.Name;
+                    drag.Path = FileInfo.FullName;
+                    UI.This.BeginDrag(drag);
+                
+                }
+               // Drag = true;
+               // Root.Forms.Remove(this);
+                //Root.Forms.Add(this);
+
             }
         }
 
@@ -116,7 +126,7 @@ namespace Vivid3D.Forms
             //base.OnMouseUp(button);
             if(button == MouseID.Left)
             {
-                Drag = false;
+       //         Drag = false;
             }
         }
 

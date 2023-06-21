@@ -40,9 +40,9 @@ namespace VividHome
 
             File.Copy("res/ProjectCode.csproj", path + "\\Code\\ProjectCode.csproj");
 
-            Form1.Projects.Add(path);
-            Form1.SaveProjects();
-            Form1.This.UpdateUI();
+            VividHome.Projects.Add(path);
+            VividHome.SaveProjects();
+            VividHome.This.UpdateUI();
 
             MessageBox.Show("Created project at path:" + path);
             Close();

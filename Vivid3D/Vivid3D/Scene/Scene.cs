@@ -1216,14 +1216,36 @@ namespace Vivid.Scene
         public void Start()
         {
             StartNode(Root);
+            foreach(var node in Lights)
+            {
+                StartNode(node);
+            }
         }
 
+        public void Stop()
+        {
+            StopNode(Root);
+            foreach(var node in Lights)
+            {
+                StopNode(node);
+            }
+        }
+
+
+        public void StopNode(Node node)
+        {
+            node.Stop();
+            foreach(var sub in node.Nodes)
+            {
+                StopNode(sub);
+            }
+        }
         public void StartNode(Node node)
         {
             node.Start();
             foreach(var sub in node.Nodes)
             {
-                sub.Start();
+                StartNode(sub);
             }
         }
 
