@@ -18,13 +18,25 @@ namespace Vivid3D.Forms
 
             ToolTip = "The main menu, for you to access various features.";
 
-            var project = AddItem("Project");
+            var project = AddItem("Scene");
 
-            var new_project = project.AddItem("New Project");
-            var load_project = project.AddItem("Load Project");
-            var save_project = project.AddItem("Save Project");
+            var new_scene = project.AddItem("New Scene");
+            var load_scene = project.AddItem("Load Scene");
+            var save_scene = project.AddItem("Save Scene");
             var proj_sep1 = project.AddItem("-----");
             var exit_app = project.AddItem("Exit");
+
+            save_scene.Click += (form) =>
+            {
+                IFileRequestor request = new IFileRequestor("Save Sceen as...",RequestorType.Save,Editor.ProjectPath);
+                Vivid.UI.UI.This.Top = request;
+                request.OnFileSelected += (file) =>
+                {
+                    
+                    Console.WriteLine("Saving:" + file);
+                
+                };
+            };
 
             var edit = AddItem("Edit");
 

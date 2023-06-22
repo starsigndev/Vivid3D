@@ -116,6 +116,19 @@ namespace Vivid.UI
             set;
         }
 
+        public IForm BlurBG
+        {
+            get;
+            set;
+        }
+
+        public float BlurBGBlur
+        {
+            get;
+            set;
+        }
+
+        private bool first_blur = true;
 
         public static void DrawString(string text, int x, int y, Vivid.Maths.Color col)
         {
@@ -125,6 +138,7 @@ namespace Vivid.UI
         public UI()
         {
             This = this;
+            BlurBG = new IForm().Set(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
             if (UIBase == null)
             {
                 //UIBase = new Content.Content(VividApp.ContentPath + "uibase");
@@ -139,7 +153,7 @@ namespace Vivid.UI
                 }
 
                 SystemFont = new kFont("gemini/font/systemfont2.pf");
-                SystemFont.Scale = 0.3f;  
+                SystemFont.Scale = 0.33f;  
             }
 
             Over = null;
@@ -1051,8 +1065,32 @@ namespace Vivid.UI
 
             if (Top != null)
             {
+                if (first_blur)
+                {
+                    BlurBGBlur = 0.0001f;
+                    first_blur = false;
+                }
+                else
+                {
+
+                    BlurBGBlur += (0.015f - BlurBGBlur) * 0.01f;
+                }
+                BlurBG.BlurBG(BlurBGBlur); ;
                 Top.Position = new Position(VividApp.FrameWidth / 2 - Top.Size.w / 2, VividApp.FrameHeight / 2 - Top.Size.h / 2);
                 Top.Render();
+            }
+            else
+            {
+                if (!first_blur)
+                {
+                    first_blur = true;
+
+                }
+                if (BlurBGBlur >0.005f)
+                {
+                    BlurBGBlur += (0f - BlurBGBlur) * 0.025f;
+                    BlurBG.BlurBG(BlurBGBlur);
+                }
             }
 
             if (DragObj != null)

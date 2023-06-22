@@ -286,6 +286,8 @@ namespace Vivid.Importing
 
             T result = new T();
 
+            result.ResourcePath = path;
+
             Assimp.Scene s = imp.ImportFile(path, PostProcessSteps.Triangulate | PostProcessSteps.GenerateNormals | PostProcessSteps.CalculateTangentSpace);
 
             result.Name = s.RootNode.Name;

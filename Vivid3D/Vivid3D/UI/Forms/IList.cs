@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.Maths;
+using Vivid.Texture;
 
 namespace Vivid.UI.Forms
 {
@@ -28,6 +29,11 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public Texture2D Icon
+        {
+            get;
+            set;
+        }
         public Maths.Color Color
         {
             get;
@@ -40,11 +46,16 @@ namespace Vivid.UI.Forms
             Name = "";
             Action = null;
             Color = new Maths.Color(0.7f, 0.7f, 0.7f, 0.97f);
+            
         }
     }
     public class IList : IForm
     {
-
+        private IVerticalScroller VerticalScroller
+        {
+            get;
+            set;
+        }
         public IFrame ListFrame
         {
             get;
@@ -68,13 +79,22 @@ namespace Vivid.UI.Forms
             get;
             set;
         }
-           
+        int ScrollY = 0;
         public IList()
         {
 
             Items = new List<ListItem>();
             OverItem = null;
             DrawOutline = true;
+            ScissorSelf = true;
+            VerticalScroller = new IVerticalScroller();
+            AddForm(VerticalScroller);
+            VerticalScroller.OnMove += (item, x, y) =>
+            {
+                //ScrollValue = new Maths.Position(0, y);
+
+                ScrollY = y;
+            };
             /*
             ListFrame = new IFrame();
             ListContentsFrame = new IFrame();
@@ -87,6 +107,7 @@ namespace Vivid.UI.Forms
 
         public override void AfterSet()
         {
+            VerticalScroller.Set(Size.w - 12, 12, 12, Size.h - 24);
             //base.AfterSet();
             //ListFrame.Set(new Maths.Position(0, 0), new Maths.Size(Size.w, Size.h), "");
           //  ListContentsFrame.Set(new Maths.Position(10, 10), new Maths.Size(Size.w - 20, Size.h - 20),"");
@@ -164,7 +185,7 @@ namespace Vivid.UI.Forms
             int ix, iy;
 
             ix = RenderPosition.x + 5;
-            iy = RenderPosition.y + 5;
+            iy = RenderPosition.y + 5 - ScrollY;//(int)(VerticalScroller.Value * (float)VerticalScroller.MaxValue);
           //  return;
             foreach(var item in Items)
             {
@@ -172,10 +193,25 @@ namespace Vivid.UI.Forms
                 {
                     Draw(UI.Theme.Frame, ix - 5, iy-2, Size.w, UI.SystemFont.StringHeight() + 6, new Maths.Color(1f, 1f, 1f, 0.8f));
                 }
-                UI.DrawString(item.Name, ix, iy,item.Color);
-                iy = iy + UI.SystemFont.StringHeight() + 8;
+                if (item.Icon!=null)
+                {
+                    Draw(item.Icon, ix, iy, 16, 16, new Maths.Color(1, 1, 1, 1));
+                    UI.DrawString(item.Name, ix+20, iy, item.Color);
+                }
+                else
+                {
+                    UI.DrawString(item.Name, ix, iy, item.Color);
+                }
+                    iy = iy + UI.SystemFont.StringHeight() + 8;
 
             }
+
+            VerticalScroller.MaxValue = (iy + ScrollY) - Size.h;
+
+ 
+
+           // ScrollValue = new Maths.Position(0, (int)cy);
+
 
         }
 

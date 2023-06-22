@@ -516,7 +516,7 @@ namespace Vivid.UI
 
 
 
-            BlurFX.Blur = 0.03f;
+            BlurFX.Blur = blur;
             BGTex.Copybuffer(RenderPosition.x, ty);
             Draw(BGTex,RenderPosition.x,RenderPosition.y+Size.h,Size.w,-Size.h,new Maths.Color(1,1,1,1),BlurFX);
             //UI.Draw.Begin();

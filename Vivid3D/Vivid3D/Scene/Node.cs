@@ -266,6 +266,12 @@ namespace Vivid.Scene
             set;
         }
 
+        public string ResourcePath
+        {
+            get;
+            set;
+        }
+
         public void PushState(NodeState state)
         {
 
@@ -310,6 +316,7 @@ namespace Vivid.Scene
             States = new Stack<NodeState>();
             NodeType = "";
             InitNode();
+            ResourcePath = "";
             Modules = new List<NodeModules.NodeModule>();
             _PosMatrix = Matrix4.CreateTranslation(0, 0, 0);
             _ScaleMat = Matrix4.CreateScale(1, 1, 1);
