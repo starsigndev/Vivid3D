@@ -9,9 +9,13 @@ download the Wizard Model(The model used will change or improve over time).
 
 https://huggingface.co/TheBloke/wizardLM-7B-GGML/blob/main/wizardLM-7B.ggmlv3.q4_1.bin
 
+
+
 download this and place it in the "bin/x64/debug/net7.0/ai/model/ folder. 
 
 It is still in active development and will recieve updates daily.
+
+![v3dAI1](https://github.com/starsigndev/Vivid3D/assets/129375387/b6ee9712-910f-48ca-a1c1-66974c66dd38)
 
 ![v3d11](https://github.com/starsigndev/Vivid3D/assets/129375387/f43bfb40-e2fd-401e-b6f2-bf961950908a)
 
