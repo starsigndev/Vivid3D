@@ -58,7 +58,7 @@ namespace Vivid.UI.Forms
                     foreach (var v in Items)
                     {
                         var item = Selector.AddItem(v.Name);
-                        item.Action = (item, index, data) =>
+                        item.Action += (item, index, data) =>
                         {
                             int i = 0;
                             foreach (var sel in Items)

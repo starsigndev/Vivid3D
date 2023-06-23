@@ -13,11 +13,10 @@ namespace Vivid.UI.Forms
     public class ListItem
     {
         public int Index = 0;
-        public ItemAction Action
-        {
-            get;
-            set;
-        }
+        public event ItemAction Action;
+
+        public event ItemAction ActionDoubleClick;
+
         public string Name
         {
             get;set;
@@ -38,6 +37,16 @@ namespace Vivid.UI.Forms
         {
             get;
             set;
+        }
+
+        public void InvokeAction(ListItem item,int index,object data)
+        {
+            Action?.Invoke(item, index, data);
+        }
+
+        public void InvokeDoubleClickAction(ListItem item,int index,object data)
+        {
+            ActionDoubleClick?.Invoke(item, index, data);   
         }
 
         public ListItem()
@@ -172,7 +181,16 @@ namespace Vivid.UI.Forms
             //base.OnMouseDown(button);
             if (OverItem != null)
             {
-                OverItem.Action?.Invoke(OverItem, 0, OverItem.Data);
+                OverItem.InvokeAction(OverItem, 0, OverItem.Data);  //Action?.Invoke(OverItem, 0, OverItem.Data);
+            }
+        }
+
+        public override void OnDoubleClick(MouseID button)
+        {
+            //base.OnDoubleClick(button);
+            if (OverItem != null)
+            {
+                OverItem.InvokeDoubleClickAction(OverItem, 0, OverItem.Data);  //Action?.Invoke(OverItem, 0, OverItem.Data);
             }
         }
 

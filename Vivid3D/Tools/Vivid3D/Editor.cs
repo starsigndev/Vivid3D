@@ -80,6 +80,14 @@ namespace Vivid3D
             }
         } 
 
+        public static void SetScene(Scene scene)
+        {
+            var grids = Editor.CurrentScene.MeshLines;
+            scene.MeshLines = grids;
+            Editor.CurrentScene = scene;
+            Editor.UpdateSceneGraph();
+            Editor.CurrentScene.MainCamera = Editor.EditCamera;
+        }
         public static void UpdateSceneGraph()
         {
             SceneTree.Root = new TreeItem();

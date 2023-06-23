@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid.App;
+using Vivid.IO;
 using Vivid.UI.Forms;
 using Vivid3D.Windows;
 
@@ -26,14 +27,33 @@ namespace Vivid3D.Forms
             var proj_sep1 = project.AddItem("-----");
             var exit_app = project.AddItem("Exit");
 
+            load_scene.Click += (form) =>
+            {
+                IFileRequestor request = new IFileRequestor("Load Scene", RequestorType.Load, Editor.ProjectPath);
+                Vivid.UI.UI.This.Top = request;
+                request.OnFileSelected += (file) =>
+                {
+                    Console.WriteLine("Loading:" + file);
+                    SceneIO io = new SceneIO();
+                    var scene = io.LoadScene(file);
+                    Editor.SetScene(scene);
+           
+
+
+                };
+
+            };
+
             save_scene.Click += (form) =>
             {
-                IFileRequestor request = new IFileRequestor("Save Sceen as...",RequestorType.Save,Editor.ProjectPath);
+                IFileRequestor request = new IFileRequestor("Save Scene as...",RequestorType.Save,Editor.ProjectPath);
                 Vivid.UI.UI.This.Top = request;
                 request.OnFileSelected += (file) =>
                 {
                     
                     Console.WriteLine("Saving:" + file);
+                    SceneIO io = new SceneIO();
+                    io.SaveScene(Editor.CurrentScene,file);
                 
                 };
             };

@@ -147,6 +147,10 @@ namespace Vivid.UI.Forms
                     FileBox.Text = file.Name;
                     CurrentFile = file;
                 };
+                item.ActionDoubleClick += (form, index, data) =>
+                {
+                    OK.InvokeClick(null, null);
+                };
             }
         }
 

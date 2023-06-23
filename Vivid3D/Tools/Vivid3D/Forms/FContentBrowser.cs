@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vivid;
+using Vivid.IO;
 using Vivid.Scene;
 using Vivid.UI.Forms;
 using Vivid3D.Windows;
@@ -178,6 +179,11 @@ namespace Vivid3D.Forms
                     var node = Vivid.Importing.Importer.ImportEntity<Entity>(item.FileInfo.FullName);
                     Editor.CurrentScene.AddNode(node);
                     Editor.UpdateSceneGraph();
+                    break;
+                case ".scene":
+                    SceneIO io = new SceneIO();
+                    var scene = io.LoadScene(item.FileInfo.FullName);
+                    Editor.SetScene(scene);
                     break;
             }
            
