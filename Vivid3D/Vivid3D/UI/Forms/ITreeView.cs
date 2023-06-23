@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -231,7 +232,14 @@ namespace Vivid.UI.Forms
 
                 SelectedItem = OverItem; 
 
-            }  
+            }
+
+            DragObject drag = new DragObject();
+            drag.Image = null;
+            drag.Text = OverItem.Text;
+            drag.Path = "";
+            drag.Object = OverItem.Data;
+            UI.This.BeginDrag(drag);
         }
 
         public override void OnMouseMove(Position position, Delta delta)

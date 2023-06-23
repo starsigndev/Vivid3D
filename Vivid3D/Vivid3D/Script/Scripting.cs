@@ -15,7 +15,7 @@ namespace Vivid.Script
 
             dynamic res = CSScript.Evaluator.LoadFile(path);
 
-            
+            res.ResourcePath = path;
 
             res.Begin();
 

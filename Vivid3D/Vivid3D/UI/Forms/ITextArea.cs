@@ -98,9 +98,17 @@ namespace Vivid.UI.Forms
             get;
             set;
         }
+
+        public bool CanEdit
+        {
+            get;
+            set;
+        }
+
         public ITextArea(bool scrollers=true)
         {
 
+            CanEdit = false;
             EditX = EditY = 0;
             TextStartX = 0;
             TextStartY = 0;
@@ -167,6 +175,7 @@ namespace Vivid.UI.Forms
         }
         public override void OnKey(Keys key)
         {
+            if (!CanEdit) return;
             //base.OnKey(key);
             switch (key)
             {
@@ -828,11 +837,14 @@ namespace Vivid.UI.Forms
                 TextStartY--;
             }
 
-            if (Active)
+            if (CanEdit)
             {
-                if (CursorOn)
+                if (Active)
                 {
-                    Draw(UI.Theme.Frame, RenderPosition.x + CursorX + 3, RenderPosition.y + 5 + CursorY, 2, UI.SystemFont.StringHeight()+2, new Maths.Color(2, 2, 2, 2));
+                    if (CursorOn)
+                    {
+                        Draw(UI.Theme.Frame, RenderPosition.x + CursorX + 3, RenderPosition.y + 5 + CursorY, 2, UI.SystemFont.StringHeight() + 2, new Maths.Color(2, 2, 2, 2));
+                    }
                 }
             }
 

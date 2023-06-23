@@ -77,6 +77,11 @@ namespace Vivid.UI.Forms
 
             Scan(path);
 
+            Cancel.OnClick += (form, data) =>
+            {
+                UI.This.Top = null;
+            };
+
             OK.OnClick += (form, data) =>
             {
                 if (FileBox.Text.Length > 0)

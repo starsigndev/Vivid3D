@@ -1112,10 +1112,18 @@ namespace Vivid.UI
             if (DragObj != null)
             {
 
-                UI.Draw.Begin();
-                UI.Draw.Draw(DragObj.Image, new Rect(MousePosition.x - 12, MousePosition.y - 12, 64, 64), new Maths.Color(1, 1, 1, 1));
-                UI.Draw.End();
-                UI.DrawString(DragObj.Text, MousePosition.x, MousePosition.y + 68, new Maths.Color(1, 1, 1, 1));
+                int py = 68;
+                if (DragObj.Image != null)
+                {
+                    UI.Draw.Begin();
+                    UI.Draw.Draw(DragObj.Image, new Rect(MousePosition.x - 12, MousePosition.y - 12, 64, 64), new Maths.Color(1, 1, 1, 1));
+                    UI.Draw.End();
+                }
+                else
+                {
+                    py = 5;
+                }
+                UI.DrawString(DragObj.Text, MousePosition.x, MousePosition.y + py, new Maths.Color(1, 1, 1, 1));
 
             }
 

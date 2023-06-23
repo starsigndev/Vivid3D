@@ -42,33 +42,38 @@ namespace Vivid3D.Forms
             Content.AddForm(Display);
             Editor = this;
             Display.Scissor = true;
+   
             //Display.ScissorSelf = true;
             Display.OnDrop += (form, data) =>
             {
 
-                if (CurrentNode == null)
+
+                if (Path.GetExtension(data.Path) == ".cs")
                 {
+                    if (CurrentNode == null)
+                    {
 
-                    FConsoleOutput.LogMessage("No node is selected, can not add module.");
-                    return;
+                        FConsoleOutput.LogMessage("No node is selected, can not add module.");
+                        return;
 
+                    }
+                    Console.WriteLine("Accepted:" + data.Text);
+                    // int bb = 5;
+
+                    var res = Vivid.Script.Scripting.LoadScript(data.Path) as NodeModule;
+                    res.Node = CurrentNode;
+                    if (CurrentNode is Entity)
+                    {
+                        res.Entity = CurrentNode as Entity;
+                    }
+                    if (CurrentNode is SkeletalEntity)
+                    {
+                        res.SkeletalEntity = CurrentNode as SkeletalEntity;
+                    }
+                    CurrentNode.Modules.Add(res);
+
+                    SetNode(CurrentNode);
                 }
-                Console.WriteLine("Accepted:" + data.Text);
-                // int bb = 5;
-
-                var res = Vivid.Script.Scripting.LoadScript(data.Path) as NodeModule;
-                res.Node = CurrentNode;
-                if(CurrentNode is Entity)
-                {
-                    res.Entity = CurrentNode as Entity;
-                }
-                if(CurrentNode is SkeletalEntity)
-                {
-                    res.SkeletalEntity = CurrentNode as SkeletalEntity;
-                }
-                CurrentNode.Modules.Add(res);
-
-                SetNode(CurrentNode);
 
             };
 

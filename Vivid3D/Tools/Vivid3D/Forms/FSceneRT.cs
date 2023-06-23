@@ -15,6 +15,7 @@ using OpenTK.Graphics.OpenGL;
 using static Vivid3D.Editor;
 using Vivid.Draw;
 using Vivid.Texture;
+using Vivid.IO;
 
 namespace Vivid3D.Forms
 {
@@ -59,6 +60,25 @@ namespace Vivid3D.Forms
             int a = 5;
             CurrentGizmo = GizmoMove;
             draw = new SmartDraw();
+            OnDrop += (form, data) =>
+            {
+                if (Path.GetExtension(data.Path) == ".fbx")
+                {
+
+                    var node = Vivid.Importing.Importer.ImportEntity<Entity>(data.Path);
+                    Editor.CurrentScene.AddNode(node);
+                    Editor.UpdateSceneGraph();
+
+                }
+                else if(Path.GetExtension(data.Path)==".node")
+                {
+                    Editor.Stop();
+                    SceneIO io2 = new SceneIO();
+                    var node2 = io2.LoadNode(data.Path);
+                    Editor.CurrentScene.AddNode(node2);
+                    Editor.UpdateSceneGraph();
+                }
+            };
         }
 
         private void FSceneRT_PreRender(int w, int h)

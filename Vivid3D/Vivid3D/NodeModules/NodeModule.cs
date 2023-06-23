@@ -30,6 +30,12 @@ namespace Vivid.NodeModules
             set;
         }
 
+        public string ResourcePath
+        {
+            get;
+            set;
+        }
+
         private Reflection.ObjectState State
         {
             get;
@@ -43,6 +49,24 @@ namespace Vivid.NodeModules
         public virtual void Restore()
         {
             State.ResetState();
+        }
+
+        public void SaveState(BinaryWriter w)
+        {
+            if (State == null)
+            {
+                Store();
+            }
+            State.Save(w);
+
+        }
+        public void LoadState(BinaryReader r)
+        {
+            if (State == null)
+            {
+                Store();
+            }
+            State.Load(r);
         }
 
         public virtual void Begin()

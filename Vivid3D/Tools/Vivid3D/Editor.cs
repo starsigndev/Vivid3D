@@ -87,6 +87,8 @@ namespace Vivid3D
             Editor.CurrentScene = scene;
             Editor.UpdateSceneGraph();
             Editor.CurrentScene.MainCamera = Editor.EditCamera;
+            SelectedNode = null;
+
         }
         public static void UpdateSceneGraph()
         {

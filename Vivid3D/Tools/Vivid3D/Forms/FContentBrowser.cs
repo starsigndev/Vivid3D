@@ -54,6 +54,14 @@ namespace Vivid3D.Forms
             Paths = new Stack<string>();
             Dirs = new List<DirectoryInfo>();
             Files = new List<FileInfo>();
+            Display.OnDrop += (form, data) =>
+            {
+
+                SceneIO io = new SceneIO();
+                Node obj = (Node)data.Object;
+                io.SaveNode(Paths.Peek()+"\\"+obj.Name+".node",obj);
+
+            };
             Display.OnClick += (s, e) =>
             {
                 if ((MouseID)e == MouseID.Back)
@@ -181,9 +189,19 @@ namespace Vivid3D.Forms
                     Editor.UpdateSceneGraph();
                     break;
                 case ".scene":
+                    Editor.Stop();
                     SceneIO io = new SceneIO();
                     var scene = io.LoadScene(item.FileInfo.FullName);
                     Editor.SetScene(scene);
+                    FConsoleOutput.LogMessage("Loaded scene from:" + item.FileInfo.FullName);
+                    break;
+                case ".node":
+                    Editor.Stop();
+                    SceneIO io2 = new SceneIO();
+                    var node2 = io2.LoadNode(item.FileInfo.FullName);
+                    Editor.CurrentScene.AddNode(node2);
+                    Editor.UpdateSceneGraph(); 
+
                     break;
             }
            

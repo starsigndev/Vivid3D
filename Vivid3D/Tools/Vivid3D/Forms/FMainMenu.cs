@@ -33,10 +33,12 @@ namespace Vivid3D.Forms
                 Vivid.UI.UI.This.Top = request;
                 request.OnFileSelected += (file) =>
                 {
+                    Editor.Stop();
                     Console.WriteLine("Loading:" + file);
                     SceneIO io = new SceneIO();
                     var scene = io.LoadScene(file);
                     Editor.SetScene(scene);
+                    FConsoleOutput.LogMessage("Loaded scene from:" + file);
            
 
 
@@ -54,6 +56,7 @@ namespace Vivid3D.Forms
                     Console.WriteLine("Saving:" + file);
                     SceneIO io = new SceneIO();
                     io.SaveScene(Editor.CurrentScene,file);
+                    FConsoleOutput.LogMessage("Saved scene to:" + file);
                 
                 };
             };

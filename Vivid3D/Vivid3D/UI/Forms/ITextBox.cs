@@ -154,7 +154,7 @@ namespace Vivid.UI.Forms
         public ITextBox()
         {
             TextStart = 0;
-            ScissorSelf = true;
+           // ScissorSelf = true;
             EditX = 0;
             ShiftDown = false;
             MinValue = -1000;
