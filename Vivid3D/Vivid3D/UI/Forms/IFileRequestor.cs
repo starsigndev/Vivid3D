@@ -79,16 +79,25 @@ namespace Vivid.UI.Forms
 
             OK.OnClick += (form, data) =>
             {
-                if (FileBox.Text.Length > 0)  
+                if (FileBox.Text.Length > 0)
                 {
                     string pf = Paths.Peek();
 
-                    if(pf.Substring(pf.Length-1,1)!="\\")
+                    if (pf.Substring(pf.Length - 1, 1) != "\\")
                     {
                         pf = pf + "\\";
                     }
-                    OnFileSelected?.Invoke(pf+FileBox.Text);
+                    OnFileSelected?.Invoke(pf + FileBox.Text);
                     UI.This.Top = null;
+                }
+                else
+                {
+                    if (type == RequestorType.Save)
+                    {
+                        IMessageBox msg = new IMessageBox("File", "You have not given a filename");
+                        //UI.This.Top = msg;
+
+                    }
                 }
             
             };

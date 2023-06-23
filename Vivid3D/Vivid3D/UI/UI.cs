@@ -110,6 +110,13 @@ namespace Vivid.UI
             set;
         }
 
+        public IForm NextTop
+        {
+            get;
+            set;
+            
+        }
+
         public DragObject DragObj
         {
             get;
@@ -1062,6 +1069,15 @@ namespace Vivid.UI
             }
 
             ToolBar.Render();
+
+            if (Top == null)
+            {
+                if (NextTop != null)
+                {
+                    Top = NextTop;
+                    NextTop = null;
+                }
+            }
 
             if (Top != null)
             {

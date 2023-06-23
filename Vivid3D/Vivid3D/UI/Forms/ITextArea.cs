@@ -98,7 +98,7 @@ namespace Vivid.UI.Forms
             get;
             set;
         }
-        public ITextArea()
+        public ITextArea(bool scrollers=true)
         {
 
             EditX = EditY = 0;
@@ -111,8 +111,11 @@ namespace Vivid.UI.Forms
             NextBlink = Environment.TickCount + CursorBlinkInterval;
             Scroller = new IVerticalScroller();
             HScroller = new IHorizontalScroller();
-            AddForm(Scroller);
-            AddForm(HScroller);
+            if (scrollers)
+            {
+                AddForm(Scroller);
+                AddForm(HScroller);
+            }
             Scroller.MaxValue = 20;
             HScroller.MaxValue = 20;
             HScroller.OnMove += (form, x, y) =>
