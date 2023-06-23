@@ -34,14 +34,28 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public List<string> Extensions
+        {
+            get;
+            set;
+        }
+
         public FileInfo CurrentFile;
 
         public event ActionFileSelected OnFileSelected;
 
         public Stack<string> Paths = new Stack<string>();
 
-        public IFileRequestor(string title,RequestorType type,string path) : base(title)
+        public IFileRequestor(string title,RequestorType type,string path,string ext="") : base(title)
         {
+            
+            Extensions = new List<string>();
+            if (ext.Length > 0)
+            {
+                Extensions.Add(ext);
+            }
+
+
             if (FolderIcon == null)
             {
                 FolderIcon = new Texture2D("ui/v3d/foldericon.png");
@@ -92,7 +106,33 @@ namespace Vivid.UI.Forms
                     {
                         pf = pf + "\\";
                     }
-                    OnFileSelected?.Invoke(pf + FileBox.Text);
+
+                    string fil = FileBox.Text;
+
+                    if(Path.GetExtension(fil)=="")
+                    {
+                        fil = fil + Extensions[0];
+                    }
+                    else
+                    {
+                        bool ok = false;
+                        string ext = Path.GetExtension(fil);
+                        foreach(var ext1 in Extensions)
+                        {
+                            if(ext1 == ext)
+                            {
+                                ok = true;
+                            }
+                        }
+                        //if(ath.GetExtension(fil))
+                        if (!ok)
+                        {
+                            IMessageBox msg = new IMessageBox("File", "File extension not valid.");
+                            return;
+                        }
+                    }
+
+                    OnFileSelected?.Invoke(pf + fil);
                     UI.This.Top = null;
                 }
                 else

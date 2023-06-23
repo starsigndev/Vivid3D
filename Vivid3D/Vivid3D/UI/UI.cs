@@ -156,7 +156,8 @@ namespace Vivid.UI
                 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("vividdark");
+                    Theme = new UITheme("darknight");
+
                 }
 
                 SystemFont = new kFont("gemini/font/systemfont2.pf");

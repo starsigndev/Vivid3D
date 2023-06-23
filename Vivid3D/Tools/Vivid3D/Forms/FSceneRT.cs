@@ -77,6 +77,13 @@ namespace Vivid3D.Forms
                     var node2 = io2.LoadNode(data.Path);
                     Editor.CurrentScene.AddNode(node2);
                     Editor.UpdateSceneGraph();
+                }else if(Path.GetExtension(data.Path)==".scene")
+                {
+                    Editor.Stop();
+                    SceneIO io = new SceneIO();
+                    var scene = io.LoadScene(data.Path);
+                    Editor.SetScene(scene);
+                    FConsoleOutput.LogMessage("Loaded scene from:" +data.Path);
                 }
             };
         }

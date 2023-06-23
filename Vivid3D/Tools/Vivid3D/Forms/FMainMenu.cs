@@ -48,7 +48,7 @@ namespace Vivid3D.Forms
 
             save_scene.Click += (form) =>
             {
-                IFileRequestor request = new IFileRequestor("Save Scene as...",RequestorType.Save,Editor.ProjectPath);
+                IFileRequestor request = new IFileRequestor("Save Scene as...",RequestorType.Save,Editor.ProjectPath,".scene");
                 Vivid.UI.UI.This.Top = request;
                 request.OnFileSelected += (file) =>
                 {
