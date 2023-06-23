@@ -4,8 +4,18 @@ Vivid3D is an open-source 3D editor/engine comprising of a C# 3D engine powered 
 
 It is written almost entirely in C#
 
+Vivid3D is implementing new  AI technologies to aid users using vivid to develop games/apps. To make use of it's AI features you only need to
+download the Wizard Model(The model used will change or improve over time).
+
+https://huggingface.co/TheBloke/wizardLM-7B-GGML/blob/main/wizardLM-7B.ggmlv3.q4_1.bin
+
+
+
+download this and place it in the "bin/x64/debug/net7.0/ai/model/ folder. 
 
 It is still in active development and will recieve updates daily.
+
+![v3dAI1](https://github.com/starsigndev/Vivid3D/assets/129375387/b6ee9712-910f-48ca-a1c1-66974c66dd38)
 
 ![v3d11](https://github.com/starsigndev/Vivid3D/assets/129375387/f43bfb40-e2fd-401e-b6f2-bf961950908a)
 
