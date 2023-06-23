@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "iBag/PESD9+mGvbToVrUm0P/Jv4iasM41VOFr52BYeEERVo/4CdmYOhv2zEfPEZhpT0qNWMLOyzS3zYhHmHP5A==",
+  "dgSpecHash": "Pm7QrcLVizfbn6U2/5uLwCkvDeHNGt9M8LUHYGtOPh4AHXLpnNU4WKGc6cee/bEKudVGa4hIyYCePr4tPKW37w==",
   "success": true,
   "projectFilePath": "C:\\G3D\\Vivid3D\\Tools\\Vivid3D\\Vivid3D.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ant\\.nuget\\packages\\assimpnet\\5.0.0-beta1\\assimpnet.5.0.0-beta1.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\cs-script\\4.6.5\\cs-script.4.6.5.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\ionic.zlib.core\\1.0.0\\ionic.zlib.core.1.0.0.nupkg.sha512",
+    "C:\\Users\\Ant\\.nuget\\packages\\llamasharp\\0.4.0\\llamasharp.0.4.0.nupkg.sha512",
+    "C:\\Users\\Ant\\.nuget\\packages\\llamasharp.backend.cuda12\\0.3.0\\llamasharp.backend.cuda12.0.3.0.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\microsoft.codeanalysis.common\\4.1.0\\microsoft.codeanalysis.common.4.1.0.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\microsoft.codeanalysis.csharp\\4.1.0\\microsoft.codeanalysis.csharp.4.1.0.nupkg.sha512",

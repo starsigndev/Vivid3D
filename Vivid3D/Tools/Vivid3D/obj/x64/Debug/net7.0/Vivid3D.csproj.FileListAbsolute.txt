@@ -105,3 +105,6 @@ C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\ru\Microsoft.CodeAnalysis.Scri
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\LLamaSharp.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\linux-x64\native\libllama.so
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\libllama.dll

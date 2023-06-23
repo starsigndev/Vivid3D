@@ -69,6 +69,28 @@
           }
         }
       },
+      "LLamaSharp/0.4.0": {
+        "runtime": {
+          "lib/net7.0/LLamaSharp.dll": {
+            "assemblyVersion": "0.4.0.0",
+            "fileVersion": "0.4.0.0"
+          }
+        }
+      },
+      "LLamaSharp.Backend.Cuda12/0.3.0": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libllama.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/libllama.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "Microsoft.CodeAnalysis.Analyzers/3.3.3": {},
       "Microsoft.CodeAnalysis.Common/4.1.0": {
         "dependencies": {
@@ -1241,6 +1263,8 @@
           "AssimpNet": "5.0.0-beta1",
           "CS-Script": "4.6.5",
           "Ionic.Zlib.Core": "1.0.0",
+          "LLamaSharp": "0.4.0",
+          "LLamaSharp.Backend.Cuda12": "0.3.0",
           "OpenTK": "5.0.0-pre.8",
           "SixLabors.ImageSharp": "3.0.1",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3",
@@ -1294,6 +1318,20 @@
       "sha512": "sha512-3GBgjMQA/uPTiqv+wMCpLsyK5dcHCF6EV8+pg4IMKLbgbMGEtIkvErEO4ql5Cv18n94Smf3NAhY/sCed2Tb+Tw==",
       "path": "ionic.zlib.core/1.0.0",
       "hashPath": "ionic.zlib.core.1.0.0.nupkg.sha512"
+    },
+    "LLamaSharp/0.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vTn3p8hwgHYYXk2ZfBQfH3oKlk1ZE4zwnf4lReN3zef+97cxfdQImLxUtRL0RdDubQ786u3yGVXw1cNrTZ7Zyw==",
+      "path": "llamasharp/0.4.0",
+      "hashPath": "llamasharp.0.4.0.nupkg.sha512"
+    },
+    "LLamaSharp.Backend.Cuda12/0.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jNg9nw3tQbPQ36pRRPxr23D7Iq1P17328gqNtdK+WEn/Dq9BYDIkR5rlfRkiP0GD0NyU2mcZSGWT9bQKaALEQQ==",
+      "path": "llamasharp.backend.cuda12/0.3.0",
+      "hashPath": "llamasharp.backend.cuda12.0.3.0.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Analyzers/3.3.3": {
       "type": "package",

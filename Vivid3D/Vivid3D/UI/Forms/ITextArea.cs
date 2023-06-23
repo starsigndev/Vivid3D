@@ -155,6 +155,12 @@ namespace Vivid.UI.Forms
         public void AddLine(string text)
         {
 
+
+            if (Lines[0]=="")
+            {
+                Lines[0] = text;
+                return;
+            }
             string[] new_lines = new string[Lines.Length + 1];
             for(int i = 0; i < Lines.Length; i++)
             {
@@ -815,6 +821,11 @@ namespace Vivid.UI.Forms
                     }
                     UI.DrawString(text[j].ToString(), dx, dy, CurColor); ;
                     dx = dx + UI.SystemFont.StringWidth(text[j].ToString()); ;
+                    if(dx>RenderPosition.x+Size.w-100)
+                    {
+                        dx = RenderPosition.x + 8;
+                        dy = dy + UI.SystemFont.StringHeight() + 8;
+                    }
                 }
                 //UI.DrawString(text, dx, dy, new Maths.Color(1, 1, 1, 1));
                 dy = dy + UI.SystemFont.StringHeight() + 8;

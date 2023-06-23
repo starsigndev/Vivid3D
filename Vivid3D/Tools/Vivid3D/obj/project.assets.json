@@ -67,6 +67,36 @@
           "lib/netstandard2.0/Ionic.Zlib.Core.dll": {}
         }
       },
+      "LLamaSharp/0.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/LLamaSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/LLamaSharp.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "LLamaSharp.Backend.Cuda12/0.3.0": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libllama.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/_._": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/libllama.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          }
+        }
+      },
       "Microsoft.CodeAnalysis.Analyzers/3.3.3": {
         "type": "package",
         "build": {
@@ -2130,6 +2160,8 @@
           "AssimpNet": "5.0.0-beta1",
           "CS-Script": "4.6.5",
           "Ionic.Zlib.Core": "1.0.0",
+          "LLamaSharp": "0.4.0",
+          "LLamaSharp.Backend.Cuda12": "0.3.0",
           "OpenTK": "5.0.0-pre.8",
           "SixLabors.ImageSharp": "3.0.1",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3",
@@ -2195,6 +2227,39 @@
         "ionic.zlib.core.1.0.0.nupkg.sha512",
         "ionic.zlib.core.nuspec",
         "lib/netstandard2.0/Ionic.Zlib.Core.dll"
+      ]
+    },
+    "LLamaSharp/0.4.0": {
+      "sha512": "vTn3p8hwgHYYXk2ZfBQfH3oKlk1ZE4zwnf4lReN3zef+97cxfdQImLxUtRL0RdDubQ786u3yGVXw1cNrTZ7Zyw==",
+      "type": "package",
+      "path": "llamasharp/0.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/LLamaSharp.dll",
+        "lib/net6.0/LLamaSharp.xml",
+        "lib/net7.0/LLamaSharp.dll",
+        "lib/net7.0/LLamaSharp.xml",
+        "lib/netstandard2.0/LLamaSharp.dll",
+        "lib/netstandard2.0/LLamaSharp.xml",
+        "llamasharp.0.4.0.nupkg.sha512",
+        "llamasharp.nuspec"
+      ]
+    },
+    "LLamaSharp.Backend.Cuda12/0.3.0": {
+      "sha512": "jNg9nw3tQbPQ36pRRPxr23D7Iq1P17328gqNtdK+WEn/Dq9BYDIkR5rlfRkiP0GD0NyU2mcZSGWT9bQKaALEQQ==",
+      "type": "package",
+      "path": "llamasharp.backend.cuda12/0.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/netstandard2.0/SciSharp.TensorFlow.Redist.props",
+        "llamasharp.backend.cuda12.0.3.0.nupkg.sha512",
+        "llamasharp.backend.cuda12.nuspec",
+        "runtimes/linux-x64/native/libllama.so",
+        "runtimes/osx-x64/native/_._",
+        "runtimes/win-x64/native/libllama.dll"
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/3.3.3": {

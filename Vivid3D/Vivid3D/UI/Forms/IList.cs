@@ -103,6 +103,7 @@ namespace Vivid.UI.Forms
                 //ScrollValue = new Maths.Position(0, y);
 
                 ScrollY = y;
+                //Console.WriteLine("Y:" + y);
             };
             /*
             ListFrame = new IFrame();
@@ -144,7 +145,7 @@ namespace Vivid.UI.Forms
             //base.OnMouseMove(position, delta);
             int ix, iy;
             ix = RenderPosition.x + 5;
-            iy = RenderPosition.y + 5;
+            iy = RenderPosition.y + 5 - ScrollY;
             OverItem = null;
             foreach(var item in Items)
             {
@@ -224,8 +225,11 @@ namespace Vivid.UI.Forms
 
             }
 
-            VerticalScroller.MaxValue = (iy + ScrollY) - Size.h;
-
+            VerticalScroller.MaxValue = (iy + ScrollY) - (Size.h/4);
+            if (VerticalScroller.MaxValue < 64)
+            {
+                VerticalScroller.MaxValue = 64;
+            }
  
 
            // ScrollValue = new Maths.Position(0, (int)cy);

@@ -1,6 +1,6 @@
 ﻿using Vivid.App;
 using Vivid.Draw;
-using Vivid.PP;
+
 using Vivid.RenderTarget;
 using Vivid.Scene;
 
@@ -35,7 +35,7 @@ namespace Vivid.SceneComposer
             set;
         }
 
-        private FXRenderer fx;
+
         private SmartDraw draw;
 
         public void CreateLightTargets(int number)
@@ -71,7 +71,7 @@ namespace Vivid.SceneComposer
             CreateLightTargets(MAX_LIGHTS);
             CreateAuxTargets(MAX_AUX);
             draw = new SmartDraw();
-            fx = new FXRenderer();
+          
         }
 
         public SceneRenderer(Scene.OctreeScene scene)
@@ -84,7 +84,7 @@ namespace Vivid.SceneComposer
             CreateLightTargets(MAX_LIGHTS);
             CreateAuxTargets(MAX_AUX);
             draw = new SmartDraw();
-            fx = new FXRenderer();
+
         }
 
         public void RenderLight(Light light, RenderTarget2D target)
@@ -129,19 +129,18 @@ namespace Vivid.SceneComposer
         {
             AuxTargets[1].Bind();
 
-            fx.RenderColorLimit(rt.GetTexture(), VividApp.FrameWidth, VividApp.FrameHeight, BloomColorLimit);
-            AuxTargets[1].Release();
+           
 
             Vivid.Texture.Texture2D tex = AuxTargets[1].GetTexture();
 
             AuxTargets[2].Bind();
-            fx.RenderBlur(tex, VividApp.FrameWidth, VividApp.FrameHeight, BloomBlurAmount);
+            
             AuxTargets[2].Release();
 
             tex = AuxTargets[2].GetTexture();
 
             AuxTargets[1].Bind();
-            fx.RenderCombine(tex, rt.GetTexture(), VividApp.FrameWidth, VividApp.FrameHeight, 0.5f, 0.5f);
+          
             AuxTargets[1].Release();
 
             return AuxTargets[1];

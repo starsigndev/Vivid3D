@@ -11,6 +11,8 @@ using Vivid.UI.Forms;
 using OpenTK.Graphics.OpenGL;
 using Vivid.App;
 using Vivid3D.Forms;
+using Vivid3D.Windows;
+using Vivid.AI;
 
 namespace Vivid3D
 {
@@ -20,6 +22,7 @@ namespace Vivid3D
         public FMainMenu MainMenu = null;
         public FMainWindow MainWindow = null;
         public FToolBar MainToolBar;
+        public AIMind Mind;
 
         public Vivid3DApp(GameWindowSettings game_win, NativeWindowSettings native_win) : base(game_win, native_win)
         {
@@ -45,10 +48,14 @@ namespace Vivid3D
             MainToolBar.Position = new Vivid.Maths.Position(0, 30);
 
             //Editor.NewScene();
-      
+
+            SetupPostProcessing();
 
 
-            
+    
+
+
+
 
 
         }
@@ -64,6 +71,17 @@ namespace Vivid3D
         {
             //base.Render();
             MainUI.Render();
+        }
+
+        public static void SetupPostProcessing()
+        {
+
+            WPostProcessing.PostProcesses.Clear();
+            WPostProcessing.PostProcesses.Add(new Vivid.PostProcesses.PPBloom(Editor.CurrentScene));
+            WPostProcessing.PostProcesses.Add(new Vivid.PostProcesses.PPOutline(Editor.CurrentScene));
+            WPostProcessing.PostProcesses.Add(new Vivid.PostProcesses.PPLightShafts(Editor.CurrentScene));
+
+
         }
 
     }

@@ -156,7 +156,7 @@ namespace Vivid.UI
                 
                 if (Theme == null)
                 {
-                    Theme = new UITheme("darknight");
+                    Theme = new UITheme("vividdark");
 
                 }
 

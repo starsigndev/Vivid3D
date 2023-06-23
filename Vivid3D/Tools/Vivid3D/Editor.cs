@@ -88,6 +88,7 @@ namespace Vivid3D
             Editor.UpdateSceneGraph();
             Editor.CurrentScene.MainCamera = Editor.EditCamera;
             SelectedNode = null;
+            Vivid3DApp.SetupPostProcessing();
 
         }
         public static void UpdateSceneGraph()
@@ -132,6 +133,7 @@ namespace Vivid3D
             EditCamera = CurrentScene.MainCamera;
             GameCamera = EditCamera;
             SelectedNode = null;
+            Vivid3DApp.SetupPostProcessing();
 
         }
 

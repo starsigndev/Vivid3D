@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kQmUbbXu8whSh8n8tYlX3eaE1euyMFe4FgPJ55iyuKl4d+uB12KaJx15xOwe2EJ3ZBEG1LMapUSN+RfMzshUtA==",
+  "dgSpecHash": "qzwuYw5fT9yN+rSK7wBnAiRXFFEoKNpRqMgOj+Nh6s9rCsV1oGd33R+V4bpzIKPAjW1Hyyb3uXZWbNB1yQ+IcA==",
   "success": true,
   "projectFilePath": "C:\\G3D\\Vivid3D\\Tools\\ContentPacker\\ContentPacker.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\Ant\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\epplus.system.drawing\\6.1.1\\epplus.system.drawing.6.1.1.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\ionic.zlib.core\\1.0.0\\ionic.zlib.core.1.0.0.nupkg.sha512",
+    "C:\\Users\\Ant\\.nuget\\packages\\llamasharp\\0.4.0\\llamasharp.0.4.0.nupkg.sha512",
+    "C:\\Users\\Ant\\.nuget\\packages\\llamasharp.backend.cuda12\\0.3.0\\llamasharp.backend.cuda12.0.3.0.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\microsoft.codeanalysis.common\\4.1.0\\microsoft.codeanalysis.common.4.1.0.nupkg.sha512",
     "C:\\Users\\Ant\\.nuget\\packages\\microsoft.codeanalysis.csharp\\4.1.0\\microsoft.codeanalysis.csharp.4.1.0.nupkg.sha512",
