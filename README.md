@@ -7,6 +7,8 @@ It is written almost entirely in C#
 
 It is still in active development and will recieve updates daily.
 
+![v3d11](https://github.com/starsigndev/Vivid3D/assets/129375387/f43bfb40-e2fd-401e-b6f2-bf961950908a)
+
 ![v3d10](https://github.com/starsigndev/Vivid3D/assets/129375387/07853d27-4cfe-41e4-b798-f6758093891f)
 ![v3d9](https://github.com/starsigndev/Vivid3D/assets/129375387/50116731-21c6-47bd-a5c4-fca49d9358c8)
 
