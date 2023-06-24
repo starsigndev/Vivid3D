@@ -93,7 +93,8 @@ namespace Vivid.UI.Forms
                                 {
                                     CurrentSelection = i;
                                     //Child.Remove(Selector);
-                                    Forms.Remove(Selector);
+                                    //Forms.Remove(Selector);
+                                    UI.This.Overlay.Forms.Remove(Selector);
                                     Open = false;
                                     OnSelected?.Invoke(Values[i]);
                                     break;
@@ -103,13 +104,14 @@ namespace Vivid.UI.Forms
                         };
                     }
                     Selector.CalculateHeight();
-                    AddForm(Selector);
-                    Selector.Set(0, 35, Size.w, Selector.Size.h);
+                    //AddForm(Selector);
+                    UI.This.Overlay.AddForms(Selector);
+                    Selector.Set(RenderPosition.x+0, RenderPosition.y+35, Size.w, Selector.Size.h);
                    
                 }
                 else
                 {
-                    Forms.Remove(Selector);
+                    UI.This.Overlay.Forms.Remove(Selector);
                     //C//hild.Remove(Selector);
                 }
 

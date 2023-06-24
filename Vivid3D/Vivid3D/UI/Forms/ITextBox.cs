@@ -14,6 +14,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Vivid.UI.Forms
 {
     public delegate void TextChanged(ITextBox box, string val);
+    public delegate void EnterPressed(ITextBox box, string val);
     public class ITextBox : IForm
     {
 
@@ -115,6 +116,7 @@ namespace Vivid.UI.Forms
         }
 
         public event TextChanged OnChange;
+        public event EnterPressed OnEnterPressed;
 
         private bool CursorOn
         {
@@ -467,6 +469,7 @@ namespace Vivid.UI.Forms
                     OnDeactivate();
                     Active = false;
                     OnChange?.Invoke(this, Text);
+                    OnEnterPressed?.Invoke(this, Text);
                     break;
                 case Keys.Left:
                     EditX--;

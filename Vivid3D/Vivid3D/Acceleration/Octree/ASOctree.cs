@@ -104,7 +104,7 @@ namespace Vivid.Acceleration.Octree
             int b = 5;
             //InternalBufferOverflowException = 5
 
-            var tr_mesh = new PXTriMesh(mesh);
+            var tr_mesh = new PXTriMesh(mesh) ;
 
             AddLeafs(RootNode);
 

@@ -110,6 +110,12 @@ namespace Vivid.UI
             set;
         }
 
+        public IForm Overlay
+        {
+            get;
+            set;
+        }
+
         public IForm NextTop
         {
             get;
@@ -145,6 +151,7 @@ namespace Vivid.UI
         public UI()
         {
             This = this;
+            Overlay = new IForm();
             BlurBG = new IForm().Set(0, 0, VividApp.FrameWidth, VividApp.FrameHeight);
             if (UIBase == null)
             {
@@ -321,7 +328,7 @@ namespace Vivid.UI
             {
                 foreach (var win in Windows)
                 {
-                    Console.WriteLine("Updating windows.");
+                 //   Console.WriteLine("Updating windows.");
                     AddToList(form_list, win);
                     win.Update();
                 }
@@ -345,7 +352,11 @@ namespace Vivid.UI
 
             ToolBar.Update();
 
+            Overlay.Update();
+
             AddToList(form_list, Menu);
+
+            AddToList(form_list, Overlay);
 
             if (Top != null)
             {
@@ -1023,7 +1034,10 @@ namespace Vivid.UI
         }
         public void DrawDockLines(IWindow win)
         {
-
+            if (!GameInput.KeyDown(OpenTK.Windowing.GraphicsLibraryFramework.Keys.Tab))
+            {
+                return;
+            }
             foreach(var space in win.dockingSpaces)
             {
 
@@ -1070,6 +1084,8 @@ namespace Vivid.UI
             }
 
             ToolBar.Render();
+
+            Overlay.Render();
 
             if (Top == null)
             {

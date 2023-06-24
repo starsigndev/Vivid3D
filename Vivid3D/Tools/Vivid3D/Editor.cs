@@ -74,6 +74,7 @@ namespace Vivid3D
             if (PlayMode == PlayMode.Stopped) return;
             PlayMode = PlayMode.Stopped;
             CurrentScene.Stop();
+            
             if (FNodeEditor.Editor.CurrentNode != null)
             {
                 FNodeEditor.Editor.SetNode(FNodeEditor.Editor.CurrentNode);

@@ -76,8 +76,7 @@ namespace Vivid.UI.Forms
 
             float cy = VerticalScroller.Value * mh;
             float cx = HorizontalScroller.Value * mw;
-            Console.WriteLine("CV:" + cy);
-
+         
             ScrollValue = new Maths.Position((int)cx, (int)cy);
 
             int a = 5;

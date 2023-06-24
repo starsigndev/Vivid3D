@@ -198,7 +198,7 @@ namespace Vivid.UI.Forms
         public override void OnRender()
         {
             //base.OnRender();
-            Draw(UI.Theme.Pure, -1, -1, -1, -1, new Maths.Color(0.5f, 0.5f, 0.5f, 0.85f));
+            Draw(UI.Theme.Pure, -1, -1, -1, -1, new Maths.Color(0.5f, 0.5f, 0.5f, 0.95f));
            // Draw(UI.Theme.Frame, 10, 10, Size.w - 20, Size.h - 20, new Maths.Color(3, 3, 3, 1));
 
             int ix, iy;

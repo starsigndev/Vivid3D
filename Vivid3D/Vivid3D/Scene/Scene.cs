@@ -1224,10 +1224,12 @@ namespace Vivid.Scene
             {
                 StartNode(node);
             }
+            BeginPhysics();
         }
 
         public void Stop()
         {
+            PhysicsBegan = false;
             StopNode(Root);
             foreach(var node in Lights)
             {

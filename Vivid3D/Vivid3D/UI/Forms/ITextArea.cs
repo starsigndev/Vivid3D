@@ -152,6 +152,10 @@ namespace Vivid.UI.Forms
             };
         }
 
+        public void AddText(string text)
+        {
+            Lines[Lines.Length - 1] = Lines[Lines.Length - 1] + text;
+        }
         public void AddLine(string text)
         {
 
@@ -795,6 +799,7 @@ namespace Vivid.UI.Forms
                 if (Lines[i] == null) continue;
                 string text = GetActiveText(i);
                 dx = RenderPosition.x + 8;
+                /*
                 for(int j = 0; j < text.Length; j++)
                 {
                     if (text[j]=='#')
@@ -821,13 +826,14 @@ namespace Vivid.UI.Forms
                     }
                     UI.DrawString(text[j].ToString(), dx, dy, CurColor); ;
                     dx = dx + UI.SystemFont.StringWidth(text[j].ToString()); ;
-                    if(dx>RenderPosition.x+Size.w-100)
+                    if(dx>RenderPosition.x+Size.w-16)
                     {
                         dx = RenderPosition.x + 8;
                         dy = dy + UI.SystemFont.StringHeight() + 8;
                     }
                 }
-                //UI.DrawString(text, dx, dy, new Maths.Color(1, 1, 1, 1));
+                */
+                UI.DrawString(text, dx, dy, new Maths.Color(1, 1, 1, 1));
                 dy = dy + UI.SystemFont.StringHeight() + 8;
             }
 

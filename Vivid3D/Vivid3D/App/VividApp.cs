@@ -340,7 +340,7 @@ namespace Vivid.App
                 tick = time + 1000;
                 fps = fframes;
                 fframes = 0;
-                Console.WriteLine("FPS:" + fps);
+         //       Console.WriteLine("FPS:" + fps);
             }
             fframes++;
 

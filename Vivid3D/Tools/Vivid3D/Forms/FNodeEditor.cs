@@ -184,6 +184,23 @@ namespace Vivid3D.Forms
 
             };
 
+            if(node is Entity)
+            {
+
+                var ent = node as Entity;
+
+                var bt = AddEnum(typeof(Vivid.Physx.BodyType));
+
+                bt.CurrentSelection = (int)ent.BodyKind;
+
+                bt.OnSelected += (val) =>
+                {
+                    ent.BodyKind = (Vivid.Physx.BodyType)bt.CurrentSelection;
+                };
+
+
+            }
+
             if(node is Light)
             {
 
@@ -401,7 +418,7 @@ namespace Vivid3D.Forms
         {
 
             var form = new IEnumSelector(type);
-            form.Set(15, CurrentY, 120, 25, "");
+            form.Set(15, CurrentY, 120, 20, "");
            
             Display.AddForm(form);
 
