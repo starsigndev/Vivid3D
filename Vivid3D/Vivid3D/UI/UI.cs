@@ -6,7 +6,7 @@ using Vivid.Texture;
 using Vivid.UI.Forms;
 using OpenTK.Graphics.OpenGL;
 using Vivid.PostProcesses;
-using BepuPhysics;
+
 using System.Collections.Generic;
 
 namespace Vivid.UI

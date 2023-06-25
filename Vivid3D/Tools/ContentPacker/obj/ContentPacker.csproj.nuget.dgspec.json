@@ -98,15 +98,15 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net6.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -117,8 +117,8 @@
         }
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "AssimpNet": {
               "target": "Package",
@@ -143,6 +143,10 @@
             "OpenTK": {
               "target": "Package",
               "version": "[5.0.0-pre.8, )"
+            },
+            "PhysX.Net": {
+              "target": "Package",
+              "version": "[3.0.0-alpha1, )"
             },
             "SixLabors.ImageSharp": {
               "target": "Package",

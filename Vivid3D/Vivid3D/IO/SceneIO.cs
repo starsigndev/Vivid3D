@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Vivid.Scene;
 using Vivid.NodeModules;
 using Vivid.Script;
+using Vivid.Physx;
 
 namespace Vivid.IO
 {
@@ -76,6 +77,7 @@ namespace Vivid.IO
                 WriteNode(w,light);
             }
 
+            w.Flush();
             fs.Flush();
             fs.Close();
 
@@ -179,6 +181,7 @@ namespace Vivid.IO
         {
 
             Light node = new Light();
+            node.Type = (LightType)r.ReadInt32();
             node.Enabled = r.ReadBoolean();
             node.Position = FileHelp.ReadVec3(r);
             node.Scale = FileHelp.ReadVec3(r);
@@ -201,6 +204,7 @@ namespace Vivid.IO
             FileHelp.WriteVec3(w, entity.Scale);
             FileHelp.WriteMat4(w, entity.Rotation);
             w.Write(entity.Name);
+            w.Write((int)entity.BodyKind);
             WriteModules(w, (Node)entity);
 
         }
@@ -228,11 +232,12 @@ namespace Vivid.IO
             Vector3 scal = FileHelp.ReadVec3(r);
             Matrix4 rot = FileHelp.ReadMat4(r);
             string name = r.ReadString();
-
+            var bk = (BodyType)r.ReadInt32();
             node.Name = name;
             node.Position = pos;
             node.Scale = scal;
             node.Rotation = rot;
+            node.BodyKind = bk;
 
             int mc = r.ReadInt32();
 

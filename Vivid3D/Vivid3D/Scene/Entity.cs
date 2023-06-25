@@ -197,8 +197,24 @@ namespace Vivid.Scene
                 }
                 else
                 {
-                    Position = Body.GetPos();
+                    var pos = Body.GetPos();
+
+
+                    Position = new Vector3(pos.X, pos.Y, pos.Z);
                     Rotation = Body.GetRot();
+                    var ea = EulerRotation;
+
+                    ea.Z = -ea.Z;
+
+                    EulerRotation = ea;
+
+                    //var other = Matrix4.Identity;
+
+                    //int bb = 5;
+                    //Rotation.Transpose();
+                    //Rotation.Invert();
+
+
                     //Body.Body.Velocity = new BepuPhysics.BodyVelocity(new System.Numerics.Vector3(55, 55, 55));
                   
 

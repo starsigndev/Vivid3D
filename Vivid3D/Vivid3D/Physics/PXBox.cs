@@ -1,15 +1,18 @@
-﻿using BepuPhysics;
-using Vivid.Physics;
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PhysX;
 namespace Vivid.Physx
 {
     public class PXBox : PXBody
     {
-        public PXBox(float w, float h, float d, Vivid.Scene.Node node)
+        public PXBox(float w,float h,float d,Vivid.Scene.Node node)
         {
-            W = w * 2;
-            H = h * 2;
-            D = d * 2;
+            W = w;
+            H = h;
+            D = d;
             Node = node;
 
             InitBody();
@@ -17,21 +20,32 @@ namespace Vivid.Physx
 
         public override void InitBody()
         {
+            //base.InitBody();
+            Transform tm = new Transform(new System.Numerics.Vector3(0, 0, 0));
 
-            BepuPhysics.Collidables.Box box = new BepuPhysics.Collidables.Box(W, H, D);
-            var inertia = box.ComputeInertia(1.0f);
-            RigidPose pose = new RigidPose();
-            
-            
-            pose.Position = new System.Numerics.Vector3(0, 0, 0);
-            pose.Orientation = System.Numerics.Quaternion.Identity;
-            Body = BodyDescription.CreateDynamic(pose, inertia,Physics.QPhysics._Sim.Shapes.Add(box),  0.1f);
-            Handle = Physics.QPhysics._Sim.Bodies.Add(Body);
-        //    Body.Velocity = new BodyVelocity(new System.Numerics.Vector3(0, -5, 0));
+            Material = Vivid.Physics.QPhysics._Physics.CreateMaterial(0.206f, 0.26f, 0.4f);
 
+
+            this.DynamicBody = Vivid.Physics.QPhysics._Physics.CreateRigidDynamic();
+            Shape = RigidActorExt.CreateExclusiveShape(DynamicBody, new BoxGeometry(W, H, D), Material);
+            int a = 5;
+            Body = (RigidActor)DynamicBody;
+            //DynamicBody.GlobalPose;
+            //Vivid.Physx.QPhysics._Scene.AddActor(DynamicBody);                                                         e
+            Vivid.Physics.QPhysics.AddActor(DynamicBody, Node);
+
+            Console.WriteLine(DynamicBody.AngularDamping);
+            //Console.WriteLine(DynamicBody.15);
+
+          
+            Console.WriteLine("LD:" + DynamicBody.LinearDamping);
 
 
             int b = 5;
+
+
+
         }
+
     }
 }

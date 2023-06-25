@@ -38,10 +38,3 @@ C:\G3D\Vivid3D\Vivid3D\obj\x64\Debug\net7.0\Vivid.dll
 C:\G3D\Vivid3D\Vivid3D\obj\x64\Debug\net7.0\refint\Vivid.dll
 C:\G3D\Vivid3D\Vivid3D\obj\x64\Debug\net7.0\Vivid.pdb
 C:\G3D\Vivid3D\Vivid3D\obj\x64\Debug\net7.0\ref\Vivid.dll
-C:\G3D\Vivid3D\Vivid3D\bin\x64\Debug\net7.0\BepuPhysics.dll
-C:\G3D\Vivid3D\Vivid3D\bin\x64\Debug\net7.0\BepuUtilities.dll
-C:\G3D\Vivid3D\Vivid3D\bin\x64\Debug\net7.0\BepuPhysics.pdb
-C:\G3D\Vivid3D\Vivid3D\bin\x64\Debug\net7.0\BepuPhysics.xml
-C:\G3D\Vivid3D\Vivid3D\bin\x64\Debug\net7.0\BepuUtilities.pdb
-C:\G3D\Vivid3D\Vivid3D\bin\x64\Debug\net7.0\BepuUtilities.xml
-C:\G3D\Vivid3D\Vivid3D\obj\x64\Debug\net7.0\Vivid.csproj.CopyComplete

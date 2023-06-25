@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\Users\Ant\Downloads\PhysX.Net-412-net6\PhysX.Net-412-net6\PhysX.Net\PhysX.Net\bin\x64\Debug\PhysX.Net.runtimeconfig.json</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\Ant\Downloads\PhysX.Net-412-net6\PhysX.Net-412-net6\PhysX.Net\PhysX.Net\bin\x64\Debug\PhysX.Net.dll</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

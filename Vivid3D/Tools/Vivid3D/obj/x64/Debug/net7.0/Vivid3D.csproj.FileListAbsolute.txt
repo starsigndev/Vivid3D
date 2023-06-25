@@ -29,13 +29,7 @@ C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\osx-x64\native\libglf
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\glfw3.dll
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x86\native\glfw3.dll
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\Vivid.dll
-C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\BepuPhysics.dll
-C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\BepuUtilities.dll
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\Vivid.pdb
-C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\BepuPhysics.pdb
-C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\BepuPhysics.xml
-C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\BepuUtilities.pdb
-C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\BepuUtilities.xml
 C:\G3D\Vivid3D\Tools\Vivid3D\obj\x64\Debug\net7.0\Vivid3D.csproj.AssemblyReference.cache
 C:\G3D\Vivid3D\Tools\Vivid3D\obj\x64\Debug\net7.0\Vivid3D.GeneratedMSBuildEditorConfig.editorconfig
 C:\G3D\Vivid3D\Tools\Vivid3D\obj\x64\Debug\net7.0\Vivid3D.AssemblyInfoInputs.cache
@@ -108,3 +102,12 @@ C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\LLamaSharp.dll
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\linux-x64\native\libllama.so
 C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\libllama.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\PhysX.Net.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\Ijwhost.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXCommon_64.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXCooking_64.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXDevice64.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXFoundation_64.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysXGpu_64.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\PhysX_64.dll
+C:\G3D\Vivid3D\Tools\Vivid3D\bin\x64\Debug\net7.0\runtimes\win-x64\native\glut32.dll

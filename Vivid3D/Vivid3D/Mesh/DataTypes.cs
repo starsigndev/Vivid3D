@@ -189,6 +189,11 @@ namespace Vivid.Meshes
             Position = pos;
             Normal = norm;
             TexCoord = tex;
+            BiNormal = Vector3.Zero;
+            Tangent = Vector3.Zero;
+            BoneIDS = Vector4.Zero;
+            Weights = Vector4.Zero;
+            Color = Vector4.One;
         }
     }
 

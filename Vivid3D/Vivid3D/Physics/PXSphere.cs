@@ -1,5 +1,9 @@
-﻿using BepuPhysics;
-using Vivid.Physics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PhysX;
 
 namespace Vivid.Physx
 {
@@ -10,7 +14,6 @@ namespace Vivid.Physx
             get;
             set;
         }
-
         public PXSphere(float size)
         {
             Radius = size;
@@ -19,15 +22,16 @@ namespace Vivid.Physx
 
         public override void InitBody()
         {
-            BepuPhysics.Collidables.Sphere sphere = new BepuPhysics.Collidables.Sphere(Radius);
-            var inertia = sphere.ComputeInertia(1.0f);
-            RigidPose pose = new RigidPose();
+            //base.InitBody();
+            Material = Vivid.Physics.QPhysics._Physics.CreateMaterial(0.4f, 0.4f, 0.4f);
 
 
-            pose.Position = new System.Numerics.Vector3(0, 0, 0);
-            pose.Orientation = System.Numerics.Quaternion.Identity;
-            Body = BodyDescription.CreateDynamic(pose, inertia, Physics.QPhysics._Sim.Shapes.Add(sphere), 0.1f);
-            Handle = Physics.QPhysics._Sim.Bodies.Add(Body);
+            this.DynamicBody = Vivid.Physics.QPhysics._Physics.CreateRigidDynamic();
+            Shape = RigidActorExt.CreateExclusiveShape(DynamicBody, new SphereGeometry(Radius), Material);
+            int a = 5;
+            Body = (RigidActor)DynamicBody;
+            //DynamicBody.GlobalPose;
+            Vivid.Physics.QPhysics._Scene.AddActor(DynamicBody);
         }
     }
 }

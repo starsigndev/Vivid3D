@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BepuPhysics.Collidables.CompoundBuilder;
+
 using Vivid.UI.Forms;
 using Vivid.UI;
 

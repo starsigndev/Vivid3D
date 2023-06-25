@@ -1,5 +1,4 @@
 ﻿using Assimp;
-using BepuPhysics.Collidables;
 using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;

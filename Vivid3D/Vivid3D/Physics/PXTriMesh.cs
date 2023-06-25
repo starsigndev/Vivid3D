@@ -1,12 +1,13 @@
-﻿using Vivid.Physics;
-using OpenTK.Mathematics;
-using Microsoft.VisualBasic;
-using BepuUtilities.Memory;
-using BepuPhysics.Collidables;
-using BepuPhysics;
-using System.Numerics;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PhysX;
+using Vivid.Meshes;
 //using OpenTK.Mathematics;
+using Vivid.Maths;
+using System.Numerics;
 
 namespace Vivid.Physx
 {
@@ -23,15 +24,8 @@ namespace Vivid.Physx
             get;
             set;
         }
-        public PXTriMesh(Vivid.Meshes.Mesh mesh)
-        {
-            Meshes = new List<Meshes.Mesh>();
-            Meshes.Add(mesh);
-            //Index = index;
 
-            InitBody();
-        }
-        public PXTriMesh(List<Vivid.Meshes.Mesh> meshes, int index)
+        public PXTriMesh(List<Vivid.Meshes.Mesh> meshes,int index)
         {
             Meshes = meshes;
             Index = index;
@@ -40,58 +34,77 @@ namespace Vivid.Physx
 
         public override void InitBody()
         {
-           
-            BepuUtilities.Memory.Buffer<BepuPhysics.Collidables.Triangle> tris = new BepuUtilities.Memory.Buffer<BepuPhysics.Collidables.Triangle>(Meshes[0].Triangles.Count,Physics.QPhysics.bufferPool); ;
+            //base.InitBody();
 
-            unsafe
+            var mesh = Meshes[Index];
+
+            int vc = mesh.Vertices.Count;
+            int tc = mesh.Triangles.Count;
+
+            TriangleMeshDesc td = new TriangleMeshDesc();
+
+            System.Numerics.Vector3[] points = new System.Numerics.Vector3[vc];
+            for(int i = 0; i < mesh.Vertices.Count; i++)
             {
-                int t = 0;
-                foreach (var tri in Meshes[0].Triangles)
-                {
 
-                    var bt = tris.GetPointer(t);
-                    OpenTK.Mathematics.Vector3 v0, v1, v2;
-                    v0  = Meshes[0].Vertices[tri.V0].Position;
-                    v1 = Meshes[0].Vertices[tri.V1].Position;
-                    v2 = Meshes[0].Vertices[tri.V2].Position;
-                  
-                    bt->A = new System.Numerics.Vector3(v0.X, v0.Y, v0.Z);
-                    bt->C = new System.Numerics.Vector3(v1.X, v1.Y, v1.Z);
-                    bt->B = new System.Numerics.Vector3(v2.X, v2.Y, v2.Z);
-                    bt->ComputeInertia(1.0f);
-                    t++;
-                    continue;
+                var pos = mesh.Vertices[i].Position;
+                //var np = new Vector3(pos.x, pos.y, pos.z) * mesh.Owner.WorldMatrix;
+                var np = OpenTK.Mathematics.Vector3.TransformPosition(pos, mesh.Owner.WorldMatrix);
 
-                    Triangle* p = bt;
-                    t++;
-                    bt = tris.GetPointer(t);
-                    bt->A = p->A;
-                    bt->B = p->C;
-                    bt->C = p->B;
+                 points[i] = new System.Numerics.Vector3(-np.X, np.Y, np.Z);
 
-
-
-
-                    t++;
-
-                }
             }
 
-            BepuPhysics.Collidables.Mesh mesh = new BepuPhysics.Collidables.Mesh(tris, new System.Numerics.Vector3(1, 1, 1), Physics.QPhysics.bufferPool);
-       
-            RigidPose pose = new RigidPose();
+            int[] tris = new int[mesh.Triangles.Count * 6];
 
-            pose.Position = new System.Numerics.Vector3(0, 0, 0);
-            pose.Orientation = System.Numerics.Quaternion.Identity;
+            int ii = 0;
+            for(int i = 0; i < mesh.Triangles.Count; i++)
+            {
 
-            var sd = new StaticDescription(pose, Physics.QPhysics._Sim.Shapes.Add(mesh));
+                tris[ii++] = (int)mesh.Triangles[i].V0;
+                tris[ii++] = (int)mesh.Triangles[i].V2;
+                tris[ii++] = (int)mesh.Triangles[i].V1;
+                tris[ii++] = (int)mesh.Triangles[i].V0;
+                tris[ii++] = (int)mesh.Triangles[i].V1;
+                tris[ii++] = (int)mesh.Triangles[i].V2;
+
+            }
+
+            td.Points = points;
+            td.Triangles = tris;
+
+            var stream = new MemoryStream();
+
+            var result = Vivid.Physics.QPhysics._Cooking.CookTriangleMesh(td, stream);
+
+            stream.Position = 0;
+
+            var tm = Vivid.Physics.QPhysics._Physics.CreateTriangleMesh(stream);
+
+
+            int bb = 0;
+
             
-            //Body = BodyDescription.CreateDynamic(pose, inertia, Physics.QPhysics._Sim.Shapes.Add(box), 0.1f);
-            var sh = Physics.QPhysics._Sim.Statics.Add(sd);
+
+            Material = Vivid.Physics.QPhysics._Physics.CreateMaterial(0.4f, 0.4f, 0.4f);
+
+            this.StaticBody = Vivid.Physics.QPhysics._Physics.CreateRigidStatic();
+
+            Body = (RigidActor)StaticBody;
+            // var act = (RigidActor)StaticBody;
+
+            Shape = RigidActorExt.CreateExclusiveShape(StaticBody, new TriangleMeshGeometry(tm), Material);
+            int a = 5;
+
+            //Vivid.Physx.QPhysics._Scene.AddActor(Body);
+            Vivid.Physics.QPhysics.AddActor(Body,mesh.Owner);
+
 
 
         }
 
+
+        public TriangleMesh triMesh = null;
 
     }
 }

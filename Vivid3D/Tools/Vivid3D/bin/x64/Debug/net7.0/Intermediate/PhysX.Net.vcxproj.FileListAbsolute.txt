@@ -1,0 +1,5 @@
+C:\Users\Ant\Downloads\PhysX.Net-412-net6\PhysX.Net-412-net6\PhysX.Net\PhysX.Net\bin\x64\Debug\Intermediate\PhysX.Net.vcxproj.AssemblyReference.cache
+C:\Users\Ant\Downloads\PhysX.Net-412-net6\PhysX.Net-412-net6\PhysX.Net\PhysX.Net\bin\x64\Debug\Ijwhost.dll
+C:\Users\Ant\Downloads\PhysX.Net-412-net6\PhysX.Net-412-net6\PhysX.Net\PhysX.Net\bin\x64\Debug\PhysX.Net.deps.json
+C:\Users\Ant\Downloads\PhysX.Net-412-net6\PhysX.Net-412-net6\PhysX.Net\PhysX.Net\bin\x64\Debug\Intermediate\PhysX.Net.genruntimeconfig.cache
+C:\Users\Ant\Downloads\PhysX.Net-412-net6\PhysX.Net-412-net6\PhysX.Net\PhysX.Net\bin\x64\Debug\PhysX.Net.runtimeconfig.json
