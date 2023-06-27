@@ -79,6 +79,16 @@ namespace Vivid.UI.Forms
 
         }
 
+        public override void OnActivate()
+        {
+            if (OpenMenu != null)
+            {
+                Forms.Remove(OpenMenu);
+                OpenMenu = null;
+                OpenItem = null;
+            }
+        }
+
         public MenuItem AddItem(string text)
         {
 

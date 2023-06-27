@@ -39,7 +39,7 @@ namespace Vivid3D
         public static ITreeView SceneTree = null;
         public static Node SelectedNode = null;
         public static float GizmoSpeed = 0.02f;
-
+        public static Dictionary<object, bool> OpenMap = new Dictionary<object, bool>();
         //Gizmo
         //Gizmos
         public static Entity GizmoMove, GizmoRotate, GizmoScale;
@@ -115,6 +115,16 @@ namespace Vivid3D
             var item = root.AddItem(node.Name);
             node.EditData = item;
             item.Data = (object)node;
+
+            if (OpenMap.ContainsKey(node))
+            {
+                item.Open = OpenMap[node];
+            }
+            else
+            {
+                OpenMap.Add(node, false);
+            }
+
             item.Click = (item) =>
             {
                 Editor.SetSelectedNode((Node)item.Data);

@@ -809,6 +809,19 @@ namespace Vivid.UI
 
         private int[] LastClick = new int[32]; 
 
+        public void SetActive(IForm form)
+        {
+            if(Active!=null && Active != form)
+            {
+                Active.Active = false;
+                Active.InvokeActiveChange(Active, false);
+            }
+            form.Active = true;
+            form.InvokeActiveChange(form, true);
+            Active = form;
+            
+        }
+
         public void UpdateList(List<IForm> list)
         {
 
@@ -919,7 +932,14 @@ namespace Vivid.UI
 
                 if (GameInput.WheelDelta.Y != 0)
                 {
+                    if (Active != null && Active != Over)
+                    {
+                        Active.OnDeactivate();
+                        Active.Active = false;
+                        Active.InvokeActiveChange(Active, Active.Active);
+                    }
                     Over.OnMouseWheelMove(GameInput.WheelDelta);
+
                 }
 
                 for (int i = 0; i < 18; i++)
@@ -939,15 +959,12 @@ namespace Vivid.UI
                             }
                             Pressed[i] = Over;
                             Over.Active = true;
-                            if (Active != null && Active != Over)
-                            {
-                                Active.OnDeactivate();
-                                Active.Active = false;
-                            }
+                            Over.InvokeActiveChange(Over, Over.Active);
+                          
                             Active = Over;
                             Active.OnActivate();
                             Pressed[i].OnMouseDown((MouseID)i);
-                            if (Environment.TickCount < LastClick[i]+500)
+                            if (Environment.TickCount < LastClick[i]+250)
                             {
                                 Pressed[i].OnDoubleClick((MouseID)i);
                             }
@@ -993,6 +1010,7 @@ namespace Vivid.UI
                                     {
                                         ContextForm = Over.ContextForm;
                                         ContextForm.Position = new Position(MousePosition.x, MousePosition.y);
+                                        ContextForm.OnActivate();
                                     }
                                 }
 

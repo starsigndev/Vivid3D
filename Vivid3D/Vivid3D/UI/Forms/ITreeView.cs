@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Vivid.Maths;
+using Vivid.Scene;
 using Vivid.Texture;
 
 namespace Vivid.UI.Forms
 {
     public delegate void TreeAction(TreeItem item);
+    public delegate void TreeOpen(TreeItem item);
 
     public class TreeItem
     {
@@ -20,6 +22,8 @@ namespace Vivid.UI.Forms
             get;
             set;
         }
+
+        public int DX, DY;
 
         public Texture2D Icon
         {
@@ -111,6 +115,8 @@ namespace Vivid.UI.Forms
             set;
         }
 
+        public event TreeOpen OnOpen;
+
         public ITreeView()
         {
             ScrollSize = 14;
@@ -130,6 +136,9 @@ namespace Vivid.UI.Forms
                 ScrollX = x;
             };
             DrawOutline = true;
+
+           
+
         }
 
         public override void AfterSet()
@@ -179,7 +188,11 @@ namespace Vivid.UI.Forms
                         Draw(UI.Theme.Pure, x + 2 - ScrollX, (y + 8) - ScrollY, 4, 4, new Maths.Color(3.4f,3.4f, 3.4f, 1.0f));
                     }
                 }
+
+
                 UI.DrawString(sub.Text, x+16-ScrollX, y+3-ScrollY,UI.Theme.TextColor);
+                sub.DX = 0;
+                sub.DY = (y-ScrollY) - RenderPosition.y;
                 
                 int bx = x + 16 + UI.SystemFont.StringWidth(sub.Text);
 
@@ -219,27 +232,75 @@ namespace Vivid.UI.Forms
             return y;
         }
 
+
+        public override void OnDoubleClick(MouseID button)
+        {
+            //base.OnDoubleClick(button);
+            if (OverItem != null)
+            {
+                //Environment.Exit(0);
+                var edit_name = new ITextBox().Set(OverItem.DX, OverItem.DY-2, Size.w - OverItem.DX-14, 25, OverItem.Text) as ITextBox;
+                edit_name.Data = OverItem;
+                UI.This.SetActive(edit_name);
+                edit_name.EditX = edit_name.Text.Length;
+                AddForm(edit_name);
+
+                edit_name.OnChange += (sender, args) =>
+                {
+                    var i = (TreeItem)sender.Data;
+                    i.Text = args;
+                    Node n = (Node)i.Data;
+                    if (n != null)
+                    {
+                        n.Name = args;
+                    }
+
+                   // OverItem.Text = edit_name.Text;
+                };
+
+                edit_name.OnActiveChange += (form, act) =>
+                {
+                    if (!act)
+                    {
+                        Forms.Remove(edit_name);
+                    }
+                };
+                    
+
+                
+
+            }
+        }
+
         public override void OnMouseDown(MouseID button)
         {
             //base.OnMouseDown(button);(
-            if (OverItem != null)
+            if (button == MouseID.Left)
             {
-                OverItem.Open = OverItem.Open ? false : true;
-          
-                OverItem.Click?.Invoke(OverItem);
+                if (OverItem != null)
+                {
+                    OverItem.Open = OverItem.Open ? false : true;
 
-                Click?.Invoke(OverItem);
+                    OverItem.Click?.Invoke(OverItem);
 
-                SelectedItem = OverItem; 
+                    OnOpen?.Invoke(OverItem);
 
+                    Click?.Invoke(OverItem);
+
+                    SelectedItem = OverItem;
+
+                }
+
+                if (OverItem != null)
+                {
+                    DragObject drag = new DragObject();
+                    drag.Image = null;
+                    drag.Text = OverItem.Text;
+                    drag.Path = "";
+                    drag.Object = OverItem.Data;
+                    UI.This.BeginDrag(drag);
+                }
             }
-
-            DragObject drag = new DragObject();
-            drag.Image = null;
-            drag.Text = OverItem.Text;
-            drag.Path = "";
-            drag.Object = OverItem.Data;
-            UI.This.BeginDrag(drag);
         }
 
         public override void OnMouseMove(Position position, Delta delta)
@@ -258,6 +319,10 @@ namespace Vivid.UI.Forms
             //ScrollX = 0;
 
             int y = RenderItem(Root,ref dx,RenderPosition.y+8);
+            //Root.DX = dx;
+            //Root.DY = 8;
+
+
             //  y = y - RenderPosition.y;
             VerticalScroller.MaxValue = y - 108;
             if(VerticalScroller.MaxValue<0) VerticalScroller.MaxValue = 0;

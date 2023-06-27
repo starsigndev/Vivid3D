@@ -21,9 +21,11 @@ void main(){
 
     float samples=0;
 
-    for(int y=-5;y<5;y++){
+    float aa = 10;
 
-        for(int x=-5;x<5;x++){
+    for(float y=-aa;y<aa;y++){
+
+        for(float x=-aa;x<aa;x++){
 
             vec2 uv = out_TexCoord;
             uv.x = uv.x + float(x)*g_Blur*be;

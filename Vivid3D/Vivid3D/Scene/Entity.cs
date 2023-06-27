@@ -112,6 +112,9 @@ namespace Vivid.Scene
                     var bb = BoundsNoTransform;
 
                     Body = new PXBox(bb.HalfSize.X, bb.HalfSize.Y, bb.HalfSize.Z, this);
+                    var ea = EulerRotation;
+                    ea.Z = -ea.Z;
+                    EulerRotation = ea;
                     Body.SetPose(Position, Rotation);
 
 
@@ -119,6 +122,9 @@ namespace Vivid.Scene
                 case BodyType.Sphere:
 
                     Body = new PXSphere(Bounds.HalfSize.X);
+                    var ea1 = EulerRotation;
+                    ea1.Z = -ea1.Z;
+                    EulerRotation = ea1;
                     Body.SetPose(Position, Rotation);
 
                     break;
@@ -126,7 +132,12 @@ namespace Vivid.Scene
                 case BodyType.ConvexHull:
 
                     Body = new PXConvexHull(Meshes[0]);
+                    //Body.SetPose(Position, Rotation);
+                    var ea2 = EulerRotation;
+                    ea2.Z = -ea2.Z;
+                    EulerRotation = ea2;
                     Body.SetPose(Position, Rotation);
+
 
                     break;
 

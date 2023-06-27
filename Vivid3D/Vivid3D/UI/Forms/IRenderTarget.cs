@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vivid.RenderTarget;
 
 namespace Vivid.UI.Forms
 {
     public delegate void RenderAction(int w, int h);
+    public delegate RenderTarget2D GetBufferAction();
     public class IRenderTarget : IForm
     {
 
@@ -18,6 +20,7 @@ namespace Vivid.UI.Forms
 
         public event RenderAction ActionRender;
         public event RenderAction PreRender;
+        public event GetBufferAction OnGetBuffer;
 
         public IRenderTarget()
         {
@@ -48,8 +51,10 @@ namespace Vivid.UI.Forms
         {
             //base.OnRender();
             PreRender?.Invoke(Size.w, Size.h);
-            RenderTarget.Bind();
             ActionRender?.Invoke(Size.w, Size.h);
+            var rb = OnGetBuffer.Invoke();
+            RenderTarget.Bind();
+            Draw(rb.GetTexture(), 0, Size.h, Size.w, -Size.h);
             RenderTarget.Release();
 
 

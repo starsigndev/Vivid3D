@@ -468,6 +468,7 @@ namespace Vivid.UI.Forms
                     UI.This.Active = null;
                     OnDeactivate();
                     Active = false;
+                    InvokeActiveChange(this, Active);
                     OnChange?.Invoke(this, Text);
                     OnEnterPressed?.Invoke(this, Text);
                     break;

@@ -16,6 +16,8 @@ using static Vivid3D.Editor;
 using Vivid.Draw;
 using Vivid.Texture;
 using Vivid.IO;
+using Vivid.RenderTarget;
+using Vivid.PostProcesses;
 
 namespace Vivid3D.Forms
 {
@@ -37,14 +39,21 @@ namespace Vivid3D.Forms
 
         private Texture2D LightIcon, SpawnIcon;
 
-
+        public RenderTarget2D RenderBuffer;
+        public PPRenderer PPRenderer;
 
         public FSceneRT()
         {
 
+            PPRenderer = new PPRenderer();
+            PPRenderer.PP.Add(new PPBloom(Editor.CurrentScene));
             CurrentScene = Editor.CurrentScene;
             ActionRender += SceneRT_RenderScene;
             PreRender += FSceneRT_PreRender;
+            OnGetBuffer += () =>
+            {
+                return RenderBuffer;
+            };
             var grid = Features.Grid.CreateGrid();
             CurrentScene.MeshLines.Add(grid);
             EditCam = Editor.EditCamera;
@@ -522,6 +531,17 @@ namespace Vivid3D.Forms
             var scene = Editor.CurrentScene;
             RenderSize = new Vector2(Size.w, Size.h);
 
+            if (RenderBuffer == null)
+            {
+                RenderBuffer = new RenderTarget2D(w, h);
+            }
+            if (RenderBuffer.Width != w || RenderBuffer.Height != h)
+            {
+                RenderBuffer = new RenderTarget2D(w, h);
+            }
+
+            RenderBuffer.Bind();
+
             scene.RenderLines();
 
             if (scene.Lights.Count == 0)
@@ -570,7 +590,17 @@ namespace Vivid3D.Forms
             GLState.State = CurrentGLState.Draw;
             //  scene.RenderShadows();
             //    scene.Render();
+            RenderBuffer.Release();
 
+            PPRenderer.SetSize(w, h);
+
+            var out_buf = PPRenderer.Render(RenderBuffer.GetTexture());
+
+            RenderBuffer.Bind();
+
+            Draw(out_buf, 0, 0, w, h);
+
+            RenderBuffer.Release();
 
             //throw new NotImplementedException();
         }

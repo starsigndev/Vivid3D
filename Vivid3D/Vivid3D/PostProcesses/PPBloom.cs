@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vivid.App;
 using Vivid.Shaders;
+using Vivid.Texture;
 
 namespace Vivid.PostProcesses
 {
@@ -53,6 +54,12 @@ namespace Vivid.PostProcesses
             set;
         }
 
+        public Vector2 ScreenSize
+        {
+            get;
+            set;
+        }
+
         public PPBlurFX() : base("gemini/shaders/pp_blurVS.glsl","gemini/shaders/pp_blurFS.glsl")
         {
             Blur = 0.1f;
@@ -63,6 +70,8 @@ namespace Vivid.PostProcesses
             //base.SetUniforms();
             SetUni("g_TextureColor", 0);
             SetUni("g_Blur", Blur);
+            SetUni("g_ScreenSize", ScreenSize);
+
             var Projection = Matrix4.CreateOrthographicOffCenter(0, VividApp.FrameWidth, VividApp.FrameHeight, 0, -1.0f, 1.0f);
 
             //base.SetUniforms();
@@ -103,6 +112,17 @@ namespace Vivid.PostProcesses
         PPColorLimitFX colorLimitFX;
         PPBlurFX blurFX;
         PPCombineFX combineFX;
+        public float ColorLimit
+        {
+            get;
+            set;
+        }
+
+        public float BlurAmount
+        {
+            get;
+            set;
+        }
 
         public PPBloom(Vivid.Scene.Scene scene) : base(scene, 3)
         {
@@ -110,18 +130,20 @@ namespace Vivid.PostProcesses
             //FX1 = new OutlineFX();
             colorLimitFX = new PPColorLimitFX();
             colorLimitFX.ColorLimit = 0.45f;
+            ColorLimit = 0.85f;
+            BlurAmount = 0.05f;
             blurFX = new PPBlurFX();
-            blurFX.Blur = 0.05f;
+            blurFX.Blur = 0.001f;
             combineFX = new PPCombineFX();
             
             int a = 5;
         }
 
 
-        public override Vivid.Texture.Texture2D Process()
+        public override Vivid.Texture.Texture2D Process(Texture2D bb)
         {
             //base.Process();
-            GenerateBloom();
+            GenerateBloom(bb);
 
             return GetTexture(1);
             //DrawTarget(1);
@@ -133,23 +155,32 @@ namespace Vivid.PostProcesses
         public override void ProcessAndDraw()
         {
 
-            GenerateBloom();
 
-            DrawTarget(1);
+            //GenerateBloom();
+
+           // DrawTarget(1);
 
         }
 
-        private void GenerateBloom()
+        private void GenerateBloom(Texture2D bb)
         {
+
+            colorLimitFX.ColorLimit = ColorLimit;
+
+            blurFX.Blur = BlurAmount;
+
             BindTarget(0);
-            RenderLit();
+            //RenderLit();
+            DrawTex(bb, null);
             ReleaseTarget(0);
+
 
             BindTarget(1);
             DrawTarget(0, colorLimitFX);
             ReleaseTarget(1);
 
             BindTarget(2);
+            blurFX.ScreenSize = new Vector2(Targets[2].Width, Targets[2].Height);
             DrawTarget(1, blurFX);
             ReleaseTarget(2);
 

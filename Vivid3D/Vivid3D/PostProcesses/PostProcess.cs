@@ -57,7 +57,20 @@ namespace Vivid.PostProcesses
             LightSphere = new Texture2D("gemini/lightSphere.png");
             int a = 5;
         }
- 
+
+        public void SetTargetsSize(int w, int h)
+        {
+
+            for (int i = 0; i < Targets.Count; i++)
+            {
+                if (w != Targets[i].Width || h != Targets[i].Height)
+                {
+                    Targets[i] = new RenderTarget2D(w, h);
+                }
+
+            }
+        }
+
         public PostProcess(Scene.Entity entity,int num_targets)
         {
             Scene = null;
@@ -92,7 +105,7 @@ namespace Vivid.PostProcesses
 
         }
 
-        public virtual Texture2D Process()
+        public virtual Texture2D Process(Texture2D bb)
         {
 
             return null;
@@ -230,6 +243,13 @@ namespace Vivid.PostProcesses
             Draw.Draw(Targets[index].GetTexture(), new Maths.Rect(0, Vivid.App.VividApp.FrameHeight, VividApp.FrameWidth, -VividApp.FrameHeight), new Maths.Color(1, 1, 1, 1));
             Draw.End(shader);
 
+        }
+
+        public void DrawTex(Texture2D tex,ShaderModule shader = null)
+        {
+            Draw.Begin();
+            Draw.Draw(tex, new Maths.Rect(0,0, VividApp.FrameWidth, VividApp.FrameHeight), new Maths.Color(1, 1, 1, 1));
+            Draw.End(shader);
         }
 
     }

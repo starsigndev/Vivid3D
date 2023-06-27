@@ -85,9 +85,9 @@ namespace Vivid.PostProcesses
             int a = 5;
         }
 
-        public override Texture2D Process()
+        public override Texture2D Process(Texture2D bb)
         {
-            return base.Process();
+            return base.Process(bb);
         }
 
         public override void ProcessAndDraw()

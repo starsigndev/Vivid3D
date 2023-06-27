@@ -10,6 +10,7 @@ namespace Vivid.UI
     public delegate void FormAction(IForm form, object data = null);
     public delegate void FormMove(IForm form, int x, int y);
     public delegate void ActionDrop(IForm form, DragObject drag);
+    public delegate void ActiveChange(IForm form, bool active);
 
     public class IForm
     {
@@ -129,6 +130,8 @@ namespace Vivid.UI
 
         public event ActionDrop OnDrop;
 
+        public event ActiveChange OnActiveChange;
+
         private Texture2D BGTex
         {
             get;
@@ -208,6 +211,11 @@ namespace Vivid.UI
         }
 
         public bool DirectKeys
+        {
+            get;
+            set;
+        }
+        public object Data
         {
             get;
             set;
@@ -563,5 +571,11 @@ namespace Vivid.UI
         {
             OnClick?.Invoke(form, data);
         }
+
+        public void InvokeActiveChange(IForm form,bool active)
+        {
+            OnActiveChange?.Invoke(this,active);
+        }
+
     }
 }
