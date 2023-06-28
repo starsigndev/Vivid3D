@@ -28,6 +28,8 @@ namespace Vivid3D
 
             int bb = 5;
 
+           
+
             GameWindowSettings game_win = new GameWindowSettings();
             NativeWindowSettings native_settings = new NativeWindowSettings();
 
@@ -42,8 +44,8 @@ namespace Vivid3D
             native_settings.Flags = OpenTK.Windowing.Common.ContextFlags.ForwardCompatible;
             native_settings.IsEventDriven = false;
             native_settings.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
-            native_settings.Location = new OpenTK.Mathematics.Vector2i(0, 0);
-            native_settings.Size = new OpenTK.Mathematics.Vector2i(1920, 1000);
+            native_settings.Location = new OpenTK.Mathematics.Vector2i(400, 300);
+            native_settings.Size = new OpenTK.Mathematics.Vector2i(600, 400);
             native_settings.Title = "Vivid3D - (c)Star Signal 2023";
             native_settings.RedBits = 10;
             native_settings.GreenBits = 10;

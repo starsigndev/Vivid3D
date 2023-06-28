@@ -280,7 +280,7 @@ namespace Vivid.Importing
             return result;
         }
 
-        public static T ImportEntity<T>(string path) where T : Vivid.Scene.Entity, new()
+        public static T ImportEntity<T>(string path,bool smooth_normals = true) where T : Vivid.Scene.Entity, new()
         {
             var imp = new Assimp.AssimpContext();
 
@@ -454,6 +454,8 @@ namespace Vivid.Importing
 
                     gMesh.AddTriangle(tri);
                 }
+
+                //gMesh.CalculateNormals(Meshes.Mesh.NormalsType.Smooth);
 
                 result.AddMesh(gMesh);
 

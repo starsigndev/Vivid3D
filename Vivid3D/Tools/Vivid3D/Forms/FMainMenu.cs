@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vivid.App;
 using Vivid.IO;
+using Vivid.Scene;
 using Vivid.UI.Forms;
 using Vivid3D.Windows;
 
@@ -95,6 +96,79 @@ namespace Vivid3D.Forms
                 Editor.CreatePointLight();
 
             };
+
+            cr_lights_spot.Click += (item) =>
+            {
+
+                Editor.CreateSpotLight();
+
+            };
+
+            cr_lights_dir.Click += (item) =>
+            {
+                Editor.CreateDirLight();
+            };
+
+
+            var cr_prim = cr.AddItem("Primitives");
+
+
+            var cr_plane = cr_prim.AddItem("Plane");
+            var cr_box = cr_prim.AddItem("Box");
+            var cr_sphere = cr_prim.AddItem("Sphere");
+            var cr_torus = cr_prim.AddItem("Torus");
+            var cr_cone = cr_prim.AddItem("Cone");
+            var cr_cylinder = cr_prim.AddItem("Cylinder");
+
+            cr_plane.Click += (obj) =>
+            {
+
+                var plane = Vivid.Importing.Importer.ImportEntity<Entity>("data/primitive/plane.fbx");
+                Editor.AddNode(plane);
+
+            };
+
+            cr_box.Click += (obj) =>
+            {
+
+                var box = Vivid.Importing.Importer.ImportEntity<Entity>("data/primitive/cube.fbx");
+                Editor.AddNode(box);
+
+            };
+
+
+            cr_sphere.Click += (obj) =>
+            {
+                var sphere = Vivid.Importing.Importer.ImportEntity<Entity>("data/primitive/sphere.fbx");
+                Editor.AddNode(sphere);
+
+            };
+
+            cr_torus.Click += (obj) =>
+            {
+
+                var torus = Vivid.Importing.Importer.ImportEntity<Entity>("data/primitive/torus.fbx");
+                Editor.AddNode(torus);
+
+            };
+
+            cr_cylinder.Click += (obj) =>
+            {
+                var cylinder = Vivid.Importing.Importer.ImportEntity<Entity>("data/primitive/cylinder.fbx");
+                Editor.AddNode(cylinder);
+            };
+
+            cr_cone.Click += (obj) =>
+            {
+                var cone = Vivid.Importing.Importer.ImportEntity<Entity>("data/primitive/cone.fbx");
+                Editor.AddNode(cone);
+            };
+
+
+
+
+
+
 
             var settings = AddItem("Settings");
 

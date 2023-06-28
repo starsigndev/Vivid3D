@@ -81,6 +81,11 @@ namespace Vivid3D
             }
         } 
 
+        public static void AddNode(Node node)
+        {
+            CurrentScene.AddNode(node);
+            UpdateSceneGraph();
+        }
         public static void SetScene(Scene scene)
         {
             var grids = Editor.CurrentScene.MeshLines;
@@ -192,6 +197,42 @@ namespace Vivid3D
             CurrentScene.Lights.Add(light);
 
             UpdateSceneGraph();
+
+        }
+
+        public static void CreateSpotLight()
+        {
+
+            var light = new Light();
+
+            Vector3 light_pos = EditCamera.Position;
+
+            light.Position = light_pos;
+
+            CurrentScene.Lights.Add(light);
+
+            UpdateSceneGraph();
+
+            light.Type = LightType.Spot;
+            light.Rotation = EditCamera.Rotation;
+
+        }
+
+        public static void CreateDirLight()
+        {
+
+            var light = new Light();
+
+            Vector3 light_pos = EditCamera.Position;
+
+            light.Position = light_pos;
+
+            CurrentScene.Lights.Add(light);
+
+            UpdateSceneGraph();
+
+            light.Type = LightType.Directional;
+            light.Rotation = EditCamera.Rotation;
 
         }
 

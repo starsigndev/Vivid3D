@@ -294,5 +294,93 @@ namespace Vivid.Meshes
                 return _Pos;
             }
         }
+        public enum NormalsType
+        {
+            Smooth,Flat
+        }
+        public void CalculateNormals(NormalsType type)
+        {
+            switch (type)
+            {
+                case NormalsType.Smooth:
+
+                    Vector3[] verts = new Vector3[Vertices.Count];
+
+                    int i = 0;
+                    foreach(var v in Vertices)
+                    {
+                        verts[i] = v.Position;
+                        i++;
+                    }
+
+                    int[] tris = new int[Triangles.Count * 3];
+
+                    i = 0;
+                    foreach(var t in Triangles)
+                    {
+                        tris[i++] = t.V0;
+                        tris[i++] = t.V1;
+                        tris[i++] = t.V2;
+                    }
+
+                    var norms = CalculateSmoothNormals(verts,tris);
+
+                    i = 0;
+                   for(i = 0; i < Vertices.Count; i++)
+                    {
+                        //Vertices[i].Normal = norms[i];
+                        var v = Vertices[i];
+                        v.Normal = norms[i];
+                        Vertices[i] = v;
+                    }
+
+                    break;
+            }
+        }
+
+        public static Vector3[] CalculateSmoothNormals(Vector3[] vertices, int[] triangles)
+        {
+            // Step 1: Initialize a dictionary to store the accumulated normals for each vertex
+            Vector3[] normals = new Vector3[vertices.Length];
+
+            // Step 2: Iterate over each triangle
+            for (int i = 0; i < triangles.Length; i += 3)
+            {
+                // Step 3: Get the indices of the triangle's vertices
+                int index1 = triangles[i];
+                int index2 = triangles[i + 1];
+                int index3 = triangles[i + 2];
+
+                // Step 4: Calculate the face normal of the current triangle
+                Vector3 side1 = vertices[index2] - vertices[index1];
+                Vector3 side2 = vertices[index3] - vertices[index1];
+                Vector3 faceNormal = Vector3.Cross(side1, side2).Normalized();
+
+                // Step 5: Accumulate the face normal for each vertex of the triangle
+                normals[index1] += faceNormal;
+                normals[index2] += faceNormal;
+                normals[index3] += faceNormal;
+            }
+
+            // Step 6: Normalize the accumulated normals for each vertex
+            for (int i = 0; i < normals.Length; i++)
+            {
+                normals[i] = normals[i].Normalized();
+            }
+
+            return normals;
+        }
+
+        private static void AccumulateVertexNormal(Dictionary<int, Vector3> vertexNormals, int vertexIndex, Vector3 normal)
+        {
+            if (vertexNormals.ContainsKey(vertexIndex))
+            {
+                vertexNormals[vertexIndex] += normal;
+            }
+            else
+            {
+                vertexNormals.Add(vertexIndex, normal);
+            }
+        }
     }
 }
