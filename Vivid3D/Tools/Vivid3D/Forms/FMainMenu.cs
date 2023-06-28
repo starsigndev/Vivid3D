@@ -109,15 +109,7 @@ namespace Vivid3D.Forms
             };
 
 
-            var ai = AddItem("A.I");
-
-            var asker = ai.AddItem("AI Chat Helper");
-
-            asker.Click += (form) =>
-            {
-                WAIHelper helper = new WAIHelper();
-                Vivid3DApp.MainUI.AddWindow(helper);
-            };
+        
 
 
 

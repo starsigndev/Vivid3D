@@ -418,7 +418,7 @@ namespace Vivid3D.Forms
 
                                 if (g_x)
                                 {
-                                    Editor.SelectedNode.Turn(delta.x * Editor.GizmoSpeed, 0, 0, true);
+                                    Editor.SelectedNode.Turn(delta.x * Editor.GizmoSpeed*5.5f, 0, 0, true);
                                     //move along the x-axis
                                     //Editor.SelectedNode.Position = Editor.SelectedNode.Position + new Vector3(-delta.x * Editor.GizmoSpeed, 0, 0);
                                     //int b = 5;
@@ -428,7 +428,7 @@ namespace Vivid3D.Forms
                                 if (g_y)
                                 {
 
-                                    Editor.SelectedNode.Turn(0, delta.x * Editor.GizmoSpeed, 0, true);
+                                    Editor.SelectedNode.Turn(0, delta.x * Editor.GizmoSpeed*5.5f, 0, true);
                                     int bb = 5;
                                     FNodeEditor.Editor.UpdateIf(Editor.SelectedNode);
                                     //move along the y-axis.
@@ -438,7 +438,7 @@ namespace Vivid3D.Forms
 
                                 if (g_z)
                                 {
-                                    Editor.SelectedNode.Turn(0, 0, delta.x * Editor.GizmoSpeed, true);
+                                    Editor.SelectedNode.Turn(0, 0, delta.x * Editor.GizmoSpeed * 5.5f, true); ;
                                     //move along the z-axis.
                                     FNodeEditor.Editor.UpdateIf(Editor.SelectedNode);
                                     // Editor.SelectedNode.Position = Editor.SelectedNode.Position + new Vector3(0, 0, delta.x * Editor.GizmoSpeed);
@@ -450,7 +450,7 @@ namespace Vivid3D.Forms
 
                                 if (g_x)
                                 {
-                                    Editor.SelectedNode.Turn(delta.x * Editor.GizmoSpeed, 0, 0, false);
+                                    Editor.SelectedNode.Turn(delta.x * Editor.GizmoSpeed * 5.5f, 0, 0, false) ;
                                     //move along the x-axis
                                     //Editor.SelectedNode.Position = Editor.SelectedNode.Position + new Vector3(-delta.x * Editor.GizmoSpeed, 0, 0);
                                     //int b = 5;
@@ -460,7 +460,7 @@ namespace Vivid3D.Forms
                                 if (g_y)
                                 {
 
-                                    Editor.SelectedNode.Turn(0, delta.x * Editor.GizmoSpeed, 0, false);
+                                    Editor.SelectedNode.Turn(0, delta.x * Editor.GizmoSpeed*5.5f, 0, false);
                                     int bb = 5;
                                     FNodeEditor.Editor.UpdateIf(Editor.SelectedNode);
                                     //move along the y-axis.
@@ -470,7 +470,7 @@ namespace Vivid3D.Forms
 
                                 if (g_z)
                                 {
-                                    Editor.SelectedNode.Turn(0, 0, delta.x * Editor.GizmoSpeed, false);
+                                    Editor.SelectedNode.Turn(0, 0, delta.x * Editor.GizmoSpeed * 5.5f) ;
                                     //move along the z-axis.
                                     // Editor.SelectedNode.Position = Editor.SelectedNode.Position + new Vector3(0, 0, delta.x * Editor.GizmoSpeed);
                                     FNodeEditor.Editor.UpdateIf(Editor.SelectedNode);

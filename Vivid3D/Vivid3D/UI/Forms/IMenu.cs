@@ -120,6 +120,16 @@ namespace Vivid.UI.Forms
                 OpenMenu.Position = new Position(OverItem.DX, Size.h + 1);
 
             }
+            else
+            {
+                if (OpenMenu != null)
+                {
+                    Forms.Remove(OpenMenu);
+                    OpenMenu = null;
+                    OpenItem = null;
+                }
+
+            }
 
         }
 
