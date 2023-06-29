@@ -25,7 +25,8 @@ namespace Vivid3D.Forms
             var new_scene = project.AddItem("New Scene");
             var load_scene = project.AddItem("Load Scene");
             var save_scene = project.AddItem("Save Scene");
-            var proj_sep1 = project.AddItem("-----");
+            project.AddSeperator();
+
             var exit_app = project.AddItem("Exit");
 
             load_scene.Click += (form) =>
@@ -63,6 +64,29 @@ namespace Vivid3D.Forms
             };
 
             var edit = AddItem("Edit");
+
+
+            var edit_cut = edit.AddItem("Cut");
+            var edit_copy = edit.AddItem("Copy");
+            edit.AddSeperator();
+            var edit_paste = edit.AddItem("Paste");
+
+            edit_cut.Click += (form) =>
+            {
+
+                Editor.Cut();
+            };
+
+            edit_copy.Click += (form) =>
+            {
+                Editor.Copy();
+            };
+
+            edit_paste.Click += (form) =>
+            {
+                Editor.Paste();
+            };
+
 
  //           var edit_csg = edit.AddItem("CSG");
 

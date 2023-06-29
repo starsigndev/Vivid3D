@@ -22,6 +22,13 @@ namespace Vivid.UI.Forms
             get;
             set;
         }
+
+        public bool Seperator
+        {
+            get;
+            set;
+        }
+
         public event MenuAction Click;
 
         public int DX, DY;
@@ -42,6 +49,15 @@ namespace Vivid.UI.Forms
             item.Text = text;
             SubItems.Add(item);
             return item;
+        }
+
+        public void AddSeperator()
+        {
+
+            MenuItem item = new MenuItem();
+            item.Seperator = true;
+            SubItems.Add(item);
+
         }
 
         public List<MenuItem> SubItems = new List<MenuItem>();
@@ -116,6 +132,7 @@ namespace Vivid.UI.Forms
 
                 }
                 Forms.Add(OpenMenu);
+                OpenMenu.Root = this;
                 OpenItem = OverItem;
                 OpenMenu.Position = new Position(OverItem.DX, Size.h + 1);
 
@@ -124,9 +141,12 @@ namespace Vivid.UI.Forms
             {
                 if (OpenMenu != null)
                 {
-                    Forms.Remove(OpenMenu);
-                    OpenMenu = null;
-                    OpenItem = null;
+                    if (Forms.Contains(OpenMenu))
+                    {
+                        Forms.Remove(OpenMenu);
+                        OpenMenu = null;
+                        OpenItem = null;
+                    }
                 }
 
             }

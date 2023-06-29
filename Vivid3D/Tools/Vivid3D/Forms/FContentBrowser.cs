@@ -78,6 +78,7 @@ namespace Vivid3D.Forms
             Files = new List<FileInfo>();
 
             Zoomer = new IHorizontalSlider().Set(5, 10, 128, 8) as IHorizontalSlider;
+            Zoomer.ToolTip = "Zoom in or out in the Content Browser";
             Back = new IButton().Set(0, 0, 0, 0) as IButton;
             Back.Icon = Vivid.UI.UI.Theme.ArrowUp;
             Tools = new IToolBar();
@@ -86,6 +87,9 @@ namespace Vivid3D.Forms
             //Content.AddForm(Zoomer);
             Tools.AddTool(Back);
             Back.Size = new Vivid.Maths.Size(24, 20);
+
+            Back.ToolTip = "Go back a folder in the content browser.";
+
             Tools.AddTool(Zoomer);
             Zoomer.Position = new Vivid.Maths.Position(Zoomer.Position.x, Zoomer.Position.y + 4);
 

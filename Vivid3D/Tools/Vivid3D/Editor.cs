@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Vivid.UI.Forms;
 using Vivid.App;
 using Vivid3D.Forms;
+using System.Net.Sockets;
 
 namespace Vivid3D
 {
@@ -45,6 +46,7 @@ namespace Vivid3D
         public static Entity GizmoMove, GizmoRotate, GizmoScale;
         public static Entity CurrentGizmo;
         public static bool g_x, g_y, g_z;
+        public static Node NodeBB = null;
 
         public static void Play()
         {
@@ -183,6 +185,41 @@ namespace Vivid3D
             Editor.SceneTree.SelectedItem = (TreeItem)node.EditData;
             CurrentGizmo.Position = node.Position;
             FNodeEditor.Editor.SetNode(node);
+        }
+
+        public static void Cut()
+        {
+            if (SelectedNode == null) return;
+            NodeBB = SelectedNode;
+            NodeBB.Root.Nodes.Remove(NodeBB);
+            NodeBB.Root = null;
+            UpdateSceneGraph();
+        }
+
+        public static void Copy()
+        {
+            if (SelectedNode == null) return;
+            NodeBB = SelectedNode.Clone();
+        }
+
+        public static void Paste()
+        {
+            if (NodeBB == null) return;
+            if (SelectedNode == null)
+            {
+                if (NodeBB != null)
+                {
+                    CurrentScene.AddNode(NodeBB);
+                }
+            }
+            else
+            if (SelectedNode != NodeBB)
+            {
+                SelectedNode.AddNode(NodeBB);
+            }
+
+            UpdateSceneGraph();
+
         }
 
         public static void CreatePointLight()

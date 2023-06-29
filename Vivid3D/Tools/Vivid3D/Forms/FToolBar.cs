@@ -66,6 +66,11 @@ namespace Vivid3D.Forms
                 stop.Highlight = false;
             };
 
+
+            play.ToolTip = "Begin simulation of your game including all scripts.";
+            pause.ToolTip = "Pause a currently running game.";
+            stop.ToolTip = "Stop and reset the simulation.";
+
             move.ToolTip = "Set the editor to translate mode.";
             rotate.ToolTip = "Set the editor to rotate mode.";
             scale.ToolTip = "Set the editor to scale mode.";

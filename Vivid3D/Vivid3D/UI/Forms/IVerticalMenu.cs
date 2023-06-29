@@ -71,6 +71,17 @@ namespace Vivid.UI.Forms
                 {
                     OpenMenu.AddItem(item);
                 }
+                if (OverItem.SubItems.Count == 0)
+                {
+                    var imenu = Root as IMenu;
+                    if (imenu!=null)
+                    {
+                        imenu.OpenMenu = null;
+                        imenu.OpenItem = null;
+                    }
+                    Root.Forms.Remove(this);
+
+                }
                 Forms.Add(OpenMenu);
                 OpenItem = OverItem;
                 OpenMenu.Position = new Position(RenderPosition.x+Size.w+2,OverItem.DY-5);
@@ -85,7 +96,7 @@ namespace Vivid.UI.Forms
             {
                 Forms.Remove(OpenMenu);
                 OpenMenu = null;
-                OpenItem = null;
+                 OpenItem = null;
             }
         }
 
@@ -111,6 +122,7 @@ namespace Vivid.UI.Forms
 
             foreach(var it in Items)
             {
+                if (it.Seperator) continue;
                 int w = UI.SystemFont.StringWidth(it.Text) + 75;
                 if (w > mw) mw = w;
             }
@@ -131,6 +143,12 @@ namespace Vivid.UI.Forms
             OverItem = null;
             foreach (var item in Items)
             {
+                if (item.Seperator)
+                {
+                 //   Draw(UI.Theme.Pure, RenderPosition.x + 15, dy + 2, Size.w - 30, 4, new Maths.Color(1, 1, 1, 1));
+                    dy = dy + 13;
+                    continue;
+                }
                 if (position.x >= RenderPosition.x && position.x <= RenderPosition.x + Size.w)
                 {
                     if (position.y >= dy && position.y <= (dy + UI.SystemFont.StringHeight() + 8))
@@ -155,6 +173,12 @@ namespace Vivid.UI.Forms
 
             foreach(var item in Items)
             {
+                if (item.Seperator)
+                {
+                    Draw(UI.Theme.Pure, RenderPosition.x + 25, dy+1, Size.w - 50, 4, new Maths.Color(1, 1, 1, 1));
+                    dy = dy + 13;
+                    continue;
+                }
                 if (OverItem == item)
 
                 {
